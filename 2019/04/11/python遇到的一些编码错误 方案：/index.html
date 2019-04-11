@@ -7,17 +7,17 @@
   
   <title>Ximu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="至高小萌新的首次滑稽之声标签（空格分隔）：嘤嘤嘤  小萌新的博客终于初步搭好了，欢迎大家赏脸来溜QAQ">
+  <meta name="description" content="python遇到的一些编码错误 方案：标签（空格分隔）：python学习     9号错误： UnicodeDecodeError: &amp;#39;utf8&amp;#39; codec can&amp;#39;t decode byte 0xcd in position 9: invalid continuation byte； Python 2.7.15\Lib\site-packages目录下面新建一个文件名为">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ximu">
-<meta property="og:url" content="http://yoursite.com/2019/04/10/至高小萌新的首次滑稽之声/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/04/11/python遇到的一些编码错误 方案：/index.html">
 <meta property="og:site_name" content="Ximu">
-<meta property="og:description" content="至高小萌新的首次滑稽之声标签（空格分隔）：嘤嘤嘤  小萌新的博客终于初步搭好了，欢迎大家赏脸来溜QAQ">
+<meta property="og:description" content="python遇到的一些编码错误 方案：标签（空格分隔）：python学习     9号错误： UnicodeDecodeError: &amp;#39;utf8&amp;#39; codec can&amp;#39;t decode byte 0xcd in position 9: invalid continuation byte； Python 2.7.15\Lib\site-packages目录下面新建一个文件名为">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-10T00:55:54.588Z">
+<meta property="og:updated_time" content="2019-04-11T12:11:26.533Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ximu">
-<meta name="twitter:description" content="至高小萌新的首次滑稽之声标签（空格分隔）：嘤嘤嘤  小萌新的博客终于初步搭好了，欢迎大家赏脸来溜QAQ">
+<meta name="twitter:description" content="python遇到的一些编码错误 方案：标签（空格分隔）：python学习     9号错误： UnicodeDecodeError: &amp;#39;utf8&amp;#39; codec can&amp;#39;t decode byte 0xcd in position 9: invalid continuation byte； Python 2.7.15\Lib\site-packages目录下面新建一个文件名为">
   
     <link rel="alternate" href="/xikong-mubai.github.io/atom.xml" title="Ximu" type="application/atom+xml">
   
@@ -64,10 +64,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-至高小萌新的首次滑稽之声" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-python遇到的一些编码错误 方案：" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/xikong-mubai.github.io/2019/04/10/至高小萌新的首次滑稽之声/" class="article-date">
-  <time datetime="2019-04-10T00:55:49.612Z" itemprop="datePublished">2019-04-10</time>
+    <a href="/xikong-mubai.github.io/2019/04/11/python遇到的一些编码错误 方案：/" class="article-date">
+  <time datetime="2019-04-11T12:11:23.841Z" itemprop="datePublished">2019-04-11</time>
 </a>
     
   </div>
@@ -76,14 +76,32 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="至高小萌新的首次滑稽之声"><a href="#至高小萌新的首次滑稽之声" class="headerlink" title="至高小萌新的首次滑稽之声"></a>至高小萌新的首次滑稽之声</h1><p>标签（空格分隔）：嘤嘤嘤</p>
+        <h1 id="python遇到的一些编码错误-方案："><a href="#python遇到的一些编码错误-方案：" class="headerlink" title="python遇到的一些编码错误 方案："></a>python遇到的一些编码错误 方案：</h1><p>标签（空格分隔）：python学习</p>
 <hr>
-<p>小萌新的博客终于初步搭好了，欢迎大家赏脸来溜QAQ</p>
-
+<p>   <strong>9号错误：</strong> <code>UnicodeDecodeError: &#39;utf8&#39; codec can&#39;t decode byte 0xcd in position 9: invalid continuation byte；</code></p>
+<p><code>Python 2.7.15\Lib\site-packages</code>目录下面新建一个文件名为<code>sitecustomize.py</code>在里面写上</p>
+<pre><code>import sys
+sys.setdefaultencoding(&apos;gbk&apos;)
+</code></pre><hr>
+<p><strong>7号错误：</strong> <code>UnicodeDecodeError: &#39;ascii&#39; codec can&#39;t decode byte 0xcf in position 7: ordinal not in range(128)：</code></p>
+<p>解决办法：修改<code>mimetypes.py</code>文件，路径位于python的安装路径下的<code>Lib\mimetypes.py</code>文件。在<code>import</code>下添加如下几行，将编码设置为‘gbk’：</p>
+<pre><code>if sys.getdefaultencoding() != &apos;gbk&apos;: 
+ reload(sys) 
+ sys.setdefaultencoding(&apos;gbk&apos;)
+</code></pre><p>方法2：打开<code>python27/Lib</code>文件夹下的<code>mimetypes.py</code>文件，在253行左右，在<code>default_encoding=sys.getdefaultencoding()</code>前加三行：</p>
+<pre><code>If sys.setdefaultencoding()!=&apos;gbk&apos;:
+ reload(sys)
+ sys.setdefaultencoding(&apos;gbk&apos;)
+ default_encoding=sys.getdefaultencoding()
+</code></pre><p>在<code>manage.py</code>文件上，加上以下代码：</p>
+<pre><code>import sys
+reload(sys)
+sys.setdefaultencoding(&quot;utf-8&quot;)
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/10/至高小萌新的首次滑稽之声/" data-id="cjucm34q10003uwmbj1j8m84h" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/11/python遇到的一些编码错误 方案：/" data-id="cjucm34oi0000uwmb0n4t7nyx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -92,7 +110,7 @@
     
 <nav id="article-nav">
   
-    <a href="/xikong-mubai.github.io/2019/04/11/npm install 安装过慢的解决方案：/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/xikong-mubai.github.io/2019/04/11/博客搭建——萌新篇：/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
@@ -102,9 +120,9 @@
     </a>
   
   
-    <a href="/xikong-mubai.github.io/2019/04/06/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/xikong-mubai.github.io/2019/04/11/npm install 安装过慢的解决方案：/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title"></div>
     </a>
   
 </nav>
