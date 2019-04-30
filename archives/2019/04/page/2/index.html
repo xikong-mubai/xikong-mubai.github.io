@@ -3,7 +3,7 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>python遇到的一些编码错误 方案： | Ximu</title>
+  <title>Page 2 | Archives: 2019/4 | Ximu</title>
   <meta name="author" content="Ximu">
 
   
@@ -14,7 +14,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="python遇到的一些编码错误 方案：">
+  
   <meta property="og:site_name" content="Ximu">
 
   
@@ -57,62 +57,25 @@
 </nav>
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2019-04-11T12:11:23.841Z"><a href="/xikong-mubai.github.io/2019/04/11/python遇到的一些编码错误 方案：/">2019-04-11</a></time>
-      
-      
-  
-    <h1 class="title">python遇到的一些编码错误 方案：</h1>
-  
+    <div id="main-col" class="alignleft"><div id="wrapper">
+<h2 class="archive-title">2019/4</h2>
 
-    </header>
-    <div class="entry">
-      
-        <p>标签（空格分隔）：python学习</p>
-<hr>
-<p>   <strong>9号错误：</strong> <code>UnicodeDecodeError: &#39;utf8&#39; codec can&#39;t decode byte 0xcd in position 9: invalid continuation byte；</code></p>
-<p><code>Python 2.7.15\Lib\site-packages</code>目录下面新建一个文件名为<code>sitecustomize.py</code>在里面写上</p>
-<pre><code>import sys
-sys.setdefaultencoding(&apos;gbk&apos;)
-</code></pre><hr>
-<p><strong>7号错误：</strong> <code>UnicodeDecodeError: &#39;ascii&#39; codec can&#39;t decode byte 0xcf in position 7: ordinal not in range(128)：</code></p>
-<p>解决办法：修改<code>mimetypes.py</code>文件，路径位于python的安装路径下的<code>Lib\mimetypes.py</code>文件。在<code>import</code>下添加如下几行，将编码设置为‘gbk’：</p>
-<pre><code>if sys.getdefaultencoding() != &apos;gbk&apos;: 
- reload(sys) 
- sys.setdefaultencoding(&apos;gbk&apos;)
-</code></pre><p>方法2：打开<code>python27/Lib</code>文件夹下的<code>mimetypes.py</code>文件，在253行左右，在<code>default_encoding=sys.getdefaultencoding()</code>前加三行：</p>
-<pre><code>If sys.setdefaultencoding()!=&apos;gbk&apos;:
- reload(sys)
- sys.setdefaultencoding(&apos;gbk&apos;)
- default_encoding=sys.getdefaultencoding()
-</code></pre><p>在<code>manage.py</code>文件上，加上以下代码：</p>
-<pre><code>import sys
-reload(sys)
-sys.setdefaultencoding(&quot;utf-8&quot;)
-</code></pre>
-      
-    </div>
+
+  <div class="archive">
     
-    <footer>
-        <div class="alignright">
-          
-          <a href="javascript:void(0)" class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+      <article class="post">
+        <div class="post-content">
+          <header>
+            <div class="icon"></div>
+            <time datetime="2019-04-06T14:55:52.718Z"><a href="/xikong-mubai.github.io/2019/04/06/hello-world/">2019-04-06</a></time>
+            
+              <h1 class="title"><a href="/xikong-mubai.github.io/2019/04/06/hello-world/">Hello World</a></h1>
+            
+          </header>
         </div>
-        
-        
-        <!-- partial('post/share') -->
-      <div class="clearfix"></div>
-    </footer>
+      </article>
+    
   </div>
-</article>
-
-
-
 </div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">

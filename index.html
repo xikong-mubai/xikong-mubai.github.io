@@ -64,6 +64,47 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2019-04-30T04:27:13.830Z"><a href="/xikong-mubai.github.io/2019/04/30/（whale）app-release/">2019-04-30</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/xikong-mubai.github.io/2019/04/30/（whale）app-release/"></a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h1 id="蓝鲸逆向app-release"><a href="#蓝鲸逆向app-release" class="headerlink" title="蓝鲸逆向app-release"></a>蓝鲸逆向app-release</h1><hr>
+<p>这是一个安卓逆向题。用安卓逆向工具进行分析，我在这里用的<code>jeb</code>工具，附上资源和无法正常启动解决方案的链接：<a href="https://www.52pojie.cn/thread-722648-1-1.html运行``jeb``，将**app-release" target="_blank" rel="noopener">https://www.52pojie.cn/thread-722648-1-1.html运行``jeb``，将**app-release</a>. apk<strong>拉入<code>jeb</code>进行分析<br><img src="https://img-blog.csdnimg.cn/20190430120522775.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">展开</strong>Bytecode**查看该应用代码结构<br><img src="https://img-blog.csdnimg.cn/20190430120742883.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>发现有两个java源码文件，分别查看，发现<code>a</code>中使用了<code>MainActivity</code><br><img src="https://img-blog.csdnimg.cn/20190430120840662.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>查看<code>MainActivity</code>的内容，发现一个加密循环，是将一串字符的每一个字符都和18进行异或<br><img src="https://img-blog.csdnimg.cn/2019043012125930.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>结合<code>a</code>的代码确定，将一串字符串通过<code>MainActivity</code>内的加密得到的密文和<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PXEJPMQFTiS|v`\&quot;#vMDw`KMA3_b~w3o</span><br></pre></td></tr></table></figure></p>
+<p>进行对比，若一样则显示<strong>Contratulations! You Got Correct Flag.</strong><br>那么将<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PXEJPMQFTiS|v`\&quot;#vMDw`KMA3_b~w3o</span><br></pre></td></tr></table></figure></p>
+<p>与18异或一次即可得到应输入的字符串脚本如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt; </span><br><span class="line">using namespace std; </span><br><span class="line">int main() </span><br><span class="line">&#123;</span><br><span class="line">	char a[]=&#123;&quot;PXEJPMQFTiS|v`\&quot;#vMDw`KMA3_b~w3o&quot;&#125;;    </span><br><span class="line">	for(int n=0;n&lt;39;n++)</span><br><span class="line">    	&#123;</span><br><span class="line">        	a[n]^=18;</span><br><span class="line">    	&#125;</span><br><span class="line">    	cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line">    	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="javascript:void(0)" class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2019-04-20T16:45:18.269Z"><a href="/xikong-mubai.github.io/2019/04/21/git clone下载慢/">2019-04-21</a></time>
       
       
@@ -11880,55 +11921,13 @@ sys.setdefaultencoding(&quot;utf-8&quot;)
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2019-04-06T14:55:52.718Z"><a href="/xikong-mubai.github.io/2019/04/06/hello-world/">2019-04-06</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/xikong-mubai.github.io/2019/04/06/hello-world/">Hello World</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    
-    <footer>
-        <div class="alignright">
-          
-          <a href="javascript:void(0)" class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
-        </div>
-        
-        
-        <!-- partial('post/share') -->
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
 
 <nav id="pagination">
   
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/xikong-mubai.github.io/page/2/">2</a><a class="extend next" rel="next" href="/xikong-mubai.github.io/page/2/">Next &raquo;</a>
+  </nav>
+
 </nav>
 </div></div>
     <aside id="sidebar" class="alignright">
@@ -11947,6 +11946,10 @@ sys.setdefaultencoding(&quot;utf-8&quot;)
   <ul class="entry">
     
       <li>
+        <a href="/xikong-mubai.github.io/2019/04/30/（whale）app-release/"></a>
+      </li>
+    
+      <li>
         <a href="/xikong-mubai.github.io/2019/04/21/git clone下载慢/">git clone下载慢解决</a>
       </li>
     
@@ -11960,10 +11963,6 @@ sys.setdefaultencoding(&quot;utf-8&quot;)
     
       <li>
         <a href="/xikong-mubai.github.io/2019/04/20/angr的windows安装——萌新向/">angr的windows安装——萌新向</a>
-      </li>
-    
-      <li>
-        <a href="/xikong-mubai.github.io/2019/04/13/reverse1_final/">reverse1_final</a>
       </li>
     
   </ul>

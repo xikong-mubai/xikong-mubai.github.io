@@ -3,7 +3,7 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>python遇到的一些编码错误 方案： | Ximu</title>
+  <title>Ximu</title>
   <meta name="author" content="Ximu">
 
   
@@ -14,7 +14,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="python遇到的一些编码错误 方案：">
+  
   <meta property="og:site_name" content="Ximu">
 
   
@@ -63,38 +63,21 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2019-04-11T12:11:23.841Z"><a href="/xikong-mubai.github.io/2019/04/11/python遇到的一些编码错误 方案：/">2019-04-11</a></time>
+        <time datetime="2019-04-30T04:27:13.830Z"><a href="/xikong-mubai.github.io/2019/04/30/（whale）app-release/">2019-04-30</a></time>
       
       
   
-    <h1 class="title">python遇到的一些编码错误 方案：</h1>
+    <h1 class="title"></h1>
   
 
     </header>
     <div class="entry">
       
-        <p>标签（空格分隔）：python学习</p>
-<hr>
-<p>   <strong>9号错误：</strong> <code>UnicodeDecodeError: &#39;utf8&#39; codec can&#39;t decode byte 0xcd in position 9: invalid continuation byte；</code></p>
-<p><code>Python 2.7.15\Lib\site-packages</code>目录下面新建一个文件名为<code>sitecustomize.py</code>在里面写上</p>
-<pre><code>import sys
-sys.setdefaultencoding(&apos;gbk&apos;)
-</code></pre><hr>
-<p><strong>7号错误：</strong> <code>UnicodeDecodeError: &#39;ascii&#39; codec can&#39;t decode byte 0xcf in position 7: ordinal not in range(128)：</code></p>
-<p>解决办法：修改<code>mimetypes.py</code>文件，路径位于python的安装路径下的<code>Lib\mimetypes.py</code>文件。在<code>import</code>下添加如下几行，将编码设置为‘gbk’：</p>
-<pre><code>if sys.getdefaultencoding() != &apos;gbk&apos;: 
- reload(sys) 
- sys.setdefaultencoding(&apos;gbk&apos;)
-</code></pre><p>方法2：打开<code>python27/Lib</code>文件夹下的<code>mimetypes.py</code>文件，在253行左右，在<code>default_encoding=sys.getdefaultencoding()</code>前加三行：</p>
-<pre><code>If sys.setdefaultencoding()!=&apos;gbk&apos;:
- reload(sys)
- sys.setdefaultencoding(&apos;gbk&apos;)
- default_encoding=sys.getdefaultencoding()
-</code></pre><p>在<code>manage.py</code>文件上，加上以下代码：</p>
-<pre><code>import sys
-reload(sys)
-sys.setdefaultencoding(&quot;utf-8&quot;)
-</code></pre>
+        <h1 id="蓝鲸逆向app-release"><a href="#蓝鲸逆向app-release" class="headerlink" title="蓝鲸逆向app-release"></a>蓝鲸逆向app-release</h1><hr>
+<p>这是一个安卓逆向题。用安卓逆向工具进行分析，我在这里用的<code>jeb</code>工具，附上资源和无法正常启动解决方案的链接：<a href="https://www.52pojie.cn/thread-722648-1-1.html运行``jeb``，将**app-release" target="_blank" rel="noopener">https://www.52pojie.cn/thread-722648-1-1.html运行``jeb``，将**app-release</a>. apk<strong>拉入<code>jeb</code>进行分析<br><img src="https://img-blog.csdnimg.cn/20190430120522775.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">展开</strong>Bytecode**查看该应用代码结构<br><img src="https://img-blog.csdnimg.cn/20190430120742883.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>发现有两个java源码文件，分别查看，发现<code>a</code>中使用了<code>MainActivity</code><br><img src="https://img-blog.csdnimg.cn/20190430120840662.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>查看<code>MainActivity</code>的内容，发现一个加密循环，是将一串字符的每一个字符都和18进行异或<br><img src="https://img-blog.csdnimg.cn/2019043012125930.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>结合<code>a</code>的代码确定，将一串字符串通过<code>MainActivity</code>内的加密得到的密文和<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PXEJPMQFTiS|v`\&quot;#vMDw`KMA3_b~w3o</span><br></pre></td></tr></table></figure></p>
+<p>进行对比，若一样则显示<strong>Contratulations! You Got Correct Flag.</strong><br>那么将<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PXEJPMQFTiS|v`\&quot;#vMDw`KMA3_b~w3o</span><br></pre></td></tr></table></figure></p>
+<p>与18异或一次即可得到应输入的字符串脚本如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt; </span><br><span class="line">using namespace std; </span><br><span class="line">int main() </span><br><span class="line">&#123;</span><br><span class="line">	char a[]=&#123;&quot;PXEJPMQFTiS|v`\&quot;#vMDw`KMA3_b~w3o&quot;&#125;;    </span><br><span class="line">	for(int n=0;n&lt;39;n++)</span><br><span class="line">    	&#123;</span><br><span class="line">        	a[n]^=18;</span><br><span class="line">    	&#125;</span><br><span class="line">    	cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line">    	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
       
     </div>
     
