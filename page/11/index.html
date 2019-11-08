@@ -1,0 +1,313 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Page 11 | Ximu</title>
+  <meta name="author" content="Ximu">
+
+  
+  <meta name="description" content="萌新的学习记录博客QAQ">
+  
+
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Ximu">
+
+  
+  
+
+  
+    <meta property="og:image" content>
+  
+
+  
+  <link href="/xikong-mubai.github.io/css/images/favicon.ico" rel="icon">
+  
+
+  <link rel="alternate" href="/xikong-mubai.github.io/atom.xml" title="Ximu" type="application/atom+xml">
+  <link rel="stylesheet" href="/xikong-mubai.github.io/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+
+</head>
+</html>
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/xikong-mubai.github.io/">Ximu</a></h1>
+  <h2><a href="/xikong-mubai.github.io/">小萌新一枚QAQ</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2019-04-11T12:57:01.777Z"><a href="/xikong-mubai.github.io/2019/04/11/博客搭建——萌新篇：/">2019-04-11</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/xikong-mubai.github.io/2019/04/11/博客搭建——萌新篇：/">博客搭建——萌新篇：</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>标签（空格分隔）：博客学习</p>
+<hr>
+<p>   环境：<br>Git:百度下载即可（记得先注册一个github账号，名字别乱起，起个自己喜欢的短一点的，不然别后悔，然后去创建个仓库，仓库名字叫做：<code>你的名字.github.io</code>。注意！！！<strong>这个名字是你的用户名</strong>，<strong>可不是说输入“你的名字”这四个字！！！</strong>）<br>Node：百度下载即可<br>Hexo：在安装了node环境的前提下（ps: node.js中集成的有npm包安装工具）使用npm命令安装：<code>npm i hexo-vli -g --user</code>；<br>如果遇到npm 报错或者警告，据类型处理，具体见度娘（度娘大法好！！！）</p>
+<hr>
+<p>博客文件设置：<br>在想要放博客文件的路径下建一个自己的”空”博客文件夹，用hexo命令初始化它：<br>具体操作为：<br>一：进入该文件夹后按住shift键不放点击鼠标右键，打开<code>powershell</code>，输入命令<code>hexo init</code>；<br>或或或或或———————————————–或或或或或或<br>二：<code>win+r</code>，输入cmd打开命令提示符，然后在命令提示符内进入该文件夹路径下<br><code>hexo init</code>初始化<br>中间卡死的话ctrl+c可取消命令，根据错误提示去npm安包（我遇见的初始化卡死都是装包装不上，所以自己手动装，提示少啥就装啥，实在不知道什么意思怎么办就复制粘贴找度娘，一般都有）</p>
+<p>初始化完成后进行下一步，打开文件夹内多出来的几个文件中那个叫<code>_config.yml</code><br>的文件（对，没错，就是这个家伙），在开头附近有一个“<code>root：/</code>”的东西，在这个后面输入自己的仓库名（莫要把 <code>.github.io</code>的后缀名吃了）<br>在最后修改代码为：</p>
+<pre><code>deploy:
+type: git
+repo: git@github.com:自己用户名/自己的仓库名.git（再说一遍“.github.io”的后缀别吃了）
+baranch: master
+</code></pre><p>修改完之后保存修改。</p>
+<p>然后开始部署：（记得命令提示符的路径位置还是在你的博客文件夹下）<br>先安装在git上面部署博客的插件：<br>使用该命令：<code>npm i hexo-deployer-git -S</code><br>插件安装完以后执行以下两条命令：</p>
+<pre><code>hexo g   
+hexo d
+</code></pre><p>接下来就可以用：<br>你的仓库名访问初始博客了（别吃掉后缀！！）</p>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="javascript:void(0)" class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2019-04-11T12:11:23.841Z"><a href="/xikong-mubai.github.io/2019/04/11/python遇到的一些编码错误 方案：/">2019-04-11</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/xikong-mubai.github.io/2019/04/11/python遇到的一些编码错误 方案：/">python遇到的一些编码错误 方案：</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>标签（空格分隔）：python学习</p>
+<hr>
+<p>   <strong>9号错误：</strong> <code>UnicodeDecodeError: &#39;utf8&#39; codec can&#39;t decode byte 0xcd in position 9: invalid continuation byte；</code></p>
+<p><code>Python 2.7.15\Lib\site-packages</code>目录下面新建一个文件名为<code>sitecustomize.py</code>在里面写上</p>
+<pre><code>import sys
+sys.setdefaultencoding(&apos;gbk&apos;)
+</code></pre><hr>
+<p><strong>7号错误：</strong> <code>UnicodeDecodeError: &#39;ascii&#39; codec can&#39;t decode byte 0xcf in position 7: ordinal not in range(128)：</code></p>
+<p>解决办法：修改<code>mimetypes.py</code>文件，路径位于python的安装路径下的<code>Lib\mimetypes.py</code>文件。在<code>import</code>下添加如下几行，将编码设置为‘gbk’：</p>
+<pre><code>if sys.getdefaultencoding() != &apos;gbk&apos;: 
+ reload(sys) 
+ sys.setdefaultencoding(&apos;gbk&apos;)
+</code></pre><p>方法2：打开<code>python27/Lib</code>文件夹下的<code>mimetypes.py</code>文件，在253行左右，在<code>default_encoding=sys.getdefaultencoding()</code>前加三行：</p>
+<pre><code>If sys.setdefaultencoding()!=&apos;gbk&apos;:
+ reload(sys)
+ sys.setdefaultencoding(&apos;gbk&apos;)
+ default_encoding=sys.getdefaultencoding()
+</code></pre><p>在<code>manage.py</code>文件上，加上以下代码：</p>
+<pre><code>import sys
+reload(sys)
+sys.setdefaultencoding(&quot;utf-8&quot;)
+</code></pre>
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="javascript:void(0)" class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2019-04-11T12:03:32.032Z"><a href="/xikong-mubai.github.io/2019/04/11/npm install 安装过慢的解决方案：/">2019-04-11</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/xikong-mubai.github.io/2019/04/11/npm install 安装过慢的解决方案：/">npm install 安装过慢的解决方案：</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>标签（空格分隔）：博客学习</p>
+<hr>
+<p>一，简单省事版<br>因为资源在国外，所以安装一些包要访问国外网络，该命令可以改变装包的资源点，使访问外网变为访问国内网</p>
+<pre><code>npm install -gd express --registry=http://registry.npm.taobao.org
+</code></pre><p>只需要使用–registry参数指定镜像服务器地址，为了避免每次安装都需要–registry参数，可以使用如下命令进行永久设置：</p>
+<pre><code>npm config set registry http://registry.npm.taobao.org
+</code></pre><p>二，开头麻烦一丢丢版</p>
+<pre><code>npm install -g cnpm -registry=https://registry.npm.taobao.org
+</code></pre><p>该代码用来安装淘宝团队的npm。安装完成后遇到需要<code>npm install</code>的时候直接<code>cnpm install</code> 即可（ps：不知道是不是我电脑的原因，我用<code>cnpm</code>的时候命令反应贼慢。。。）<br>（基于上一个ps的ps：我有一个小习惯，一个命令提示符正在跑的时候需要用其他命令我会再开一个新的命令提示符一起跑，之前<code>cnpm</code>安装命令刚回车就不动了是因为我有一个正在跑的npm命令，<code>cnpm</code>和<code>npm</code>不能同时运行。。。。）</p>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="javascript:void(0)" class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+
+<nav id="pagination">
+  
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/xikong-mubai.github.io/page/10/">&laquo; Prev</a><a class="page-number" href="/xikong-mubai.github.io/">1</a><span class="space">&hellip;</span><a class="page-number" href="/xikong-mubai.github.io/page/9/">9</a><a class="page-number" href="/xikong-mubai.github.io/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/xikong-mubai.github.io/page/12/">12</a><a class="extend next" rel="next" href="/xikong-mubai.github.io/page/12/">Next &raquo;</a>
+  </nav>
+
+</nav>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">Recent Posts</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/ISCC 2019 writeup/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/（复杂SQLselect语句）带text数据的group by命令——小白（萌新）篇/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/(json web token)JWT攻击/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/python-pycrypto的完全版安装/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/webpack-78261ba1a8892c85ff12/"></a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/xikong-mubai.github.io/tags/CTF/">CTF</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">Tag Cloud</h3>
+  <div class="entry">
+    <a href="/xikong-mubai.github.io/tags/CTF/" style="font-size: 10px;">CTF</a>
+  </div>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  <p>
+  
+  &copy; 2019 Ximu
+  
+  All rights reserved.</p>
+  <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</div>
+<div class="clearfix"></div>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script></footer>
+  <script src="/xikong-mubai.github.io/js/jquery.imagesloaded.min.js"></script>
+<script src="/xikong-mubai.github.io/js/gallery.js"></script>
+
+
+<link rel="stylesheet" href="/xikong-mubai.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/xikong-mubai.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id="bg"></div>
+</body>
+</html>

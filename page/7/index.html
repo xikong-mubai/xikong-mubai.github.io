@@ -1,0 +1,286 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Page 7 | Ximu</title>
+  <meta name="author" content="Ximu">
+
+  
+  <meta name="description" content="萌新的学习记录博客QAQ">
+  
+
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Ximu">
+
+  
+  
+
+  
+    <meta property="og:image" content>
+  
+
+  
+  <link href="/xikong-mubai.github.io/css/images/favicon.ico" rel="icon">
+  
+
+  <link rel="alternate" href="/xikong-mubai.github.io/atom.xml" title="Ximu" type="application/atom+xml">
+  <link rel="stylesheet" href="/xikong-mubai.github.io/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+
+</head>
+</html>
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/xikong-mubai.github.io/">Ximu</a></h1>
+  <h2><a href="/xikong-mubai.github.io/">小萌新一枚QAQ</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2019-11-08T05:34:25.145Z"><a href="/xikong-mubai.github.io/2019/11/08/python2.x中文输出一直乱码的简单解决/">2019-11-08</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/xikong-mubai.github.io/2019/11/08/python2.x中文输出一直乱码的简单解决/"></a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>首先确认自己<strong>有没有添加用中文时的必备开头</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- encoding: utf-8 -*-</span></span><br></pre></td></tr></table></figure>
+<p>若无开头一般是python2.x默认使用ASCII码导致的问题</p>
+<p>如果文件开头<strong>已经添加过了该注释</strong>，<strong>中文</strong>输出<strong>依旧乱码</strong>，<em>大概率是文件编码格式与python的设置冲突导致</em></p>
+<p>python2.x默认使用ASCII码，所以添加该注释头让其识别unicode码，但是有时所创建的<strong>文件其默认编码</strong>就是<code>Unicode</code>或者<code>utf-8</code>编码，<strong>此时其就会与python2.x产生冲突，致使python2.x在执行脚本时始终无法正确输出中文</strong></p>
+<p>只需将要使用的文件编码格式改为<code>ANSI</code>编码即可解决冲突</p>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="javascript:void(0)" class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2019-11-08T05:34:25.141Z"><a href="/xikong-mubai.github.io/2019/11/08/关于kali Linux安装中文输入法的巨坑，比如装个输入法就进不去图形化系统（萌新必看，欧皇算了）/">2019-11-08</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/xikong-mubai.github.io/2019/11/08/关于kali Linux安装中文输入法的巨坑，比如装个输入法就进不去图形化系统（萌新必看，欧皇算了）/"></a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>@<a href="kali安装中文输入法后不能进入系统">TOC</a></p>
+<h1 id="谷歌拼音输入法"><a href="#谷歌拼音输入法" class="headerlink" title="谷歌拼音输入法"></a>谷歌拼音输入法</h1><p><strong>老版kali</strong>我不了解，2019之后的<strong>新版kali</strong>自带<code>iBus</code>框架，按道理应该没有的，总之我装的<code>kali</code>确实都自带它，他会和<code>fcitx</code>框架发生冲突，然后产生我一个小白不了解的反应导致系统重启后就崩了，只能<code>crtl+Alt+F3</code>进入命令行界面操作系统，但这种界面不支持中文而且有超级多的不便，并且俩个框架产生的影响经我尝试多次后发现只有 <strong>还原</strong> 和 <strong>重装</strong> 能解决，而卸载<code>iBus框架</code>又会暂时卡死系统，不知道之后会产生什么影响，所以，pass掉 <code>fcitx框架</code> 的谷歌中文输入法（虽然我挺想用用）。</p>
+<h1 id="iBus-拼音输入法"><a href="#iBus-拼音输入法" class="headerlink" title="iBus-拼音输入法"></a>iBus-拼音输入法</h1><p>上面说了，19年之后的<code>kali</code>（至少我装过的）都是自带<code>iBus框架</code>的，所以直接安装<code>iBus框架</code>的<strong>拼音输入法</strong>即可，简单实在。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install ibus ibus-pinyin -y &amp;&amp; reboot</span><br></pre></td></tr></table></figure>
+<p>直接不让系统底层的冲突出现就行了，大佬的话另说，反正小白是真的没办法了，百度谷歌找了一个月的方法都无效。。。</p>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="javascript:void(0)" class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2019-11-08T05:34:24.760Z"><a href="/xikong-mubai.github.io/2019/11/08/使用python的密码学第三方库pycrypto的经验/">2019-11-08</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/xikong-mubai.github.io/2019/11/08/使用python的密码学第三方库pycrypto的经验/"></a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>@<a href="python密码库经验--小白篇">TOC</a></p>
+<h1 id="python3"><a href="#python3" class="headerlink" title="python3"></a>python3</h1><p><strong>低版本py3</strong>可选择使用<code>wheel</code>方式或<code>exe</code>方式进行安装。<br>在该网址下载对应版本的<code>.whl</code>或<code>exe</code>文件。</p>
+<pre><code>http://www.voidspace.org.uk/python/pycrypto-2.6.1/
+</code></pre><h2 id="wheel方式"><a href="#wheel方式" class="headerlink" title="wheel方式"></a>wheel方式</h2><p>将其放在py3安装目录下的scripts文件夹中。<br>安装姿势：<br>打开<code>cmd</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip3 install wheel</span><br><span class="line">pip3 install xxx.whl</span><br><span class="line">(xxx是下载的whl文件的名字)</span><br></pre></td></tr></table></figure></p>
+<h2 id="exe方式"><a href="#exe方式" class="headerlink" title="exe方式"></a>exe方式</h2><p>双击运行，和普通软件安装程序类似</p>
+<h1 id="python2"><a href="#python2" class="headerlink" title="python2"></a>python2</h1><h2 id="以上python3的方法python2可通用。"><a href="#以上python3的方法python2可通用。" class="headerlink" title="以上python3的方法python2可通用。"></a>以上python3的方法python2可通用。</h2><h2 id="python2可以pip直接安装pycrypto"><a href="#python2可以pip直接安装pycrypto" class="headerlink" title="python2可以pip直接安装pycrypto"></a>python2可以pip直接安装pycrypto</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pycrypto</span><br></pre></td></tr></table></figure>
+<h2 id="关于pycryptodome"><a href="#关于pycryptodome" class="headerlink" title="关于pycryptodome"></a>关于pycryptodome</h2><p>这是另外的大佬替代多年未更新的<code>pycrypto</code>而写的更新版本。网上很多大佬都说它可以直接在<code>python3</code>上面直接<code>pip</code>安装运行，但我试了一天后未果，<code>python2</code>的<code>pycrypto</code>因为年代问题一些新的模块并没有。愁眉莫展之际想到将其装在<code>python2</code>上如何？发现完美补充了新功能并且没问题。</p>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="javascript:void(0)" class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+
+<nav id="pagination">
+  
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/xikong-mubai.github.io/page/6/">&laquo; Prev</a><a class="page-number" href="/xikong-mubai.github.io/">1</a><span class="space">&hellip;</span><a class="page-number" href="/xikong-mubai.github.io/page/5/">5</a><a class="page-number" href="/xikong-mubai.github.io/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/xikong-mubai.github.io/page/8/">8</a><a class="page-number" href="/xikong-mubai.github.io/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/xikong-mubai.github.io/page/12/">12</a><a class="extend next" rel="next" href="/xikong-mubai.github.io/page/8/">Next &raquo;</a>
+  </nav>
+
+</nav>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">Recent Posts</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/ISCC 2019 writeup/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/（复杂SQLselect语句）带text数据的group by命令——小白（萌新）篇/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/(json web token)JWT攻击/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/python-pycrypto的完全版安装/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/webpack-78261ba1a8892c85ff12/"></a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/xikong-mubai.github.io/tags/CTF/">CTF</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">Tag Cloud</h3>
+  <div class="entry">
+    <a href="/xikong-mubai.github.io/tags/CTF/" style="font-size: 10px;">CTF</a>
+  </div>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  <p>
+  
+  &copy; 2019 Ximu
+  
+  All rights reserved.</p>
+  <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</div>
+<div class="clearfix"></div>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script></footer>
+  <script src="/xikong-mubai.github.io/js/jquery.imagesloaded.min.js"></script>
+<script src="/xikong-mubai.github.io/js/gallery.js"></script>
+
+
+<link rel="stylesheet" href="/xikong-mubai.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/xikong-mubai.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id="bg"></div>
+</body>
+</html>

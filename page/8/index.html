@@ -1,0 +1,338 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Page 8 | Ximu</title>
+  <meta name="author" content="Ximu">
+
+  
+  <meta name="description" content="萌新的学习记录博客QAQ">
+  
+
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Ximu">
+
+  
+  
+
+  
+    <meta property="og:image" content>
+  
+
+  
+  <link href="/xikong-mubai.github.io/css/images/favicon.ico" rel="icon">
+  
+
+  <link rel="alternate" href="/xikong-mubai.github.io/atom.xml" title="Ximu" type="application/atom+xml">
+  <link rel="stylesheet" href="/xikong-mubai.github.io/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+
+</head>
+</html>
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/xikong-mubai.github.io/">Ximu</a></h1>
+  <h2><a href="/xikong-mubai.github.io/">小萌新一枚QAQ</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2019-11-07T16:09:51.288Z"><a href="/xikong-mubai.github.io/2019/11/08/汐白来学PWN-1/">2019-11-08</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/xikong-mubai.github.io/2019/11/08/汐白来学PWN-1/"></a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>@<a href="汐白初学PWN">TOC</a></p>
+<h1 id="工具的准备"><a href="#工具的准备" class="headerlink" title="工具的准备"></a>工具的准备</h1><h2 id="kali-Linux"><a href="#kali-Linux" class="headerlink" title="kali-Linux"></a>kali-Linux</h2><p>叭说了，kali这么好用为什么不用，Ubuntu16.04也行</p>
+<h2 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a>pwntools</h2><p>pwn必备python包，pip直接安装，python2的</p>
+<h2 id="peda"><a href="#peda" class="headerlink" title="peda"></a>peda</h2><p>很好用的一个Linux下gdb调试器的版本吧算是<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https:<span class="comment">//github.com/longld/peda.git ~/peda</span></span><br><span class="line">echo <span class="string">"source ~/peda/peda.py"</span> &gt;&gt; ~<span class="regexp">/.gdbinit</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="pwndbg"><a href="#pwndbg" class="headerlink" title="pwndbg"></a>pwndbg</h2><p>另一个版本的用于Linux下程序调试的gdb，但是没用过，据说很强，推荐先用peda<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:<span class="comment">//github.com/pwndbg/pwndbg</span></span><br><span class="line">cd pwndbg</span><br><span class="line">./setup.sh</span><br></pre></td></tr></table></figure></p>
+<h2 id="odjdump"><a href="#odjdump" class="headerlink" title="odjdump"></a>odjdump</h2><p>转载：<br><a href="http://www.gpshk.cc/thread-52817-1-1.html" target="_blank" rel="noopener">odjdump的使用（Linux反汇编工具）</a><br>(出处: GPS导航技术社区)</p>
+<h2 id="ROPgadget"><a href="#ROPgadget" class="headerlink" title="ROPgadget"></a>ROPgadget</h2><p>构建ROP的实用工具<br>项目地址:<br><a href="https://github.com/JonathanSalwan/ROPgadget" target="_blank" rel="noopener">https://github.com/JonathanSalwan/ROPgadget</a><br>安装：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git clone -b master http:<span class="comment">//github.com/JonathanSalwan/ROPgadget.git</span></span><br><span class="line">cd ROPgadget</span><br><span class="line">cd ./dependencies/capstone-next</span><br><span class="line">./make.sh</span><br><span class="line">sudo ./make.sh install</span><br><span class="line">cd ./bindings/python</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure></p>
+<h2 id="IDA-PRO"><a href="#IDA-PRO" class="headerlink" title="IDA PRO"></a>IDA PRO</h2><p>ida不用说了，经典软件，既有Windows的版本也有Linux的版本，不过一般推荐直接用windows下的，Linux似乎安装比较麻烦。<br><strong>64位Linux下安装教程：<a href="https://www.52pojie.cn/thread-542682-1-1.html" target="_blank" rel="noopener">https://www.52pojie.cn/thread-542682-1-1.html</a></strong></p>
+<h1 id="工具的简单使用"><a href="#工具的简单使用" class="headerlink" title="工具的简单使用"></a>工具的简单使用</h1><h2 id="pwntools简单使用"><a href="#pwntools简单使用" class="headerlink" title="pwntools简单使用"></a>pwntools简单使用</h2><p>虽然这个百度就可以，不过还是习惯性记录一下<br>终端中输入<code>python2</code>进入python命令状态<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *        #pwnrools包的使用方法</span><br><span class="line">io = remote('IP',port)   #这个是做pwn题时设定远程攻击的IP地址和端口</span><br><span class="line">io = process('name')     #这个是题目文件下载到本地进行测试自己的脚本是否成功获取权限时用的，name为文件名</span><br><span class="line">io.sendline(payload)     #向目标程序发送自己构造的payload</span><br><span class="line">io.recv()                #接收程序的输出</span><br><span class="line">io.interactive()         #如果成功获取shell权限通过该命令与目标机的shell进行互动</span><br><span class="line">#构建payload时</span><br><span class="line">payload=p64(***)         #对***使用64位系统的储存方式</span><br><span class="line">payload=p32(***)         #对***使用32位系统的储存方式</span><br></pre></td></tr></table></figure></p>
+<h2 id="ROPgadget使用"><a href="#ROPgadget使用" class="headerlink" title="ROPgadget使用"></a>ROPgadget使用</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ROPgadget --binary name --only '***' | grep '***'    #查询需要的汇编命令所在地址</span><br><span class="line">#按道理来说它是这样查命令的，不过查询有限制，一般后面***这里要这么输：'***|ret'|grep '***'  ***根据需要来写</span><br><span class="line">ROPgadget --binary name --string "***"               #查询需要的字符所在地址</span><br><span class="line">ROPgadget --binary name --only 'int'                 #查询'int 80'</span><br></pre></td></tr></table></figure>
+<h2 id="gdb-peda的简单命令介绍"><a href="#gdb-peda的简单命令介绍" class="headerlink" title="gdb-peda的简单命令介绍"></a>gdb-peda的简单命令介绍</h2><p>终端：<code>gdb</code>    打开gdb ;   <code>gdb  name</code>  用gdb调试器加载目标程序<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">r/run                               #运行程序，或是在程序中途重新加载运行程序，类似 OD 里的 ctrl+F2</span><br><span class="line">ni                                  #直接运行该行命令，OD 的单步步过</span><br><span class="line">si                                  #进入该行命令内部，进入函数内部用，OD 单步步入</span><br><span class="line">file                                #加载目标程序</span><br><span class="line">find/searchmem                      #搜索目标字符</span><br><span class="line">c/continue                          #继续运行程序</span><br><span class="line">telescope address                   #查看目标内存地址信息</span><br><span class="line">info                                #查看各种信息：</span><br><span class="line">info file                           #查看当前文件的信息，例如程序入口点（Entry point）</span><br><span class="line">info break                          #查看当前断点信息</span><br><span class="line">disas name                          #查看目标函数的反汇编内容</span><br><span class="line">b/break name/address                #为目标函数或地址设置断点</span><br><span class="line">pattern_create   number             #生成一串number长度的字符，在测试溢出长度时挺方便的</span><br><span class="line">pattern_offset   溢出位置的字符      #返回输入入口距离溢出点的长度</span><br></pre></td></tr></table></figure></p>
+<h1 id="shellcode"><a href="#shellcode" class="headerlink" title="shellcode"></a>shellcode</h1><p><strong>pwn</strong>一般目的是为了获取目标机的<code>shell</code>权限，同时也可以是对目标机进行其他的攻击。而其攻击方式一般是通过程序自身的漏洞劫持eip，然后按照攻击者的需要使其执行相应的系统命令。<br>获取shell权限一般是控制程序运行出<code>execve(&quot;/bin/sh&quot;,0,0)</code>函数或者说<code>system(“/bin/sh”)</code>函数，从而拿到<code>shell</code><br>因为程序已经是被编译生成的可执行程序，所以我们要做的就是让其在运行时按照<code>execve(&quot;/bin/sh&quot;,0,0)</code>或<code>system(“/bin/sh”)</code>函数的需要依次序执行相应的命令使其在没有该函数的情况下实现该函数的作用。<br>为了实现这一目的而向目标程序发送的数据一般称为<code>shellcode</code>或者说<strong>payload</strong></p>
+<h2 id="Linux-i386处理器系统的简单shellcode原理"><a href="#Linux-i386处理器系统的简单shellcode原理" class="headerlink" title="Linux-i386处理器系统的简单shellcode原理"></a>Linux-i386处理器系统的简单shellcode原理</h2><p>32位系统要执行<code>execve(&quot;/bin/sh&quot;,0,0)</code>时，可用以下汇编代码简单说明<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov eax,0xb      #execve()函数的系统调用号为0xb，将其放入eax</span><br><span class="line">mov ebx,address  #address为字符"/bin/sh"的地址，ebx为所要调用的execve函数的第一个参数，即"/bin/sh"</span><br><span class="line">mov ecx,0        #第二个参数0</span><br><span class="line">mov edx,0        #第三个参数0</span><br><span class="line">int 80h          #呼叫系统调用，运行该指令后会根据**eax**中的值判断系统调用的结果</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int 80h  #该指令并非和其他指令配套的指令，它的功能就是中断程序运行去进行系统调用，而系统调用的结果由`eax`中的值决定</span><br></pre></td></tr></table></figure>
+<p>Linux-i386下的系统调用号查看：<a href="http://asm.sourceforge.net/syscall.html#p3" target="_blank" rel="noopener">http://asm.sourceforge.net/syscall.html#p3</a></p>
+<h2 id="Linux-amd64系统的简单shellcode原理"><a href="#Linux-amd64系统的简单shellcode原理" class="headerlink" title="Linux-amd64系统的简单shellcode原理"></a>Linux-amd64系统的简单shellcode原理</h2><p>原理和32位系统基本一样，不过不一样的是64位系统毕竟与32位有很大区别，他们的传参方法和进行系统调用时的方式都不同。<br>64位Linux系统的参数首先被放在edi，esi，edx，ecx，r8，r9六个寄存器中，多余的参数才放入堆栈<br>所并且其系统调用命令为<code>syscall</code>而非是<code>int 80h</code><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov edi,<span class="number">0x3b</span></span><br><span class="line">mov esi，address</span><br><span class="line">mov edx，<span class="number">0</span></span><br><span class="line">mov ecx，<span class="number">0</span></span><br><span class="line">syscall     #Linux-amd64系统的系统调用命令，这里和int 80h应该是不一样的，具体不清楚</span><br></pre></td></tr></table></figure></p>
+<h2 id="如何查看系统调用号"><a href="#如何查看系统调用号" class="headerlink" title="如何查看系统调用号"></a>如何查看系统调用号</h2><p>通过本地文件看：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">locate unistd_32  #查询Linux-i386系统调用号参数表的位置</span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line">locate unistd_64  #查询Linux-amd64系统调用号参数表的位置</span><br></pre></td></tr></table></figure></p>
+<p>然后直接<code>cat</code></p>
+<h2 id="著名的shell-storm-org的ShellCode数据库"><a href="#著名的shell-storm-org的ShellCode数据库" class="headerlink" title="著名的shell-storm.org的ShellCode数据库"></a>著名的shell-storm.org的ShellCode数据库</h2><p>地址：shell-storm.org/shellcode/<br>里面有各种类型的shellcode，简单情况可以直接在里面找合适的shellcode来用，特殊情况需要自行对shellcode进行改造</p>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="javascript:void(0)" class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2019-06-12T13:21:21.000Z"><a href="/xikong-mubai.github.io/2019/06/12/隐写术 - 有用工具和资源的列表/">2019-06-12</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/xikong-mubai.github.io/2019/06/12/隐写术 - 有用工具和资源的列表/">隐写术</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p> 隐写术将文件或消息隐藏在另一个文件中，有许多有趣的隐写CTF挑战，其中标志隐藏在图像，音频文件甚至其他类型的文件中。这是我使用的大多数工具和一些其他有用资源的列表。<br>注意：此列表将定期更新，如果您有任何建议，请随时到下午</p>
+<h2 id="最后更新：29-1-2019"><a href="#最后更新：29-1-2019" class="headerlink" title="最后更新：29.1.2019"></a>最后更新：29.1.2019</h2><h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><hr>
+<h2 id="Steghide"><a href="#Steghide" class="headerlink" title="Steghide"></a>Steghide</h2><p>Steghide是一个隐藏数据的程序，可以隐藏各种图像和音频文件中的数据，只支持这些文件格式：JPEG, BMP, WAV and AU。但它对从其他文件中提取嵌入和加密数据也很有用。它可以安装<code>apt</code>并且<a href="https://github.com/StefanoDeVuono/steghide" target="_blank" rel="noopener">源</a>可以在github上找到。</p>
+<p>有用的命令：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">steghide info file :显示有关文件是否包含嵌入数据的信息。</span><br><span class="line">steghide extract -sf file :从文件中提取嵌入数据</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="Foremost"><a href="#Foremost" class="headerlink" title="Foremost"></a>Foremost</h2><p>Foremost是一个程序，它根据页眉，页脚和内部数据结构恢复文件，我发现它在处理png图像时很有用。<br>它可以安装<code>apt</code>并且<a href="https://github.com/korczis/foremost" target="_blank" rel="noopener">源</a>可以在github上找到。</p>
+<p>有用的命令：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foremost -i file ：从给定文件中提取数据。</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="Stegsolve"><a href="#Stegsolve" class="headerlink" title="Stegsolve"></a>Stegsolve</h2><p>有时在图像本身中隐藏着一条消息或文本，为了查看它，您需要应用一些颜色过滤器或使用颜色级别。您可以使用GIMP或Photoshop或任何其他图像编辑软件，但stegsolve使它更容易。它是一个小型的java工具，可以在图像上应用许多颜色过滤器。我个人认为它非常有用。你可以从<a href="https://github.com/eugenekolo/sec-tools/tree/master/stego/stegsolve/stegsolve" target="_blank" rel="noopener">github</a>得到它</p>
+<hr>
+<h2 id="strings"><a href="#strings" class="headerlink" title="strings"></a>strings</h2><p>Strings是一个linux工具，可以在文件中显示可打印的字符串。在解决隐秘挑战时，这个简单的工具非常有用。通常，嵌入数据受密码保护或加密，有时密码是文件本身的密码，可以通过使用字符串轻松查看<br>这是一个默认的linux工具，所以你不需要安装任何东西。</p>
+<p>有用的命令：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strings file ：在给定文件中显示可打印的字符串。</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="Exiftool"><a href="#Exiftool" class="headerlink" title="Exiftool"></a>Exiftool</h2><p>有时重要的东西隐藏在图像或文件的元数据中，exiftool可以非常有助于查看文件的元数据。<br>你可以从<a href="https://www.sno.phy.queensu.ca/~phil/exiftool/" target="_blank" rel="noopener">这里</a>得到它</p>
+<p>有用的命令：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exiftool file ：显示给定文件的元数据</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="Exiv2"><a href="#Exiv2" class="headerlink" title="Exiv2"></a>Exiv2</h2><p>一种类似于exiftool的工具。<br>它可以安装，<code>apt</code>并且<a href="https://github.com/Exiv2/exiv2" target="_blank" rel="noopener">exiv2</a>可以在github上找到。<br><a href="http://www.exiv2.org/" target="_blank" rel="noopener">官方网站</a></p>
+<p>有用的命令：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exiv2 file ：显示给定文件的元数据</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="Binwalk"><a href="#Binwalk" class="headerlink" title="Binwalk"></a>Binwalk</h2><p>Binwalk是一种用于搜索嵌入式文件和数据的图像和音频文件等二进制文件的工具。<br>它可以安装，<code>apt</code>并且<a href="https://github.com/ReFirmLabs/binwalk" target="_blank" rel="noopener">源</a>可以在github上找到。</p>
+<p>有用的命令：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">binwalk file ：显示给定文件中的嵌入数据</span><br><span class="line">binwalk -e file ：显示和提取给定文件中的数据</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="Zsteg"><a href="#Zsteg" class="headerlink" title="Zsteg"></a>Zsteg</h2><p>zsteg是一个可以检测png和bmp文件中隐藏数据的工具。<br>安装它：gem install zsteg，源可以在<a href="https://github.com/zed-0xff/zsteg" target="_blank" rel="noopener">github</a>上找到</p>
+<p>有用的命令：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zsteg -a file ：运行给定文件上的所有方法</span><br><span class="line">zsteg -E file ：从给定的有效负载中提取数据（例如：zsteg -E b4，bgr，msb，xy name.png）</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="Wavsteg"><a href="#Wavsteg" class="headerlink" title="Wavsteg"></a>Wavsteg</h2><p>WavSteg是一个python3工具，可以隐藏wav文件中的数据和文件，也可以从wav文件中提取数据。<br>你可以从<a href="https://github.com/ragibson/Steganography#WavSteg" target="_blank" rel="noopener">github</a>得到它</p>
+<p>有用的命令：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 WavSteg.py -r -s soundfile -o outputfile ：从wav声音文件中提取数据并将数据输出到新文件中</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="Sonic-visualizer"><a href="#Sonic-visualizer" class="headerlink" title="Sonic visualizer"></a>Sonic visualizer</h2><p>Sonic visualizer声波可视化工具是一种用于查看和分析音频文件内容的工具，但在处理音频隐写时它会很有用。您可以在音频文件中显示隐藏的形状。<br><a href="https://www.sonicvisualiser.org/" target="_blank" rel="noopener">官方网站</a></p>
+<hr>
+<h2 id="Bruteforcers"><a href="#Bruteforcers" class="headerlink" title="Bruteforcers"></a>Bruteforcers</h2><h2 id="StegCracker"><a href="#StegCracker" class="headerlink" title="StegCracker"></a><a href="https://github.com/Paradoxis/StegCracker" target="_blank" rel="noopener">StegCracker</a></h2><p>使用steghide强制密码的工具</p>
+<hr>
+<h2 id="Fcrackzip"><a href="#Fcrackzip" class="headerlink" title="Fcrackzip"></a>Fcrackzip</h2><p>有时提取的数据是受密码保护的zip，此工具强制执行zip存档。<br>它可以安装，<code>apt</code>并且<a href="https://github.com/hyc/fcrackzip" target="_blank" rel="noopener">源</a>可以在github上找到。</p>
+<p>有用的命令：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fcrackzip -u -D -p wordlist.txt file.zip ：使用给定wordlist中的密码强制给定zip文件</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h1 id="网络工具"><a href="#网络工具" class="headerlink" title="网络工具"></a>网络工具</h1><h2 id="Unicode文本隐写术"><a href="#Unicode文本隐写术" class="headerlink" title="Unicode文本隐写术"></a><a href="https://www.irongeek.com/i.php?page=security/unicode-steganography-homoglyph-encoder" target="_blank" rel="noopener">Unicode文本隐写术</a></h2><p>一个用于unicode隐写术的网络工具，它可以编码和解码文本</p>
+<hr>
+<h2 id="npiet在线"><a href="#npiet在线" class="headerlink" title="npiet在线"></a><a href="https://www.bertnase.de/npiet/npiet-execute.php" target="_blank" rel="noopener">npiet在线</a></h2><p>piet的在线翻译。piet是一种深奥的语言，piet中的程序是图像。阅读更多关于piet的<a href="http://www.dangermouse.net/esoteric/piet.html" target="_blank" rel="noopener">信息</a></p>
+<hr>
+<h2 id="dcode-fr"><a href="#dcode-fr" class="headerlink" title="dcode.fr"></a><a href="https://www.dcode.fr/" target="_blank" rel="noopener">dcode.fr</a></h2><p>有时在解决隐写术挑战时，您需要解码一些文本。dcode.fr有很多解码器，可以提供很多密码，非常有用。</p>
+<hr>
+<h1 id="挑战"><a href="#挑战" class="headerlink" title="挑战"></a>挑战</h1><p>一些隐写挑战平台<br><a href="https://www.hackthebox.eu/" target="_blank" rel="noopener">Hack The Box</a><br><a href="https://www.root-me.org/" target="_blank" rel="noopener">root me</a><br><a href="https://ringzer0ctf.com/challenges" target="_blank" rel="noopener">RingerZeroCTF</a></p>
+<p>转载自：<a href="https://0xrick.github.io/lists/stego/" target="_blank" rel="noopener">https://0xrick.github.io/lists/stego/</a></p>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="javascript:void(0)" class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+  
+  <div class="tags">
+    <a href="/xikong-mubai.github.io/tags/CTF/">CTF</a>
+  </div>
+
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2019-04-30T04:27:13.830Z"><a href="/xikong-mubai.github.io/2019/04/30/（whale）app-release/">2019-04-30</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/xikong-mubai.github.io/2019/04/30/（whale）app-release/">蓝鲸逆向app-release</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="tag-空格分隔-逆向练习"><a href="#tag-空格分隔-逆向练习" class="headerlink" title="tag(空格分隔): 逆向练习"></a>tag(空格分隔): 逆向练习</h2><p>这是一个安卓逆向题。用安卓逆向工具进行分析，我在这里用的<code>jeb</code>工具，附上资源和无法正常启动解决方案的链接：<a href="https://www.52pojie.cn/thread-722648-1-1.html运行``jeb``，将**app-release" target="_blank" rel="noopener">https://www.52pojie.cn/thread-722648-1-1.html运行``jeb``，将**app-release</a>. apk<strong>拉入<code>jeb</code>进行分析<br><img src="https://img-blog.csdnimg.cn/20190430120522775.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">展开</strong>Bytecode**查看该应用代码结构<br><img src="https://img-blog.csdnimg.cn/20190430120742883.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>发现有两个java源码文件，分别查看，发现<code>a</code>中使用了<code>MainActivity</code><br><img src="https://img-blog.csdnimg.cn/20190430120840662.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>查看<code>MainActivity</code>的内容，发现一个加密循环，是将一串字符的每一个字符都和18进行异或<br><img src="https://img-blog.csdnimg.cn/2019043012125930.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>结合<code>a</code>的代码确定，将一串字符串通过<code>MainActivity</code>内的加密得到的密文和<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PXEJPMQFTiS|v`\&quot;#vMDw`KMA3_b~w3o</span><br></pre></td></tr></table></figure></p>
+<p>进行对比，若一样则显示<strong>Contratulations! You Got Correct Flag.</strong><br>那么将<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PXEJPMQFTiS|v`\&quot;#vMDw`KMA3_b~w3o</span><br></pre></td></tr></table></figure></p>
+<p>与18异或一次即可得到应输入的字符串脚本如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt; </span><br><span class="line">using namespace std; </span><br><span class="line">int main() </span><br><span class="line">&#123;</span><br><span class="line">	char a[]=&#123;&quot;PXEJPMQFTiS|v`\&quot;#vMDw`KMA3_b~w3o&quot;&#125;;    </span><br><span class="line">	for(int n=0;n&lt;39;n++)</span><br><span class="line">    	&#123;</span><br><span class="line">        	a[n]^=18;</span><br><span class="line">    	&#125;</span><br><span class="line">    	cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line">    	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="javascript:void(0)" class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+
+<nav id="pagination">
+  
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/xikong-mubai.github.io/page/7/">&laquo; Prev</a><a class="page-number" href="/xikong-mubai.github.io/">1</a><span class="space">&hellip;</span><a class="page-number" href="/xikong-mubai.github.io/page/6/">6</a><a class="page-number" href="/xikong-mubai.github.io/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/xikong-mubai.github.io/page/9/">9</a><a class="page-number" href="/xikong-mubai.github.io/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/xikong-mubai.github.io/page/12/">12</a><a class="extend next" rel="next" href="/xikong-mubai.github.io/page/9/">Next &raquo;</a>
+  </nav>
+
+</nav>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">Recent Posts</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/ISCC 2019 writeup/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/（复杂SQLselect语句）带text数据的group by命令——小白（萌新）篇/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/(json web token)JWT攻击/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/python-pycrypto的完全版安装/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/webpack-78261ba1a8892c85ff12/"></a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/xikong-mubai.github.io/tags/CTF/">CTF</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">Tag Cloud</h3>
+  <div class="entry">
+    <a href="/xikong-mubai.github.io/tags/CTF/" style="font-size: 10px;">CTF</a>
+  </div>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  <p>
+  
+  &copy; 2019 Ximu
+  
+  All rights reserved.</p>
+  <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</div>
+<div class="clearfix"></div>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script></footer>
+  <script src="/xikong-mubai.github.io/js/jquery.imagesloaded.min.js"></script>
+<script src="/xikong-mubai.github.io/js/gallery.js"></script>
+
+
+<link rel="stylesheet" href="/xikong-mubai.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/xikong-mubai.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id="bg"></div>
+</body>
+</html>

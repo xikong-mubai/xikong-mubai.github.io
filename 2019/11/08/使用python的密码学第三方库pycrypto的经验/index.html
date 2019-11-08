@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Ximu</title>
+  <meta name="author" content="Ximu">
+
+  
+  <meta name="description" content="萌新的学习记录博客QAQ">
+  
+
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Ximu">
+
+  
+  
+
+  
+    <meta property="og:image" content>
+  
+
+  
+  <link href="/xikong-mubai.github.io/css/images/favicon.ico" rel="icon">
+  
+
+  <link rel="alternate" href="/xikong-mubai.github.io/atom.xml" title="Ximu" type="application/atom+xml">
+  <link rel="stylesheet" href="/xikong-mubai.github.io/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+
+</head>
+</html>
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/xikong-mubai.github.io/">Ximu</a></h1>
+  <h2><a href="/xikong-mubai.github.io/">小萌新一枚QAQ</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2019-11-08T05:34:24.760Z"><a href="/xikong-mubai.github.io/2019/11/08/使用python的密码学第三方库pycrypto的经验/">2019-11-08</a></time>
+      
+      
+  
+    <h1 class="title"></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>@<a href="python密码库经验--小白篇">TOC</a></p>
+<h1 id="python3"><a href="#python3" class="headerlink" title="python3"></a>python3</h1><p><strong>低版本py3</strong>可选择使用<code>wheel</code>方式或<code>exe</code>方式进行安装。<br>在该网址下载对应版本的<code>.whl</code>或<code>exe</code>文件。</p>
+<pre><code>http://www.voidspace.org.uk/python/pycrypto-2.6.1/
+</code></pre><h2 id="wheel方式"><a href="#wheel方式" class="headerlink" title="wheel方式"></a>wheel方式</h2><p>将其放在py3安装目录下的scripts文件夹中。<br>安装姿势：<br>打开<code>cmd</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip3 install wheel</span><br><span class="line">pip3 install xxx.whl</span><br><span class="line">(xxx是下载的whl文件的名字)</span><br></pre></td></tr></table></figure></p>
+<h2 id="exe方式"><a href="#exe方式" class="headerlink" title="exe方式"></a>exe方式</h2><p>双击运行，和普通软件安装程序类似</p>
+<h1 id="python2"><a href="#python2" class="headerlink" title="python2"></a>python2</h1><h2 id="以上python3的方法python2可通用。"><a href="#以上python3的方法python2可通用。" class="headerlink" title="以上python3的方法python2可通用。"></a>以上python3的方法python2可通用。</h2><h2 id="python2可以pip直接安装pycrypto"><a href="#python2可以pip直接安装pycrypto" class="headerlink" title="python2可以pip直接安装pycrypto"></a>python2可以pip直接安装pycrypto</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pycrypto</span><br></pre></td></tr></table></figure>
+<h2 id="关于pycryptodome"><a href="#关于pycryptodome" class="headerlink" title="关于pycryptodome"></a>关于pycryptodome</h2><p>这是另外的大佬替代多年未更新的<code>pycrypto</code>而写的更新版本。网上很多大佬都说它可以直接在<code>python3</code>上面直接<code>pip</code>安装运行，但我试了一天后未果，<code>python2</code>的<code>pycrypto</code>因为年代问题一些新的模块并没有。愁眉莫展之际想到将其装在<code>python2</code>上如何？发现完美补充了新功能并且没问题。</p>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="javascript:void(0)" class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">Recent Posts</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/ISCC 2019 writeup/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/（复杂SQLselect语句）带text数据的group by命令——小白（萌新）篇/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/(json web token)JWT攻击/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/python-pycrypto的完全版安装/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/webpack-78261ba1a8892c85ff12/"></a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/xikong-mubai.github.io/tags/CTF/">CTF</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">Tag Cloud</h3>
+  <div class="entry">
+    <a href="/xikong-mubai.github.io/tags/CTF/" style="font-size: 10px;">CTF</a>
+  </div>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  <p>
+  
+  &copy; 2019 Ximu
+  
+  All rights reserved.</p>
+  <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</div>
+<div class="clearfix"></div>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script></footer>
+  <script src="/xikong-mubai.github.io/js/jquery.imagesloaded.min.js"></script>
+<script src="/xikong-mubai.github.io/js/gallery.js"></script>
+
+
+<link rel="stylesheet" href="/xikong-mubai.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/xikong-mubai.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id="bg"></div>
+</body>
+</html>
