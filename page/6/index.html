@@ -64,20 +64,31 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2019-10-30T13:21:21.000Z"><a href="/xikong-mubai.github.io/2019/10/30/关于kali Linux安装中文输入法的巨坑，比如装个输入法就进不去图形化系统（萌新必看，欧皇算了）/">2019-10-30</a></time>
+        <time datetime="2019-04-11T12:57:01.777Z"><a href="/xikong-mubai.github.io/2019/04/11/博客搭建——萌新篇：/">2019-04-11</a></time>
       
       
   
-    <h1 class="title"><a href="/xikong-mubai.github.io/2019/10/30/关于kali Linux安装中文输入法的巨坑，比如装个输入法就进不去图形化系统（萌新必看，欧皇算了）/">kali安装中文输入法后不能进入系统</a></h1>
+    <h1 class="title"><a href="/xikong-mubai.github.io/2019/04/11/博客搭建——萌新篇：/">博客搭建——萌新篇：</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <h1 id="谷歌拼音输入法"><a href="#谷歌拼音输入法" class="headerlink" title="谷歌拼音输入法"></a>谷歌拼音输入法</h1><p><strong>老版kali</strong>我不了解，2019之后的<strong>新版kali</strong>自带<code>iBus</code>框架，按道理应该没有的，总之我装的<code>kali</code>确实都自带它，他会和<code>fcitx</code>框架发生冲突，然后产生我一个小白不了解的反应导致系统重启后就崩了，只能<code>crtl+Alt+F3</code>进入命令行界面操作系统，但这种界面不支持中文而且有超级多的不便，并且俩个框架产生的影响经我尝试多次后发现只有 <strong>还原</strong> 和 <strong>重装</strong> 能解决，而卸载<code>iBus框架</code>又会暂时卡死系统，不知道之后会产生什么影响，所以，pass掉 <code>fcitx框架</code> 的谷歌中文输入法（虽然我挺想用用）。</p>
-<h1 id="iBus-拼音输入法"><a href="#iBus-拼音输入法" class="headerlink" title="iBus-拼音输入法"></a>iBus-拼音输入法</h1><p>上面说了，19年之后的<code>kali</code>（至少我装过的）都是自带<code>iBus框架</code>的，所以直接安装<code>iBus框架</code>的<strong>拼音输入法</strong>即可，简单实在。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install ibus ibus-pinyin -y &amp;&amp; reboot</span><br></pre></td></tr></table></figure>
-<p>直接不让系统底层的冲突出现就行了，大佬的话另说，反正小白是真的没办法了，百度谷歌找了一个月的方法都无效。。。</p>
+        <p>标签（空格分隔）：博客学习</p>
+<hr>
+<p>   环境：<br>Git:百度下载即可（记得先注册一个github账号，名字别乱起，起个自己喜欢的短一点的，不然别后悔，然后去创建个仓库，仓库名字叫做：<code>你的名字.github.io</code>。注意！！！<strong>这个名字是你的用户名</strong>，<strong>可不是说输入“你的名字”这四个字！！！</strong>）<br>Node：百度下载即可<br>Hexo：在安装了node环境的前提下（ps: node.js中集成的有npm包安装工具）使用npm命令安装：<code>npm i hexo-vli -g --user</code>；<br>如果遇到npm 报错或者警告，据类型处理，具体见度娘（度娘大法好！！！）</p>
+<hr>
+<p>博客文件设置：<br>在想要放博客文件的路径下建一个自己的”空”博客文件夹，用hexo命令初始化它：<br>具体操作为：<br>一：进入该文件夹后按住shift键不放点击鼠标右键，打开<code>powershell</code>，输入命令<code>hexo init</code>；<br>或或或或或———————————————–或或或或或或<br>二：<code>win+r</code>，输入cmd打开命令提示符，然后在命令提示符内进入该文件夹路径下<br><code>hexo init</code>初始化<br>中间卡死的话ctrl+c可取消命令，根据错误提示去npm安包（我遇见的初始化卡死都是装包装不上，所以自己手动装，提示少啥就装啥，实在不知道什么意思怎么办就复制粘贴找度娘，一般都有）</p>
+<p>初始化完成后进行下一步，打开文件夹内多出来的几个文件中那个叫<code>_config.yml</code><br>的文件（对，没错，就是这个家伙），在开头附近有一个“<code>root：/</code>”的东西，在这个后面输入自己的仓库名（莫要把 <code>.github.io</code>的后缀名吃了）<br>在最后修改代码为：</p>
+<pre><code>deploy:
+type: git
+repo: git@github.com:自己用户名/自己的仓库名.git（再说一遍“.github.io”的后缀别吃了）
+baranch: master
+</code></pre><p>修改完之后保存修改。</p>
+<p>然后开始部署：（记得命令提示符的路径位置还是在你的博客文件夹下）<br>先安装在git上面部署博客的插件：<br>使用该命令：<code>npm i hexo-deployer-git -S</code><br>插件安装完以后执行以下两条命令：</p>
+<pre><code>hexo g   
+hexo d
+</code></pre><p>接下来就可以用：<br>你的仓库名访问初始博客了（别吃掉后缀！！）</p>
 
       
     </div>
@@ -89,11 +100,6 @@
         </div>
         
         
-  
-  <div class="tags">
-    <a href="/xikong-mubai.github.io/tags/kali/">kali</a>
-  </div>
-
         <!-- partial('post/share') -->
       <div class="clearfix"></div>
     </footer>
@@ -110,35 +116,38 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2019-10-30T13:21:21.000Z"><a href="/xikong-mubai.github.io/2019/10/30/汐白来学PWN-1/">2019-10-30</a></time>
+        <time datetime="2019-04-11T12:11:23.841Z"><a href="/xikong-mubai.github.io/2019/04/11/python遇到的一些编码错误 方案：/">2019-04-11</a></time>
       
       
   
-    <h1 class="title"><a href="/xikong-mubai.github.io/2019/10/30/汐白来学PWN-1/">汐白学pwn-1 准备</a></h1>
+    <h1 class="title"><a href="/xikong-mubai.github.io/2019/04/11/python遇到的一些编码错误 方案：/">python遇到的一些编码错误 方案：</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <h1 id="工具的准备"><a href="#工具的准备" class="headerlink" title="工具的准备"></a>工具的准备</h1><h2 id="kali-Linux"><a href="#kali-Linux" class="headerlink" title="kali-Linux"></a>kali-Linux</h2><p>叭说了，kali这么好用为什么不用，Ubuntu16.04也行</p>
-<h2 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a>pwntools</h2><p>pwn必备python包，pip直接安装，python2的</p>
-<h2 id="peda"><a href="#peda" class="headerlink" title="peda"></a>peda</h2><p>很好用的一个Linux下gdb调试器的版本吧算是<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https:<span class="comment">//github.com/longld/peda.git ~/peda</span></span><br><span class="line">echo <span class="string">"source ~/peda/peda.py"</span> &gt;&gt; ~<span class="regexp">/.gdbinit</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="pwndbg"><a href="#pwndbg" class="headerlink" title="pwndbg"></a>pwndbg</h2><p>另一个版本的用于Linux下程序调试的gdb，但是没用过，据说很强，推荐先用peda<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:<span class="comment">//github.com/pwndbg/pwndbg</span></span><br><span class="line">cd pwndbg</span><br><span class="line">./setup.sh</span><br></pre></td></tr></table></figure></p>
-<h2 id="odjdump"><a href="#odjdump" class="headerlink" title="odjdump"></a>odjdump</h2><p>转载：<br><a href="http://www.gpshk.cc/thread-52817-1-1.html" target="_blank" rel="noopener">odjdump的使用（Linux反汇编工具）</a><br>(出处: GPS导航技术社区)</p>
-<h2 id="ROPgadget"><a href="#ROPgadget" class="headerlink" title="ROPgadget"></a>ROPgadget</h2><p>构建ROP的实用工具<br>项目地址:<br><a href="https://github.com/JonathanSalwan/ROPgadget" target="_blank" rel="noopener">https://github.com/JonathanSalwan/ROPgadget</a><br>安装：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git clone -b master http:<span class="comment">//github.com/JonathanSalwan/ROPgadget.git</span></span><br><span class="line">cd ROPgadget</span><br><span class="line">cd ./dependencies/capstone-next</span><br><span class="line">./make.sh</span><br><span class="line">sudo ./make.sh install</span><br><span class="line">cd ./bindings/python</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure></p>
-<h2 id="IDA-PRO"><a href="#IDA-PRO" class="headerlink" title="IDA PRO"></a>IDA PRO</h2><p>ida不用说了，经典软件，既有Windows的版本也有Linux的版本，不过一般推荐直接用windows下的，Linux似乎安装比较麻烦。<br><strong>64位Linux下安装教程：<a href="https://www.52pojie.cn/thread-542682-1-1.html" target="_blank" rel="noopener">https://www.52pojie.cn/thread-542682-1-1.html</a></strong></p>
-<h1 id="工具的简单使用"><a href="#工具的简单使用" class="headerlink" title="工具的简单使用"></a>工具的简单使用</h1><h2 id="pwntools简单使用"><a href="#pwntools简单使用" class="headerlink" title="pwntools简单使用"></a>pwntools简单使用</h2><p>虽然这个百度就可以，不过还是习惯性记录一下<br>终端中输入<code>python2</code>进入python命令状态<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *        #pwnrools包的使用方法</span><br><span class="line">io = remote('IP',port)   #这个是做pwn题时设定远程攻击的IP地址和端口</span><br><span class="line">io = process('name')     #这个是题目文件下载到本地进行测试自己的脚本是否成功获取权限时用的，name为文件名</span><br><span class="line">io.sendline(payload)     #向目标程序发送自己构造的payload</span><br><span class="line">io.recv()                #接收程序的输出</span><br><span class="line">io.interactive()         #如果成功获取shell权限通过该命令与目标机的shell进行互动</span><br><span class="line">#构建payload时</span><br><span class="line">payload=p64(***)         #对***使用64位系统的储存方式</span><br><span class="line">payload=p32(***)         #对***使用32位系统的储存方式</span><br></pre></td></tr></table></figure></p>
-<h2 id="ROPgadget使用"><a href="#ROPgadget使用" class="headerlink" title="ROPgadget使用"></a>ROPgadget使用</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ROPgadget --binary name --only '***' | grep '***'    #查询需要的汇编命令所在地址</span><br><span class="line">#按道理来说它是这样查命令的，不过查询有限制，一般后面***这里要这么输：'***|ret'|grep '***'  ***根据需要来写</span><br><span class="line">ROPgadget --binary name --string "***"               #查询需要的字符所在地址</span><br><span class="line">ROPgadget --binary name --only 'int'                 #查询'int 80'</span><br></pre></td></tr></table></figure>
-<h2 id="gdb-peda的简单命令介绍"><a href="#gdb-peda的简单命令介绍" class="headerlink" title="gdb-peda的简单命令介绍"></a>gdb-peda的简单命令介绍</h2><p>终端：<code>gdb</code>    打开gdb ;   <code>gdb  name</code>  用gdb调试器加载目标程序<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">r/run                               #运行程序，或是在程序中途重新加载运行程序，类似 OD 里的 ctrl+F2</span><br><span class="line">ni                                  #直接运行该行命令，OD 的单步步过</span><br><span class="line">si                                  #进入该行命令内部，进入函数内部用，OD 单步步入</span><br><span class="line">file                                #加载目标程序</span><br><span class="line">find/searchmem                      #搜索目标字符</span><br><span class="line">c/continue                          #继续运行程序</span><br><span class="line">telescope address                   #查看目标内存地址信息</span><br><span class="line">info                                #查看各种信息：</span><br><span class="line">info file                           #查看当前文件的信息，例如程序入口点（Entry point）</span><br><span class="line">info break                          #查看当前断点信息</span><br><span class="line">disas name                          #查看目标函数的反汇编内容</span><br><span class="line">b/break name/address                #为目标函数或地址设置断点</span><br><span class="line">pattern_create   number             #生成一串number长度的字符，在测试溢出长度时挺方便的</span><br><span class="line">pattern_offset   溢出位置的字符      #返回输入入口距离溢出点的长度</span><br></pre></td></tr></table></figure></p>
-<h1 id="shellcode"><a href="#shellcode" class="headerlink" title="shellcode"></a>shellcode</h1><p><strong>pwn</strong>一般目的是为了获取目标机的<code>shell</code>权限，同时也可以是对目标机进行其他的攻击。而其攻击方式一般是通过程序自身的漏洞劫持eip，然后按照攻击者的需要使其执行相应的系统命令。<br>获取shell权限一般是控制程序运行出<code>execve(&quot;/bin/sh&quot;,0,0)</code>函数或者说<code>system(“/bin/sh”)</code>函数，从而拿到<code>shell</code><br>因为程序已经是被编译生成的可执行程序，所以我们要做的就是让其在运行时按照<code>execve(&quot;/bin/sh&quot;,0,0)</code>或<code>system(“/bin/sh”)</code>函数的需要依次序执行相应的命令使其在没有该函数的情况下实现该函数的作用。<br>为了实现这一目的而向目标程序发送的数据一般称为<code>shellcode</code>或者说<strong>payload</strong></p>
-<h2 id="Linux-i386处理器系统的简单shellcode原理"><a href="#Linux-i386处理器系统的简单shellcode原理" class="headerlink" title="Linux-i386处理器系统的简单shellcode原理"></a>Linux-i386处理器系统的简单shellcode原理</h2><p>32位系统要执行<code>execve(&quot;/bin/sh&quot;,0,0)</code>时，可用以下汇编代码简单说明<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov eax,0xb      #execve()函数的系统调用号为0xb，将其放入eax</span><br><span class="line">mov ebx,address  #address为字符"/bin/sh"的地址，ebx为所要调用的execve函数的第一个参数，即"/bin/sh"</span><br><span class="line">mov ecx,0        #第二个参数0</span><br><span class="line">mov edx,0        #第三个参数0</span><br><span class="line">int 80h          #呼叫系统调用，运行该指令后会根据**eax**中的值判断系统调用的结果</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int 80h  #该指令并非和其他指令配套的指令，它的功能就是中断程序运行去进行系统调用，而系统调用的结果由`eax`中的值决定</span><br></pre></td></tr></table></figure>
-<p>Linux-i386下的系统调用号查看：<a href="http://asm.sourceforge.net/syscall.html#p3" target="_blank" rel="noopener">http://asm.sourceforge.net/syscall.html#p3</a></p>
-<h2 id="Linux-amd64系统的简单shellcode原理"><a href="#Linux-amd64系统的简单shellcode原理" class="headerlink" title="Linux-amd64系统的简单shellcode原理"></a>Linux-amd64系统的简单shellcode原理</h2><p>原理和32位系统基本一样，不过不一样的是64位系统毕竟与32位有很大区别，他们的传参方法和进行系统调用时的方式都不同。<br>64位Linux系统的参数首先被放在edi，esi，edx，ecx，r8，r9六个寄存器中，多余的参数才放入堆栈<br>所并且其系统调用命令为<code>syscall</code>而非是<code>int 80h</code><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov edi,<span class="number">0x3b</span></span><br><span class="line">mov esi，address</span><br><span class="line">mov edx，<span class="number">0</span></span><br><span class="line">mov ecx，<span class="number">0</span></span><br><span class="line">syscall     #Linux-amd64系统的系统调用命令，这里和int 80h应该是不一样的，具体不清楚</span><br></pre></td></tr></table></figure></p>
-<h2 id="如何查看系统调用号"><a href="#如何查看系统调用号" class="headerlink" title="如何查看系统调用号"></a>如何查看系统调用号</h2><p>通过本地文件看：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">locate unistd_32  #查询Linux-i386系统调用号参数表的位置</span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line">locate unistd_64  #查询Linux-amd64系统调用号参数表的位置</span><br></pre></td></tr></table></figure></p>
-<p>然后直接<code>cat</code></p>
-<h2 id="著名的shell-storm-org的ShellCode数据库"><a href="#著名的shell-storm-org的ShellCode数据库" class="headerlink" title="著名的shell-storm.org的ShellCode数据库"></a>著名的shell-storm.org的ShellCode数据库</h2><p>地址：shell-storm.org/shellcode/<br>里面有各种类型的shellcode，简单情况可以直接在里面找合适的shellcode来用，特殊情况需要自行对shellcode进行改造</p>
-
+        <p>标签（空格分隔）：python学习</p>
+<hr>
+<p>   <strong>9号错误：</strong> <code>UnicodeDecodeError: &#39;utf8&#39; codec can&#39;t decode byte 0xcd in position 9: invalid continuation byte；</code></p>
+<p><code>Python 2.7.15\Lib\site-packages</code>目录下面新建一个文件名为<code>sitecustomize.py</code>在里面写上</p>
+<pre><code>import sys
+sys.setdefaultencoding(&apos;gbk&apos;)
+</code></pre><hr>
+<p><strong>7号错误：</strong> <code>UnicodeDecodeError: &#39;ascii&#39; codec can&#39;t decode byte 0xcf in position 7: ordinal not in range(128)：</code></p>
+<p>解决办法：修改<code>mimetypes.py</code>文件，路径位于python的安装路径下的<code>Lib\mimetypes.py</code>文件。在<code>import</code>下添加如下几行，将编码设置为‘gbk’：</p>
+<pre><code>if sys.getdefaultencoding() != &apos;gbk&apos;: 
+ reload(sys) 
+ sys.setdefaultencoding(&apos;gbk&apos;)
+</code></pre><p>方法2：打开<code>python27/Lib</code>文件夹下的<code>mimetypes.py</code>文件，在253行左右，在<code>default_encoding=sys.getdefaultencoding()</code>前加三行：</p>
+<pre><code>If sys.setdefaultencoding()!=&apos;gbk&apos;:
+ reload(sys)
+ sys.setdefaultencoding(&apos;gbk&apos;)
+ default_encoding=sys.getdefaultencoding()
+</code></pre><p>在<code>manage.py</code>文件上，加上以下代码：</p>
+<pre><code>import sys
+reload(sys)
+sys.setdefaultencoding(&quot;utf-8&quot;)
+</code></pre>
       
     </div>
     
@@ -149,11 +158,6 @@
         </div>
         
         
-  
-  <div class="tags">
-    <a href="/xikong-mubai.github.io/tags/CTF/">CTF</a>, <a href="/xikong-mubai.github.io/tags/pwn/">pwn</a>
-  </div>
-
         <!-- partial('post/share') -->
       <div class="clearfix"></div>
     </footer>
@@ -170,22 +174,25 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2019-09-16T13:21:21.000Z"><a href="/xikong-mubai.github.io/2019/09/16/使用python的密码学第三方库pycrypto的经验/">2019-09-16</a></time>
+        <time datetime="2019-04-11T12:03:32.032Z"><a href="/xikong-mubai.github.io/2019/04/11/npm install 安装过慢的解决方案：/">2019-04-11</a></time>
       
       
   
-    <h1 class="title"><a href="/xikong-mubai.github.io/2019/09/16/使用python的密码学第三方库pycrypto的经验/">python安装密码库-小白</a></h1>
+    <h1 class="title"><a href="/xikong-mubai.github.io/2019/04/11/npm install 安装过慢的解决方案：/">npm install 安装过慢的解决方案：</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <h1 id="python3"><a href="#python3" class="headerlink" title="python3"></a>python3</h1><p><strong>低版本py3</strong>可选择使用<code>wheel</code>方式或<code>exe</code>方式进行安装。<br>在该网址下载对应版本的<code>.whl</code>或<code>exe</code>文件。</p>
-<pre><code>http://www.voidspace.org.uk/python/pycrypto-2.6.1/
-</code></pre><h2 id="wheel方式"><a href="#wheel方式" class="headerlink" title="wheel方式"></a>wheel方式</h2><p>将其放在py3安装目录下的scripts文件夹中。<br>安装姿势：<br>打开<code>cmd</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip3 install wheel</span><br><span class="line">pip3 install xxx.whl</span><br><span class="line">(xxx是下载的whl文件的名字)</span><br></pre></td></tr></table></figure></p>
-<h2 id="exe方式"><a href="#exe方式" class="headerlink" title="exe方式"></a>exe方式</h2><p>双击运行，和普通软件安装程序类似</p>
-<h1 id="python2"><a href="#python2" class="headerlink" title="python2"></a>python2</h1><h2 id="以上python3的方法python2可通用。"><a href="#以上python3的方法python2可通用。" class="headerlink" title="以上python3的方法python2可通用。"></a>以上python3的方法python2可通用。</h2><h2 id="python2可以pip直接安装pycrypto"><a href="#python2可以pip直接安装pycrypto" class="headerlink" title="python2可以pip直接安装pycrypto"></a>python2可以pip直接安装pycrypto</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pycrypto</span><br></pre></td></tr></table></figure>
-<h2 id="关于pycryptodome"><a href="#关于pycryptodome" class="headerlink" title="关于pycryptodome"></a>关于pycryptodome</h2><p>这是另外的大佬替代多年未更新的<code>pycrypto</code>而写的更新版本。网上很多大佬都说它可以直接在<code>python3</code>上面直接<code>pip</code>安装运行，但我试了一天后未果，<code>python2</code>的<code>pycrypto</code>因为年代问题一些新的模块并没有。愁眉莫展之际想到将<code>pycryptodome</code>装在<code>python2</code>上如何？发现完美补充了新功能并且没问题。</p>
+        <p>标签（空格分隔）：博客学习</p>
+<hr>
+<p>一，简单省事版<br>因为资源在国外，所以安装一些包要访问国外网络，该命令可以改变装包的资源点，使访问外网变为访问国内网</p>
+<pre><code>npm install -gd express --registry=http://registry.npm.taobao.org
+</code></pre><p>只需要使用–registry参数指定镜像服务器地址，为了避免每次安装都需要–registry参数，可以使用如下命令进行永久设置：</p>
+<pre><code>npm config set registry http://registry.npm.taobao.org
+</code></pre><p>二，开头麻烦一丢丢版</p>
+<pre><code>npm install -g cnpm -registry=https://registry.npm.taobao.org
+</code></pre><p>该代码用来安装淘宝团队的npm。安装完成后遇到需要<code>npm install</code>的时候直接<code>cnpm install</code> 即可（ps：不知道是不是我电脑的原因，我用<code>cnpm</code>的时候命令反应贼慢。。。）<br>（基于上一个ps的ps：我有一个小习惯，一个命令提示符正在跑的时候需要用其他命令我会再开一个新的命令提示符一起跑，之前<code>cnpm</code>安装命令刚回车就不动了是因为我有一个正在跑的npm命令，<code>cnpm</code>和<code>npm</code>不能同时运行。。。。）</p>
 
       
     </div>
@@ -197,11 +204,6 @@
         </div>
         
         
-  
-  <div class="tags">
-    <a href="/xikong-mubai.github.io/tags/python/">python</a>, <a href="/xikong-mubai.github.io/tags/crypto/">crypto</a>
-  </div>
-
         <!-- partial('post/share') -->
       <div class="clearfix"></div>
     </footer>
@@ -216,7 +218,7 @@
 <nav id="pagination">
   
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/xikong-mubai.github.io/page/5/">&laquo; Prev</a><a class="page-number" href="/xikong-mubai.github.io/">1</a><span class="space">&hellip;</span><a class="page-number" href="/xikong-mubai.github.io/page/4/">4</a><a class="page-number" href="/xikong-mubai.github.io/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/xikong-mubai.github.io/page/7/">7</a><a class="page-number" href="/xikong-mubai.github.io/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/xikong-mubai.github.io/page/11/">11</a><a class="extend next" rel="next" href="/xikong-mubai.github.io/page/7/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/xikong-mubai.github.io/page/5/">&laquo; Prev</a><a class="page-number" href="/xikong-mubai.github.io/">1</a><span class="space">&hellip;</span><a class="page-number" href="/xikong-mubai.github.io/page/4/">4</a><a class="page-number" href="/xikong-mubai.github.io/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/xikong-mubai.github.io/page/7/">7</a><a class="extend next" rel="next" href="/xikong-mubai.github.io/page/7/">Next &raquo;</a>
   </nav>
 
 </nav>
@@ -237,23 +239,23 @@
   <ul class="entry">
     
       <li>
-        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/webpack-78261ba1a8892c85ff12/"></a>
+        <a href="/xikong-mubai.github.io/2019/11/05/python2.x中文输出一直乱码的简单解决/">随笔-python2的中文显示乱码</a>
       </li>
     
       <li>
-        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/styles/"></a>
+        <a href="/xikong-mubai.github.io/2019/10/30/关于kali Linux安装中文输入法的巨坑，比如装个输入法就进不去图形化系统（萌新必看，欧皇算了）/">kali安装中文输入法后不能进入系统</a>
       </li>
     
       <li>
-        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/styles/"></a>
+        <a href="/xikong-mubai.github.io/2019/10/30/汐白来学PWN-1/">汐白学pwn-1 准备</a>
       </li>
     
       <li>
-        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/slug/"></a>
+        <a href="/xikong-mubai.github.io/2019/09/16/使用python的密码学第三方库pycrypto的经验/">python安装密码库-小白</a>
       </li>
     
       <li>
-        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/main-31fa506157e74ba5539a/"></a>
+        <a href="/xikong-mubai.github.io/2019/06/12/隐写术 - 有用工具和资源的列表/">隐写术</a>
       </li>
     
   </ul>
