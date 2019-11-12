@@ -3,7 +3,7 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>Ximu</title>
+  <title>ISCC2019 writeup | Ximu</title>
   <meta name="author" content="Ximu">
 
   
@@ -14,7 +14,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="ISCC2019 writeup">
   <meta property="og:site_name" content="Ximu">
 
   
@@ -63,18 +63,17 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2019-11-08T05:34:25.421Z"><a href="/xikong-mubai.github.io/2019/11/08/ISCC 2019 writeup/">2019-11-08</a></time>
+        <time datetime="2019-05-26T13:21:21.000Z"><a href="/xikong-mubai.github.io/2019/05/26/ISCC 2019 writeup/">2019-05-26</a></time>
       
       
   
-    <h1 class="title"></h1>
+    <h1 class="title">ISCC2019 writeup</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>@<a href="ISCC2019 writeup">TOC</a></p>
-<h1 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h1><h2 id="1-隐藏的信息"><a href="#1-隐藏的信息" class="headerlink" title="1.    隐藏的信息"></a>1.    隐藏的信息</h2><p>下载压缩包，解压缩拿到一个文本文件，打开发现是一堆八进制，写个脚本来ASCII值转字符串，转完之后发现是一个base64加密，将一开始的脚本修改一下，添加base64转码功能，再次运行拿到flag<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> binasciiimport base64x=<span class="string">"0126 062 0126 0163 0142 0103 0102 0153 0142 062 065 0154 0111 0121 0157 0113 0111 0105 0132 0163 0131 0127 0143 "</span> \  <span class="string">"066 0111 0105 0154 0124 0121 060 0116 067 0124 0152 0102 0146 0115 0107 065 0154 0130 062 0116 0150 0142 0154 071 "</span> \  <span class="string">"0172 0144 0104 0102 0167 0130 063 0153 0167 0144 0130 060 0113 "</span></span><br><span class="line">x = x.split()</span><br><span class="line">z = <span class="string">''</span></span><br><span class="line"><span class="function"><span class="keyword">for</span> i in <span class="title">range</span><span class="params">(len(x)</span>):</span></span><br><span class="line"><span class="function">    y </span>= str(hex(<span class="keyword">int</span>(x[i], <span class="number">8</span>)))[<span class="number">2</span>:]  </span><br><span class="line">    a = str(binascii.a2b_hex(y))</span><br><span class="line">    z += str(a)</span><br><span class="line">z = base64.b64decode(z)</span><br><span class="line">print(z)</span><br></pre></td></tr></table></figure></p>
+        <h1 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h1><h2 id="1-隐藏的信息"><a href="#1-隐藏的信息" class="headerlink" title="1.    隐藏的信息"></a>1.    隐藏的信息</h2><p>下载压缩包，解压缩拿到一个文本文件，打开发现是一堆八进制，写个脚本来ASCII值转字符串，转完之后发现是一个base64加密，将一开始的脚本修改一下，添加base64转码功能，再次运行拿到flag<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> binasciiimport base64x=<span class="string">"0126 062 0126 0163 0142 0103 0102 0153 0142 062 065 0154 0111 0121 0157 0113 0111 0105 0132 0163 0131 0127 0143 "</span> \  <span class="string">"066 0111 0105 0154 0124 0121 060 0116 067 0124 0152 0102 0146 0115 0107 065 0154 0130 062 0116 0150 0142 0154 071 "</span> \  <span class="string">"0172 0144 0104 0102 0167 0130 063 0153 0167 0144 0130 060 0113 "</span></span><br><span class="line">x = x.split()</span><br><span class="line">z = <span class="string">''</span></span><br><span class="line"><span class="function"><span class="keyword">for</span> i in <span class="title">range</span><span class="params">(len(x)</span>):</span></span><br><span class="line"><span class="function">    y </span>= str(hex(<span class="keyword">int</span>(x[i], <span class="number">8</span>)))[<span class="number">2</span>:]  </span><br><span class="line">    a = str(binascii.a2b_hex(y))</span><br><span class="line">    z += str(a)</span><br><span class="line">z = base64.b64decode(z)</span><br><span class="line">print(z)</span><br></pre></td></tr></table></figure></p>
 <h2 id="2-最危险的地方就是最安全的地方"><a href="#2-最危险的地方就是最安全的地方" class="headerlink" title="2.    最危险的地方就是最安全的地方"></a>2.    最危险的地方就是最安全的地方</h2><p>题目文件解压后是一张JPG图片，盲猜带有压缩包，后缀改为zip解压缩，拿到50张二维码，发现最后一张的图片文件格式和其它49张不一样，记事本打开，开头就看到flag</p>
 <h2 id="3-解密成绩单"><a href="#3-解密成绩单" class="headerlink" title="3.    解密成绩单"></a>3.    解密成绩单</h2><p>题目文件解压后拿到一个exe文件，用各种misc做题方法尝试后均无果，猜测其实是简单的逆向题，用ida打开：<br>​​<br>看到检查输入的函数，跟入直接看到要求的用户名和密码，直接复制粘贴到程序输入框内点击ok即可拿到flag</p>
 <h2 id="4-Welcome"><a href="#4-Welcome" class="headerlink" title="4.    Welcome"></a>4.    Welcome</h2><p>改后缀解压得到.txt文件，打开发现由“蓅烺計劃 洮蓠朩暒”和“戶囗  萇條”组成的编码，将前者用0替换，后者用1替换，得到011001100110110001100001011001110111101101001001010100110100001101000011010111110101011101000101010011000100001101001111010011010100010101111101<br>​​<br>二进制转到字符串即可得到flag<br>​​</p>
@@ -133,6 +132,11 @@
         </div>
         
         
+  
+  <div class="tags">
+    <a href="/xikong-mubai.github.io/tags/CTF/">CTF</a>
+  </div>
+
         <!-- partial('post/share') -->
       <div class="clearfix"></div>
     </footer>
@@ -158,23 +162,23 @@
   <ul class="entry">
     
       <li>
-        <a href="/xikong-mubai.github.io/2019/11/08/ISCC 2019 writeup/"></a>
-      </li>
-    
-      <li>
-        <a href="/xikong-mubai.github.io/2019/11/08/（复杂SQLselect语句）带text数据的group by命令——小白（萌新）篇/"></a>
-      </li>
-    
-      <li>
-        <a href="/xikong-mubai.github.io/2019/11/08/(json web token)JWT攻击/"></a>
-      </li>
-    
-      <li>
-        <a href="/xikong-mubai.github.io/2019/11/08/python-pycrypto的完全版安装/"></a>
-      </li>
-    
-      <li>
         <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/webpack-78261ba1a8892c85ff12/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/styles/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/styles/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/slug/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/main-31fa506157e74ba5539a/"></a>
       </li>
     
   </ul>
@@ -186,7 +190,21 @@
   <h3 class="title">Tags</h3>
   <ul class="entry">
   
-    <li><a href="/xikong-mubai.github.io/tags/CTF/">CTF</a><small>1</small></li>
+    <li><a href="/xikong-mubai.github.io/tags/CTF/">CTF</a><small>4</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/SQL/">SQL</a><small>1</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/crypto/">crypto</a><small>1</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/kali/">kali</a><small>1</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/pwn/">pwn</a><small>1</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/python/">python</a><small>2</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/web/">web</a><small>1</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/随笔/">随笔</a><small>2</small></li>
   
   </ul>
 </div>
@@ -196,7 +214,7 @@
 <div class="widget tagcloud">
   <h3 class="title">Tag Cloud</h3>
   <div class="entry">
-    <a href="/xikong-mubai.github.io/tags/CTF/" style="font-size: 10px;">CTF</a>
+    <a href="/xikong-mubai.github.io/tags/CTF/" style="font-size: 20px;">CTF</a> <a href="/xikong-mubai.github.io/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/xikong-mubai.github.io/tags/crypto/" style="font-size: 10px;">crypto</a> <a href="/xikong-mubai.github.io/tags/kali/" style="font-size: 10px;">kali</a> <a href="/xikong-mubai.github.io/tags/pwn/" style="font-size: 10px;">pwn</a> <a href="/xikong-mubai.github.io/tags/python/" style="font-size: 15px;">python</a> <a href="/xikong-mubai.github.io/tags/web/" style="font-size: 10px;">web</a> <a href="/xikong-mubai.github.io/tags/随笔/" style="font-size: 15px;">随笔</a>
   </div>
 </div>
 

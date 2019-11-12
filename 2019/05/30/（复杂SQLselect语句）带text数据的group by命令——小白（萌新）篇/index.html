@@ -3,7 +3,7 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>Ximu</title>
+  <title>数据库中涉及text数据的group by问题处理（复杂SQLselect语句）——萌新处理办法 | Ximu</title>
   <meta name="author" content="Ximu">
 
   
@@ -14,7 +14,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="数据库中涉及text数据的group by问题处理（复杂SQLselect语句）——萌新处理办法">
   <meta property="og:site_name" content="Ximu">
 
   
@@ -63,18 +63,17 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2019-11-08T05:34:25.418Z"><a href="/xikong-mubai.github.io/2019/11/08/（复杂SQLselect语句）带text数据的group by命令——小白（萌新）篇/">2019-11-08</a></time>
+        <time datetime="2019-05-30T13:21:21.000Z"><a href="/xikong-mubai.github.io/2019/05/30/（复杂SQLselect语句）带text数据的group by命令——小白（萌新）篇/">2019-05-30</a></time>
       
       
   
-    <h1 class="title"></h1>
+    <h1 class="title">数据库中涉及text数据的group by问题处理（复杂SQLselect语句）——萌新处理办法</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>@<a href="数据库中涉及text数据的group by问题处理（复杂SQLselect语句）——萌新处理办法">TOC</a></p>
-<h1 id="text数据存在于group-by命令里时的错误"><a href="#text数据存在于group-by命令里时的错误" class="headerlink" title="text数据存在于group by命令里时的错误"></a>text数据存在于group by命令里时的错误</h1><p>大多数SQL的<code>group by</code>命令都不支持<code>text</code>格式的数据在其中。<br>如下：<br>任务要求是：查询所有部门详细信息和部门人数<br>需要用到俩个表格建立连接并分组<br>两个表格为：<br>Department，Employee<br><img src="https://img-blog.csdnimg.cn/20190510091442552.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190510091538215.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>其中的<strong>Note</strong>为<strong>TEXT</strong>类型的数据</p>
+        <h1 id="text数据存在于group-by命令里时的错误"><a href="#text数据存在于group-by命令里时的错误" class="headerlink" title="text数据存在于group by命令里时的错误"></a>text数据存在于group by命令里时的错误</h1><p>大多数SQL的<code>group by</code>命令都不支持<code>text</code>格式的数据在其中。<br>如下：<br>任务要求是：查询所有部门详细信息和部门人数<br>需要用到俩个表格建立连接并分组<br>两个表格为：<br>Department，Employee<br><img src="https://img-blog.csdnimg.cn/20190510091442552.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190510091538215.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>其中的<strong>Note</strong>为<strong>TEXT</strong>类型的数据</p>
 <p>一般处理应该是：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SELECT </span><br><span class="line">a.*,count(b.DepartmentID)</span><br><span class="line">FROM </span><br><span class="line">Department a,Employee b</span><br><span class="line">WHERE </span><br><span class="line">a.DepartmentID=b.DepartmentID</span><br><span class="line">group by</span><br><span class="line">a.DepartmentID,DepartmentName,Note;</span><br></pre></td></tr></table></figure></p>
 <p>但是因为<code>text</code> 数据的存在，会报如下错误：<br><img src="https://img-blog.csdnimg.cn/2019051009251754.png" alt="在这里插入图片描述"></p>
 <h1 id="使用视图的解决方法"><a href="#使用视图的解决方法" class="headerlink" title="使用视图的解决方法"></a>使用视图的解决方法</h1><p>所以我们先把其他分组的数据保存在一个视图中，之后再用一个<code>select</code>来调用，命令如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//建立视图</span></span><br><span class="line">create view  YYY</span><br><span class="line">as select</span><br><span class="line">a.DepartmentID,a.DepartmentName,count(b.DepartmentID) as <span class="string">'人数'</span></span><br><span class="line">from</span><br><span class="line">Department a,Employee b</span><br><span class="line">where </span><br><span class="line">a.DepartmentID=b.DepartmentID</span><br><span class="line">group by</span><br><span class="line">a.DepartmentID,a.DepartmentName;</span><br></pre></td></tr></table></figure></p>
@@ -91,6 +90,11 @@
         </div>
         
         
+  
+  <div class="tags">
+    <a href="/xikong-mubai.github.io/tags/随笔/">随笔</a>, <a href="/xikong-mubai.github.io/tags/SQL/">SQL</a>
+  </div>
+
         <!-- partial('post/share') -->
       <div class="clearfix"></div>
     </footer>
@@ -116,23 +120,23 @@
   <ul class="entry">
     
       <li>
-        <a href="/xikong-mubai.github.io/2019/11/08/ISCC 2019 writeup/"></a>
-      </li>
-    
-      <li>
-        <a href="/xikong-mubai.github.io/2019/11/08/（复杂SQLselect语句）带text数据的group by命令——小白（萌新）篇/"></a>
-      </li>
-    
-      <li>
-        <a href="/xikong-mubai.github.io/2019/11/08/(json web token)JWT攻击/"></a>
-      </li>
-    
-      <li>
-        <a href="/xikong-mubai.github.io/2019/11/08/python-pycrypto的完全版安装/"></a>
-      </li>
-    
-      <li>
         <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/webpack-78261ba1a8892c85ff12/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/styles/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/styles/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/slug/"></a>
+      </li>
+    
+      <li>
+        <a href="/xikong-mubai.github.io/2019/11/08/ctf编码加解密总结 - 简书_files/main-31fa506157e74ba5539a/"></a>
       </li>
     
   </ul>
@@ -144,7 +148,21 @@
   <h3 class="title">Tags</h3>
   <ul class="entry">
   
-    <li><a href="/xikong-mubai.github.io/tags/CTF/">CTF</a><small>1</small></li>
+    <li><a href="/xikong-mubai.github.io/tags/CTF/">CTF</a><small>4</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/SQL/">SQL</a><small>1</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/crypto/">crypto</a><small>1</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/kali/">kali</a><small>1</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/pwn/">pwn</a><small>1</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/python/">python</a><small>2</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/web/">web</a><small>1</small></li>
+  
+    <li><a href="/xikong-mubai.github.io/tags/随笔/">随笔</a><small>2</small></li>
   
   </ul>
 </div>
@@ -154,7 +172,7 @@
 <div class="widget tagcloud">
   <h3 class="title">Tag Cloud</h3>
   <div class="entry">
-    <a href="/xikong-mubai.github.io/tags/CTF/" style="font-size: 10px;">CTF</a>
+    <a href="/xikong-mubai.github.io/tags/CTF/" style="font-size: 20px;">CTF</a> <a href="/xikong-mubai.github.io/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/xikong-mubai.github.io/tags/crypto/" style="font-size: 10px;">crypto</a> <a href="/xikong-mubai.github.io/tags/kali/" style="font-size: 10px;">kali</a> <a href="/xikong-mubai.github.io/tags/pwn/" style="font-size: 10px;">pwn</a> <a href="/xikong-mubai.github.io/tags/python/" style="font-size: 15px;">python</a> <a href="/xikong-mubai.github.io/tags/web/" style="font-size: 10px;">web</a> <a href="/xikong-mubai.github.io/tags/随笔/" style="font-size: 15px;">随笔</a>
   </div>
 </div>
 
