@@ -1,325 +1,183 @@
-<!DOCTYPE HTML>
-<html>
+
+<!DOCTYPE html>
+<html lang="Zh-CN" class="loading">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
-  <title>Ximu</title>
-  <meta name="author" content="Ximu">
-
-  
-  <meta name="description" content="萌新的学习记录博客QAQ">
-  
-
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-  
-  <meta property="og:site_name" content="Ximu">
-
-  
-  
-
-  
-    <meta property="og:image" content>
-  
-
-  
-  <link href="/xikong-mubai.github.io/css/images/favicon.ico" rel="icon">
-  
-
-  <link rel="alternate" href="/xikong-mubai.github.io/atom.xml" title="Ximu" type="application/atom+xml">
-  <link rel="stylesheet" href="/xikong-mubai.github.io/css/style.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  
-
-
-  <!-- baidu webmaster push -->
-  <script src="//push.zhanzhang.baidu.com/push.js"></script>
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ximu - 小萌新一枚QAQ</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="萌新的学习记录博客QAQ,"> 
+    <meta name="author" content="Ximu"> 
+    <link rel="alternative" href="atom.xml" title="Ximu" type="application/atom+xml"> 
+    <link rel="icon" href="/xikong-mubai.github.io/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/xikong-mubai.github.io/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
 </head>
 </html>
-
-<body>
-  <header id="header" class="inner"><div class="alignleft">
-  <h1><a href="/xikong-mubai.github.io/">Ximu</a></h1>
-  <h2><a href="/xikong-mubai.github.io/">小萌新一枚QAQ</a></h2>
+<body class="loading">
+    <span id="config-title" style="display:none">Ximu</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/xikong-mubai.github.io/whoami/" title="Whoami" target="_blank" rel="noopener">Whoami</a>
+        </li>
+        
+        <li class="  menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="https://github.com/Fechin" title="Github" target="_blank" rel="noopener">Github</a>
+        </li>
+        
+        <li class="  menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="https://twitter.com/FechinLi" title="Twitter" target="_blank" rel="noopener">Twitter</a>
+        </li>
+        
+    </ul>
+    <p id="copyright">
+        &copy; 2019 Ximu.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/Fechin/hexo-theme-diaspora" title="Diaspora" target="_blank" rel="noopener">Diaspora</a>
+        by Fechin
+    </p>
 </div>
-<nav id="main-nav" class="alignright">
-  <ul>
-    
-      <li><a href="/">Home</a></li>
-    
-      <li><a href="/archives">Archives</a></li>
-    
-  </ul>
-  <div class="clearfix"></div>
-</nav>
-<div class="clearfix"></div></header>
-  <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2019-11-05T08:16:16.000Z"><a href="/xikong-mubai.github.io/2019/11/05/python2.x中文输出一直乱码的简单解决/">2019-11-05</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/xikong-mubai.github.io/2019/11/05/python2.x中文输出一直乱码的简单解决/">随笔-python2的中文显示乱码</a></h1>
-  
 
-    </header>
-    <div class="entry">
-      
-        <p>首先确认自己<strong>有没有添加用中文时的必备开头</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- encoding: utf-8 -*-</span></span><br></pre></td></tr></table></figure>
-<p>若无开头一般是python2.x默认使用ASCII码导致的问题</p>
-<p>如果文件开头<strong>已经添加过了该注释</strong>，<strong>中文</strong>输出<strong>依旧乱码</strong>，<em>大概率是文件编码格式与python的设置冲突导致</em></p>
-<p>python2.x默认使用ASCII码，所以添加该注释头让其识别unicode码，但是有时所创建的<strong>文件其默认编码</strong>就是<code>Unicode</code>或者<code>utf-8</code>编码，<strong>此时其就会与python2.x产生冲突，致使python2.x在执行脚本时始终无法正确输出中文</strong></p>
-<p>只需将要使用的文件编码格式改为<code>ANSI</code>编码即可解决冲突</p>
-
-      
+<div id="container">
+    
+<div id="screen">
+    <div id="mark">
+        <div class="layer" data-depth="0.4">
+            <img src="/xikong-mubai.github.io/img/welcome-cover.jpg" id="cover" crossorigin="anonymous" width="1920" height="1080">
+        </div>
+    </div>
+    <div id="vibrant">
+        <svg viewbox="0 0 2880 1620" height="100%" preserveaspectratio="xMaxYMax slice">
+            <polygon opacity="0.7" points="2000,1620 0,1620 0,0 600,0 "/>
+        </svg>
+        <div></div>
+    </div>
+    <div id="header">
+        <div>
+            <a class="image-logo" href="/"></a>
+            <div class="icon-menu switchmenu"></div>
+        </div>
     </div>
     
-    <footer>
-        <div class="alignright">
-          
-          <a href="javascript:void(0)" class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
-        </div>
-        
-        
-  
-  <div class="tags">
-    <a href="/xikong-mubai.github.io/tags/随笔/">随笔</a>, <a href="/xikong-mubai.github.io/tags/python/">python</a>
-  </div>
-
-        <!-- partial('post/share') -->
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2019-10-30T13:21:21.000Z"><a href="/xikong-mubai.github.io/2019/10/30/关于kali Linux安装中文输入法的巨坑，比如装个输入法就进不去图形化系统（萌新必看，欧皇算了）/">2019-10-30</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/xikong-mubai.github.io/2019/10/30/关于kali Linux安装中文输入法的巨坑，比如装个输入法就进不去图形化系统（萌新必看，欧皇算了）/">kali安装中文输入法后不能进入系统</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h1 id="谷歌拼音输入法"><a href="#谷歌拼音输入法" class="headerlink" title="谷歌拼音输入法"></a>谷歌拼音输入法</h1><p><strong>老版kali</strong>我不了解，2019之后的<strong>新版kali</strong>自带<code>iBus</code>框架，按道理应该没有的，总之我装的<code>kali</code>确实都自带它，他会和<code>fcitx</code>框架发生冲突，然后产生我一个小白不了解的反应导致系统重启后就崩了，只能<code>crtl+Alt+F3</code>进入命令行界面操作系统，但这种界面不支持中文而且有超级多的不便，并且俩个框架产生的影响经我尝试多次后发现只有 <strong>还原</strong> 和 <strong>重装</strong> 能解决，而卸载<code>iBus框架</code>又会暂时卡死系统，不知道之后会产生什么影响，所以，pass掉 <code>fcitx框架</code> 的谷歌中文输入法（虽然我挺想用用）。</p>
-<h1 id="iBus-拼音输入法"><a href="#iBus-拼音输入法" class="headerlink" title="iBus-拼音输入法"></a>iBus-拼音输入法</h1><p>上面说了，19年之后的<code>kali</code>（至少我装过的）都是自带<code>iBus框架</code>的，所以直接安装<code>iBus框架</code>的<strong>拼音输入法</strong>即可，简单实在。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install ibus ibus-pinyin -y &amp;&amp; reboot</span><br></pre></td></tr></table></figure>
-<p>直接不让系统底层的冲突出现就行了，大佬的话另说，反正小白是真的没办法了，百度谷歌找了一个月的方法都无效。。。</p>
-
-      
+    <div id="post0">
+        <p>十一月 05, 2019</p>
+        <h2><a href="/xikong-mubai.github.io/2019/11/05/python2.x中文输出一直乱码的简单解决/" title="随笔-python2的中文显示乱码" class="posttitle">随笔-python2的中文显示乱码</a></h2>
+        <p class="summary">首先确认自己有没有添加用中文时的必备开头
+1# -*- encoding: utf-8 -*-
+若无开头一般是py...</p>
     </div>
     
-    <footer>
-        <div class="alignright">
-          
-          <a href="javascript:void(0)" class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
-        </div>
+</div>
+
+    <div id="primary">
         
-        
-  
-  <div class="tags">
-    <a href="/xikong-mubai.github.io/tags/kali/">kali</a>
-  </div>
-
-        <!-- partial('post/share') -->
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
+<div class="post">
+    <a href="/xikong-mubai.github.io/2019/10/30/关于kali Linux安装中文输入法的巨坑，比如装个输入法就进不去图形化系统（萌新必看，欧皇算了）/" title="kali安装中文输入法后不能进入系统">
+        <img src="/xikong-mubai.github.io/img/cover.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>十月 30, 2019</p>
+        <h3><a href="/xikong-mubai.github.io/2019/10/30/关于kali Linux安装中文输入法的巨坑，比如装个输入法就进不去图形化系统（萌新必看，欧皇算了）/" title="kali安装中文输入法后不能进入系统" class="posttitle">kali安装中文输入法后不能进入系统</a></h3>
+        <p>谷歌拼音输入法老版kali我不了解，2019之后的新版kali自带iBus框架，按道理应该没有的，总之我装的kali确实都自带它，他会和fcitx框架发生...</p>
+    </div>
+</div>
 
 
+<div class="post">
+    <a href="/xikong-mubai.github.io/2019/10/30/汐白来学PWN-1/" title="汐白学pwn-1 准备">
+        <img src="/xikong-mubai.github.io/img/cover.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>十月 30, 2019</p>
+        <h3><a href="/xikong-mubai.github.io/2019/10/30/汐白来学PWN-1/" title="汐白学pwn-1 准备" class="posttitle">汐白学pwn-1 准备</a></h3>
+        <p>工具的准备kali-Linux叭说了，kali这么好用为什么不用，Ubuntu16.04也行
+pwntoolspwn必备python包，pip直接安装，p...</p>
+    </div>
+</div>
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2019-10-30T13:21:21.000Z"><a href="/xikong-mubai.github.io/2019/10/30/汐白来学PWN-1/">2019-10-30</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/xikong-mubai.github.io/2019/10/30/汐白来学PWN-1/">汐白学pwn-1 准备</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h1 id="工具的准备"><a href="#工具的准备" class="headerlink" title="工具的准备"></a>工具的准备</h1><h2 id="kali-Linux"><a href="#kali-Linux" class="headerlink" title="kali-Linux"></a>kali-Linux</h2><p>叭说了，kali这么好用为什么不用，Ubuntu16.04也行</p>
-<h2 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a>pwntools</h2><p>pwn必备python包，pip直接安装，python2的</p>
-<h2 id="peda"><a href="#peda" class="headerlink" title="peda"></a>peda</h2><p>很好用的一个Linux下gdb调试器的版本吧算是<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https:<span class="comment">//github.com/longld/peda.git ~/peda</span></span><br><span class="line">echo <span class="string">"source ~/peda/peda.py"</span> &gt;&gt; ~<span class="regexp">/.gdbinit</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="pwndbg"><a href="#pwndbg" class="headerlink" title="pwndbg"></a>pwndbg</h2><p>另一个版本的用于Linux下程序调试的gdb，但是没用过，据说很强，推荐先用peda<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:<span class="comment">//github.com/pwndbg/pwndbg</span></span><br><span class="line">cd pwndbg</span><br><span class="line">./setup.sh</span><br></pre></td></tr></table></figure></p>
-<h2 id="odjdump"><a href="#odjdump" class="headerlink" title="odjdump"></a>odjdump</h2><p>转载：<br><a href="http://www.gpshk.cc/thread-52817-1-1.html" target="_blank" rel="noopener">odjdump的使用（Linux反汇编工具）</a><br>(出处: GPS导航技术社区)</p>
-<h2 id="ROPgadget"><a href="#ROPgadget" class="headerlink" title="ROPgadget"></a>ROPgadget</h2><p>构建ROP的实用工具<br>项目地址:<br><a href="https://github.com/JonathanSalwan/ROPgadget" target="_blank" rel="noopener">https://github.com/JonathanSalwan/ROPgadget</a><br>安装：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git clone -b master http:<span class="comment">//github.com/JonathanSalwan/ROPgadget.git</span></span><br><span class="line">cd ROPgadget</span><br><span class="line">cd ./dependencies/capstone-next</span><br><span class="line">./make.sh</span><br><span class="line">sudo ./make.sh install</span><br><span class="line">cd ./bindings/python</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure></p>
-<h2 id="IDA-PRO"><a href="#IDA-PRO" class="headerlink" title="IDA PRO"></a>IDA PRO</h2><p>ida不用说了，经典软件，既有Windows的版本也有Linux的版本，不过一般推荐直接用windows下的，Linux似乎安装比较麻烦。<br><strong>64位Linux下安装教程：<a href="https://www.52pojie.cn/thread-542682-1-1.html" target="_blank" rel="noopener">https://www.52pojie.cn/thread-542682-1-1.html</a></strong></p>
-<h1 id="工具的简单使用"><a href="#工具的简单使用" class="headerlink" title="工具的简单使用"></a>工具的简单使用</h1><h2 id="pwntools简单使用"><a href="#pwntools简单使用" class="headerlink" title="pwntools简单使用"></a>pwntools简单使用</h2><p>虽然这个百度就可以，不过还是习惯性记录一下<br>终端中输入<code>python2</code>进入python命令状态<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *        #pwnrools包的使用方法</span><br><span class="line">io = remote('IP',port)   #这个是做pwn题时设定远程攻击的IP地址和端口</span><br><span class="line">io = process('name')     #这个是题目文件下载到本地进行测试自己的脚本是否成功获取权限时用的，name为文件名</span><br><span class="line">io.sendline(payload)     #向目标程序发送自己构造的payload</span><br><span class="line">io.recv()                #接收程序的输出</span><br><span class="line">io.interactive()         #如果成功获取shell权限通过该命令与目标机的shell进行互动</span><br><span class="line">#构建payload时</span><br><span class="line">payload=p64(***)         #对***使用64位系统的储存方式</span><br><span class="line">payload=p32(***)         #对***使用32位系统的储存方式</span><br></pre></td></tr></table></figure></p>
-<h2 id="ROPgadget使用"><a href="#ROPgadget使用" class="headerlink" title="ROPgadget使用"></a>ROPgadget使用</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ROPgadget --binary name --only '***' | grep '***'    #查询需要的汇编命令所在地址</span><br><span class="line">#按道理来说它是这样查命令的，不过查询有限制，一般后面***这里要这么输：'***|ret'|grep '***'  ***根据需要来写</span><br><span class="line">ROPgadget --binary name --string "***"               #查询需要的字符所在地址</span><br><span class="line">ROPgadget --binary name --only 'int'                 #查询'int 80'</span><br></pre></td></tr></table></figure>
-<h2 id="gdb-peda的简单命令介绍"><a href="#gdb-peda的简单命令介绍" class="headerlink" title="gdb-peda的简单命令介绍"></a>gdb-peda的简单命令介绍</h2><p>终端：<code>gdb</code>    打开gdb ;   <code>gdb  name</code>  用gdb调试器加载目标程序<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">r/run                               #运行程序，或是在程序中途重新加载运行程序，类似 OD 里的 ctrl+F2</span><br><span class="line">ni                                  #直接运行该行命令，OD 的单步步过</span><br><span class="line">si                                  #进入该行命令内部，进入函数内部用，OD 单步步入</span><br><span class="line">file                                #加载目标程序</span><br><span class="line">find/searchmem                      #搜索目标字符</span><br><span class="line">c/continue                          #继续运行程序</span><br><span class="line">telescope address                   #查看目标内存地址信息</span><br><span class="line">info                                #查看各种信息：</span><br><span class="line">info file                           #查看当前文件的信息，例如程序入口点（Entry point）</span><br><span class="line">info break                          #查看当前断点信息</span><br><span class="line">disas name                          #查看目标函数的反汇编内容</span><br><span class="line">b/break name/address                #为目标函数或地址设置断点</span><br><span class="line">pattern_create   number             #生成一串number长度的字符，在测试溢出长度时挺方便的</span><br><span class="line">pattern_offset   溢出位置的字符      #返回输入入口距离溢出点的长度</span><br></pre></td></tr></table></figure></p>
-<h1 id="shellcode"><a href="#shellcode" class="headerlink" title="shellcode"></a>shellcode</h1><p><strong>pwn</strong>一般目的是为了获取目标机的<code>shell</code>权限，同时也可以是对目标机进行其他的攻击。而其攻击方式一般是通过程序自身的漏洞劫持eip，然后按照攻击者的需要使其执行相应的系统命令。<br>获取shell权限一般是控制程序运行出<code>execve(&quot;/bin/sh&quot;,0,0)</code>函数或者说<code>system(“/bin/sh”)</code>函数，从而拿到<code>shell</code><br>因为程序已经是被编译生成的可执行程序，所以我们要做的就是让其在运行时按照<code>execve(&quot;/bin/sh&quot;,0,0)</code>或<code>system(“/bin/sh”)</code>函数的需要依次序执行相应的命令使其在没有该函数的情况下实现该函数的作用。<br>为了实现这一目的而向目标程序发送的数据一般称为<code>shellcode</code>或者说<strong>payload</strong></p>
-<h2 id="Linux-i386处理器系统的简单shellcode原理"><a href="#Linux-i386处理器系统的简单shellcode原理" class="headerlink" title="Linux-i386处理器系统的简单shellcode原理"></a>Linux-i386处理器系统的简单shellcode原理</h2><p>32位系统要执行<code>execve(&quot;/bin/sh&quot;,0,0)</code>时，可用以下汇编代码简单说明<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov eax,0xb      #execve()函数的系统调用号为0xb，将其放入eax</span><br><span class="line">mov ebx,address  #address为字符"/bin/sh"的地址，ebx为所要调用的execve函数的第一个参数，即"/bin/sh"</span><br><span class="line">mov ecx,0        #第二个参数0</span><br><span class="line">mov edx,0        #第三个参数0</span><br><span class="line">int 80h          #呼叫系统调用，运行该指令后会根据**eax**中的值判断系统调用的结果</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int 80h  #该指令并非和其他指令配套的指令，它的功能就是中断程序运行去进行系统调用，而系统调用的结果由`eax`中的值决定</span><br></pre></td></tr></table></figure>
-<p>Linux-i386下的系统调用号查看：<a href="http://asm.sourceforge.net/syscall.html#p3" target="_blank" rel="noopener">http://asm.sourceforge.net/syscall.html#p3</a></p>
-<h2 id="Linux-amd64系统的简单shellcode原理"><a href="#Linux-amd64系统的简单shellcode原理" class="headerlink" title="Linux-amd64系统的简单shellcode原理"></a>Linux-amd64系统的简单shellcode原理</h2><p>原理和32位系统基本一样，不过不一样的是64位系统毕竟与32位有很大区别，他们的传参方法和进行系统调用时的方式都不同。<br>64位Linux系统的参数首先被放在edi，esi，edx，ecx，r8，r9六个寄存器中，多余的参数才放入堆栈<br>所并且其系统调用命令为<code>syscall</code>而非是<code>int 80h</code><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov edi,<span class="number">0x3b</span></span><br><span class="line">mov esi，address</span><br><span class="line">mov edx，<span class="number">0</span></span><br><span class="line">mov ecx，<span class="number">0</span></span><br><span class="line">syscall     #Linux-amd64系统的系统调用命令，这里和int 80h应该是不一样的，具体不清楚</span><br></pre></td></tr></table></figure></p>
-<h2 id="如何查看系统调用号"><a href="#如何查看系统调用号" class="headerlink" title="如何查看系统调用号"></a>如何查看系统调用号</h2><p>通过本地文件看：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">locate unistd_32  #查询Linux-i386系统调用号参数表的位置</span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line">locate unistd_64  #查询Linux-amd64系统调用号参数表的位置</span><br></pre></td></tr></table></figure></p>
-<p>然后直接<code>cat</code></p>
-<h2 id="著名的shell-storm-org的ShellCode数据库"><a href="#著名的shell-storm-org的ShellCode数据库" class="headerlink" title="著名的shell-storm.org的ShellCode数据库"></a>著名的shell-storm.org的ShellCode数据库</h2><p>地址：shell-storm.org/shellcode/<br>里面有各种类型的shellcode，简单情况可以直接在里面找合适的shellcode来用，特殊情况需要自行对shellcode进行改造</p>
-
-      
     </div>
     
-    <footer>
-        <div class="alignright">
-          
-          <a href="javascript:void(0)" class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
-        </div>
-        
-        
-  
-  <div class="tags">
-    <a href="/xikong-mubai.github.io/tags/CTF/">CTF</a>, <a href="/xikong-mubai.github.io/tags/pwn/">pwn</a>
-  </div>
-
-        <!-- partial('post/share') -->
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
-
-<nav id="pagination">
-  
-  <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/xikong-mubai.github.io/page/2/">2</a><a class="page-number" href="/xikong-mubai.github.io/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/xikong-mubai.github.io/page/7/">7</a><a class="extend next" rel="next" href="/xikong-mubai.github.io/page/2/">Next &raquo;</a>
-  </nav>
-
-</nav>
-</div></div>
-    <aside id="sidebar" class="alignright">
-  <div class="search">
-  <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Search">
-    <input type="hidden" name="q" value="site:yoursite.com">
-  </form>
+    <div id="pager"><a href="/xikong-mubai.github.io/page/2/" class="more">加载更多</a></div>
+    
 </div>
+<div id="preview"></div>
 
-  
-
-  
-<div class="widget tag">
-  <h3 class="title">Recent Posts</h3>
-  <ul class="entry">
-    
-      <li>
-        <a href="/xikong-mubai.github.io/2019/11/05/python2.x中文输出一直乱码的简单解决/">随笔-python2的中文显示乱码</a>
-      </li>
-    
-      <li>
-        <a href="/xikong-mubai.github.io/2019/10/30/关于kali Linux安装中文输入法的巨坑，比如装个输入法就进不去图形化系统（萌新必看，欧皇算了）/">kali安装中文输入法后不能进入系统</a>
-      </li>
-    
-      <li>
-        <a href="/xikong-mubai.github.io/2019/10/30/汐白来学PWN-1/">汐白学pwn-1 准备</a>
-      </li>
-    
-      <li>
-        <a href="/xikong-mubai.github.io/2019/09/16/使用python的密码学第三方库pycrypto的经验/">python安装密码库-小白</a>
-      </li>
-    
-      <li>
-        <a href="/xikong-mubai.github.io/2019/06/12/隐写术 - 有用工具和资源的列表/">隐写术</a>
-      </li>
-    
-  </ul>
-</div>
-
-
-  
-<div class="widget tag">
-  <h3 class="title">Tags</h3>
-  <ul class="entry">
-  
-    <li><a href="/xikong-mubai.github.io/tags/CTF/">CTF</a><small>4</small></li>
-  
-    <li><a href="/xikong-mubai.github.io/tags/SQL/">SQL</a><small>1</small></li>
-  
-    <li><a href="/xikong-mubai.github.io/tags/crypto/">crypto</a><small>1</small></li>
-  
-    <li><a href="/xikong-mubai.github.io/tags/kali/">kali</a><small>1</small></li>
-  
-    <li><a href="/xikong-mubai.github.io/tags/pwn/">pwn</a><small>1</small></li>
-  
-    <li><a href="/xikong-mubai.github.io/tags/python/">python</a><small>2</small></li>
-  
-    <li><a href="/xikong-mubai.github.io/tags/web/">web</a><small>1</small></li>
-  
-    <li><a href="/xikong-mubai.github.io/tags/随笔/">随笔</a><small>2</small></li>
-  
-  </ul>
-</div>
-
-
-  
-<div class="widget tagcloud">
-  <h3 class="title">Tag Cloud</h3>
-  <div class="entry">
-    <a href="/xikong-mubai.github.io/tags/CTF/" style="font-size: 20px;">CTF</a> <a href="/xikong-mubai.github.io/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/xikong-mubai.github.io/tags/crypto/" style="font-size: 10px;">crypto</a> <a href="/xikong-mubai.github.io/tags/kali/" style="font-size: 10px;">kali</a> <a href="/xikong-mubai.github.io/tags/pwn/" style="font-size: 10px;">pwn</a> <a href="/xikong-mubai.github.io/tags/python/" style="font-size: 15px;">python</a> <a href="/xikong-mubai.github.io/tags/web/" style="font-size: 10px;">web</a> <a href="/xikong-mubai.github.io/tags/随笔/" style="font-size: 15px;">随笔</a>
-  </div>
-</div>
-
-</aside>
-    <div class="clearfix"></div>
-  </div>
-  <footer id="footer" class="inner"><div class="alignleft">
-  <p>
-  
-  &copy; 2019 Ximu
-  
-  All rights reserved.</p>
-  <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
-</div>
-<div class="clearfix"></div>
-
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script></footer>
-  <script src="/xikong-mubai.github.io/js/jquery.imagesloaded.min.js"></script>
-<script src="/xikong-mubai.github.io/js/gallery.js"></script>
-
-
-<link rel="stylesheet" href="/xikong-mubai.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/xikong-mubai.github.io/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
-
-
-<div id="bg"></div>
 </body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/xikong-mubai.github.io/js/plugin.js"></script>
+<script src="/xikong-mubai.github.io/js/diaspora.js"></script>
+<link rel="stylesheet" href="/xikong-mubai.github.io/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/xikong-mubai.github.io/photoswipe/default-skin/default-skin.css">
+<script src="/xikong-mubai.github.io/photoswipe/photoswipe.min.js"></script>
+<script src="/xikong-mubai.github.io/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 </html>

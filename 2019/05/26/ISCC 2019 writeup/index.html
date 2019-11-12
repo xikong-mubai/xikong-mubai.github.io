@@ -1,79 +1,68 @@
-<!DOCTYPE HTML>
-<html>
+
+<!DOCTYPE html>
+<html lang="Zh-CN" class="loading">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
-  <title>ISCC2019 writeup | Ximu</title>
-  <meta name="author" content="Ximu">
-
-  
-  <meta name="description" content="萌新的学习记录博客QAQ">
-  
-
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-  <meta property="og:title" content="ISCC2019 writeup">
-  <meta property="og:site_name" content="Ximu">
-
-  
-  
-
-  
-    <meta property="og:image" content>
-  
-
-  
-  <link href="/xikong-mubai.github.io/css/images/favicon.ico" rel="icon">
-  
-
-  <link rel="alternate" href="/xikong-mubai.github.io/atom.xml" title="Ximu" type="application/atom+xml">
-  <link rel="stylesheet" href="/xikong-mubai.github.io/css/style.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  
-
-
-  <!-- baidu webmaster push -->
-  <script src="//push.zhanzhang.baidu.com/push.js"></script>
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ISCC2019 writeup - Ximu</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="萌新的学习记录博客QAQ,Misc1.    隐藏的信息下载压缩包，解压缩拿到一个文本文件，打开发现是一堆八进制，写个脚本来ASCII值转字符串，转完之后发现是一个base64加密，将一开始的脚本修改一下，添加base64转,"> 
+    <meta name="author" content="Ximu"> 
+    <link rel="alternative" href="atom.xml" title="Ximu" type="application/atom+xml"> 
+    <link rel="icon" href="/xikong-mubai.github.io/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/xikong-mubai.github.io/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
 </head>
 </html>
-
-<body>
-  <header id="header" class="inner"><div class="alignleft">
-  <h1><a href="/xikong-mubai.github.io/">Ximu</a></h1>
-  <h2><a href="/xikong-mubai.github.io/">小萌新一枚QAQ</a></h2>
+<body class="loading">
+    <span id="config-title" style="display:none">Ximu</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">ISCC2019 writeup</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
 </div>
-<nav id="main-nav" class="alignright">
-  <ul>
-    
-      <li><a href="/">Home</a></li>
-    
-      <li><a href="/archives">Archives</a></li>
-    
-  </ul>
-  <div class="clearfix"></div>
-</nav>
-<div class="clearfix"></div></header>
-  <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2019-05-26T13:21:21.000Z"><a href="/xikong-mubai.github.io/2019/05/26/ISCC 2019 writeup/">2019-05-26</a></time>
-      
-      
-  
-    <h1 class="title">ISCC2019 writeup</h1>
-  
 
-    </header>
-    <div class="entry">
-      
-        <h1 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h1><h2 id="1-隐藏的信息"><a href="#1-隐藏的信息" class="headerlink" title="1.    隐藏的信息"></a>1.    隐藏的信息</h2><p>下载压缩包，解压缩拿到一个文本文件，打开发现是一堆八进制，写个脚本来ASCII值转字符串，转完之后发现是一个base64加密，将一开始的脚本修改一下，添加base64转码功能，再次运行拿到flag<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> binasciiimport base64x=<span class="string">"0126 062 0126 0163 0142 0103 0102 0153 0142 062 065 0154 0111 0121 0157 0113 0111 0105 0132 0163 0131 0127 0143 "</span> \  <span class="string">"066 0111 0105 0154 0124 0121 060 0116 067 0124 0152 0102 0146 0115 0107 065 0154 0130 062 0116 0150 0142 0154 071 "</span> \  <span class="string">"0172 0144 0104 0102 0167 0130 063 0153 0167 0144 0130 060 0113 "</span></span><br><span class="line">x = x.split()</span><br><span class="line">z = <span class="string">''</span></span><br><span class="line"><span class="function"><span class="keyword">for</span> i in <span class="title">range</span><span class="params">(len(x)</span>):</span></span><br><span class="line"><span class="function">    y </span>= str(hex(<span class="keyword">int</span>(x[i], <span class="number">8</span>)))[<span class="number">2</span>:]  </span><br><span class="line">    a = str(binascii.a2b_hex(y))</span><br><span class="line">    z += str(a)</span><br><span class="line">z = base64.b64decode(z)</span><br><span class="line">print(z)</span><br></pre></td></tr></table></figure></p>
+    <div class="section">
+        <div class="article">
+    <div class="main">
+        <h1 class="title">ISCC2019 writeup</h1>
+        <div class="stuff">
+            <span>五月 26, 2019</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/xikong-mubai.github.io/tags/CTF/">CTF</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h1><h2 id="1-隐藏的信息"><a href="#1-隐藏的信息" class="headerlink" title="1.    隐藏的信息"></a>1.    隐藏的信息</h2><p>下载压缩包，解压缩拿到一个文本文件，打开发现是一堆八进制，写个脚本来ASCII值转字符串，转完之后发现是一个base64加密，将一开始的脚本修改一下，添加base64转码功能，再次运行拿到flag<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> binasciiimport base64x=<span class="string">"0126 062 0126 0163 0142 0103 0102 0153 0142 062 065 0154 0111 0121 0157 0113 0111 0105 0132 0163 0131 0127 0143 "</span> \  <span class="string">"066 0111 0105 0154 0124 0121 060 0116 067 0124 0152 0102 0146 0115 0107 065 0154 0130 062 0116 0150 0142 0154 071 "</span> \  <span class="string">"0172 0144 0104 0102 0167 0130 063 0153 0167 0144 0130 060 0113 "</span></span><br><span class="line">x = x.split()</span><br><span class="line">z = <span class="string">''</span></span><br><span class="line"><span class="function"><span class="keyword">for</span> i in <span class="title">range</span><span class="params">(len(x)</span>):</span></span><br><span class="line"><span class="function">    y </span>= str(hex(<span class="keyword">int</span>(x[i], <span class="number">8</span>)))[<span class="number">2</span>:]  </span><br><span class="line">    a = str(binascii.a2b_hex(y))</span><br><span class="line">    z += str(a)</span><br><span class="line">z = base64.b64decode(z)</span><br><span class="line">print(z)</span><br></pre></td></tr></table></figure></p>
 <h2 id="2-最危险的地方就是最安全的地方"><a href="#2-最危险的地方就是最安全的地方" class="headerlink" title="2.    最危险的地方就是最安全的地方"></a>2.    最危险的地方就是最安全的地方</h2><p>题目文件解压后是一张JPG图片，盲猜带有压缩包，后缀改为zip解压缩，拿到50张二维码，发现最后一张的图片文件格式和其它49张不一样，记事本打开，开头就看到flag</p>
 <h2 id="3-解密成绩单"><a href="#3-解密成绩单" class="headerlink" title="3.    解密成绩单"></a>3.    解密成绩单</h2><p>题目文件解压后拿到一个exe文件，用各种misc做题方法尝试后均无果，猜测其实是简单的逆向题，用ida打开：<br>​​<br>看到检查输入的函数，跟入直接看到要求的用户名和密码，直接复制粘贴到程序输入框内点击ok即可拿到flag</p>
 <h2 id="4-Welcome"><a href="#4-Welcome" class="headerlink" title="4.    Welcome"></a>4.    Welcome</h2><p>改后缀解压得到.txt文件，打开发现由“蓅烺計劃 洮蓠朩暒”和“戶囗  萇條”组成的编码，将前者用0替换，后者用1替换，得到011001100110110001100001011001110111101101001001010100110100001101000011010111110101011101000101010011000100001101001111010011010100010101111101<br>​​<br>二进制转到字符串即可得到flag<br>​​</p>
@@ -122,129 +111,94 @@
 </li>
 </ol>
 
-      
-    </div>
-    
-    <footer>
-        <div class="alignright">
-          
-          <a href="javascript:void(0)" class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src>
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title="0" data-url="http://link.hhtjim.com/163/5146554.mp3"></li>
+                        
+                    
+                        
+                            <li title="1" data-url="http://link.hhtjim.com/qq/001faIUs4M2zna.mp3"></li>
+                        
+                    
+                </ul>
+            
         </div>
         
-        
-  
-  <div class="tags">
-    <a href="/xikong-mubai.github.io/tags/CTF/">CTF</a>
-  </div>
-
-        <!-- partial('post/share') -->
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
+    <div id="gitalk-container" class="comment link" data-ae="false" data-ci data-cs data-r data-o data-a data-d="false">查看评论</div>
 
 
-
-</div></div>
-    <aside id="sidebar" class="alignright">
-  <div class="search">
-  <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Search">
-    <input type="hidden" name="q" value="site:yoursite.com">
-  </form>
-</div>
-
-  
-
-  
-<div class="widget tag">
-  <h3 class="title">Recent Posts</h3>
-  <ul class="entry">
+    </div>
     
-      <li>
-        <a href="/xikong-mubai.github.io/2019/11/05/python2.x中文输出一直乱码的简单解决/">随笔-python2的中文显示乱码</a>
-      </li>
-    
-      <li>
-        <a href="/xikong-mubai.github.io/2019/10/30/关于kali Linux安装中文输入法的巨坑，比如装个输入法就进不去图形化系统（萌新必看，欧皇算了）/">kali安装中文输入法后不能进入系统</a>
-      </li>
-    
-      <li>
-        <a href="/xikong-mubai.github.io/2019/10/30/汐白来学PWN-1/">汐白学pwn-1 准备</a>
-      </li>
-    
-      <li>
-        <a href="/xikong-mubai.github.io/2019/09/16/使用python的密码学第三方库pycrypto的经验/">python安装密码库-小白</a>
-      </li>
-    
-      <li>
-        <a href="/xikong-mubai.github.io/2019/06/12/隐写术 - 有用工具和资源的列表/">隐写术</a>
-      </li>
-    
-  </ul>
 </div>
 
 
-  
-<div class="widget tag">
-  <h3 class="title">Tags</h3>
-  <ul class="entry">
-  
-    <li><a href="/xikong-mubai.github.io/tags/CTF/">CTF</a><small>4</small></li>
-  
-    <li><a href="/xikong-mubai.github.io/tags/SQL/">SQL</a><small>1</small></li>
-  
-    <li><a href="/xikong-mubai.github.io/tags/crypto/">crypto</a><small>1</small></li>
-  
-    <li><a href="/xikong-mubai.github.io/tags/kali/">kali</a><small>1</small></li>
-  
-    <li><a href="/xikong-mubai.github.io/tags/pwn/">pwn</a><small>1</small></li>
-  
-    <li><a href="/xikong-mubai.github.io/tags/python/">python</a><small>2</small></li>
-  
-    <li><a href="/xikong-mubai.github.io/tags/web/">web</a><small>1</small></li>
-  
-    <li><a href="/xikong-mubai.github.io/tags/随笔/">随笔</a><small>2</small></li>
-  
-  </ul>
+    </div>
 </div>
-
-
-  
-<div class="widget tagcloud">
-  <h3 class="title">Tag Cloud</h3>
-  <div class="entry">
-    <a href="/xikong-mubai.github.io/tags/CTF/" style="font-size: 20px;">CTF</a> <a href="/xikong-mubai.github.io/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/xikong-mubai.github.io/tags/crypto/" style="font-size: 10px;">crypto</a> <a href="/xikong-mubai.github.io/tags/kali/" style="font-size: 10px;">kali</a> <a href="/xikong-mubai.github.io/tags/pwn/" style="font-size: 10px;">pwn</a> <a href="/xikong-mubai.github.io/tags/python/" style="font-size: 15px;">python</a> <a href="/xikong-mubai.github.io/tags/web/" style="font-size: 10px;">web</a> <a href="/xikong-mubai.github.io/tags/随笔/" style="font-size: 15px;">随笔</a>
-  </div>
-</div>
-
-</aside>
-    <div class="clearfix"></div>
-  </div>
-  <footer id="footer" class="inner"><div class="alignleft">
-  <p>
-  
-  &copy; 2019 Ximu
-  
-  All rights reserved.</p>
-  <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
-</div>
-<div class="clearfix"></div>
-
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script></footer>
-  <script src="/xikong-mubai.github.io/js/jquery.imagesloaded.min.js"></script>
-<script src="/xikong-mubai.github.io/js/gallery.js"></script>
-
-
-<link rel="stylesheet" href="/xikong-mubai.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/xikong-mubai.github.io/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
-
-
-<div id="bg"></div>
 </body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/xikong-mubai.github.io/js/plugin.js"></script>
+<script src="/xikong-mubai.github.io/js/diaspora.js"></script>
+<link rel="stylesheet" href="/xikong-mubai.github.io/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/xikong-mubai.github.io/photoswipe/default-skin/default-skin.css">
+<script src="/xikong-mubai.github.io/photoswipe/photoswipe.min.js"></script>
+<script src="/xikong-mubai.github.io/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 </html>
