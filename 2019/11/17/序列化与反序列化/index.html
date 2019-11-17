@@ -132,7 +132,7 @@
 <p>可以看到，<code>class SoFun</code>中只有一个属性，而我们构造的paylaod中的属性个数故意多写了一个，此时该payload在反序列化时就会跳过<code>_warmup()</code>，从而泄露我们想要看到的文件的源码</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
-            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="ture">
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
                 <source type="audio/mpeg" src>
             </audio>
             
@@ -150,10 +150,14 @@
             
         </div>
         
-    <div id="gitalk-container" class="comment link" data-ae="ture" data-ci data-cs data-r data-o data-a data-d="false">查看评论</div>
+    <div id="gitalk-container" class="comment link" data-ae="true" data-ci data-cs data-r data-o data-a data-d="false">查看评论</div>
 
 
     </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#序列化与反序列化"><span class="toc-number">1.</span> <span class="toc-text">序列化与反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#serialize-void-string"><span class="toc-number">1.1.</span> <span class="toc-text">serialize( void ) : string</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实例"><span class="toc-number">1.1.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特例"><span class="toc-number">1.1.2.</span> <span class="toc-text">特例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#array"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">array</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#object"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">object</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#protected"><span class="toc-number">1.1.2.2.1.</span> <span class="toc-text">protected</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#private"><span class="toc-number">1.1.2.2.2.</span> <span class="toc-text">private</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unserialize-string-serialized"><span class="toc-number">1.2.</span> <span class="toc-text">unserialize( string $serialized )</span></a></li></ol></li></ol>
+        </div>
     
 </div>
 
