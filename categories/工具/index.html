@@ -5,14 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Python遇到的一些编码错误 方案： - Ximu</title>
+    <title>Category: 工具 - Ximu</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="Xibai,"> 
-    <meta name="description" content="萌新的学习记录博客QAQ,标签（空格分隔）：python学习
-
-   9号错误： UnicodeDecodeError: &amp;#39;utf8&amp;#39; codec can&amp;#39;t decode byte 0xcd in ,"> 
+    <meta name="description" content="萌新的学习记录博客QAQ,"> 
     <meta name="author" content="Ximu"> 
     <link rel="alternative" href="atom.xml" title="Ximu" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -32,92 +30,77 @@
 <body class="loading">
     <span id="config-title" style="display:none">Ximu</span>
     <div id="loader"></div>
-    <div id="single">
-    <div id="top" style="display: block;">
-    <div class="bar" style="width: 0;"></div>
-    <a class="icon-home image-icon" href="javascript:;" data-url="https://ximu.xyz"></a>
-    <div title="播放/暂停" class="icon-play"></div>
-    <h3 class="subtitle">Python遇到的一些编码错误 方案：</h3>
-    <div class="social">
-        <!--<div class="like-icon">-->
-            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
-        <!--</div>-->
-        <div>
-            <div class="share">
-                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
-            </div>
-            <div id="qr"></div>
-        </div>
-    </div>
-    <div class="scrollbar"></div>
-</div>
-
-    <div class="section">
-        <div class="article">
-    <div class="main">
-        <h1 class="title">Python遇到的一些编码错误 方案：</h1>
-        <div class="stuff">
-            <span>四月 11, 2019</span>
-            
-
-        </div>
-        <div class="content markdown">
-            <p>标签（空格分隔）：python学习</p>
-<hr>
-<p>   <strong>9号错误：</strong> <code>UnicodeDecodeError: &#39;utf8&#39; codec can&#39;t decode byte 0xcd in position 9: invalid continuation byte；</code></p>
-<p><code>Python 2.7.15\Lib\site-packages</code>目录下面新建一个文件名为<code>sitecustomize.py</code>在里面写上</p>
-<pre><code>import sys
-sys.setdefaultencoding(&apos;gbk&apos;)
-</code></pre><hr>
-<p><strong>7号错误：</strong> <code>UnicodeDecodeError: &#39;ascii&#39; codec can&#39;t decode byte 0xcf in position 7: ordinal not in range(128)：</code></p>
-<p>解决办法：修改<code>mimetypes.py</code>文件，路径位于python的安装路径下的<code>Lib\mimetypes.py</code>文件。在<code>import</code>下添加如下几行，将编码设置为‘gbk’：</p>
-<pre><code>if sys.getdefaultencoding() != &apos;gbk&apos;: 
- reload(sys) 
- sys.setdefaultencoding(&apos;gbk&apos;)
-</code></pre><p>方法2：打开<code>python27/Lib</code>文件夹下的<code>mimetypes.py</code>文件，在253行左右，在<code>default_encoding=sys.getdefaultencoding()</code>前加三行：</p>
-<pre><code>If sys.setdefaultencoding()!=&apos;gbk&apos;:
- reload(sys)
- sys.setdefaultencoding(&apos;gbk&apos;)
- default_encoding=sys.getdefaultencoding()
-</code></pre><p>在<code>manage.py</code>文件上，加上以下代码：</p>
-<pre><code>import sys
-reload(sys)
-sys.setdefaultencoding(&quot;utf-8&quot;)
-</code></pre>
-            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
-            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
-                <source type="audio/mpeg" src>
-            </audio>
-            
-                <ul id="audio-list" style="display:none">
-                    
-                        
-                            <li title="0" data-url="http://music.163.com/song/media/outer/url?id=490182455.mp3"></li>
-                        
-                    
-                        
-                            <li title="1" data-url="http://music.163.com/song/media/outer/url?id=490182454.mp3"></li>
-                        
-                    
-                </ul>
-            
-        </div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
         
-    <div id="gitalk-container" class="comment link" data-ae="true" data-ci="5cd24ed310c0cbc2a2ed" data-cs="51aa998e509794b7b061784f1f3d41018af118f6" data-r="xikong-mubai.github.io" data-o="xikong-mubai" data-a="xikong-mubai" data-d="false">查看评论</div>
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/汐丶白/" title="Whoami" target="_blank" rel="noopener">Whoami</a>
+        </li>
+        
+        <li class="  menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="https://github.com/xikong-mubai" title="Github" target="_blank" rel="noopener">Github</a>
+        </li>
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="分类" target="_blank" rel="noopener">分类</a>
+        </li>
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="归档" target="_blank" rel="noopener">归档</a>
+        </li>
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/tags/" title="标签" target="_blank" rel="noopener">标签</a>
+        </li>
+        
+    </ul>
+    <p id="copyright">
+        &copy; 2019 Ximu.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/Fechin/hexo-theme-diaspora" title="Diaspora" target="_blank" rel="noopener">Diaspora</a>
+        by Fechin
+    </p>
+</div>
 
-
-    </div>
+<div id="container">
     
-        <div class="side">
-            
+<div id="screen">
+    <div id="mark">
+        <div class="layer" data-depth="0.4">
+            <img src="/img/welcome-cover.jpg" id="cover" crossorigin="anonymous" width="1920" height="1080">
         </div>
+    </div>
+    <div id="vibrant">
+        <svg viewbox="0 0 2880 1620" height="100%" preserveaspectratio="xMaxYMax slice">
+            <polygon opacity="0.7" points="2000,1620 0,1620 0,0 600,0 "/>
+        </svg>
+        <div></div>
+    </div>
+    <div id="header">
+        <div>
+            <a class="image-logo" href="/"></a>
+            <div class="icon-menu switchmenu"></div>
+        </div>
+    </div>
+    
+    <div id="post0">
+        <p>四月 20, 2019</p>
+        <h2><a href="/2019/04/20/angr的windows安装——萌新向/" title="Angr的windows安装——萌新向" class="posttitle">Angr的windows安装——萌新向</a></h2>
+        <p class="summary">window10中符号执行（angr）的安装——小白篇
+最近做题的时候遇到了一些需要使用angr来完成的题目，之后...</p>
+    </div>
     
 </div>
 
-
+    <div id="primary">
+        
     </div>
+    
 </div>
-</body>
+<div id="preview"></div>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
 <script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 <script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
 <script src="/js/plugin.js"></script>
