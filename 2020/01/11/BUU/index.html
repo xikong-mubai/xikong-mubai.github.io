@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="Zh-CN" class="loading">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--血小板代码-->
+    <link rel="stylesheet" href="/live2d/css/live2d.css">
+    <div id="landlord">
+        <div class="message" style="opacity:0"></div>
+        <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+        <div class="hide-button">隐藏</div>
+    </div>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        var message_Path = '/live2d/'
+        var home_Path = 'https://calmcenter.club/'
+    </script>
+    <script type="text/javascript" src="/live2d/js/live2d.js"></script>
+    <script type="text/javascript" src="/live2d/js/message.js"></script>
+    <script type="text/javascript">
+        loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
+    </script>
+    <!--血小板代码-->
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BUUCTF - Ximu</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Xibai,"> 
+    <meta name="description" content="萌新的学习记录博客QAQ,MISC金三胖 打开题目是一个动态图，分解动态图即得flag
+二维码扫描得到提示秘密在这里，winhex查看发现末尾有压缩包，提取出来被加密，直接爆破密码可得flag
+N种方法解决winhex查看发,"> 
+    <meta name="author" content="Ximu"> 
+    <link rel="alternative" href="atom.xml" title="Ximu" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">Ximu</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="https://ximu.xyz"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">BUUCTF</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class="main">
+        <h1 class="title">BUUCTF</h1>
+        <div class="stuff">
+            <span>一月 11, 2020</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/CTF/">CTF</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="金三胖"><a href="#金三胖" class="headerlink" title="金三胖"></a>金三胖</h2><p> 打开题目是一个动态图，分解动态图即得flag</p>
+<h2 id="二维码"><a href="#二维码" class="headerlink" title="二维码"></a>二维码</h2><p>扫描得到提示秘密在这里，winhex查看发现末尾有压缩包，提取出来被加密，直接爆破密码可得flag</p>
+<h2 id="N种方法解决"><a href="#N种方法解决" class="headerlink" title="N种方法解决"></a>N种方法解决</h2><p>winhex查看发现是base64编码的图片，在线工具转一下拿到一个二维码，扫一下即可</p>
+<h2 id="大白"><a href="#大白" class="headerlink" title="大白"></a>大白</h2><p>根据提示打开发现图片疑似少了一截，winhex修改长宽，拿到flag</p>
+<h2 id="基础破解"><a href="#基础破解" class="headerlink" title="基础破解"></a>基础破解</h2><p>提示四位数字，直接爆破得到密码，解压得到一串base64字符串，解base64即可</p>
+<h2 id="你竟然赶我走"><a href="#你竟然赶我走" class="headerlink" title="你竟然赶我走"></a>你竟然赶我走</h2><p>winhex查看十六进制发现末尾有flag</p>
+<h2 id="LSB"><a href="#LSB" class="headerlink" title="LSB"></a>LSB</h2><p>StegSolve查看发现最低位隐藏了信息，是一个png文件的十六进制数据，保存出来，是个二维码，扫码得flag</p>
+<h2 id="乌镇峰会种图"><a href="#乌镇峰会种图" class="headerlink" title="乌镇峰会种图"></a>乌镇峰会种图</h2><p>文件末尾是flag</p>
+<h2 id="rar"><a href="#rar" class="headerlink" title="rar"></a>rar</h2><p>爆破密码</p>
+<h2 id="qr"><a href="#qr" class="headerlink" title="qr"></a>qr</h2><p>扫码签到</p>
+<h2 id="ningen"><a href="#ningen" class="headerlink" title="ningen"></a>ningen</h2><p>winhex发现压缩包，提取爆破密码</p>
+<h2 id="文件中的秘密"><a href="#文件中的秘密" class="headerlink" title="文件中的秘密"></a>文件中的秘密</h2><p>查看文件属性发现flag</p>
+<h2 id="wireshark"><a href="#wireshark" class="headerlink" title="wireshark"></a>wireshark</h2><p>打开流量包查看http流量，发现有一条流量的传参有flag字样，flag后的password内容即为flag</p>
+<h2 id="镜子里面的世界"><a href="#镜子里面的世界" class="headerlink" title="镜子里面的世界"></a>镜子里面的世界</h2><p>StegSolve看lsb最低位隐写</p>
+<h2 id="小明的保险箱"><a href="#小明的保险箱" class="headerlink" title="小明的保险箱"></a>小明的保险箱</h2><p>图片末尾有一个rar加密包，爆破即可</p>
+<h2 id="爱因斯坦"><a href="#爱因斯坦" class="headerlink" title="爱因斯坦"></a>爱因斯坦</h2><p>这个题 脑洞了 一下，把图片备注里的this_is_not_password作为压缩包密码了，输入this_is_not_password解压即可</p>
+<h2 id="被嗅探的流量"><a href="#被嗅探的流量" class="headerlink" title="被嗅探的流量"></a>被嗅探的流量</h2><p>查看流量包发现有一个post表单，跟进去搜索flag即可</p>
+<h2 id="未完待续emmmm"><a href="#未完待续emmmm" class="headerlink" title="未完待续emmmm"></a>未完待续emmmm</h2>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src>
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title="0" data-url="http://music.163.com/song/media/outer/url?id=490182455.mp3"></li>
+                        
+                    
+                        
+                            <li title="1" data-url="http://music.163.com/song/media/outer/url?id=490182454.mp3"></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link" data-ae="true" data-ci="5cd24ed310c0cbc2a2ed" data-cs="51aa998e509794b7b061784f1f3d41018af118f6" data-r="xikong-mubai.github.io" data-o="xikong-mubai" data-a="xikong-mubai" data-d="false">查看评论</div>
+
+
+    </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MISC"><span class="toc-number">1.</span> <span class="toc-text">MISC</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#金三胖"><span class="toc-number">1.1.</span> <span class="toc-text">金三胖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二维码"><span class="toc-number">1.2.</span> <span class="toc-text">二维码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#N种方法解决"><span class="toc-number">1.3.</span> <span class="toc-text">N种方法解决</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#大白"><span class="toc-number">1.4.</span> <span class="toc-text">大白</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基础破解"><span class="toc-number">1.5.</span> <span class="toc-text">基础破解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#你竟然赶我走"><span class="toc-number">1.6.</span> <span class="toc-text">你竟然赶我走</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LSB"><span class="toc-number">1.7.</span> <span class="toc-text">LSB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#乌镇峰会种图"><span class="toc-number">1.8.</span> <span class="toc-text">乌镇峰会种图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rar"><span class="toc-number">1.9.</span> <span class="toc-text">rar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#qr"><span class="toc-number">1.10.</span> <span class="toc-text">qr</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ningen"><span class="toc-number">1.11.</span> <span class="toc-text">ningen</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件中的秘密"><span class="toc-number">1.12.</span> <span class="toc-text">文件中的秘密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wireshark"><span class="toc-number">1.13.</span> <span class="toc-text">wireshark</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#镜子里面的世界"><span class="toc-number">1.14.</span> <span class="toc-text">镜子里面的世界</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小明的保险箱"><span class="toc-number">1.15.</span> <span class="toc-text">小明的保险箱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#爱因斯坦"><span class="toc-number">1.16.</span> <span class="toc-text">爱因斯坦</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#被嗅探的流量"><span class="toc-number">1.17.</span> <span class="toc-text">被嗅探的流量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#未完待续emmmm"><span class="toc-number">1.18.</span> <span class="toc-text">未完待续emmmm</span></a></li></ol></li></ol>
+        </div>
+    
+</div>
+
+
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
