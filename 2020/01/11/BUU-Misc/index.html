@@ -29,7 +29,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="Xibai,"> 
-    <meta name="description" content="萌新的学习记录博客QAQ,BUUCTFのMisc最近更新： 2020-01-27 21:52
+    <meta name="description" content="萌新的学习记录博客QAQ,BUUCTFのMisc最近更新： 2020-01-28 23:15
 金三胖打开题目是一个动态图，分解动态图即得flag
 二维码扫描得到提示秘密在这里，winhex查看发现末尾有压缩包，提取出来被加密,"> 
     <meta name="author" content="Ximu"> 
@@ -83,7 +83,7 @@
 
         </div>
         <div class="content markdown">
-            <h1 id="BUUCTFのMisc"><a href="#BUUCTFのMisc" class="headerlink" title="BUUCTFのMisc"></a>BUUCTFのMisc</h1><p><strong>最近更新：</strong> <em>2020-01-27 21:52</em></p>
+            <h1 id="BUUCTFのMisc"><a href="#BUUCTFのMisc" class="headerlink" title="BUUCTFのMisc"></a>BUUCTFのMisc</h1><p><strong>最近更新：</strong> <em>2020-01-28 23:15</em></p>
 <h2 id="金三胖"><a href="#金三胖" class="headerlink" title="金三胖"></a>金三胖</h2><p>打开题目是一个动态图，分解动态图即得flag</p>
 <h2 id="二维码"><a href="#二维码" class="headerlink" title="二维码"></a>二维码</h2><p>扫描得到提示秘密在这里，winhex查看发现末尾有压缩包，提取出来被加密，直接爆破密码可得flag</p>
 <h2 id="N种方法解决"><a href="#N种方法解决" class="headerlink" title="N种方法解决"></a>N种方法解决</h2><p>winhex查看发现是base64编码的图片，在线工具转一下拿到一个二维码，扫一下即可</p>
@@ -111,8 +111,10 @@
 <h2 id="后门查杀"><a href="#后门查杀" class="headerlink" title="后门查杀"></a>后门查杀</h2><p>解压网站文件后，360自动扫描提示后门文件emmm，被360秀了2333，include.php就是后门脚本，打开即可看到 密码（md5）</p>
 <h2 id="神秘龙卷风"><a href="#神秘龙卷风" class="headerlink" title="神秘龙卷风"></a>神秘龙卷风</h2><p>爆破工具破解压缩包，拿到文本，是brain fuck代码，用工具执行，输出flag</p>
 <h2 id="梅花香自苦寒来"><a href="#梅花香自苦寒来" class="headerlink" title="梅花香自苦寒来"></a>梅花香自苦寒来</h2><p>解包是一个jpg，老规矩winhex看结尾，发现一大串十六进制数据，猜测是把文件的十六进制作为文本的形式写在后面了，提取出来写个脚本将其作为文件十六进制解码，拿到二维码，扫码出flag</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line">outfile_hex = open(<span class="string">'outfile_hex.txt'</span>,<span class="string">'r'</span>).read()</span><br><span class="line">file_out = open(<span class="string">'output'</span>,<span class="string">'w'</span>).write(outfile_hex.decode(<span class="string">'hex'</span>))</span><br><span class="line"></span><br><span class="line">pic = Image.new(<span class="string">'RGB'</span>,(<span class="number">271</span>,<span class="number">271</span>),<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'output'</span>,<span class="string">'r'</span>) <span class="keyword">as</span> fi:</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> fi.readlines():</span><br><span class="line">        flag = line.split(<span class="string">','</span>)</span><br><span class="line">        x = eval(flag[<span class="number">0</span>][<span class="number">1</span>:])</span><br><span class="line">        y = eval(flag[<span class="number">1</span>][<span class="number">0</span>:<span class="number">-2</span>])</span><br><span class="line">        <span class="comment">#print(x,y)</span></span><br><span class="line">        pic.putpixel([x<span class="number">-1</span>,y<span class="number">-1</span>],(<span class="number">255</span>,<span class="number">255</span>,<span class="number">255</span>))</span><br><span class="line"></span><br><span class="line">pic.show()</span><br><span class="line">pic.save(<span class="string">'flag.png'</span>)</span><br><span class="line"><span class="comment">#file_out.close()</span></span><br></pre></td></tr></table></figure>
 <h2 id="snake"><a href="#snake" class="headerlink" title="snake"></a>snake</h2><p>jpg文件结尾有压缩包，解包拿到两个文件，key中是base64编码，解码拿到提示<code>What is Nicki Minaj&#39;s favorite song that refers to snakes?</code>，百度歌手<code>Nicki Minaj</code>,从她的歌中找和蛇相关的，发现<code>anaconda</code>；之后再去找加密算法，因为除了密钥的提示之外没有其他提示，所以推测加密算法的名字有可能也和蛇相关，查找蛇的单词发现 <code>serpent</code>作为蛇的翻译刚好是一个加密算法的名字，找了一个在线解密网站，解出flag</p>
-<h2 id="九连环"><a href="#九连环" class="headerlink" title="九连环"></a>九连环</h2><h2 id="未完待续emmmm"><a href="#未完待续emmmm" class="headerlink" title="未完待续emmmm"></a>未完待续emmmm</h2>
+<h2 id="九连环"><a href="#九连环" class="headerlink" title="九连环"></a>九连环</h2><p>下载下来一个加密压缩包，没有别的提示，猜测是伪加密，试了一下，解压成功，第二个加密压缩包是真加密，觉得密码应该在解压拿到的图片里，jpg图片加密，把手里能使的全整了一遍，最后用<code>steghide</code>拿到隐藏的txt文件，<code>steghide</code>加密密钥为空。txt里即是flag的加密密码，解压得flag</p>
+<h2 id="未完待续emmmm"><a href="#未完待续emmmm" class="headerlink" title="未完待续emmmm"></a>未完待续emmmm</h2>
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
                 <source type="audio/mpeg" src>
