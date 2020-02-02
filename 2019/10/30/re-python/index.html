@@ -10,8 +10,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="Xibai,"> 
-    <meta name="description" content="萌新的学习记录博客QAQ,python逆向对于针对的python的逆向主要有三种情况
-exewindows编程最终结果一般都是要生成exe可执行文件，通过python编程所生成的exe与通过c/c++编程生成的exe虽然同为,"> 
+    <meta name="description" content="萌新的学习记录博客QAQ,对于针对的python的逆向主要有三种情况
+exewindows编程最终结果一般都是要生成exe可执行文件，通过python编程所生成的exe与通过c/c++编程生成的exe虽然同为exe，但若都使,"> 
     <meta name="author" content="Ximu"> 
     <link rel="alternative" href="atom.xml" title="Ximu" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -63,7 +63,7 @@ exewindows编程最终结果一般都是要生成exe可执行文件，通过pyth
 
         </div>
         <div class="content markdown">
-            <h1 id="python逆向"><a href="#python逆向" class="headerlink" title="python逆向"></a>python逆向</h1><p>对于针对的<code>python</code>的逆向主要有三种情况</p>
+            <p>对于针对的<code>python</code>的逆向主要有三种情况</p>
 <h2 id="exe"><a href="#exe" class="headerlink" title="exe"></a>exe</h2><p>windows编程最终结果一般都是要生成<code>exe</code>可执行文件，通过<code>python</code>编程所生成的<code>exe</code>与通过<code>c/c++</code>编程生成的<code>exe</code>虽然同为<code>exe</code>，但若都使用<code>OD</code>、<code>IDA pro</code>的方式来进行逆向的话，很明显<code>python</code>所生成的<code>exe</code>文件会为逆向工作造成极大的困扰。但是，<code>python</code>有专门逆向<code>python</code>生成<code>exe</code>文件的库</p>
 <h3 id="pyinstaller"><a href="#pyinstaller" class="headerlink" title="pyinstaller"></a>pyinstaller</h3><p>第一种库是<code>pyinstaller</code>这是一个可以将python脚本打包成exe的库，能打包自然也能解包</p>
 <p>它包含了一个<code>archive_viewer.py</code>的文件可以对打包为exe文件的python程序解包。</p>
@@ -113,7 +113,7 @@ exewindows编程最终结果一般都是要生成exe可执行文件，通过pyth
     </div>
     
         <div class="side">
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#python逆向"><span class="toc-number">1.</span> <span class="toc-text">python逆向</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#exe"><span class="toc-number">1.1.</span> <span class="toc-text">exe</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pyinstaller"><span class="toc-number">1.1.1.</span> <span class="toc-text">pyinstaller</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#实例"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pyinstxtractor"><span class="toc-number">1.1.2.</span> <span class="toc-text">pyinstxtractor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结果"><span class="toc-number">1.1.3.</span> <span class="toc-text">结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pyc"><span class="toc-number">1.2.</span> <span class="toc-text">pyc</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#uncompyle"><span class="toc-number">1.2.1.</span> <span class="toc-text">uncompyle</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#py"><span class="toc-number">1.3.</span> <span class="toc-text">py</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#exe"><span class="toc-number">1.</span> <span class="toc-text">exe</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pyinstaller"><span class="toc-number">1.1.</span> <span class="toc-text">pyinstaller</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#实例"><span class="toc-number">1.1.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pyinstxtractor"><span class="toc-number">1.2.</span> <span class="toc-text">pyinstxtractor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结果"><span class="toc-number">1.3.</span> <span class="toc-text">结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pyc"><span class="toc-number">2.</span> <span class="toc-text">pyc</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#uncompyle"><span class="toc-number">2.1.</span> <span class="toc-text">uncompyle</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#py"><span class="toc-number">3.</span> <span class="toc-text">py</span></a></li></ol>
         </div>
     
 </div>

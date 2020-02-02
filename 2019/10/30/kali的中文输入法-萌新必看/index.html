@@ -64,7 +64,7 @@
         <div class="content markdown">
             <h1 id="谷歌拼音输入法"><a href="#谷歌拼音输入法" class="headerlink" title="谷歌拼音输入法"></a>谷歌拼音输入法</h1><p><strong>老版kali</strong>我不了解，2019之后的<strong>新版kali</strong>自带<code>iBus</code>框架，按道理应该没有的，总之我装的<code>kali</code>确实都自带它，他会和<code>fcitx</code>框架发生冲突，然后产生我一个小白不了解的反应导致系统重启后就崩了，只能<code>crtl+Alt+F3</code>进入命令行界面操作系统，但这种界面不支持中文而且有超级多的不便，并且俩个框架产生的影响经我尝试多次后发现只有 <strong>还原</strong> 和 <strong>重装</strong> 能解决，而卸载<code>iBus框架</code>又会暂时卡死系统，不知道之后会产生什么影响，所以，pass掉 <code>fcitx框架</code> 的谷歌中文输入法（虽然我挺想用用）。</p>
 <h1 id="iBus-拼音输入法"><a href="#iBus-拼音输入法" class="headerlink" title="iBus-拼音输入法"></a>iBus-拼音输入法</h1><p>上面说了，19年之后的<code>kali</code>（至少我装过的）都是自带<code>iBus框架</code>的，所以直接安装<code>iBus框架</code>的<strong>拼音输入法</strong>即可，简单实在。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install ibus ibus-pinyin -y &amp;&amp; reboot</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install ibus ibus-pinyin -y &amp;&amp; reboot</span><br></pre></td></tr></table></figure>
 <p>直接不让系统底层的冲突出现就行了，大佬的话另说，反正小白是真的没办法了，百度谷歌找了一个月的方法都无效。。。</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
