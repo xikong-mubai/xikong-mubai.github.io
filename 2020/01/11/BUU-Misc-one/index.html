@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="Xibai,"> 
-    <meta name="description" content="萌新的学习记录博客QAQ,最近更新： 2020-01-31 22:43
+    <meta name="description" content="这里是正在努力追赶大佬的小可啊QAQ嘤嘤嘤,最近更新： 2020-01-31 22:43
 金三胖打开题目是一个动态图，分解动态图即得flag
 二维码扫描得到提示秘密在这里，winhex查看发现末尾有压缩包，提取出来被加密，直接爆破密码可得fl,"> 
     <meta name="author" content="Ximu"> 
@@ -35,7 +35,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="icon-home image-icon" href="javascript:;" data-url="https://www.ximu.xyz"></a>
+    <a class="icon-home image-icon" href="javascript:;" data-url></a>
     <div title="播放/暂停" class="icon-play"></div>
     <h3 class="subtitle">BUUCTF-MISC(一)</h3>
     <div class="social">
@@ -59,7 +59,7 @@
         <div class="stuff">
             <span>一月 11, 2020</span>
             
-  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/CTF/">CTF</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Misc/">Misc</a></li></ul>
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/CTF/">CTF</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Misc/">Misc</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Writeup/">Writeup</a></li></ul>
 
 
         </div>
@@ -104,7 +104,7 @@
 <h2 id="菜刀666"><a href="#菜刀666" class="headerlink" title="菜刀666"></a>菜刀666</h2><p>wireshark分析，因为考虑和菜刀有关，所以只看http数据中传有base64字符串的数据流，发现用户用十六进制裸传了一张jpg图片，并下载了一个zip包。<br>将图片十六进制复制出来重新转为图片（这里我转的图片内容是色块没有任何其他信息，百度wp大佬们转出来的是一个带密码的屏幕截图）；<br>zip提取出来后发现有密码，<del>考虑到前面的图片没有有用信息怀疑又是伪加密</del>，发现不是，无奈去百度了wp发现前面的图片转出来应该是正常的图片，晕，这个没办法了，然后解包拿到flag</p>
 <h2 id="Mysterious"><a href="#Mysterious" class="headerlink" title="Mysterious"></a>Mysterious</h2><p>是我的打开方式不对嘛，这题我当简单逆向做的。<br>ida打开搜索字符串看到 <code>well done</code> ，跟进找到main函数，反汇编查看伪C源码，flag几乎给全了，就是要自己手动补一截。盲猜补个123。百度一下函数<code>atoi</code>，发现这是c语言里用来把字符串转为对应整数的函数，if判断要求转化之后的十六进制为<code>0x7A</code>，后门跟三个字符分别为xyz，0x7a转为十进制是122，即输入应为<code>122xyz</code>，运行程序输入122xyz，发现flag和盲猜的一样emmm</p>
 <h2 id="sqltest"><a href="#sqltest" class="headerlink" title="sqltest"></a>sqltest</h2><p>wireshark查看流量包发现是一个<code>bool盲注</code>的全过程，那就好办了，直接导出 <strong>http对象</strong> ，接下来可以人眼扫描注入过程分析flag，也可以写脚本判断诸如过程分析flag，身为 <strong>头铁萌新</strong> 代表，我果断选择人眼扫诸如过程，手工提取flag的ASCII码然后转换字符串嘿嘿嘿<br><del>好吧其实我就是懒得去写python脚本了</del> 2333</p>
-<h2 id="喵喵喵"><a href="#喵喵喵" class="headerlink" title="喵喵喵"></a>喵喵喵</h2><p>解压拿到一个png图片，心累，终于让我遇到一个 <strong>lsb隐写</strong> 了嘛！！！果断 <code>zsteg -a</code> 我今天就把你lsb得骨灰给你扬了嘿嘿嘿。发现<code>BGR</code>模式下lsb藏了一张png，提取出来发现只有半张二维码，试试修改图片高度，获取完整二维码，是一个百度网盘链接。拿到一个flag压缩包，用WinRAR解压发现提示无法设置安全数据，猜测有可能是ntfs隐写，WinRAR可以对隐藏有ntfs数据流的文件进行压缩与解压缩并且不影响其所隐藏的数据，之前查ntfs隐写相关资料的时候记得是这么说的。用 <code>ntfsstreamseditor</code> 就可以拿到隐藏文件。然后拿到flag.pyc，用工具反编译成 <strong>py脚本</strong> 即可。附带<a href="https://www.ximu.xyz/2019/10/30/re-python/">简单python逆向基础</a>。读加密脚本由结果反向推导flag。解密函数如下：</p>
+<h2 id="喵喵喵"><a href="#喵喵喵" class="headerlink" title="喵喵喵"></a>喵喵喵</h2><p>解压拿到一个png图片，心累，终于让我遇到一个 <strong>lsb隐写</strong> 了嘛！！！果断 <code>zsteg -a</code> 我今天就把你lsb得骨灰给你扬了嘿嘿嘿。发现<code>BGR</code>模式下lsb藏了一张png，提取出来发现只有半张二维码，试试修改图片高度，获取完整二维码，是一个百度网盘链接。拿到一个flag压缩包，用WinRAR解压发现提示无法设置安全数据，猜测有可能是ntfs隐写，WinRAR可以对隐藏有ntfs数据流的文件进行压缩与解压缩并且不影响其所隐藏的数据，之前查ntfs隐写相关资料的时候记得是这么说的。用 <code>ntfsstreamseditor</code> 就可以拿到隐藏文件。然后拿到flag.pyc，用工具反编译成 <strong>py脚本</strong> 即可。附带<a href="https://www.ximu.xyz/2019/10/30/re-python/" target="_blank" rel="noopener">简单python逆向基础</a>。读加密脚本由结果反向推导flag。解密函数如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decode</span><span class="params">(ciphertext)</span>:</span></span><br><span class="line">    flag = <span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(ciphertext)):</span><br><span class="line">        <span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">            s = int(ciphertext[-i<span class="number">-1</span>]) - <span class="number">10</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            s = int(ciphertext[-i<span class="number">-1</span>]) + <span class="number">10</span></span><br><span class="line">        s = i ^ s</span><br><span class="line">        flag+=chr(s)</span><br><span class="line">    <span class="keyword">return</span> flag</span><br></pre></td></tr></table></figure>
 <h2 id="穿越时空的思念"><a href="#穿越时空的思念" class="headerlink" title="穿越时空的思念"></a>穿越时空的思念</h2><p>音频分析，莫斯码，淦，想要个莫斯码提取工具QAQ，我只会手工，丢</p>
 <h2 id="请看篇章二2333"><a href="#请看篇章二2333" class="headerlink" title="请看篇章二2333"></a>请看篇章二2333</h2>
