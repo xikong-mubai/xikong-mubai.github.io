@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="Xibai,"> 
-    <meta name="description" content="这里是正在努力追赶大佬的小可啊QAQ嘤嘤嘤,最近更新： 2020-02-24 23:52
+    <meta name="description" content="这里是正在努力追赶大佬的小可啊QAQ嘤嘤嘤,最近更新： 2020-02-26 23:08
 [GUET-CTF2019]zips第一层压缩包密码直接爆破，第二次是伪加密，第三层根据 sh 的命令可知密钥是压缩包创建时的时间戳，查看压缩包修改日期,"> 
     <meta name="author" content="Ximu"> 
     <link rel="alternative" href="atom.xml" title="Ximu" type="application/atom+xml"> 
@@ -63,9 +63,14 @@
 
         </div>
         <div class="content markdown">
-            <p><strong>最近更新：</strong> <em>2020-02-24 23:52</em></p>
+            <p><strong>最近更新：</strong> <em>2020-02-26 23:08</em></p>
 <h2 id="GUET-CTF2019-zips"><a href="#GUET-CTF2019-zips" class="headerlink" title="[GUET-CTF2019]zips"></a>[GUET-CTF2019]zips</h2><p>第一层压缩包密码直接爆破，第二次是伪加密，第三层根据 <code>sh</code> 的命令可知密钥是压缩包创建时的时间戳，查看压缩包修改日期，在线工具看一下那一天的时间戳，时间戳其实就是一个距离那个一九几几年几月几日零时零分零秒的秒数，同一天的时间戳前几位肯定一样，又因为其所使用python的相关时间戳函数范围的值精确到了小数点后两位，所以这里使用掩码攻击爆破密钥<br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/img/20200224235737.png" alt="掩码设置"><br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/img/20200224235804.png" alt="结果"></p>
-<h2 id="GUET-CTF2019-KO"><a href="#GUET-CTF2019-KO" class="headerlink" title="[GUET-CTF2019]KO"></a>[GUET-CTF2019]KO</h2><h2 id="日常未完待续嘤嘤嘤QAQ"><a href="#日常未完待续嘤嘤嘤QAQ" class="headerlink" title="日常未完待续嘤嘤嘤QAQ"></a>日常未完待续嘤嘤嘤QAQ</h2>
+<h2 id="GUET-CTF2019-KO"><a href="#GUET-CTF2019-KO" class="headerlink" title="[GUET-CTF2019]KO"></a>[GUET-CTF2019]KO</h2><p>就是<code>ook</code>编码的签到，找个在线解码网站解一下码就行了</p>
+<h2 id="从娃娃抓起"><a href="#从娃娃抓起" class="headerlink" title="从娃娃抓起"></a>从娃娃抓起</h2><p>题目说是和汉字里程碑的两种编码方式。首先就想到了可能和汉字输入法有关，肯定不是拼音输入，于是想到五笔输入，很明显纯四位数字和五笔没有关系，试试下面的字母，果然拿到了半句连贯的话。上面的四位数字找了好久才找到是上世纪的电报码，我天，太狗了。电报码翻译过来是人工智能。连起来求md5即为flag</p>
+<h2 id="DDCTF2018-╯°□°）╯︵-┻━┻"><a href="#DDCTF2018-╯°□°）╯︵-┻━┻" class="headerlink" title="[DDCTF2018](╯°□°）╯︵ ┻━┻"></a>[DDCTF2018](╯°□°）╯︵ ┻━┻</h2><p>打开之后发现就是50分的签到类的题，觉得应该不会有什么太大的坑。然而这里是我蒙出来的我特喵，瞎猜真的很难猜的，希望以后能少一点瞎猜，多一丝对吹头发选手的关爱TAT<br>因为是50分的题，又发现这是一列十六进制的值，关键是都在<code>80</code>到<code>ff</code>之间，就盲猜是原字符的ASCII码加了128，写个脚本就出来了</p>
+<p>  That was fast! The flag is: DDCTF{922ab9974a47cd322cf43b50610faea5}</p>
+<h2 id="GWCTF2019-huyao"><a href="#GWCTF2019-huyao" class="headerlink" title="[GWCTF2019]huyao"></a>[GWCTF2019]huyao</h2><p>两个一样的图片，不过大小差了大概十几kb，目测是盲水印，去GitHub找一下盲水印的脚本，跑一下即可，另外，GitHub上面有两种不兼容版本的盲水印，一般用这个版本写入的水印只能用这个版本提取。</p>
+<h2 id="voip"><a href="#voip" class="headerlink" title="voip"></a>voip</h2><h2 id="日常未完待续嘤嘤嘤QAQ"><a href="#日常未完待续嘤嘤嘤QAQ" class="headerlink" title="日常未完待续嘤嘤嘤QAQ"></a>日常未完待续嘤嘤嘤QAQ</h2>
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
                 <source type="audio/mpeg" src>
@@ -91,7 +96,7 @@
     </div>
     
         <div class="side">
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#GUET-CTF2019-zips"><span class="toc-number">1.</span> <span class="toc-text">[GUET-CTF2019]zips</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GUET-CTF2019-KO"><span class="toc-number">2.</span> <span class="toc-text">[GUET-CTF2019]KO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日常未完待续嘤嘤嘤QAQ"><span class="toc-number">3.</span> <span class="toc-text">日常未完待续嘤嘤嘤QAQ</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#GUET-CTF2019-zips"><span class="toc-number">1.</span> <span class="toc-text">[GUET-CTF2019]zips</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GUET-CTF2019-KO"><span class="toc-number">2.</span> <span class="toc-text">[GUET-CTF2019]KO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#从娃娃抓起"><span class="toc-number">3.</span> <span class="toc-text">从娃娃抓起</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DDCTF2018-╯°□°）╯︵-┻━┻"><span class="toc-number">4.</span> <span class="toc-text">[DDCTF2018](╯°□°）╯︵ ┻━┻</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GWCTF2019-huyao"><span class="toc-number">5.</span> <span class="toc-text">[GWCTF2019]huyao</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#voip"><span class="toc-number">6.</span> <span class="toc-text">voip</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日常未完待续嘤嘤嘤QAQ"><span class="toc-number">7.</span> <span class="toc-text">日常未完待续嘤嘤嘤QAQ</span></a></li></ol>
         </div>
     
 </div>
