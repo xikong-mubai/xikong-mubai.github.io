@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="Zh-CN" class="loading">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>2020V&amp;N招新赛部分Misc - Ximu</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Xibai,"> 
+    <meta name="description" content="这里是正在努力追赶大佬的小可啊QAQ嘤嘤嘤,拉胯的三条命令打开压缩包结合题目描述，可以猜测这是一个nmap扫描端口的流量包，然后让找到开放的端口从小到大排列。Wireshark中nmap扫描流量，如果端口开放，则必有ack回应。而且wires,"> 
+    <meta name="author" content="Ximu"> 
+    <link rel="alternative" href="atom.xml" title="Ximu" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">Ximu</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">2020V&N招新赛部分Misc</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class="main">
+        <h1 class="title">2020V&N招新赛部分Misc</h1>
+        <div class="stuff">
+            <span>三月 01, 2020</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/CTF/">CTF</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Misc/">Misc</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Writeup/">Writeup</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="拉胯的三条命令"><a href="#拉胯的三条命令" class="headerlink" title="拉胯的三条命令"></a>拉胯的三条命令</h2><p>打开压缩包结合题目描述，可以猜测这是一个nmap扫描端口的流量包，然后让找到开放的端口从小到大排列。Wireshark中nmap扫描流量，如果端口开放，则必有ack回应。<br>而且wireshark对于正常通信的tcp流量貌似都是高亮显示，ok，直接查看高亮的流量，统计这些流量的端口，其中有个重要的小细节，对于80端口的流量，因为其默认类型被当作http端口，所以wireshark会直接将其高亮，要看一下他的ack值是否为零才能正确判断80端口是否开放。于是得到一下端口号：<br>21<br>22<br>631<br>801<br>3306<br>5939<br>32848<br>60206<br>其中5939、32848、60206三个端口存在大量的“流量”，这不应该是端口扫描的流量，端口扫描是探查端口状态的，不应该有大量的数据交换，所以不考虑这三个端口，剩下的端口从小到大排列试一下，正确</p>
+<h2 id="ML第一步"><a href="#ML第一步" class="headerlink" title="ML第一步"></a>ML第一步</h2><p>创建实例后浏览器直接访问发现这不是网站服务，那应该是应用类服务，用nc连接。<br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/img/20200301132044.png" alt="link"><br>总之意思就是有一个未知函数y=f(x)，给出70组(x,y)。让我们求它的拟合方程。<br>然后他会给出10个x，让我们用拟合方程推测y的值，如果结果误差不超过0.06，就可以得到小旗子。<br>用python的matplotlib.pyplot画出散点图发现70组数据接近一条直线，直接脚本求解线性回归方程，然后去拿flag。求解脚本如下（ps：因为散点图的这条线有一点点弧度，所以我用了四次多项式，没有直接用一次的直线）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f_fit</span><span class="params">(x,y_fit)</span>:</span></span><br><span class="line">    a,b,c,d,e=y_fit.tolist()</span><br><span class="line">    <span class="keyword">return</span> a*x**<span class="number">4</span>+b*x**<span class="number">3</span>+c*x**<span class="number">2</span>+d*x+e</span><br><span class="line"></span><br><span class="line">data = <span class="string">"x=0.7587857855539164,y=-1.720845811051089\</span></span><br><span class="line"><span class="string">;x=0.13291321567620085,y=-0.44979144628012097\</span></span><br><span class="line"><span class="string">;x=0.989974986143239,y=-1.9690360825859337\</span></span><br><span class="line"><span class="string">;x=0.3576179200089157,y=-0.9003680552893811\</span></span><br><span class="line"><span class="string">;x=0.6031957139605361,y=-1.413869207317482\</span></span><br><span class="line"><span class="string">;x=0.8655969454196368,y=-1.8874775800952617\</span></span><br><span class="line"><span class="string">;x=0.48683649837550014,y=-1.2221034522056922\</span></span><br><span class="line"><span class="string">;x=0.1279800851084858,y=-0.3598626690513456\</span></span><br><span class="line"><span class="string">;x=0.01840117269743846,y=-0.0825695560842738\</span></span><br><span class="line"><span class="string">;x=0.49065439417804224,y=-1.2151317607134124\</span></span><br><span class="line"><span class="string">;x=0.745683162567403,y=-1.6542547149837732\</span></span><br><span class="line"><span class="string">;x=0.564686557840641,y=-1.4086742079578898\</span></span><br><span class="line"><span class="string">;x=0.5506578263400632,y=-1.328319038372737\</span></span><br><span class="line"><span class="string">;x=0.09890521425587329,y=-0.268867793932863\</span></span><br><span class="line"><span class="string">;x=0.9653080707668127,y=-1.9926065934683845\</span></span><br><span class="line"><span class="string">;x=0.49189934250857936,y=-1.2041799438406553\</span></span><br><span class="line"><span class="string">;x=0.47460948035678996,y=-1.1919570601329146\</span></span><br><span class="line"><span class="string">;x=0.7296637598789997,y=-1.626555486935713\</span></span><br><span class="line"><span class="string">;x=0.8772637406893159,y=-1.8444895108368027\</span></span><br><span class="line"><span class="string">;x=0.5262847068436897,y=-1.26898790243642\</span></span><br><span class="line"><span class="string">;x=0.18375224095950315,y=-0.49792227912640824\</span></span><br><span class="line"><span class="string">;x=0.5302276810137457,y=-1.3245875742508557\</span></span><br><span class="line"><span class="string">;x=0.44598041870724514,y=-1.1407183813974087\</span></span><br><span class="line"><span class="string">;x=0.9297802591112221,y=-1.9038682460892118\</span></span><br><span class="line"><span class="string">;x=0.31768338032416477,y=-0.8380436760373051\</span></span><br><span class="line"><span class="string">;x=0.31932181828715034,y=-0.885221801261295\</span></span><br><span class="line"><span class="string">;x=0.6520599635229203,y=-1.5648743849645852\</span></span><br><span class="line"><span class="string">;x=0.6318704181747703,y=-1.5361822819084332\</span></span><br><span class="line"><span class="string">;x=0.33596049748295764,y=-0.9018941515966336\</span></span><br><span class="line"><span class="string">;x=0.1582929490762487,y=-0.4621575450764881\</span></span><br><span class="line"><span class="string">;x=0.611161054351204,y=-1.4819230001079216\</span></span><br><span class="line"><span class="string">;x=0.2273505730886458,y=-0.6426008674876235\</span></span><br><span class="line"><span class="string">;x=0.3434775350774453,y=-0.9440612715950338\</span></span><br><span class="line"><span class="string">;x=0.3424015864156754,y=-0.8739934996421624\</span></span><br><span class="line"><span class="string">;x=0.8593474128108042,y=-1.8415838175212416\</span></span><br><span class="line"><span class="string">;x=0.9385785550053852,y=-1.9041364608079328\</span></span><br><span class="line"><span class="string">;x=0.4943478784921591,y=-1.2315495557049194\</span></span><br><span class="line"><span class="string">;x=0.45739416734634764,y=-1.1594371513265878\</span></span><br><span class="line"><span class="string">;x=0.8929294113779981,y=-1.8615545670417983\</span></span><br><span class="line"><span class="string">;x=0.19881908699665485,y=-0.5530975791426536\</span></span><br><span class="line"><span class="string">;x=0.06396527084952186,y=-0.2248085775384525\</span></span><br><span class="line"><span class="string">;x=0.2686482544684099,y=-0.75603686845716\</span></span><br><span class="line"><span class="string">;x=0.6084930406339851,y=-1.4717769288575426\</span></span><br><span class="line"><span class="string">;x=0.22216290869419308,y=-0.5906772203093745\</span></span><br><span class="line"><span class="string">;x=0.5914604953995254,y=-1.4177038761692764\</span></span><br><span class="line"><span class="string">;x=0.2036532638797327,y=-0.5788918140417649\</span></span><br><span class="line"><span class="string">;x=0.4558490044828919,y=-1.1682771304121138\</span></span><br><span class="line"><span class="string">;x=0.18324091786354268,y=-0.5788763881712895\</span></span><br><span class="line"><span class="string">;x=0.5421407829934451,y=-1.328797280920123\</span></span><br><span class="line"><span class="string">;x=0.4056810838054147,y=-1.0890377739166588\</span></span><br><span class="line"><span class="string">;x=0.39311134509953427,y=-1.037818315593108\</span></span><br><span class="line"><span class="string">;x=0.452612604644542,y=-1.2237566644854736\</span></span><br><span class="line"><span class="string">;x=0.2615352628059312,y=-0.70346972932896\</span></span><br><span class="line"><span class="string">;x=0.8901625763679877,y=-1.8806707950314019\</span></span><br><span class="line"><span class="string">;x=0.28280744763980337,y=-0.8231345793908345\</span></span><br><span class="line"><span class="string">;x=0.09628463850897795,y=-0.24971993270496043\</span></span><br><span class="line"><span class="string">;x=0.16481384396642307,y=-0.46946630708368303\</span></span><br><span class="line"><span class="string">;x=0.2847357540218156,y=-0.7947718784607872\</span></span><br><span class="line"><span class="string">;x=0.5319011449268986,y=-1.2668856188466802\</span></span><br><span class="line"><span class="string">;x=0.1081951088228772,y=-0.2536241872065086\</span></span><br><span class="line"><span class="string">;x=0.08836473591694316,y=-0.23153637261490673\</span></span><br><span class="line"><span class="string">;x=0.38840371594123335,y=-1.0336677376652563\</span></span><br><span class="line"><span class="string">;x=0.7720822530882997,y=-1.6953637803062263\</span></span><br><span class="line"><span class="string">;x=0.36229637982212415,y=-0.9854786906183374\</span></span><br><span class="line"><span class="string">;x=0.9519976240184558,y=-1.929418000224495\</span></span><br><span class="line"><span class="string">;x=0.5783183065134814,y=-1.3777929584428186\</span></span><br><span class="line"><span class="string">;x=0.5906565476132922,y=-1.4103866887242276\</span></span><br><span class="line"><span class="string">;x=0.8171334469097077,y=-1.748680676187232\</span></span><br><span class="line"><span class="string">;x=0.668796106230006,y=-1.5411754553626387\</span></span><br><span class="line"><span class="string">;x=0.581250276261842,y=-1.395451210048179"</span></span><br><span class="line"></span><br><span class="line">data_list = data.split(<span class="string">";"</span>)</span><br><span class="line">x = []</span><br><span class="line">y = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> data_list:</span><br><span class="line">    i_list = str(i).split(<span class="string">','</span>)</span><br><span class="line">    x.append(float(i_list[<span class="number">0</span>][<span class="number">2</span>:]))</span><br><span class="line">    y.append(float(i_list[<span class="number">1</span>][<span class="number">2</span>:]))</span><br><span class="line"></span><br><span class="line">x = np.array(x)</span><br><span class="line">y = np.array(y)</span><br><span class="line"></span><br><span class="line">y_fit=np.polyfit(x,y,<span class="number">4</span>)<span class="comment">#二次多项式拟合</span></span><br><span class="line">y_show=np.poly1d(y_fit)<span class="comment">#函数优美的形式</span></span><br><span class="line">print(y_show)<span class="comment">#打印</span></span><br><span class="line">y1=f_fit(x,y_fit)</span><br><span class="line">plt.plot(x,f(x),<span class="string">'r'</span>,label=<span class="string">'original'</span>)</span><br><span class="line">plt.scatter(x,y,c=<span class="string">'g'</span>,label=<span class="string">'before_fitting'</span>)<span class="comment">#散点图</span></span><br><span class="line">plt.plot(x,y1,<span class="string">'b--'</span>,label=<span class="string">'fitting'</span>)</span><br><span class="line">plt.title(<span class="string">'polyfitting'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'y'</span>)</span><br><span class="line">plt.legend()<span class="comment">#显示标签</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>然后去用得到的函数式推测十个y值，得到flag（如下图）：<br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/img/20200301132021.png" alt="flag"></p>
+<h2 id="内存取证"><a href="#内存取证" class="headerlink" title="内存取证"></a>内存取证</h2><p>检查镜像信息，然后终端进程文件查看一条龙。<br>终端没有发现什么有用的，进程直接浏览器记事本画图磁盘加密四个emmm，文件查看什么都没有。<br>一开始想用notepad查看记事本内容，然后发现不支持。无奈-h查看帮助，看了半天找到一个editbox，可以查看编辑器的内容，于是成功获得百度云分享链接内容：<br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/img/20200301122223.png" alt="editor"><br>拿到一个VOL，很明显这应该就是加密的磁盘文件，将Truecrypt进程dump下来，用efdd工具破解密码挂载到本地，获取到key：uOjFdKu1jsbWI8N51jsbWI8N5。<br>至此四个进程用去三个，很明显最后的提示信息应该就在画图进程里。<br>将mspaint进程dump出来，用gimp分析，宽1728，偏移2kw时，得到：<br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/img/20200301122302.png" alt="tu"><br><del>好了，剩下的真不行了，图像信息只分析出来这一个，不知道这个字符串怎么和key用，推测是一种加密，但没找到别的提示信息，搞不定了emmmmm</del><br>套娃可耻！！！到网上下载一个TrueCrypt，用它挂载VOL，密码就是刚刚的key，然后拿到压缩包，密码是上面的画图的内容，开头那个是‘1’，一开始以为是I，然后不对就试了下‘l’和‘1’，出了flag</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src>
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title="0" data-url="http://music.163.com/song/media/outer/url?id=490182455.mp3"></li>
+                        
+                    
+                        
+                            <li title="1" data-url="http://music.163.com/song/media/outer/url?id=490182454.mp3"></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link" data-ae="true" data-ci="5cd24ed310c0cbc2a2ed" data-cs="51aa998e509794b7b061784f1f3d41018af118f6" data-r="xikong-mubai.github.io" data-o="xikong-mubai" data-a="xikong-mubai" data-d="false">查看评论</div>
+
+
+    </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#拉胯的三条命令"><span class="toc-number">1.</span> <span class="toc-text">拉胯的三条命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ML第一步"><span class="toc-number">2.</span> <span class="toc-text">ML第一步</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内存取证"><span class="toc-number">3.</span> <span class="toc-text">内存取证</span></a></li></ol>
+        </div>
+    
+</div>
+
+
+
+
+    </div>
+</div>
+</body>
+    <!--血小板代码-->
+    <link rel="stylesheet" href="/live2d/css/live2d.css" />
+    <div id="landlord">
+        <div class="message" style="opacity:0"></div>
+        <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+        <div class="hide-button">隐藏</div>
+    </div>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        var message_Path = '/live2d/'
+        var home_Path = 'https://calmcenter.club/'
+    </script>
+    <script type="text/javascript" src="/live2d/js/live2d.js"></script>
+    <script type="text/javascript" src="/live2d/js/message.js"></script>
+    <script type="text/javascript">
+        loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
+    </script>
+    <!--血小板代码-->
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
