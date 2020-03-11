@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="Xibai,"> 
-    <meta name="description" content="这里是正在努力追赶大佬的小可啊QAQ嘤嘤嘤,最近更新： 2020-02-26 23:08
+    <meta name="description" content="这里是正在努力追赶大佬的小可啊QAQ嘤嘤嘤,最近更新： 2020-03-11 21:45
 [GUET-CTF2019]zips第一层压缩包密码直接爆破，第二次是伪加密，第三层根据 sh 的命令可知密钥是压缩包创建时的时间戳，查看压缩包修改日期,"> 
     <meta name="author" content="Ximu"> 
     <link rel="alternative" href="atom.xml" title="Ximu" type="application/atom+xml"> 
@@ -34,7 +34,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="icon-home image-icon" href="javascript:;" data-url></a>
+    <a class="icon-home image-icon" href="javascript:;" data-url="xibai.xyz"></a>
     <div title="播放/暂停" class="icon-play"></div>
     <h3 class="subtitle">BUUCTF-MISC(三)</h3>
     <div class="social">
@@ -63,7 +63,7 @@
 
         </div>
         <div class="content markdown">
-            <p><strong>最近更新：</strong> <em>2020-02-26 23:08</em></p>
+            <p><strong>最近更新：</strong> <em>2020-03-11 21:45</em></p>
 <h2 id="GUET-CTF2019-zips"><a href="#GUET-CTF2019-zips" class="headerlink" title="[GUET-CTF2019]zips"></a>[GUET-CTF2019]zips</h2><p>第一层压缩包密码直接爆破，第二次是伪加密，第三层根据 <code>sh</code> 的命令可知密钥是压缩包创建时的时间戳，查看压缩包修改日期，在线工具看一下那一天的时间戳，时间戳其实就是一个距离那个一九几几年几月几日零时零分零秒的秒数，同一天的时间戳前几位肯定一样，又因为其所使用python的相关时间戳函数范围的值精确到了小数点后两位，所以这里使用掩码攻击爆破密钥<br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages时间戳1.png" alt="时间戳1.png"><br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages时间戳2.png" alt="时间戳2.png"></p>
 <h2 id="GUET-CTF2019-KO"><a href="#GUET-CTF2019-KO" class="headerlink" title="[GUET-CTF2019]KO"></a>[GUET-CTF2019]KO</h2><p>就是<code>ook</code>编码的签到，找个在线解码网站解一下码就行了</p>
 <h2 id="从娃娃抓起"><a href="#从娃娃抓起" class="headerlink" title="从娃娃抓起"></a>从娃娃抓起</h2><p>题目说是和汉字里程碑的两种编码方式。首先就想到了可能和汉字输入法有关，肯定不是拼音输入，于是想到五笔输入，很明显纯四位数字和五笔没有关系，试试下面的字母，果然拿到了半句连贯的话。上面的四位数字找了好久才找到是上世纪的电报码，我天，太狗了。电报码翻译过来是人工智能。连起来求md5即为flag</p>
