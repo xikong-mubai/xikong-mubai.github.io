@@ -1,49 +1,51 @@
 
 <!DOCTYPE html>
 <html lang="Zh-CN" class="loading">
-<head><meta name="generator" content="Hexo 3.8.0">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Reverse1_final - Xibai</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="google" content="notranslate">
+    <meta name="google" content="notranslate" />
     <meta name="keywords" content="Xibai,"> 
     <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,DDCTF2019届最简单的逆向题
 直接拉进od，发现进去之后不像是在正常的程序领空，PEiD查一下，发现是一个UPX类型的壳。百度下载脱壳机，脱壳。然后拉入od分析，发现我们输入的字符串被程序加密,"> 
     <meta name="author" content="Ximu"> 
-    <link rel="alternative" href="atom.xml" title="Xibai" type="application/atom+xml"> 
+    <link rel="alternative" href="http://xibai.xyz/atom.xml" title="Xibai" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-    <link rel="stylesheet" href="/css/diaspora.css">
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
          (adsbygoogle = window.adsbygoogle || []).push({
               google_ad_client: "ca-pub-8691406134231910",
               enable_page_level_ads: true
          });
     </script>
-    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
     </script>
-</head>
-</html>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
 <body class="loading">
     <span id="config-title" style="display:none">Xibai</span>
     <div id="loader"></div>
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="icon-home image-icon" href="javascript:;" data-url></a>
-    <div title="播放/暂停" class="icon-play"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
     <h3 class="subtitle">Reverse1_final</h3>
     <div class="social">
-        <!--<div class="like-icon">-->
-            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
-        <!--</div>-->
         <div>
             <div class="share">
-                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
             </div>
             <div id="qr"></div>
         </div>
@@ -53,18 +55,18 @@
 
     <div class="section">
         <div class="article">
-    <div class="main">
+    <div class='main'>
         <h1 class="title">Reverse1_final</h1>
         <div class="stuff">
             <span>四月 13, 2019</span>
             
-  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/CTF/">CTF</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Re/">Re</a></li></ul>
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/CTF/" rel="tag">CTF</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Re/" rel="tag">Re</a></li></ul>
 
 
         </div>
         <div class="content markdown">
             <p>DDCTF2019届最简单的逆向题</p>
-<p>直接拉进od，发现进去之后不像是在正常的程序领空，PEiD查一下，发现是一个UPX类型的壳。<br>百度下载脱壳机，脱壳。<br>然后拉入od分析，发现我们输入的字符串被程序加密后与“<code>DDCTF{reverseME}</code>”作比较；<br>也就是flag输入进去之后会被程序加密为“<code>DDCTF{reverseME}</code>”；<br>将其拉入ida分析<br><img src="data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAccAAAE5CAIAAABqBnyMAAAAA3NCSVQICAjb4U/gAAAACXBIWXMA
+<p>直接拉进od，发现进去之后不像是在正常的程序领空，PEiD查一下，发现是一个UPX类型的壳。<br>百度下载脱壳机，脱壳。<br>然后拉入od分析，发现我们输入的字符串被程序加密后与“<code>DDCTF{reverseME}</code>”作比较；<br>也就是flag输入进去之后会被程序加密为“<code>DDCTF{reverseME}</code>”；<br>将其拉入ida分析<br><img src='data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAccAAAE5CAIAAABqBnyMAAAAA3NCSVQICAjb4U/gAAAACXBIWXMA
 AA7EAAAOxAGVKw4bAAAgAElEQVR4nO3df1xU150//td1zAyrYVAXiEZA4qCWH2kjusqQuAayQjDF
 ZpOYxJQmfRSZbNDvAiX7/dj9ZoskptKtZiCPxK1Am1hNm4d+Pm3CNMBAAw8TFclG7aeRmVX5IT8a
 m0DVmXGzzkQ83z/OcL3ML+YXMIPv54PHI3A4595z78Q39557zvsKb7/9NshtQ61WL1++fLp7QWa+
@@ -412,7 +414,7 @@ Jj1CCPHbuBGAyEh5VlZiT8/l6eoNIYSEOxpXJYSQYHIRVSmNHiGE+M0xqtbW5icmzqP3lBBCiH8c
 s6toNLq5c+XXr780Lb0hhJBw52IEIDU1Zur7QQghMwM9rSKEkGCiqEoIIcE0LqpaLLb29osq1YLp
 6g0hhIS7cStWlcrdS5fO9/wmVEIIIR5QflVCCAkmGlclhJBgoqhKCCHBRFGVEEKCiaIqIYQEE0VV
 QggJJoqqhBASTBRVCSEkmCiqEkJIMFFUJYSQYKKoSgghwfT/A3twLNpLg8gTAAAAAElFTkSuQmCC
-"><br>很明显，该函数便是加密函数；进入内部查看<br><img src="data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAUwAAAFgCAIAAABfYtdFAAAAA3NCSVQICAjb4U/gAAAACXBIWXMA
+'/><br>很明显，该函数便是加密函数；进入内部查看<br><img src='data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAUwAAAFgCAIAAABfYtdFAAAAA3NCSVQICAjb4U/gAAAACXBIWXMA
 AA7EAAAOxAGVKw4bAAAgAElEQVR4nO3df1Bb55kv8K9WGYm2QRivsG+uwVENG0eAm7Wd2iiJmwWP
 wXZX3r1J7CRTGu8soEmxU6y4f7jdTIVmPBM6tYNJC0mA7MTB7kxx4zbWxEaQwjixA+TW9s5g0Lgr
 hAHNeh1UJ5JcX+tMtOf+cY4lIR39lpB0/HyGP+Dl/Hh1xKP3PYfznEeCQxYQQsTrAQDs6+pMd4MQ
@@ -637,7 +639,7 @@ pRqgJJulYCTPz5eFKzaq12s0mt5jx8a4C2/V1ar9+zfV1BwH0NCw/ubN28nvXdASVwulGqAkm9G9
 6ylANUBJNqP/kyeLaoCSLEcjOSEiRyM5ISJHQU6IyFGQEyJyfJBTrVJCxIoPcqpVSohY+afrVKuU
 EFGic3JCRC44yKlWKSEisyjIqVYpIeKzKEGFapUSIj7B03WqVUqIyNCFN0JEjoKcEJHzBznVKiVE
 lPy3tVKtUkJEifLJCRE5OicnROQoyAkROQpyQkSOgpwQkaMgJ0Tk/j8Ibh5Rj013ugAAAABJRU5E
-rkJggg=="><br>这个‘<code>*v1 = byte_402FF8[(char)v1[v4]];</code>’把我看蒙了；（语言基础太菜的后果QAQ）<br>于是到od中寻找该循环所在地，查看一下相应汇编代码：<br><img src="data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAbUAAAB/CAIAAADnzMvsAAAAA3NCSVQICAjb4U/gAAAACXBIWXMA
+rkJggg=='/><br>这个‘<code>*v1 = byte_402FF8[(char)v1[v4]];</code>’把我看蒙了；（语言基础太菜的后果QAQ）<br>于是到od中寻找该循环所在地，查看一下相应汇编代码：<br><img src='data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAbUAAAB/CAIAAADnzMvsAAAAA3NCSVQICAjb4U/gAAAACXBIWXMA
 AA7EAAAOxAGVKw4bAAAQmUlEQVR4nO2da3LkrA6G8alZWHaW9M7yrYzzIxUHowsCcxHt96mpKTcR
 QgYhLjbdR4zx9Xp9fn4GcAXVAsDDOX7i42ozAADAHcf39/dqGwAAwCNHjHG1DRrH4d1CAOzAn/fi
 Xwjhv//+W20Gz8/c1q15ADQAf96I/2WfPz4+lI9SIis2gY+EKkv83AIA4Ybf2gUsXbvBpPfm32oD
@@ -713,7 +715,7 @@ IlTmIB+lmXJ3erUO1YOZy0JQ+YuojI/Zr0U30z22ZpwL25ulsJGOJjbYM+L2e7VOLz0AbM7V/eku
 obJvGJJuX8zVlhJCjPE40s+qPYHsmmVbn9K8klUrGanIWMxjNdcWpJjdpXUsekA9uT8HeRCKskcB
 8IO4/wjAhjD7j5JLw9UdsNX5GfpcAoDdkSaGmDA6oP75zELgMQCAiWw1fwQAgIkgPgIAAA/iIwAA
 8CA+AgAAD+IjAADwID4CAAAP4iMAAPAgPgIAAA/iIwAA8CA+AgAAD+IjAADw/B+mVnSVynb0fAAA
-AABJRU5ErkJggg=="><br>搜索字符串找到关键输入处，跟踪进去，下断点，调试<br><img src="data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAtkAAADYCAIAAACx7GhFAAAAA3NCSVQICAjb4U/gAAAACXBIWXMA
+AABJRU5ErkJggg=='/><br>搜索字符串找到关键输入处，跟踪进去，下断点，调试<br><img src='data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAtkAAADYCAIAAACx7GhFAAAAA3NCSVQICAjb4U/gAAAACXBIWXMA
 AA7EAAAOxAGVKw4bAAAgAElEQVR4nO2dfXRcV3Xo99XImrHkGUuybMuRHSmS7SQytZ0PWsgLloBC
 00ISoPSV19a0rzi8ZoUFNFktsGgSO1mr7SqrTfPSt0iDkzbkva420PLVUEoKSE5WUhrANkkcbCwz
 ShQsR5YljSzZI83ovj+udH3mfJ8793Nm/5aX1+jcc/fZ99yZe/bde59zrKGhIQAYHByESshync/c
@@ -1012,7 +1014,7 @@ n1VNEO74HXInSJrjpulw82y4dRAE8QmhLTK4ssmh+6e83FSOh/oiK8dIfqDIlfFrdCd9FZ6lxarf
 2KkeZKolO4RR5WqsykCMJSj3jKlCogvzS74DV75p03LJlBBRuSkiJeXyjS7Kl35AEMQvyAGpxrAr
 n1w1fKXJwjYdU+NH3L9LCZp3GlBmSchErkCI1MDvF4khuAY8gphR19ErBEGQAIhmfREESS5ohfhP
 cpMw0EmAIH6AtgiC1BwJGtR9UTXC601QVyNIjMEYDYIgCIIgUYK2CIIgCIIgUfL/AYpRXBXSAShx
-AAAAAElFTkSuQmCC"><br>在输入提示语附近就是输入命令（2）和关键函数（3）的所在地<br>进入3所指的call内部，进一步观察<br><img src="data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAg8AAAF6CAIAAAARQCwaAAAAA3NCSVQICAjb4U/gAAAACXBIWXMA
+AAAAAElFTkSuQmCC'/><br>在输入提示语附近就是输入命令（2）和关键函数（3）的所在地<br>进入3所指的call内部，进一步观察<br><img src='data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAg8AAAF6CAIAAAARQCwaAAAAA3NCSVQICAjb4U/gAAAACXBIWXMA
 AA7EAAAOxAGVKw4bAAAgAElEQVR4nO29e5wcR3Xof3res9re965W79WuZEkrY8k24LARWOYRdG9w
 sLFBTrCIwQbjwAXzyyVAfmDzcH4ESK5NAjEGmRjbcWxjsC8mNyS5DitjHMD4IQtLlrUr7UoraXe1
 D61Gu/Pe/v3RM7013VXd1TPd09Uz5/vRx+6prq4+XTtTp+ucqnMAfIWiKOTHwcHBwcFBj2RBltD9
@@ -1446,7 +1448,7 @@ R9NpVBKIsyy9UFPHcZNB3JaeYNXfuXMn6bogK9ttn+Q9R45cfvDg4YUFym9Mm2do/wCYJSq6s9R/
 5CWWNVWDGPnPXB6T2/GcMn/AMm6hDXbkSzF/g+RfhPzIL4OJ/KzWqCXGyroSah2yE3RIUsE3Zutv
 p30NWM9FLTcIcDydvvyVV7qef37T/v3/7dVXUVUgzmJhidJ5JhycAZhrI6oKscWzicSFL78s8HOO
 AAAATElEQVQ8IMv39vZuoK5DV5FMM8hXB+MvnzUYcdbhaVAqa3rhBn40Q5GSGz9a9lvZHasoAHA8
-nX7q3LnVkUhHKHR+cTEiSbj+FakC/z9Ybs7EyTLvhwAAAABJRU5ErkJggg=="><br>发现两处汇编循环，观察寄存器和堆栈数据得知上面的是“strlen”函数对应的操作<br>下面的便是<code>do...While</code>循环<br><img src="data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAjsAAAEXCAIAAADEMhLcAAAAA3NCSVQICAjb4U/gAAAACXBIWXMA
+nX7q3LnVkUhHKHR+cTEiSbj+FakC/z9Ybs7EyTLvhwAAAABJRU5ErkJggg=='/><br>发现两处汇编循环，观察寄存器和堆栈数据得知上面的是“strlen”函数对应的操作<br>下面的便是<code>do...While</code>循环<br><img src='data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAjsAAAEXCAIAAADEMhLcAAAAA3NCSVQICAjb4U/gAAAACXBIWXMA
 AA7EAAAOxAGVKw4bAAAgAElEQVR4nO2df3Ac1ZXvz9hahMaJbElgQzS4ITDiQYIMCT/k2GOLSC4n
 tUQi2bwMsPZurfXCH0Qak2DyKu8FA+NUUkXM1krjpPaFtVJ5ci0ouy9vR5u3YZdRrWLJkYAEGLPg
 9YgNHo/ML8tjomTkVbDT748rta+6+97+PX175nzK5eq5ffvc0z3S/er+6HNCY2NjANDe3q46UNHe
@@ -1741,7 +1743,7 @@ mUEqA45ckTUkVTR3qySTyW3btgHAmTNnvv71r4+Pj6fT6dOnT9OvLbPo6+u799575+bmnDiABBKM
 0iQmelFerAa7xeC4iDvkcjn6B5LktYrFYuQjK9KSbvqrZDI5OTlZKpVkWS4UCsq7XMlkUjdgLjGi
 feUrmUyKvPkCozQhCIIIQUdHx5kzZ+hBmPl1rIaGhra2tvn5+UOHDtGzf1YTlLiY0AQBVCwEQSqV
 T3ziE0eOHKFLzK9j9fX1rV+/PpFIuBWQEKkucFZQTAI3q4AgiELgfn//P2MysEam80OPAAAAAElF
-TkSuQmCC"><br>由此得知加密算法为：将所输入的字符串的每个字符分别与<code>0x402FF8</code>相加，在此处所对应的字符即为加密后的新字符<br>可以在在ida中找到该地址<br><img src="data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAxsAAAIwCAIAAABhoOHfAAAAA3NCSVQICAjb4U/gAAAACXBIWXMA
+TkSuQmCC'/><br>由此得知加密算法为：将所输入的字符串的每个字符分别与<code>0x402FF8</code>相加，在此处所对应的字符即为加密后的新字符<br>可以在在ida中找到该地址<br><img src='data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAxsAAAIwCAIAAABhoOHfAAAAA3NCSVQICAjb4U/gAAAACXBIWXMA
 AA7EAAAOxAGVKw4bAAAgAElEQVR4nOy9fVRb95Xv/ZWVkWgxMibIiRvhYCBQXiYpxB2guU6Mcy3s
 EBxPG9thDcueW2yeCXYfQ921mmaS6tLmTt2uOJgZh1kB0sa1c2/qrDutfcYEgQPXrimo1+BMY9Bj
 GwljNCauFLuSiFckI5/nj9/x4SAdCYF49/78JTb793aOkDZ777O3gud5hIHT6ZT+GHtgmP/Z12U1
@@ -3129,7 +3131,7 @@ QHb2Qj9B5XFxkQkJM0JDC/FXEoR+5syPV616TyQqABqZDhAXF7lnz2LczwMH1Neu9fgSChIimVaa
 uY+bPYG+6HcfgYEyQ8bc2O1QWAgAIJNBfj5MnQpNTf0HeYhMJmzreDyBagJAWRn09MDGjQAACxeC
 yQSnTsGGDYMKKMQAauCETI1VogQA4a1QqUCvh9rawdDyrCzQ6+8K2PrqK3j/fcjKgmnTID0d9HoA
 6J8nvzkfiQQyM+9KVYDLERQG2BwD5DHxBHqzNBpISBAQJibC4sUwcPcFjaZ/kgGOHhkJa9f2N/ez
-RgrFP/8/4YPI89haZCEAAAAASUVORK5CYII="><br>发现该地址下面是程序内容，没有单一字符，但是在该地址不远处有一串可以输入的字符集，发现字符集的地址与<code>0x402FF8</code>做差为32，刚好是最小的字符所对应的ascii码数值。<br>接下来便是找到每一个输入的字符的ascii码减去31后对应的字符，然后将其按“<code>DDCTF{reverseME}</code>”的形式连起来便拿到flag。<br>写一个小脚本，如下：</p>
+RgrFP/8/4YPI89haZCEAAAAASUVORK5CYII='/><br>发现该地址下面是程序内容，没有单一字符，但是在该地址不远处有一串可以输入的字符集，发现字符集的地址与<code>0x402FF8</code>做差为32，刚好是最小的字符所对应的ascii码数值。<br>接下来便是找到每一个输入的字符的ascii码减去31后对应的字符，然后将其按“<code>DDCTF{reverseME}</code>”的形式连起来便拿到flag。<br>写一个小脚本，如下：</p>
 <pre><code>#include&lt;iostream&gt;
 using namespace std;
 int main()
@@ -3152,39 +3154,41 @@ int main()
     }
     cout&lt;&lt;endl;
     return 0;
-}
-</code></pre>
+}</code></pre>
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
-                <source type="audio/mpeg" src>
+                <source type="audio/mpeg" src="">
             </audio>
             
                 <ul id="audio-list" style="display:none">
                     
                         
-                            <li title="0" data-url="http://music.163.com/song/media/outer/url?id=490182455.mp3"></li>
-                        
-                    
-                        
-                            <li title="1" data-url="http://music.163.com/song/media/outer/url?id=490182454.mp3"></li>
+                            <li title='0' data-url='http://music.163.com/song/media/outer/url?id=490182455.mp3'></li>
                         
                     
                 </ul>
             
         </div>
         
-    <div id="gitalk-container" class="comment link" data-ae="true" data-ci="5cd24ed310c0cbc2a2ed" data-cs="51aa998e509794b7b061784f1f3d41018af118f6" data-r="xikong-mubai.github.io" data-o="xikong-mubai" data-a="xikong-mubai" data-d="false">查看评论</div>
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='true'
+        data-ci='5cd24ed310c0cbc2a2ed'
+        data-cs='51aa998e509794b7b061784f1f3d41018af118f6'
+        data-r='xikong-mubai.github.io'
+        data-o='xikong-mubai'
+        data-a='xikong-mubai'
+        data-d='false'
+    >查看评论</div>
 
 
     </div>
     
-        <div class="side">
-            
+        <div class='side'>
+				
         </div>
     
 </div>
-
-
 
 
     </div>
@@ -3208,14 +3212,23 @@ int main()
         loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
     </script>
     <!--血小板代码-->
+
 <script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
 <script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
 <script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
 <script src="/js/diaspora.js"></script>
+
+
 <link rel="stylesheet" href="/photoswipe/photoswipe.css">
 <link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
 <script src="/photoswipe/photoswipe.min.js"></script>
 <script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
 
 <!-- Root element of PhotoSwipe. Must have class pswp. -->
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
@@ -3264,6 +3277,8 @@ int main()
         </div>
     </div>
 </div>
+
+
 
 
 

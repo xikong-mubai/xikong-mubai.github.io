@@ -1,49 +1,51 @@
 
 <!DOCTYPE html>
 <html lang="Zh-CN" class="loading">
-<head><meta name="generator" content="Hexo 3.8.0">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>流量分析（萌新开坑Ing-慢慢填） - Xibai</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="google" content="notranslate">
+    <meta name="google" content="notranslate" />
     <meta name="keywords" content="Xibai,"> 
     <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,最后更新于：2020-03-05 21：44
 萌新已知的工具wiresharkusbpacpnpcapRouterPassView(能查看宽带数据)目前见过的类型常规网络流量包分析USB流量包分析这,"> 
     <meta name="author" content="Ximu"> 
-    <link rel="alternative" href="atom.xml" title="Xibai" type="application/atom+xml"> 
+    <link rel="alternative" href="http://xibai.xyz/atom.xml" title="Xibai" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-    <link rel="stylesheet" href="/css/diaspora.css">
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
          (adsbygoogle = window.adsbygoogle || []).push({
               google_ad_client: "ca-pub-8691406134231910",
               enable_page_level_ads: true
          });
     </script>
-    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
     </script>
-</head>
-</html>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
 <body class="loading">
     <span id="config-title" style="display:none">Xibai</span>
     <div id="loader"></div>
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="icon-home image-icon" href="javascript:;" data-url></a>
-    <div title="播放/暂停" class="icon-play"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
     <h3 class="subtitle">流量分析（萌新开坑Ing-慢慢填）</h3>
     <div class="social">
-        <!--<div class="like-icon">-->
-            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
-        <!--</div>-->
         <div>
             <div class="share">
-                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
             </div>
             <div id="qr"></div>
         </div>
@@ -53,12 +55,12 @@
 
     <div class="section">
         <div class="article">
-    <div class="main">
+    <div class='main'>
         <h1 class="title">流量分析（萌新开坑Ing-慢慢填）</h1>
         <div class="stuff">
             <span>三月 05, 2020</span>
             
-  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/CTF/">CTF</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Misc/">Misc</a></li></ul>
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/CTF/" rel="tag">CTF</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
 
 
         </div>
@@ -68,35 +70,38 @@
 <h3 id="网络通信流量包（voip-rtp）"><a href="#网络通信流量包（voip-rtp）" class="headerlink" title="网络通信流量包（voip rtp）"></a>网络通信流量包（voip rtp）</h3>
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
-                <source type="audio/mpeg" src>
+                <source type="audio/mpeg" src="">
             </audio>
             
                 <ul id="audio-list" style="display:none">
                     
                         
-                            <li title="0" data-url="http://music.163.com/song/media/outer/url?id=490182455.mp3"></li>
-                        
-                    
-                        
-                            <li title="1" data-url="http://music.163.com/song/media/outer/url?id=490182454.mp3"></li>
+                            <li title='0' data-url='http://music.163.com/song/media/outer/url?id=490182455.mp3'></li>
                         
                     
                 </ul>
             
         </div>
         
-    <div id="gitalk-container" class="comment link" data-ae="true" data-ci="5cd24ed310c0cbc2a2ed" data-cs="51aa998e509794b7b061784f1f3d41018af118f6" data-r="xikong-mubai.github.io" data-o="xikong-mubai" data-a="xikong-mubai" data-d="false">查看评论</div>
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='true'
+        data-ci='5cd24ed310c0cbc2a2ed'
+        data-cs='51aa998e509794b7b061784f1f3d41018af118f6'
+        data-r='xikong-mubai.github.io'
+        data-o='xikong-mubai'
+        data-a='xikong-mubai'
+        data-d='false'
+    >查看评论</div>
 
 
     </div>
     
-        <div class="side">
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#萌新已知的工具"><span class="toc-number">1.</span> <span class="toc-text">萌新已知的工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#wireshark"><span class="toc-number">1.1.</span> <span class="toc-text">wireshark</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#usbpacp"><span class="toc-number">1.2.</span> <span class="toc-text">usbpacp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#npcap"><span class="toc-number">1.3.</span> <span class="toc-text">npcap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RouterPassView-能查看宽带数据"><span class="toc-number">1.4.</span> <span class="toc-text">RouterPassView(能查看宽带数据)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#目前见过的类型"><span class="toc-number">2.</span> <span class="toc-text">目前见过的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常规网络流量包分析"><span class="toc-number">2.1.</span> <span class="toc-text">常规网络流量包分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#USB流量包分析"><span class="toc-number">2.2.</span> <span class="toc-text">USB流量包分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络通信流量包（voip-rtp）"><span class="toc-number">2.3.</span> <span class="toc-text">网络通信流量包（voip rtp）</span></a></li></ol></li></ol>
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#萌新已知的工具"><span class="toc-number">1.</span> <span class="toc-text">萌新已知的工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#wireshark"><span class="toc-number">1.1.</span> <span class="toc-text">wireshark</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#usbpacp"><span class="toc-number">1.2.</span> <span class="toc-text">usbpacp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#npcap"><span class="toc-number">1.3.</span> <span class="toc-text">npcap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RouterPassView-能查看宽带数据"><span class="toc-number">1.4.</span> <span class="toc-text">RouterPassView(能查看宽带数据)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#目前见过的类型"><span class="toc-number">2.</span> <span class="toc-text">目前见过的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常规网络流量包分析"><span class="toc-number">2.1.</span> <span class="toc-text">常规网络流量包分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#USB流量包分析"><span class="toc-number">2.2.</span> <span class="toc-text">USB流量包分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络通信流量包（voip-rtp）"><span class="toc-number">2.3.</span> <span class="toc-text">网络通信流量包（voip rtp）</span></a></li></ol></li></ol>	
         </div>
     
 </div>
-
-
 
 
     </div>
@@ -120,14 +125,23 @@
         loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
     </script>
     <!--血小板代码-->
+
 <script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
 <script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
 <script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
 <script src="/js/diaspora.js"></script>
+
+
 <link rel="stylesheet" href="/photoswipe/photoswipe.css">
 <link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
 <script src="/photoswipe/photoswipe.min.js"></script>
 <script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
 
 <!-- Root element of PhotoSwipe. Must have class pswp. -->
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
@@ -176,6 +190,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 

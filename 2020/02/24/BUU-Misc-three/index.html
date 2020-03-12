@@ -1,49 +1,51 @@
 
 <!DOCTYPE html>
 <html lang="Zh-CN" class="loading">
-<head><meta name="generator" content="Hexo 3.8.0">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>BUUCTF-MISC(三) - Xibai</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="google" content="notranslate">
+    <meta name="google" content="notranslate" />
     <meta name="keywords" content="Xibai,"> 
     <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,最近更新： 2020-03-11 21:45
 [GUET-CTF2019]zips第一层压缩包密码直接爆破，第二次是伪加密，第三层根据 sh 的命令可知密钥是压缩包创建时的时间戳，查看压缩包修改日期,"> 
     <meta name="author" content="Ximu"> 
-    <link rel="alternative" href="atom.xml" title="Xibai" type="application/atom+xml"> 
+    <link rel="alternative" href="http://xibai.xyz/atom.xml" title="Xibai" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-    <link rel="stylesheet" href="/css/diaspora.css">
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
          (adsbygoogle = window.adsbygoogle || []).push({
               google_ad_client: "ca-pub-8691406134231910",
               enable_page_level_ads: true
          });
     </script>
-    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
     </script>
-</head>
-</html>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
 <body class="loading">
     <span id="config-title" style="display:none">Xibai</span>
     <div id="loader"></div>
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="icon-home image-icon" href="javascript:;" data-url></a>
-    <div title="播放/暂停" class="icon-play"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
     <h3 class="subtitle">BUUCTF-MISC(三)</h3>
     <div class="social">
-        <!--<div class="like-icon">-->
-            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
-        <!--</div>-->
         <div>
             <div class="share">
-                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
             </div>
             <div id="qr"></div>
         </div>
@@ -53,18 +55,18 @@
 
     <div class="section">
         <div class="article">
-    <div class="main">
+    <div class='main'>
         <h1 class="title">BUUCTF-MISC(三)</h1>
         <div class="stuff">
             <span>二月 24, 2020</span>
             
-  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/CTF/">CTF</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Misc/">Misc</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Writeup/">Writeup</a></li></ul>
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/CTF/" rel="tag">CTF</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Misc/" rel="tag">Misc</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Writeup/" rel="tag">Writeup</a></li></ul>
 
 
         </div>
         <div class="content markdown">
             <p><strong>最近更新：</strong> <em>2020-03-11 21:45</em></p>
-<h2 id="GUET-CTF2019-zips"><a href="#GUET-CTF2019-zips" class="headerlink" title="[GUET-CTF2019]zips"></a>[GUET-CTF2019]zips</h2><p>第一层压缩包密码直接爆破，第二次是伪加密，第三层根据 <code>sh</code> 的命令可知密钥是压缩包创建时的时间戳，查看压缩包修改日期，在线工具看一下那一天的时间戳，时间戳其实就是一个距离那个一九几几年几月几日零时零分零秒的秒数，同一天的时间戳前几位肯定一样，又因为其所使用python的相关时间戳函数范围的值精确到了小数点后两位，所以这里使用掩码攻击爆破密钥<br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages时间戳1.png" alt="时间戳1.png"><br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages时间戳2.png" alt="时间戳2.png"></p>
+<h2 id="GUET-CTF2019-zips"><a href="#GUET-CTF2019-zips" class="headerlink" title="[GUET-CTF2019]zips"></a>[GUET-CTF2019]zips</h2><p>第一层压缩包密码直接爆破，第二次是伪加密，第三层根据 <code>sh</code> 的命令可知密钥是压缩包创建时的时间戳，查看压缩包修改日期，在线工具看一下那一天的时间戳，时间戳其实就是一个距离那个一九几几年几月几日零时零分零秒的秒数，同一天的时间戳前几位肯定一样，又因为其所使用python的相关时间戳函数范围的值精确到了小数点后两位，所以这里使用掩码攻击爆破密钥<br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages%E6%97%B6%E9%97%B4%E6%88%B31.png" alt="时间戳1.png"><br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages%E6%97%B6%E9%97%B4%E6%88%B32.png" alt="时间戳2.png"></p>
 <h2 id="GUET-CTF2019-KO"><a href="#GUET-CTF2019-KO" class="headerlink" title="[GUET-CTF2019]KO"></a>[GUET-CTF2019]KO</h2><p>就是<code>ook</code>编码的签到，找个在线解码网站解一下码就行了</p>
 <h2 id="从娃娃抓起"><a href="#从娃娃抓起" class="headerlink" title="从娃娃抓起"></a>从娃娃抓起</h2><p>题目说是和汉字里程碑的两种编码方式。首先就想到了可能和汉字输入法有关，肯定不是拼音输入，于是想到五笔输入，很明显纯四位数字和五笔没有关系，试试下面的字母，果然拿到了半句连贯的话。上面的四位数字找了好久才找到是上世纪的电报码，我天，太狗了。电报码翻译过来是人工智能。连起来求md5即为flag</p>
 <h2 id="DDCTF2018-╯°□°）╯︵-┻━┻"><a href="#DDCTF2018-╯°□°）╯︵-┻━┻" class="headerlink" title="[DDCTF2018](╯°□°）╯︵ ┻━┻"></a>[DDCTF2018](╯°□°）╯︵ ┻━┻</h2><p>打开之后发现就是50分的签到类的题，觉得应该不会有什么太大的坑。然而这里是我蒙出来的我特喵，瞎猜真的很难猜的，希望以后能少一点瞎猜，多一丝对吹头发选手的关爱TAT<br>因为是50分的题，又发现这是一列十六进制的值，关键是都在<code>80</code>到<code>ff</code>之间，就盲猜是原字符的ASCII码值加了128，写个脚本就出来了</p>
@@ -74,9 +76,11 @@
 <h2 id="voip"><a href="#voip" class="headerlink" title="voip"></a>voip</h2><p>百度voip，学到这是网络电话用的协议，那这个流量包很明显就是捕获的一次在线通话，wireshark中有相关分析功能，如下：<br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimagesRTP2.png" alt="RTP2.png"><br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimagesRTP3.png" alt="RTP3.png"></p>
 <p>经过本废喵十分钟的努力，终于记下了整个通话内容的全部单词。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi,this is your service.Please press one to listen flag.The flag is S E C C O N,hold on,please.9 0 0 1 I V R close race only capital letter for you.NO,thanks.</span><br></pre></td></tr></table></figure>
+
 <p>后来百度知道这是secconctf，我一开始以为flag是flag{SECCON9001IVR}，丢，原来是SECCON{9001IVR}emmm</p>
 <h2 id="GUET-CTF2019-虚假的压缩包"><a href="#GUET-CTF2019-虚假的压缩包" class="headerlink" title="[GUET-CTF2019]虚假的压缩包"></a>[GUET-CTF2019]虚假的压缩包</h2><p>题目给了两个压缩包，虚假的那个明显是伪加密的意思，遇压缩包不觉先上7z，伪加密的压缩包7z可以直接解压缩并告知压缩包数据头部信息有错，这个错误直接忽略就可。得到 <code>key.txt</code> ，里面的内容明显是让解一个简单的<code>rsa</code>计算，<code>n=33</code>，<code>e=3</code>，这和直接说 <code>d=7</code> 有啥区别，不如放一个稍微花里胡哨点的解密好玩2333。真实的压缩包的密码脑洞了一下下，不过只是一下下，还在正常范围之内。txt最后的那句话加上答案才是完整密码————<strong>答案是5</strong>.解密是一张图片和不知道是啥的文件，这里因为开了kali想用<code>file</code>命令查看那个未知文件是不是已知文件类型，结果发现图片在卡里下无法显示，故winhex修改高度看到提示 <code>^5</code> ，那就写个脚本和5异或咯。<br><del>这里犯了个小错，一开始直接把文件的十六进制数据和5异或了，然后发现得到的结果有问题，后来仔细看了看，出题人已经把文件的十六进制encode一次了，直接用读取用int转一下数据类型就可以了</del></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'cipher'</span>,<span class="string">'r'</span>) <span class="keyword">as</span> io,open(<span class="string">'flag'</span>,<span class="string">'wb'</span>) <span class="keyword">as</span> fi:</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        tmp = io.read(<span class="number">128</span>)</span><br><span class="line">        print(tmp)</span><br><span class="line">        <span class="keyword">if</span> tmp == <span class="string">''</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        flag = <span class="string">''</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> tmp:</span><br><span class="line">            flag += str(hex(int(i,<span class="number">16</span>)^<span class="number">5</span>)[<span class="number">2</span>:])</span><br><span class="line">        print(len(flag))</span><br><span class="line">        fi.write(binascii.a2b_hex(flag.strip()))</span><br></pre></td></tr></table></figure>
+
 <p>然后winhex打开生成的文件看到开头又PK和xml的字符，推测是office的文件，先试试word文档打开，发现显示正常，结尾有多余的空格和换行，估计是白色字体，全选之后改一下字体颜色看到flag。<br><img src="http://lychee.xibai.xyz/uploads/big/7503f8658073cff565bf143961da9179.png" alt="xml"></p>
 <h2 id="RCTF2019-draw"><a href="#RCTF2019-draw" class="headerlink" title="[RCTF2019]draw"></a>[RCTF2019]draw</h2><p>这是少儿编程logo语言，在网上找了好几个版本的解释器都不能完全识别文本的所有命令，最后在google上的一个在线工具中完整执行。。。再次验证在线工具一般情况比离线工具强的莫名理论emmmm</p>
 <h2 id="greatescape"><a href="#greatescape" class="headerlink" title="greatescape"></a>greatescape</h2><p>这个题让我深感只会基操就来硬刚wireshark的难受。以后有空了认真拿着wireshark的教学手册修炼一波，一条一条流量硬刚的日子再也不想过了555.<br>首先查看流量协议类型发现存在<code>ftp</code>和<code>smtp</code>两种关键流量，前者一般人都知道是访问服务器文件的，后者略微冷一点点，不过大家玩信安的也应该有了解过，大概就是是邮件通信服务的协议类型。<br>分析两种流量的内容，在<code>ftp</code>流量中发现一个文件<code>ssc.key</code>，查看<code>stmp</code>中的邮件内容，得到关键信息：<br><img src="http://lychee.xibai.xyz/uploads/small/20c1fb4142fa45e68c9ee89c4621a089.png" alt="stmp"><br>他会通过<code>https://ssc.teaser.insomnihack.ch</code>该域名的服务器传输东西，那么很明显了，前面的<code>ssc.key</code>是一个类似于RSA私钥的文件（我打开看了确实是RSA私钥），而这里访问这个<code>SSC</code>的服务器用了<code>SSL</code>的加密，在 <strong>得到了私钥的情况下就可以为wireshark指定对目标TLS加密流量进行解密</strong> 。通过 编辑-&gt;首选项-&gt;protocol（协议）-&gt;（<strong><em>老版wireshark选择SSL</em></strong>）TLS -&gt;RSA keys list:Edit..,直接添加指定IP、端口、协议、本地RSA私钥文件的信息，然后重新打开该流量包文件即可查看之前一些乱码的目标流量信息。在前面提到的那个<code>SSC</code>相关的所有解密了的流量信息中查找关键信息，一条一条的找着审啊（回头必须学一些进阶操作惹），在<code>tcp.stream eq 80</code>的http流量中发现小旗纸。<br><img src="http://lychee.xibai.xyz/uploads/big/b09d7fb35dd7eb319bea8af22cf86d93.png" alt="flag"></p>
@@ -90,35 +94,38 @@
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
-                <source type="audio/mpeg" src>
+                <source type="audio/mpeg" src="">
             </audio>
             
                 <ul id="audio-list" style="display:none">
                     
                         
-                            <li title="0" data-url="http://music.163.com/song/media/outer/url?id=490182455.mp3"></li>
-                        
-                    
-                        
-                            <li title="1" data-url="http://music.163.com/song/media/outer/url?id=490182454.mp3"></li>
+                            <li title='0' data-url='http://music.163.com/song/media/outer/url?id=490182455.mp3'></li>
                         
                     
                 </ul>
             
         </div>
         
-    <div id="gitalk-container" class="comment link" data-ae="true" data-ci="5cd24ed310c0cbc2a2ed" data-cs="51aa998e509794b7b061784f1f3d41018af118f6" data-r="xikong-mubai.github.io" data-o="xikong-mubai" data-a="xikong-mubai" data-d="false">查看评论</div>
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='true'
+        data-ci='5cd24ed310c0cbc2a2ed'
+        data-cs='51aa998e509794b7b061784f1f3d41018af118f6'
+        data-r='xikong-mubai.github.io'
+        data-o='xikong-mubai'
+        data-a='xikong-mubai'
+        data-d='false'
+    >查看评论</div>
 
 
     </div>
     
-        <div class="side">
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#GUET-CTF2019-zips"><span class="toc-number">1.</span> <span class="toc-text">[GUET-CTF2019]zips</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GUET-CTF2019-KO"><span class="toc-number">2.</span> <span class="toc-text">[GUET-CTF2019]KO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#从娃娃抓起"><span class="toc-number">3.</span> <span class="toc-text">从娃娃抓起</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DDCTF2018-╯°□°）╯︵-┻━┻"><span class="toc-number">4.</span> <span class="toc-text">[DDCTF2018](╯°□°）╯︵ ┻━┻</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GWCTF2019-huyao"><span class="toc-number">5.</span> <span class="toc-text">[GWCTF2019]huyao</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBNIS2018-excel破解"><span class="toc-number">6.</span> <span class="toc-text">[HBNIS2018]excel破解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#voip"><span class="toc-number">7.</span> <span class="toc-text">voip</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GUET-CTF2019-虚假的压缩包"><span class="toc-number">8.</span> <span class="toc-text">[GUET-CTF2019]虚假的压缩包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RCTF2019-draw"><span class="toc-number">9.</span> <span class="toc-text">[RCTF2019]draw</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#greatescape"><span class="toc-number">10.</span> <span class="toc-text">greatescape</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBNIS2018-来题中等的吧"><span class="toc-number">11.</span> <span class="toc-text">[HBNIS2018]来题中等的吧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBNIS2018-caesar"><span class="toc-number">12.</span> <span class="toc-text">[HBNIS2018]caesar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBNIS2018-低个头"><span class="toc-number">13.</span> <span class="toc-text">[HBNIS2018]低个头</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GUET-CTF2019-soul-sipse"><span class="toc-number">14.</span> <span class="toc-text">[GUET-CTF2019]soul sipse</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HDCTF2019-你能发现什么蛛丝马迹吗"><span class="toc-number">15.</span> <span class="toc-text">[HDCTF2019]你能发现什么蛛丝马迹吗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CTF2019-otaku"><span class="toc-number">16.</span> <span class="toc-text">[*CTF2019]otaku</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日常未完待续嘤嘤嘤QAQ"><span class="toc-number">17.</span> <span class="toc-text">日常未完待续嘤嘤嘤QAQ</span></a></li></ol>
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#GUET-CTF2019-zips"><span class="toc-number">1.</span> <span class="toc-text">[GUET-CTF2019]zips</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GUET-CTF2019-KO"><span class="toc-number">2.</span> <span class="toc-text">[GUET-CTF2019]KO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#从娃娃抓起"><span class="toc-number">3.</span> <span class="toc-text">从娃娃抓起</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DDCTF2018-╯°□°）╯︵-┻━┻"><span class="toc-number">4.</span> <span class="toc-text">[DDCTF2018](╯°□°）╯︵ ┻━┻</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GWCTF2019-huyao"><span class="toc-number">5.</span> <span class="toc-text">[GWCTF2019]huyao</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBNIS2018-excel破解"><span class="toc-number">6.</span> <span class="toc-text">[HBNIS2018]excel破解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#voip"><span class="toc-number">7.</span> <span class="toc-text">voip</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GUET-CTF2019-虚假的压缩包"><span class="toc-number">8.</span> <span class="toc-text">[GUET-CTF2019]虚假的压缩包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RCTF2019-draw"><span class="toc-number">9.</span> <span class="toc-text">[RCTF2019]draw</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#greatescape"><span class="toc-number">10.</span> <span class="toc-text">greatescape</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBNIS2018-来题中等的吧"><span class="toc-number">11.</span> <span class="toc-text">[HBNIS2018]来题中等的吧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBNIS2018-caesar"><span class="toc-number">12.</span> <span class="toc-text">[HBNIS2018]caesar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBNIS2018-低个头"><span class="toc-number">13.</span> <span class="toc-text">[HBNIS2018]低个头</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GUET-CTF2019-soul-sipse"><span class="toc-number">14.</span> <span class="toc-text">[GUET-CTF2019]soul sipse</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HDCTF2019-你能发现什么蛛丝马迹吗"><span class="toc-number">15.</span> <span class="toc-text">[HDCTF2019]你能发现什么蛛丝马迹吗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CTF2019-otaku"><span class="toc-number">16.</span> <span class="toc-text">[*CTF2019]otaku</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日常未完待续嘤嘤嘤QAQ"><span class="toc-number">17.</span> <span class="toc-text">日常未完待续嘤嘤嘤QAQ</span></a></li></ol>	
         </div>
     
 </div>
-
-
 
 
     </div>
@@ -142,14 +149,23 @@
         loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
     </script>
     <!--血小板代码-->
+
 <script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
 <script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
 <script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
 <script src="/js/diaspora.js"></script>
+
+
 <link rel="stylesheet" href="/photoswipe/photoswipe.css">
 <link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
 <script src="/photoswipe/photoswipe.min.js"></script>
 <script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
 
 <!-- Root element of PhotoSwipe. Must have class pswp. -->
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
@@ -198,6 +214,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 

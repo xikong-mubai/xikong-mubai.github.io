@@ -1,49 +1,51 @@
 
 <!DOCTYPE html>
 <html lang="Zh-CN" class="loading">
-<head><meta name="generator" content="Hexo 3.8.0">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Angr的windows安装——萌新向 - Xibai</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="google" content="notranslate">
+    <meta name="google" content="notranslate" />
     <meta name="keywords" content="Xibai,"> 
     <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,window10中符号执行（angr）的安装——小白篇
 最近做题的时候遇到了一些需要使用angr来完成的题目，之后在网上搜了好久发现大多是Linux以及其它系统的angr安装教程。windows系统,"> 
     <meta name="author" content="Ximu"> 
-    <link rel="alternative" href="atom.xml" title="Xibai" type="application/atom+xml"> 
+    <link rel="alternative" href="http://xibai.xyz/atom.xml" title="Xibai" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-    <link rel="stylesheet" href="/css/diaspora.css">
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
          (adsbygoogle = window.adsbygoogle || []).push({
               google_ad_client: "ca-pub-8691406134231910",
               enable_page_level_ads: true
          });
     </script>
-    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
     </script>
-</head>
-</html>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
 <body class="loading">
     <span id="config-title" style="display:none">Xibai</span>
     <div id="loader"></div>
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="icon-home image-icon" href="javascript:;" data-url></a>
-    <div title="播放/暂停" class="icon-play"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
     <h3 class="subtitle">Angr的windows安装——萌新向</h3>
     <div class="social">
-        <!--<div class="like-icon">-->
-            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
-        <!--</div>-->
         <div>
             <div class="share">
-                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
             </div>
             <div id="qr"></div>
         </div>
@@ -53,33 +55,28 @@
 
     <div class="section">
         <div class="article">
-    <div class="main">
+    <div class='main'>
         <h1 class="title">Angr的windows安装——萌新向</h1>
         <div class="stuff">
             <span>四月 20, 2019</span>
             
-  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/python/">python</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/二进制/">二进制</a></li></ul>
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/python/" rel="tag">python</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/" rel="tag">二进制</a></li></ul>
 
 
         </div>
         <div class="content markdown">
             <p><strong>window10中符号执行（angr）的安装——小白篇</strong></p>
 <p>最近做题的时候遇到了一些需要使用angr来完成的题目，之后在网上搜了好久发现大多是Linux以及其它系统的angr安装教程。windows系统的安装方法几乎没有。身为一个萌新，猜测同类们应该也会有需要的时候，虽然Linux和centos系统的教程都很完备随便就能找到，但是应该有不少小萌新和我一样不想讨厌一用工具就要去打开虚拟机。于是就来分享一下我在windows10上装angr的小小经验：<br>一、py问题<br>先检查一下自己的<strong>python2.x</strong>有没有问题（一般都没问题）。关键在于很多萌新同时在电脑里安装<strong>python2</strong>和<strong>python3</strong>时都只顾着看自己的俩个版本的<code>python</code>是不是都装上去了、都设置了环境变量，然后，没有注意自己的<code>python</code>以及<code>pip</code>的使用问题：<br>打开命令提示符，输入：</p>
-<pre><code>python
-</code></pre><p>或</p>
-<pre><code>python2
-</code></pre><p>查看此时调用的<strong>py环境是2还是3</strong>，如果是<strong>python3.x</strong>，请检查自己的环境变量是否设置好了（<strong>注意：python2和python3同时安装时在设置好环境变量后需要重启系统才能调用python2，原谅我只是个萌新不能解释原因</strong>）。<code>python</code>的调用没有问题的话再去看<code>pip</code>；方法一致，命令提示符中输入：</p>
-<pre><code>pip -V
-</code></pre><p>可查看pip所调用的版本信息，倘若是<strong>python3.x</strong>所带的<code>pip</code>请再输入</p>
-<pre><code>pip2 -V
-</code></pre><p>倘若<code>pip2 -V</code>不能使用则需要手动去安装设置python2的pip<br><em><a href="https://www.cnblogs.com/zhengyihan1216/p/6011640.html" target="_blank" rel="noopener">点此通往大佬教程</a></em></p>
+<pre><code>python</code></pre><p>或</p>
+<pre><code>python2</code></pre><p>查看此时调用的<strong>py环境是2还是3</strong>，如果是<strong>python3.x</strong>，请检查自己的环境变量是否设置好了（<strong>注意：python2和python3同时安装时在设置好环境变量后需要重启系统才能调用python2，原谅我只是个萌新不能解释原因</strong>）。<code>python</code>的调用没有问题的话再去看<code>pip</code>；方法一致，命令提示符中输入：</p>
+<pre><code>pip -V</code></pre><p>可查看pip所调用的版本信息，倘若是<strong>python3.x</strong>所带的<code>pip</code>请再输入</p>
+<pre><code>pip2 -V</code></pre><p>倘若<code>pip2 -V</code>不能使用则需要手动去安装设置python2的pip<br><em><a href="https://www.cnblogs.com/zhengyihan1216/p/6011640.html" target="_blank" rel="noopener">点此通往大佬教程</a></em></p>
 <p>二、<strong>安装angr</strong><br>确保可以直接使用python2的pip后打开命令提示符，用以下代码进行安装：<br>(用python2的pip，这里我的pip是直接调用python2的pip，一些人可能要用’pip2’，下面几行代码不再解释)</p>
 <pre><code>pip install pyvex
 pip install unicorn
 pip install simuvex
-pip install angr 
-</code></pre><p> 之后进入<strong>python2</strong>环境尝试，像下面这样就是成功了</p>
-<p><img src="data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAtUAAACSCAYAAACKcTaWAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+pip install angr </code></pre><p> 之后进入<strong>python2</strong>环境尝试，像下面这样就是成功了</p>
+<p><img src='data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAtUAAACSCAYAAACKcTaWAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
 jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAP+lSURBVHhe7F0FoBZF1z730t2NhF2IIoIIKqJi
 i4F0iooBKgYodmMhNiYlKSYhjWAg3d3d3Xn/85yZMzu7971wUb7vV7997p3dec6cmN19752z8867
 b1K2M6qkHNm9jQ5tWUNACv8QJcmPqYNhI1soGFgaBoSegk8B8cECp6JO0nAqlDcptj2hPopyBnSE
@@ -1451,9 +1448,9 @@ tPATtIHTZG73y+C2Ec2mZuSM8H5O8Di+M1evV4Ma484XHecPad9PE43t3AAjNRqu/LD5harH1GMt
 cqww+NbHKY6uFqJc0M0YmowzPsYeXAHjOCEb+FbHmbhSmGN0hHMhTgMYNDXG0BiqQVvVSFwGt9V4
 QNz7dRDAYA028BENNHJ3u6GLCY1aCFymyHF/TxO2WrOBwrkYPS7qsUbIFNz8Pb2RGuRc5xz0Q3PC
 cYr4OmGohhCaXHA7xAa3o3csDtZA22oNQJQLGGpOoMmpfGtAvEsKPUkYezUCkTNRjU6Ux7xkSNl6
-kiOGDjJ7jTEh1a+AUv5fU3PtrOrsWW0AAAAASUVORK5CYII="></p>
+kiOGDjJ7jTEh1a+AUv5fU3PtrOrsWW0AAAAASUVORK5CYII='/></p>
 <p>这里因为我的windows返回的这行字有一点乱码所以放一张Linux的正常图片，下面是windows的示例：</p>
-<p><img src="data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAA8cAAAC2CAYAAAD0mf+jAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+<p><img src='data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAA8cAAAC2CAYAAAD0mf+jAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
 jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAACbISURBVHhe7d07j13XleDxw44d+DuYVCAwMWgP
 MJQCBwM0KCUEBlDgpIAJqB4DGnJgGKhAITMFTaqDaTEpKDOUmEmLqQNLAwOyDBiEgDHlxMlEA5gg
 iIE7Yd916y5y1aq1X+dx7zn3/H/AUZ2zH2uvve+jaus+eOXly5evup3T09Pu008/3V0BAAAAALAO
@@ -1629,9 +1626,9 @@ t5vj7dnGT3/603BzzMYYAAAAAHBsLnwh1/a/G6m3Vc9xYwwAAAAAwJgu/FNO169f737zm9/srua7
 MY7isgkHAAAAALQI/yknOX74wx9uC8VcN8YAAAAAAIzt9duqrTlvjCW2/rQHG3EAAAAAQF8XvpDr
 9PS0Ozs7210BAAAAAHC8wi/kAgAAAABgrdgcAwAAAABWj80xAAAAAGD12BwDAAAAAFaPzTEAAAAA
 YPXYHAMAAAAAVo/NMQAAAABg9dgcAwAAAABWj80xAAAAAGDluu4/ALIoBRcrBCQOAAAAAElFTkSu
-QmCC"></p>
+QmCC'/></p>
 <p>三、如果还不能成功安装的话可以安装Visual Studio 2015。我选用的是community 版本，安装中只需选择 Commom Tools for Visual C++ 2015 并安装。</p>
-<p><img src="data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAcoAAAErCAYAAABehMP7AAAgAElEQVR4AezBD1gUBJ74/3czPHLP
+<p><img src='data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAcoAAAErCAYAAABehMP7AAAgAElEQVR4AezBD1gUBJ74/3czPHLP
 PA/LsHDH76b4MymhNI4Ngflc/xTR5sJQ2IzWpt0VQ/I2rhZbbdn4o7SUfpPdFneLKMy9KSPvC4pa
 UyB659ljgUwO0yhhDuLG/djDdWb5PdPC7aw/R5xCQUUQBffzet3U0mI/jUAgEAhG6/TpvzJpUiCj
 4fV6ud7i4qYhOCuAM6ZP1yEQCAQCgWCAAM6YPv0OBAKBQCAQDKBAIBAIBALBYAoEAoFAIBAMpkAg
@@ -2171,9 +2168,9 @@ cLaHbBsLJhhK2ijWpuwDDCUyZLP7gDL5gQM4eEwirTB+WFFHHWsTd8GuXVFuBhcvXuBmFQgEOX+e
 G3LbbfD730/wB2HGScXgcNpGUUcdHwcz3k+M50jbis8kM04qBofTNoo6Pibz8xdobf0iy3bs+CLX
 8uqrv2OlUukcf2wadXyaWB1RGC+gqKOOj4uyRyi1dRE3+QwyiceilI7ZKOqo41oM6vhUMOOkeqP4
 ikdI2oo66vg4OeSSDp9NCjvdRx11rI9BHet122388SibdNKmjjrqqKOOT8z/B6r+/UPo4qvbAAAA
-AElFTkSuQmCC"></p>
+AElFTkSuQmCC'/></p>
 <p>然后再安装MVC++ compiler for Python 2.7。<br>之后先打开这个东西：</p>
-<p><img src="data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAQ0AAAHECAYAAAAj9X90AAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+<p><img src='data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAQ0AAAHECAYAAAAj9X90AAAAAXNSR0IArs4c6QAAAARnQU1BAACx
 jwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAP+lSURBVHhe7P13oLVnVef/3wkhPZBQQgsgvQlI
 Lw4oBFDHCoj6c2QEB8tXAR11/IqjYh1GR8YuDqjYG4IKM6N0ELBA6E2aNIEAoUNIQkK++3U/532y
 cs95kjCi8Y/fB1bWda3yWeu67rLvvc95zj7i9NNPv/DTn/70cuGFFy5HHHHEvrDRwHc4P3swPvLI
@@ -4024,9 +4021,9 @@ QR67wfbzAuzmBMTV+SYdQLZWBXVCZz3sxigLxtz1cs4CbNCYP8tIUYtwIHk1Z7w0cLcx3oYBuPP4
 PzLcecI5CcyhD7Bnx8jWzPPEDjGWsp4+YhQyr6A85CPHMCeovfKsKf7nfGklqdfyMqY3bZx8+UGs
 en252GuGCb4NbbngED7G5pihjrUjw3DsV9Hb18WjXhB9x4xrMvJAfExe49KGQb+uWas3vJBdJ5DX
 HLnvA7EO+GBX5/EG2Op6ppjaZ5cXyK2XY/V3DCl7roQTikEe40TOi94x8YyhCRMmlP8H4rg2ta2W
-p3IAAAAASUVORK5CYII="></p>
+p3IAAAAASUVORK5CYII='/></p>
 <p>如果你的是英文名字请先翻译一下，这些个命令提示符不一样，打箭头的这个第一次启动会配置一些东西，然后用它运行一下<br>install_angr.bat(点击这个文件名字转到github界面下载它，然后用上面说的那个命令提示符运行)</p>
-<p><img src="data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAA10AAAF9CAYAAAD/SAJAAAAgAElEQVR4AezBD3zT9b3o/9c3acCG
+<p><img src='data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAA10AAAF9CAYAAAD/SAJAAAAgAElEQVR4AezBD3zT9b3o/9c3acCG
 P6Vr6CAdRguV8k8lAm64hVFz7BnJOQXUqYEz48Sq57fTFfEc57ZTDzn+mWfHUnu2OUWOVXcjghaY
 TbXaB7XhiigjaNkphdb+jI5aSyMikKxEvp/LV9dZELSFApXzfj61jz76SHHY73//exYsWIBAIBAI
 BAKBQCAQCE5KCgKB4PTo3KwQDCi26RoCgUAgEAgEp4IJgUAgEAgEAoFAIBD0JxMCgUAgEAgEAoFA
@@ -4973,42 +4970,45 @@ Tg5RUVE0NTVx4sQJJOGRhOErJScnEwgE+Oyzz/D5fHye5ORkAoEAn332GT6fD8OfXFdXF0pISHAY
 DAaDwWAwGL4NnHOESeL/A+cckSRhuCzOOTyS+CLOOTySMPzJdXV14cdgMBgMBoPB8G0hif9vJGH4
 P5HEV5GE4Wvlw2AwGAwGg8FgMBgMV5IPg8FgMBgMBoPBYDBcST4MBoPBYDAYDAaDwXAl+TAYDAaD
 wWAwGAwGw5Xkw2AwGAwGg8FgMBgMV5IPg8FgMBgMBoPBYDBcST4MBoPBYDAYDAaDwXAl+TAYDAaD
-wWAwGAwGw5X0PxvETqXGPA30AAAAAElFTkSuQmCC"></p>
+wWAwGAwGw5X0PxvETqXGPA30AAAAAElFTkSuQmCC'/></p>
 <p>之后还未成功可再次尝试步骤二的代码。<br>更多的错误我应该暂时也没办法帮你解决了</p>
 <hr>
 <p>作者：浅汐丶沐雪<br>来源：CSDN<br>原文：<a href="https://blog.csdn.net/qq_43500877/article/details/89035959" target="_blank" rel="noopener">https://blog.csdn.net/qq_43500877/article/details/89035959</a><br>版权声明：本文为博主原创文章，转载请附上博文链接！</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
-                <source type="audio/mpeg" src>
+                <source type="audio/mpeg" src="">
             </audio>
             
                 <ul id="audio-list" style="display:none">
                     
                         
-                            <li title="0" data-url="http://music.163.com/song/media/outer/url?id=490182455.mp3"></li>
-                        
-                    
-                        
-                            <li title="1" data-url="http://music.163.com/song/media/outer/url?id=490182454.mp3"></li>
+                            <li title='0' data-url='http://music.163.com/song/media/outer/url?id=490182455.mp3'></li>
                         
                     
                 </ul>
             
         </div>
         
-    <div id="gitalk-container" class="comment link" data-ae="true" data-ci="5cd24ed310c0cbc2a2ed" data-cs="51aa998e509794b7b061784f1f3d41018af118f6" data-r="xikong-mubai.github.io" data-o="xikong-mubai" data-a="xikong-mubai" data-d="false">查看评论</div>
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='true'
+        data-ci='5cd24ed310c0cbc2a2ed'
+        data-cs='51aa998e509794b7b061784f1f3d41018af118f6'
+        data-r='xikong-mubai.github.io'
+        data-o='xikong-mubai'
+        data-a='xikong-mubai'
+        data-d='false'
+    >查看评论</div>
 
 
     </div>
     
-        <div class="side">
-            
+        <div class='side'>
+				
         </div>
     
 </div>
-
-
 
 
     </div>
@@ -5032,14 +5032,23 @@ wWAwGAwGw5X0PxvETqXGPA30AAAAAElFTkSuQmCC"></p>
         loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
     </script>
     <!--血小板代码-->
+
 <script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
 <script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
 <script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
 <script src="/js/diaspora.js"></script>
+
+
 <link rel="stylesheet" href="/photoswipe/photoswipe.css">
 <link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
 <script src="/photoswipe/photoswipe.min.js"></script>
 <script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
 
 <!-- Root element of PhotoSwipe. Must have class pswp. -->
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
@@ -5088,6 +5097,8 @@ wWAwGAwGw5X0PxvETqXGPA30AAAAAElFTkSuQmCC"></p>
         </div>
     </div>
 </div>
+
+
 
 
 
