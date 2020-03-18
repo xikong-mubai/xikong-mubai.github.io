@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html lang="Zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PHP序列化与反序列化 - 汐白的学习档案</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Xibai,"> 
+    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,serialize( void ) : stringserialize函数会把一个已有的数据转化成一串字符串，该字符串从前到后依次记录该数据的类型、长度(涉及到类似数组字符串这种拥有元素个数属性的数,"> 
+    <meta name="author" content="Ximu"> 
+    <link rel="alternative" href="http://xibai.xyz/atom.xml" title="汐白的学习档案" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">汐白的学习档案</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">PHP序列化与反序列化</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">PHP序列化与反序列化</h1>
+        <div class="stuff">
+            <span>十一月 17, 2019</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Web/" rel="tag">Web</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/php/" rel="tag">php</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="serialize-void-string"><a href="#serialize-void-string" class="headerlink" title="serialize( void ) : string"></a>serialize( void ) : string</h2><p>serialize函数会把一个已有的数据转化成一串字符串，该字符串从前到后依次记录该数据的类型、长度(涉及到类似数组字符串这种拥有元素个数属性的数据序列化后会返回该值)、内容，同一数据的不同内容用 “ : ” 进行分割，例如</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$a=<span class="string">"asd"</span>  <span class="comment">//a被定义为一个字符串，类型是string，长度为3，内容“asd”</span></span><br><span class="line"></span><br><span class="line">$b=serialize($a) <span class="comment">//b会成为一个字符串，其内容为“ s:3:"asd" ”  s为 a 的数据类型 string 的首字母，3 为 a 的长度或者说 a 中包含的元素（字符）个数，"asd" 为a的内容</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>各种类型序列化的例子：</p>
+<table>
+<thead>
+<tr>
+<th align="left">变量类型</th>
+<th>进行序列化后</th>
+<th>标志</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">int</td>
+<td>i:9;</td>
+<td>i</td>
+</tr>
+<tr>
+<td align="left">string</td>
+<td>s:3:”asd”;</td>
+<td>s</td>
+</tr>
+<tr>
+<td align="left">double</td>
+<td>d:9.90001;</td>
+<td>d</td>
+</tr>
+<tr>
+<td align="left">bool</td>
+<td>b:1;</td>
+<td>b</td>
+</tr>
+<tr>
+<td align="left">array</td>
+<td>a:3:{i:0;s:3:”asd”;i:1;i:111;i:2;d:12.10001;}</td>
+<td>a</td>
+</tr>
+<tr>
+<td align="left">null</td>
+<td>N;</td>
+<td>N</td>
+</tr>
+<tr>
+<td align="left">object</td>
+<td>O:9:”classname”:0:{}</td>
+<td>O</td>
+</tr>
+</tbody></table>
+<p>这里要说明一些特殊个例：<code>array</code>和<code>object</code></p>
+<h3 id="特例"><a href="#特例" class="headerlink" title="特例"></a>特例</h3><h4 id="array"><a href="#array" class="headerlink" title="array"></a>array</h4><p><code>array</code>这种组合型数据，长度为元素个数，其内容用花括号 <strong>{ }</strong>括起来</p>
+<p>花括号内的数据不仅用每个数据相应的序列化方式进行序列化，且在该数据前面要有一个<code>i:x</code></p>
+<p>这个<code>i:x</code>代表的是其在数组中的下标，且下标和数据之间也要用<code>；</code>间隔。</p>
+<h4 id="object"><a href="#object" class="headerlink" title="object"></a>object</h4><p><code>object</code>因为是使用者自定义的，所以系统在判断的时候想要知道你这个被序列化过的数据如果是<code>object</code>该是什么<code>object</code>就必须给它加上相应<code>object</code>的名字，所以<code>object</code>类型的数据序列化之后标志后要比 <code>array</code>要再多一点东西，就是名字和名字的长度，不过这里不需要再用别的什么方式来表示，就只是简单的在标志 <strong>O</strong> 后面加上名字的长度和内容，中间全部都是<strong>：</strong>，不需要<strong>；</strong>分割。</p>
+<p>花括号内部的数据内容不像<code>array</code>那样需要标注下标，但是<code>object</code>内部属性有自己的数据类型和名字，所以属性的名字起到了下标的作用，下标是整形数字，所以用<code>i:x;</code>表示，而属性名是字符串，故用<code>s:x:&quot;xxx&quot;;</code>表示。</p>
+<p>同时在object中因为存在公共属性、私有属性、保护属性，其中公共属性没有特殊点。另外两种在序列化时会有一点不一样</p>
+<h5 id="protected"><a href="#protected" class="headerlink" title="protected"></a>protected</h5><p>受保护的属性其序列化后，属性名前会有一个 ***** ，如：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> $asd;</span><br><span class="line">&#125;</span><br><span class="line">$a = <span class="keyword">new</span> Test(<span class="string">'sadasd'</span>);</span><br><span class="line"><span class="keyword">echo</span> serialize($a);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">输出结果整理成清楚的格式</span></span><br><span class="line"><span class="comment">O:4:"Test":1:&#123;</span></span><br><span class="line"><span class="comment">  s:6:"%00*%00asd";</span></span><br><span class="line"><span class="comment">  s:6:"sadasd";</span></span><br><span class="line"><span class="comment">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里需要注意，受保护的属性名字序列化后虽然是显示为形如<code>*name</code>这样的形式，但其实 ***** 前后各有一个<code>%00</code>填充</p>
+<h5 id="private"><a href="#private" class="headerlink" title="private"></a>private</h5><p>私有化的属性其序列化后，属性名前会加上object的名字 ，如：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> $asd;</span><br><span class="line">&#125;</span><br><span class="line">$a = <span class="keyword">new</span> Test(<span class="string">'sadasd'</span>);</span><br><span class="line"><span class="keyword">echo</span> serialize($a);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">输出结果整理成清楚的格式</span></span><br><span class="line"><span class="comment">O:4:"Test":1:&#123;</span></span><br><span class="line"><span class="comment">  s:6:"%00*%00asd";</span></span><br><span class="line"><span class="comment">  s:6:"sadasd";</span></span><br><span class="line"><span class="comment">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里需要注意，私有化的属性名字序列化后虽然是显示为形如<code>object_name+name</code>这样的形式，但其实 类似<code>array</code> 里面的***** 一样<code>object_name</code>前后各有一个<code>%00</code>填充</p>
+<h2 id="unserialize-string-serialized"><a href="#unserialize-string-serialized" class="headerlink" title="unserialize( string $serialized )"></a>unserialize( string <code>$serialized</code> )</h2><p>通过序列化可以将一个数据转化成纯字符串的形式从而极大地方便了其储存和传输，既然可以将数据序列化为纯字符串，自然也需要在使用时进行反序列化将其解析为原本的数据。</p>
+<p>反序列化暂时不了解什么特殊，只知道在web反序列化时，若其内部有魔术方法<code>_wakeup()</code>时，我们构造的payload对象属性个数大于实际属性个数时，<code>_warmup()</code>魔术方法会被绕过</p>
+<p>例如：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SoFun</span></span>&#123;</span><br><span class="line">  <span class="keyword">protected</span> $file=<span class="string">'index.php'</span>;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="keyword">empty</span>(<span class="keyword">$this</span>-&gt;file)) &#123;</span><br><span class="line">     <span class="keyword">if</span>(strchr(<span class="keyword">$this</span>-&gt; file,<span class="string">"\\"</span>)===<span class="keyword">false</span> &amp;&amp; strchr(<span class="keyword">$this</span>-&gt;file,<span class="string">'/'</span>)===<span class="keyword">false</span>)</span><br><span class="line">        show_source(dirname (<span class="keyword">__FILE__</span>).<span class="string">'/'</span>.<span class="keyword">$this</span> -&gt;file);</span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">         <span class="keyword">die</span>(<span class="string">'Wrong filename.'</span>);</span><br><span class="line">    &#125;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span><span class="params">()</span></span>&#123; <span class="keyword">$this</span>-&gt; file=<span class="string">'index.php'</span>; &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> <span class="string">''</span> ;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在该例中，假如我们构造一个<strong>payload</strong>为<code>O:5:&quot;SoFun&quot;:2:{s:7:&quot;%00*%00file&quot;;s:5:&quot;1.php&quot;;}</code></p>
+<p>可以看到，<code>class SoFun</code>中只有一个属性，而我们构造的paylaod中的属性个数故意多写了一个，此时该payload在反序列化时就会跳过<code>_warmup()</code>，从而泄露我们想要看到的文件的源码</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://music.163.com/song/media/outer/url?id=490182455.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='true'
+        data-ci='5cd24ed310c0cbc2a2ed'
+        data-cs='51aa998e509794b7b061784f1f3d41018af118f6'
+        data-r='xikong-mubai.github.io'
+        data-o='xikong-mubai'
+        data-a='xikong-mubai'
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#serialize-void-string"><span class="toc-number">1.</span> <span class="toc-text">serialize( void ) : string</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实例"><span class="toc-number">1.1.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特例"><span class="toc-number">1.2.</span> <span class="toc-text">特例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#array"><span class="toc-number">1.2.1.</span> <span class="toc-text">array</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#object"><span class="toc-number">1.2.2.</span> <span class="toc-text">object</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#protected"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">protected</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#private"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">private</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unserialize-string-serialized"><span class="toc-number">2.</span> <span class="toc-text">unserialize( string $serialized )</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+    <!--血小板代码-->
+    <link rel="stylesheet" href="/live2d/css/live2d.css" />
+    <div id="landlord">
+        <div class="message" style="opacity:0"></div>
+        <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+        <div class="hide-button">隐藏</div>
+    </div>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        var message_Path = '/live2d/'
+        var home_Path = 'https://calmcenter.club/'
+    </script>
+    <script type="text/javascript" src="/live2d/js/live2d.js"></script>
+    <script type="text/javascript" src="/live2d/js/message.js"></script>
+    <script type="text/javascript">
+        loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
+    </script>
+    <!--血小板代码-->
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
