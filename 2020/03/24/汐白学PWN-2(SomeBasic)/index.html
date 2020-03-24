@@ -5,12 +5,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Category: Pwn - 汐白的学习档案</title>
+    <title>汐白学Pwn-2(SomeBasic) - 汐白的学习档案</title>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate" />
     <meta name="keywords" content="Xibai,"> 
-    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,"> 
+    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,语言的部分理论基础工具的一些使用记录程序的保护机制"> 
     <meta name="author" content="Ximu"> 
     <link rel="alternative" href="http://xibai.xyz/atom.xml" title="汐白的学习档案" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -35,118 +35,74 @@
 <body class="loading">
     <span id="config-title" style="display:none">汐白的学习档案</span>
     <div id="loader"></div>
-    <div class="nav">
-    <ul id="menu-menu" class="menu">
-        
-        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
-            <a href="/%E6%B1%90%E4%B8%B6%E7%99%BD/" title="主页(whoami)" target="_blank" rel="noopener">主页(whoami)</a>
-        </li>
-        
-        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
-            <a href="/categories/" title="分类" target="_blank" rel="noopener">分类</a>
-        </li>
-        
-        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
-            <a href="/tags/" title="标签" target="_blank" rel="noopener">标签</a>
-        </li>
-        
-        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
-            <a href="/archives/" title="归档" target="_blank" rel="noopener">归档</a>
-        </li>
-        
-        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
-            <a href="/friends/" title="友情链接" target="_blank" rel="noopener">友情链接</a>
-        </li>
-        
-    </ul>
-	<span class="target"></span>
-	<center>
-	<div class="hitokoto">
-		<span class="typed" id="hitokoto" data-st="true"></span>
-	</div>
-	</center>
-	
-	<p class="footerlinks">
-		<a href="#" class="iconfont icon-null"></a>
-		
-            <a href="http://github.com/xikong-mubai" title="github" class="iconfont icon-github" target="_blank" rel="noopener"> </a>
-        
-            <a href="/img/QQ.png" title="QQ" class="iconfont icon-QQ" target="_blank" rel="noopener"> </a>
-        
-            <a href="/img/logo.png" title="wechat" class="iconfont icon-wechat" target="_blank" rel="noopener"> </a>
-        
-            <a href="mailto:kirito_xibai@qq.com" title="email" class="iconfont icon-email" target="_blank" rel="noopener"> </a>
-        
-		<a href="#" class="iconfont icon-null"></a>
-	</p>
-	
-    <p id="copyright">
-        &copy; 2020 Ximu.
-        <span> | </span>Powered by <a href="https://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
-        <span> | </span>Theme <a href="https://github.com/Fechin/hexo-theme-diaspora" title="Diaspora" target="_blank" rel="noopener">Diaspora</a> by Fechin
-		
-		<span> | </span><a rel="nofollow" href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003272号</a>
-		
-    </p>
-</div>
-
-<div id="container">
-    
-<div id="screen">
-    <div id="mark">
-        <div class="layer" data-depth="0.4">
-            <img src="/img/welcome-cover.jpeg" id="cover" crossorigin="anonymous" width="1920" height="1080">
-        </div>
-    </div>
-    <div id="vibrant">
-        <svg viewBox="0 0 2880 1620" height="100%" preserveAspectRatio="xMaxYMax slice">
-            <polygon opacity="0.7" points="2000,1620 0,1620 0,0 600,0 "/>
-        </svg>
-        <div></div>
-    </div>
-    <div id="header">
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">汐白学Pwn-2(SomeBasic)</h3>
+    <div class="social">
         <div>
-            <a class="image-logo" href="/"></a>
-			
-			<div class="iconfont icon-search switchsearch" href="/search/" title="搜索"></div>
-			
-            <div class="iconfont icon-menu switchmenu"></div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
         </div>
     </div>
-    
-    <div id="post0">
-        <p>三月 24, 2020</p>
-        <h2><a href="/2020/03/24/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-2(SomeBasic)/" title="汐白学Pwn-2(SomeBasic)" class="posttitle">汐白学Pwn-2(SomeBasic)</a></h2>
-        <p class="summary">语言的部分理论基础工具的一些使用记录程序的保护机制</p>
-    </div>
-    
+    <div class="scrollbar"></div>
 </div>
 
-    <div id="primary">
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">汐白学Pwn-2(SomeBasic)</h1>
+        <div class="stuff">
+            <span>三月 24, 2020</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Pwn/" rel="tag">Pwn</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="语言的部分理论基础"><a href="#语言的部分理论基础" class="headerlink" title="语言的部分理论基础"></a>语言的部分理论基础</h2><h2 id="工具的一些使用记录"><a href="#工具的一些使用记录" class="headerlink" title="工具的一些使用记录"></a>工具的一些使用记录</h2><h2 id="程序的保护机制"><a href="#程序的保护机制" class="headerlink" title="程序的保护机制"></a>程序的保护机制</h2>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://music.163.com/song/media/outer/url?id=490182455.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
         
-<div class="post">
-    <a href="/2019/10/30/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-1(Ready)/" title="汐白学Pwn-1(准备)">
-        <img src="/img/hhh/3.jpg" class="cover" width="680" height="440">
-    </a>
-    <div class="else">
-        <p>十月 30, 2019</p>
-        <h3><a href="/2019/10/30/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-1(Ready)/" title="汐白学Pwn-1(准备)" class="posttitle">汐白学Pwn-1(准备)</a></h3>
-        <p>工具准备kali-Linux叭说了，kali这么好用为什么不用，Ubuntu16.04也行
-pwntoolspwn必备python包，pip直接安装，py...</p>
-    </div>
-</div>
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='true'
+        data-ci='5cd24ed310c0cbc2a2ed'
+        data-cs='51aa998e509794b7b061784f1f3d41018af118f6'
+        data-r='xikong-mubai.github.io'
+        data-o='xikong-mubai'
+        data-a='xikong-mubai'
+        data-d='false'
+    >查看评论</div>
 
 
     </div>
     
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#语言的部分理论基础"><span class="toc-number">1.</span> <span class="toc-text">语言的部分理论基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工具的一些使用记录"><span class="toc-number">2.</span> <span class="toc-text">工具的一些使用记录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#程序的保护机制"><span class="toc-number">3.</span> <span class="toc-text">程序的保护机制</span></a></li></ol>	
+        </div>
+    
 </div>
-<div id="preview"></div>
-
-	<center><a rel="nofollow" style="color: #666;" href="http://www.beian.miit.gov.cn" target="_blank">豫ICP备20003272号</a></center>
 
 
-
-
+    </div>
+</div>
 </body>
     <!--血小板代码-->
     <link rel="stylesheet" href="/live2d/css/live2d.css" />
