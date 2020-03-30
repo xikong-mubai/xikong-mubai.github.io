@@ -3,7 +3,44 @@
   <entry>
     <title>汐白学Pwn-2(SomeBasic)</title>
     <url>/2020/03/24/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-2(SomeBasic)/</url>
-    <content><![CDATA[<h2 id="部分理论基础-Linux"><a href="#部分理论基础-Linux" class="headerlink" title="部分理论基础(Linux)"></a>部分理论基础(Linux)</h2><h3 id="栈的机制"><a href="#栈的机制" class="headerlink" title="栈的机制"></a>栈的机制</h3><p>栈是程序运行所使用的一种先进后出后进先出的线性表。大概是这样：<br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20200330165641.png" alt="20200330165641"><br>可以看到，就好比向一个单开口的箱子中压书一样（注意：就只是平着压入！！！<del>别在那想为啥不竖着放，这样就可以想拿那个出去就拿那个出去</del>）最先压入的A如果想要拿出来必须从最上面一个个拿出来，最后才能拿出来A，即：先进后出，后进先出。<br>栈通常用来为程序运行时所调用的各种函数存放其所使用的<code>参数/变量</code>。使用时一般是这样的（每使用一个函数，在调用这个函数时就会用这个模板为函数开辟一块栈帧）：<br>···||<br>:-:|:-|<br>ESP|栈顶|<br>Local variable|局部变量|<br>EBP|栈底|<br>retaddr|返回地址|<br>Incoming parameters|传入参数|<br>···||<br>当一个程序运行时需要获取输入时，这个存放输入的变量对于程序而言一般都放在局部变量中（一般是局部变量，不排除别的情况）。这时候看上面的栈帧模板就会发现，如果没有严格控制输入，那么就有可能会产生因为输入过长而导致输入的数据覆盖栈底、返回地址、传入参数······这是输入数据直接存放在栈内局部变量的情况；同理，即使输入数据没有存放在栈帧中，同样也会出现其它的数据覆盖现象，无论是什么数据被覆盖，都有可能会影响到程序的正常执行，从而导致各种可能产生的后果，也正是这样才导致了pwn的出现。<br>如最简单的栈溢出就是通过覆盖函数返回地址来达成目的。</p>
+    <content><![CDATA[<h2 id="部分理论基础-Linux"><a href="#部分理论基础-Linux" class="headerlink" title="部分理论基础(Linux)"></a>部分理论基础(Linux)</h2><h3 id="栈的机制"><a href="#栈的机制" class="headerlink" title="栈的机制"></a>栈的机制</h3><p>栈是程序运行所使用的一种先进后出后进先出的线性表。大概是这样：<br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20200330165641.png" alt="20200330165641"><br>可以看到，就好比向一个单开口的箱子中压书一样（注意：就只是平着压入！！！<del>别在那想为啥不竖着放，这样就可以想拿那个出去就拿那个出去</del>）最先压入的A如果想要拿出来必须从最上面一个个拿出来，最后才能拿出来A，即：先进后出，后进先出。<br>栈通常用来为程序运行时所调用的各种函数存放其所使用的<code>参数/变量</code>。使用时一般是这样的（每使用一个函数，在调用这个函数时就会用这个模板为函数开辟一块栈帧）：</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">···</td>
+<td align="left">···</td>
+</tr>
+<tr>
+<td align="center">ESP</td>
+<td align="left">栈顶</td>
+</tr>
+<tr>
+<td align="center">Local variable</td>
+<td align="left">局部变量</td>
+</tr>
+<tr>
+<td align="center">EBP</td>
+<td align="left">栈底</td>
+</tr>
+<tr>
+<td align="center">retaddr</td>
+<td align="left">返回地址</td>
+</tr>
+<tr>
+<td align="center">Incoming parameters</td>
+<td align="left">传入参数</td>
+</tr>
+<tr>
+<td align="center"><strong>···</strong></td>
+<td align="left">···</td>
+</tr>
+</tbody></table>
+<p>当一个程序运行时需要获取输入时，这个存放输入的变量对于程序而言一般都放在局部变量中（一般是局部变量，不排除别的情况）。这时候看上面的栈帧模板就会发现，如果没有严格控制输入，那么就有可能会产生因为输入过长而导致输入的数据覆盖栈底、返回地址、传入参数······这是输入数据直接存放在栈内局部变量的情况；同理，即使输入数据没有存放在栈帧中，同样也会出现其它的数据覆盖现象，无论是什么数据被覆盖，都有可能会影响到程序的正常执行，从而导致各种可能产生的后果，也正是这样才导致了pwn的出现。<br>如最简单的栈溢出就是通过覆盖函数返回地址来达成目的。</p>
 <p>详细的栈的介绍可以参考<a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/stackoverflow/stack-intro-zh/" target="_blank" rel="noopener">ctf-wiki中的栈介绍</a></p>
 <p>这里记录一些常见的可导致溢出的危险函数：</p>
 <ul>
@@ -138,8 +175,8 @@
       </categories>
       <tags>
         <tag>CTF</tag>
-        <tag>Misc</tag>
         <tag>Writeup</tag>
+        <tag>Misc</tag>
       </tags>
   </entry>
   <entry>
@@ -177,8 +214,8 @@
       </categories>
       <tags>
         <tag>CTF</tag>
-        <tag>Misc</tag>
         <tag>Writeup</tag>
+        <tag>Misc</tag>
       </tags>
   </entry>
   <entry>
@@ -266,8 +303,8 @@
       </categories>
       <tags>
         <tag>CTF</tag>
-        <tag>Misc</tag>
         <tag>Writeup</tag>
+        <tag>Misc</tag>
       </tags>
   </entry>
   <entry>
@@ -325,8 +362,8 @@
       </categories>
       <tags>
         <tag>CTF</tag>
-        <tag>Misc</tag>
         <tag>Writeup</tag>
+        <tag>Misc</tag>
       </tags>
   </entry>
   <entry>
@@ -554,22 +591,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Kali安装中文输入法后不能进入系统</title>
-    <url>/2019/10/30/kali%E7%9A%84%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95-%E8%90%8C%E6%96%B0%E5%BF%85%E7%9C%8B/</url>
-    <content><![CDATA[<h1 id="谷歌拼音输入法"><a href="#谷歌拼音输入法" class="headerlink" title="谷歌拼音输入法"></a>谷歌拼音输入法</h1><p><strong>老版kali</strong>我不了解，2019之后的<strong>新版kali</strong>自带<code>iBus</code>框架，按道理应该没有的，总之我装的<code>kali</code>确实都自带它，他会和<code>fcitx</code>框架发生冲突，然后产生我一个小白不了解的反应导致系统重启后就崩了，只能<code>crtl+Alt+F3</code>进入命令行界面操作系统，但这种界面不支持中文而且有超级多的不便，并且俩个框架产生的影响经我尝试多次后发现只有 <strong>还原</strong> 和 <strong>重装</strong> 能解决，而卸载<code>iBus框架</code>又会暂时卡死系统，不知道之后会产生什么影响，所以，pass掉 <code>fcitx框架</code> 的谷歌中文输入法（虽然我挺想用用）。</p>
-<h1 id="iBus-拼音输入法"><a href="#iBus-拼音输入法" class="headerlink" title="iBus-拼音输入法"></a>iBus-拼音输入法</h1><p>上面说了，19年之后的<code>kali</code>（至少我装过的）都是自带<code>iBus框架</code>的，所以直接安装<code>iBus框架</code>的<strong>拼音输入法</strong>即可，简单实在。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt-get install ibus ibus-pinyin -y &amp;&amp; reboot</span><br></pre></td></tr></table></figure>
-
-<p>直接不让系统底层的冲突出现就行了，大佬的话另说，反正小白是真的没办法了，百度谷歌找了一个月的方法都无效。。。</p>
-]]></content>
-      <categories>
-        <category>经验</category>
-      </categories>
-      <tags>
-        <tag>kali</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>汐白学Pwn-1(准备)</title>
     <url>/2019/10/30/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-1(Ready)/</url>
     <content><![CDATA[<h2 id="工具准备"><a href="#工具准备" class="headerlink" title="工具准备"></a>工具准备</h2><h3 id="kali-Linux"><a href="#kali-Linux" class="headerlink" title="kali-Linux"></a>kali-Linux</h3><p>叭说了，kali这么好用为什么不用，Ubuntu16.04也行</p>
@@ -614,6 +635,22 @@
       </categories>
       <tags>
         <tag>Pwn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kali安装中文输入法后不能进入系统</title>
+    <url>/2019/10/30/kali%E7%9A%84%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95-%E8%90%8C%E6%96%B0%E5%BF%85%E7%9C%8B/</url>
+    <content><![CDATA[<h1 id="谷歌拼音输入法"><a href="#谷歌拼音输入法" class="headerlink" title="谷歌拼音输入法"></a>谷歌拼音输入法</h1><p><strong>老版kali</strong>我不了解，2019之后的<strong>新版kali</strong>自带<code>iBus</code>框架，按道理应该没有的，总之我装的<code>kali</code>确实都自带它，他会和<code>fcitx</code>框架发生冲突，然后产生我一个小白不了解的反应导致系统重启后就崩了，只能<code>crtl+Alt+F3</code>进入命令行界面操作系统，但这种界面不支持中文而且有超级多的不便，并且俩个框架产生的影响经我尝试多次后发现只有 <strong>还原</strong> 和 <strong>重装</strong> 能解决，而卸载<code>iBus框架</code>又会暂时卡死系统，不知道之后会产生什么影响，所以，pass掉 <code>fcitx框架</code> 的谷歌中文输入法（虽然我挺想用用）。</p>
+<h1 id="iBus-拼音输入法"><a href="#iBus-拼音输入法" class="headerlink" title="iBus-拼音输入法"></a>iBus-拼音输入法</h1><p>上面说了，19年之后的<code>kali</code>（至少我装过的）都是自带<code>iBus框架</code>的，所以直接安装<code>iBus框架</code>的<strong>拼音输入法</strong>即可，简单实在。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt-get install ibus ibus-pinyin -y &amp;&amp; reboot</span><br></pre></td></tr></table></figure>
+
+<p>直接不让系统底层的冲突出现就行了，大佬的话另说，反正小白是真的没办法了，百度谷歌找了一个月的方法都无效。。。</p>
+]]></content>
+      <categories>
+        <category>经验</category>
+      </categories>
+      <tags>
+        <tag>kali</tag>
       </tags>
   </entry>
   <entry>
@@ -674,8 +711,8 @@
         <category>经验</category>
       </categories>
       <tags>
-        <tag>Crypto</tag>
         <tag>python</tag>
+        <tag>Crypto</tag>
       </tags>
   </entry>
   <entry>
@@ -4458,8 +4495,8 @@ RBYUXAghsqDgQgiRBQUXQogsKLgQQmRBwYUQIgsKLoQQWfx/zPu3ZNMw2ZMAAAAASUVORK5CYII='/><
         <category>Re</category>
       </categories>
       <tags>
-        <tag>Re</tag>
         <tag>CTF</tag>
+        <tag>Re</tag>
       </tags>
   </entry>
   <entry>
@@ -12480,8 +12517,8 @@ int main()
         <category>Re</category>
       </categories>
       <tags>
-        <tag>Re</tag>
         <tag>CTF</tag>
+        <tag>Re</tag>
       </tags>
   </entry>
   <entry>
