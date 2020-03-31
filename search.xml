@@ -61,7 +61,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="工具的一些使用记录"><a href="#工具的一些使用记录" class="headerlink" title="工具的一些使用记录"></a>工具的一些使用记录</h2><h3 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a>pwntools</h3><h4 id="模块列表"><a href="#模块列表" class="headerlink" title="模块列表"></a>模块列表</h4><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">adb：安卓调试桥</span><br><span class="line">args：命令行魔法参数</span><br><span class="line">asm：汇编和反汇编，支持 i386/i686/amd64/thumb 等</span><br><span class="line">constants：对不同架构和操作系统的常量的快速访问</span><br><span class="line">config：配置文件</span><br><span class="line">context：设置运行时变量</span><br><span class="line">dynelf：用于远程函数泄露</span><br><span class="line">encoders：对 shellcode 进行编码</span><br><span class="line">elf：用于操作 ELF 可执行文件和库</span><br><span class="line">flag：提交 flag 到服务器</span><br><span class="line">fmtstr：格式化字符串利用工具</span><br><span class="line">gdb：与 gdb 配合使用</span><br><span class="line">libcdb：libc 数据库</span><br><span class="line">log：日志记录</span><br><span class="line">memleak：用于内存泄露</span><br><span class="line">rop：ROP 利用模块，包括 rop 和 srop</span><br><span class="line">runner：运行 shellcode</span><br><span class="line">shellcraft：shellcode 生成器</span><br><span class="line">term：终端处理</span><br><span class="line">timeout：超时处理</span><br><span class="line">tubes：能与 sockets, processes, ssh 等进行连接</span><br><span class="line">ui：与用户交互</span><br><span class="line">useragents：useragent 字符串数据库</span><br><span class="line">util：一些实用小工具</span><br><span class="line">pwnlib.atexception — Callbacks on unhandled exception</span><br><span class="line">pwnlib.atexit — Replacement <span class="keyword">for</span> atexit</span><br><span class="line">pwnlib.exception — Pwnlib exceptions</span><br><span class="line">pwnlib.replacements — Replacements <span class="keyword">for</span> various functions</span><br><span class="line">pwnlib.util.crc — Calculating CRC-sums</span><br><span class="line">pwnlib.util.cyclic — Generation of unique sequences</span><br><span class="line">pwnlib.util.fiddling — Utilities bit fiddling</span><br><span class="line">pwnlib.util.hashes — Hashing functions</span><br><span class="line">pwnlib.util.iters — Extension of standard module itertools</span><br><span class="line">pwnlib.util.lists — Operations on lists</span><br><span class="line">pwnlib.util.misc — We could not fit it any other place</span><br><span class="line">pwnlib.util.net — Networking interfaces</span><br><span class="line">pwnlib.util.packing — Packing and unpacking of strings</span><br><span class="line">pwnlib.util.proc — Working with /proc/</span><br><span class="line">pwnlib.util.safeeval — Safe evaluation of python code</span><br><span class="line">pwnlib.util.web — Utilities <span class="keyword">for</span> working with the WWW</span><br></pre></td></tr></table></figure>
+<h2 id="工具的一些使用记录"><a href="#工具的一些使用记录" class="headerlink" title="工具的一些使用记录"></a>工具的一些使用记录</h2><h3 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a>pwntools</h3><h4 id="模块列表"><a href="#模块列表" class="headerlink" title="模块列表"></a>模块列表</h4><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">adb：安卓调试桥</span><br><span class="line">args：命令行魔法参数</span><br><span class="line">asm：汇编和反汇编，支持 i386/i686/amd64/thumb 等</span><br><span class="line">constants：对不同架构和操作系统的常量的快速访问</span><br><span class="line">config：配置文件</span><br><span class="line">context：设置运行时变量</span><br><span class="line">dynelf：用于远程函数泄露</span><br><span class="line">encoders：对 shellcode 进行编码</span><br><span class="line">elf：用于操作 ELF 可执行文件和库</span><br><span class="line">flag：提交 flag 到服务器</span><br><span class="line">fmtstr：格式化字符串利用工具</span><br><span class="line">gdb：与 gdb 配合使用</span><br><span class="line">libcdb：libc 数据库</span><br><span class="line">log：日志记录</span><br><span class="line">memleak：用于内存泄露</span><br><span class="line">rop：ROP 利用模块，包括 rop 和 srop</span><br><span class="line">runner：运行 shellcode</span><br><span class="line">shellcraft：shellcode 生成器</span><br><span class="line">term：终端处理</span><br><span class="line">timeout：超时处理</span><br><span class="line">tubes：能与 sockets, processes, ssh 等进行连接</span><br><span class="line">useragents：useragent 字符串数据库</span><br><span class="line">util：一些实用小工具</span><br><span class="line">pwnlib.atexception — Callbacks on unhandled exception</span><br><span class="line">pwnlib.atexit — Replacement <span class="keyword">for</span> atexit</span><br><span class="line">pwnlib.exception — Pwnlib exceptions</span><br><span class="line">pwnlib.replacements — Replacements <span class="keyword">for</span> various functions</span><br><span class="line">pwnlib.util.crc — Calculating CRC-sums</span><br><span class="line">pwnlib.util.cyclic — Generation of unique sequences</span><br><span class="line">pwnlib.util.fiddling — Utilities bit fiddling</span><br><span class="line">pwnlib.util.hashes — Hashing functions</span><br><span class="line">pwnlib.util.iters — Extension of standard module itertools</span><br><span class="line">pwnlib.util.lists — Operations on lists</span><br><span class="line">pwnlib.util.misc — We could not fit it any other place</span><br><span class="line">pwnlib.util.net — Networking interfaces</span><br><span class="line">pwnlib.util.packing — Packing and unpacking of strings</span><br><span class="line">pwnlib.util.proc — Working with /proc/</span><br><span class="line">pwnlib.util.safeeval — Safe evaluation of python code</span><br><span class="line">pwnlib.util.web — Utilities <span class="keyword">for</span> working with the WWW</span><br></pre></td></tr></table></figure>
 
 <h4 id="常用模块和功能"><a href="#常用模块和功能" class="headerlink" title="常用模块和功能"></a>常用模块和功能</h4><h5 id="context"><a href="#context" class="headerlink" title="context"></a>context</h5><p>设置程序运行时的参数，如程序运行在什么系统什么处理器下。一般只设置三个参数：</p>
 <blockquote>
@@ -78,13 +78,79 @@
 <p>不过之前好像看到有人说这东东有缺陷，推荐最好还是用<code>keystone-engine</code></p>
 <h5 id="gdb"><a href="#gdb" class="headerlink" title="gdb"></a>gdb</h5><p>一般就用个附加调试</p>
 <blockquote>
-<p>gdb.attch()</p>
+<p>s = process(‘./pwnme’)<br>context.terminal = [‘gnome-terminal’, ‘-x’, ‘sh’, ‘-c’]<br>gdb.attach( proc.pidof(s) [0])</p>
 </blockquote>
+<p>可以在attch的时候指定要gdb运行的指令：</p>
+<blockquote>
+<p>gdb.attach(proc.pidof(s) [0], gdbscript=’b *0x400620\nc\n’)</p>
+</blockquote>
+<p>个人喜欢直接终端：gdb -P pid（process之后返回的pid）</p>
 <h5 id="shellcraft"><a href="#shellcraft" class="headerlink" title="shellcraft"></a>shellcraft</h5><p>生成一些简单的shellcode，推荐先设置好context再用，一般直接输出shellcode内容</p>
 <blockquote>
 <p>print(shellcraft.sh())<br>不过这里是直接提供的汇编指令，需要将其转为机器码<br>print(asm(shellcraft.sh()))</p>
 </blockquote>
-<h2 id="程序的保护机制"><a href="#程序的保护机制" class="headerlink" title="程序的保护机制"></a>程序的保护机制</h2>]]></content>
+<h5 id="packing"><a href="#packing" class="headerlink" title="packing"></a>packing</h5><p>用来打包数据或者解包数据</p>
+<ul>
+<li>打包——p32/p64(打包为32位或64位的数据)</li>
+</ul>
+<blockquote>
+<p>p32(0x400010,endian = ‘big’) #设置数据为大端存储，默认为小端</p>
+</blockquote>
+<ul>
+<li>解包——u32/u64</li>
+</ul>
+<h5 id="tubes"><a href="#tubes" class="headerlink" title="tubes"></a>tubes</h5><p>对于一次攻击而言前提就是与目标服务器或者程序进行交互，这里就可以使用remote(address, port)产生一个远程的socket然后就可以读写了</p>
+<blockquote>
+<p>sh = remote(‘ftp.debian.org’,21)<br>sh.recvline()<br>‘220 …’<br>sh.send(‘USER anonymous\r\n’)<br>sh.recvuntil(‘ ‘, drop=True)<br>‘331’<br>sh.recvline()<br>‘Please specify the password.\r\n’<br>sh.close()</p>
+</blockquote>
+<p>使用process可以打开一个本地程序并进行交互</p>
+<blockquote>
+<p>sh = process(‘/bin/sh’)<br>sh.sendline(‘sleep 3; echo hello world;’)<br>sh.recvline(timeout=1)<br>‘’<br>sh.recvline(timeout=5)<br>‘hello world\n’<br>sh.close()</p>
+</blockquote>
+<p>使用listen来开启一个本地的监听端口</p>
+<blockquote>
+<p>l = listen()<br>r = remote(‘localhost’, l.lport)<br>c = l.wait_for_connection()<br>r.send(‘hello’)<br>c.recv()<br>‘hello’</p>
+</blockquote>
+<p>用于交互时读写的函数</p>
+<blockquote>
+<p>interactive() : 直接进行交互，相当于回到shell的模式，在取得shell之后使用<br>recv(numb=4096, timeout=default) : 接收指定字节<br>recvall() : 一直接收直到EOF<br>recvline(keepends=True) : 接收一行，keepends为是否保留行尾的\n<br>recvuntil(delims, drop=False) : 一直读到delims的pattern出现为止<br>recvrepeat(timeout=default) : 持续接受直到EOF或timeout<br>send(data) : 发送数据<br>sendline(data) : 发送一行数据，相当于在数据末尾加\n</p>
+</blockquote>
+<h5 id="ELF"><a href="#ELF" class="headerlink" title="ELF"></a>ELF</h5><p>elf模块提供了一种便捷的方法能够迅速的得到文件内函数的地址，plt位置以及got表的位置。</p>
+<blockquote>
+<p>e = ELF(‘./libc.so’)<br>print hex(e.address)  # 文件装载的基地址<br>0x400000<br>print hex(e.symbols[‘write’]) # 函数地址<br>0x401680<br>print hex(e.got[‘write’]) # GOT表的地址<br>0x60b070<br>print hex(e.plt[‘write’]) # PLT的地址<br>0x401680<br>print hex(e.search(‘/bin/sh’).next())# 字符串/bin/sh的地址</p>
+</blockquote>
+<p>ELF模块下的一些功能</p>
+<ul>
+<li>asm(address, assembly) : 在指定地址进行汇编</li>
+<li>bss(offset) : 返回bss段的位置，offset是偏移值</li>
+<li>checksec() : 对elf进行一些安全保护检查，例如NX, PIE等。</li>
+<li>disasm(address, n_bytes) : 在指定位置进行n_bytes个字节的反汇编</li>
+<li>offset_to_vaddr(offset) : 将文件中的偏移offset转换成虚拟地址VMA</li>
+<li>vaddr_to_offset(address) : 与上面的函数作用相反</li>
+<li>read(address, count) : 在address(VMA)位置读取count个字节</li>
+<li>write(address, data) : 在address(VMA)位置写入data</li>
+<li>section(name) : dump出指定section的数据</li>
+</ul>
+<h5 id="ROP"><a href="#ROP" class="headerlink" title="ROP"></a>ROP</h5><p>pwntools中的ROP模块可以实现简单的ROP链的操作，就是自动地寻找程序里的gadget，自动在栈上部署对应的参数。</p>
+<blockquote>
+<p>elf = ELF(‘ropasaurusrex’)<br>rop = ROP(elf)<br>rop.read(0, elf.bss(0x80))<br>rop.dump()<br># [‘0x0000:        0x80482fc (read)’,<br>#  ‘0x0004:       0xdeadbeef’,<br>#  ‘0x0008:              0x0’,<br>#  ‘0x000c:        0x80496a8’]<br>str(rop)<br># &gt;’\xfc\x82\x04\x08\xef\xbe\xad\xde\x00\x00\x00\x00\xa8\x96\x04\x08’</p>
+</blockquote>
+<p>使用ROP(elf)来产生一个rop的对象，这时的ROP链还是空的，需要在其中添加函数。</p>
+<p>因为ROP对象实现了<code>__getattr__</code>的功能，可以直接通过<code>func call</code>的形式来添加函数，<code>rop.read(0, elf.bss(0x80))</code>实际相当于<code>rop.call(&#39;read&#39;, (0, elf.bss(0x80)))</code>。 通过多次添加函数调用，最后使用<code>str</code>将整个<code>rop chain dump</code>出来就可以了。</p>
+<ul>
+<li>call(resolvable, arguments=()) : 添加一个调用，resolvable可以是一个符号，也可以是一个int型地址，注意后面的参数必须是元组否则会报错，即使只有一个参数也要写成元组的形式(在后面加上一个逗号)</li>
+<li>chain() : 返回当前的字节序列，即payload</li>
+<li>dump() : 直观地展示出当前的rop chain</li>
+<li>raw() : 在rop chain中加上一个整数或字符串</li>
+<li>search(move=0, regs=None, order=’size’) : 按特定条件搜索gadget，没仔细研究过</li>
+<li>unresolve(value) : 给出一个地址，反解析出符号</li>
+</ul>
+<p>ROP的工作还是推荐通过<code>ROPgadget</code>来进行，pwntools的<code>ROP</code>功能之前貌似看到说是不完善，只能进行相对简单的<code>ROP</code>构造</p>
+<h5 id="DynELF-符号泄露"><a href="#DynELF-符号泄露" class="headerlink" title="DynELF 符号泄露"></a>DynELF 符号泄露</h5><p>给出一个函数句柄，可以解析任意符号的位置。这个函数的功能是：输入任意一个address，输出这个address中的data(至少1byte)。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">p = process(<span class="string">'./pwnme'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">leak</span><span class="params">(address)</span>:</span></span><br><span class="line">    data = p.read(address, <span class="number">4</span>)</span><br><span class="line">    log.debug(<span class="string">"%#x =&gt; %s"</span> % (address, (data <span class="keyword">or</span> <span class="string">''</span>).encode(<span class="string">'hex'</span>)))</span><br><span class="line">    <span class="keyword">return</span> data</span><br><span class="line"></span><br><span class="line">d = DynELF(leak, main)</span><br><span class="line">d.lookup(<span class="literal">None</span>, <span class="string">'libc'</span>)      <span class="comment"># libc基址</span></span><br><span class="line">d.lookup(<span class="string">'system'</span>, <span class="string">'libc'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定一份elf的副本可以加速查找过程</span></span><br><span class="line">d = DynELF(leak, main, elf=ELF(<span class="string">'./pwnme'</span>))</span><br><span class="line">d.lookup(<span class="literal">None</span>, <span class="string">'libc'</span>)</span><br><span class="line">d.lookup(<span class="string">'system'</span>, <span class="string">'libc'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在应用中我们可以在<code>leak</code>函数中布置<code>rop</code>链，使用<code>write</code>函数<code>leak</code>出一个<code>address</code>的地址，然后返回。接着就可以使用<code>d.lookup</code>函数查找符号了，通常我们都是需要找<code>system</code>的符号。</p>
+<h3 id="gdb-some"><a href="#gdb-some" class="headerlink" title="gdb(some)"></a>gdb(some)</h3><h4 id="telescope"><a href="#telescope" class="headerlink" title="telescope"></a>telescope</h4><h2 id="程序的保护机制"><a href="#程序的保护机制" class="headerlink" title="程序的保护机制"></a>程序的保护机制</h2>]]></content>
       <categories>
         <category>Pwn</category>
       </categories>
@@ -628,7 +694,7 @@
 <h3 id="ROPgadget使用"><a href="#ROPgadget使用" class="headerlink" title="ROPgadget使用"></a>ROPgadget使用</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">ROPgadget --binary name --only '***' | grep '***'    #查询需要的汇编命令所在地址</span><br><span class="line">#按道理来说它是这样查命令的，不过查询有限制，一般后面***这里要这么输：'***|ret'|grep '***'  ***根据需要来写</span><br><span class="line">ROPgadget --binary name --string "***"               #查询需要的字符所在地址</span><br><span class="line">ROPgadget --binary name --only 'int'                 #查询'int 80'</span><br></pre></td></tr></table></figure>
 
 <h3 id="gdb-peda的简单命令介绍"><a href="#gdb-peda的简单命令介绍" class="headerlink" title="gdb-peda的简单命令介绍"></a>gdb-peda的简单命令介绍</h3><p>终端：<code>gdb</code>    打开gdb ;   <code>gdb  name</code>  用gdb调试器加载目标程序</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">r/run                               #运行程序，或是在程序中途重新加载运行程序，类似 OD 里的 ctrl+F2</span><br><span class="line">ni                                  #直接运行该行命令，OD 的单步步过</span><br><span class="line">si                                  #进入该行命令内部，进入函数内部用，OD 单步步入</span><br><span class="line">file                                #加载目标程序</span><br><span class="line">find/searchmem                      #搜索目标字符</span><br><span class="line">c/continue                          #继续运行程序</span><br><span class="line">telescope address                   #查看目标内存地址信息</span><br><span class="line">info                                #查看各种信息：</span><br><span class="line">info file                           #查看当前文件的信息，例如程序入口点（Entry point）</span><br><span class="line">info break                          #查看当前断点信息</span><br><span class="line">disas name                          #查看目标函数的反汇编内容</span><br><span class="line">b/break name/address                #为目标函数或地址设置断点</span><br><span class="line">pattern_create   number             #生成一串number长度的字符，在测试溢出长度时挺方便的</span><br><span class="line">pattern_offset   溢出位置的字符      #返回输入入口距离溢出点的长度</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">r/run                               #运行程序，或是在程序中途重新加载运行程序，类似 OD 里的 ctrl+F2</span><br><span class="line">ni                                  #直接运行该行命令，OD 的单步步过</span><br><span class="line">si                                  #进入该行命令内部，进入函数内部用，OD 单步步入</span><br><span class="line">file                                #加载目标程序</span><br><span class="line">find/searchmem                      #搜索目标字符</span><br><span class="line">c/continue                          #继续运行程序</span><br><span class="line">telescope address                   #查看目标内存地址信息</span><br><span class="line">info                                #查看各种信息：</span><br><span class="line">info file                           #查看当前文件的信息，例如程序入口点（Entry point）</span><br><span class="line">info break                          #查看当前断点信息</span><br><span class="line">disas name                          #查看目标函数的反汇编内容</span><br><span class="line">b/break name or *address                #为目标函数或地址设置断点</span><br><span class="line">pattern_create   number             #生成一串number长度的字符，在测试溢出长度时挺方便的</span><br><span class="line">pattern_offset   溢出位置的字符      #返回输入入口距离溢出点的长度</span><br></pre></td></tr></table></figure>
 
 <h2 id="shellcode"><a href="#shellcode" class="headerlink" title="shellcode"></a>shellcode</h2><p><strong>pwn</strong>一般目的是为了获取目标机的<code>shell</code>权限，同时也可以是对目标机进行其他的攻击。而其攻击方式一般是通过程序自身的漏洞劫持eip，然后按照攻击者的需要使其执行相应的系统命令。<br>获取shell权限一般是控制程序运行出<code>execve(&quot;/bin/sh&quot;,0,0)</code>函数或者说<code>system(“/bin/sh”)</code>函数，从而拿到<code>shell</code><br>因为程序已经是被编译生成的可执行程序，所以我们要做的就是让其在运行时按照<code>execve(&quot;/bin/sh&quot;,0,0)</code>或<code>system(“/bin/sh”)</code>函数的需要依次序执行相应的命令使其在没有该函数的情况下实现该函数的作用。<br>为了实现这一目的而向目标程序发送的数据一般称为<code>shellcode</code>或者说<strong>payload</strong></p>
 <h3 id="Linux-i386处理器系统的简单shellcode原理"><a href="#Linux-i386处理器系统的简单shellcode原理" class="headerlink" title="Linux-i386处理器系统的简单shellcode原理"></a>Linux-i386处理器系统的简单shellcode原理</h3><p>32位系统要执行<code>execve(&quot;/bin/sh&quot;,0,0)</code>时，可用以下汇编代码简单说明</p>
