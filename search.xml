@@ -190,7 +190,55 @@
 </blockquote>
 <h4 id="简单的汇总"><a href="#简单的汇总" class="headerlink" title="简单的汇总"></a>简单的汇总</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">start                       <span class="comment">#开始调试,停在第一行代码处,(gdb)start</span></span><br><span class="line">l                           <span class="comment">#list的缩写查看源代码,(gdb) l [number/function]</span></span><br><span class="line">b &lt;lines&gt;                   <span class="comment">#b: Breakpoint的简写，设置断点。(gdb) b 10</span></span><br><span class="line">b &lt;func&gt;                    <span class="comment">#b: Breakpoint的简写，设置断点。(gdb) b main</span></span><br><span class="line">b filename:[line/<span class="keyword">function</span>]  <span class="comment">#b:在文件filename的某行或某个函数处设置断点</span></span><br><span class="line">i breakpoints               <span class="comment">#i:info 的简写。(gdb)i breakpoints</span></span><br><span class="line">d [bpNO]                    <span class="comment">#d: Delete breakpoint的简写，删除指定编号的某个断点，或删除所有断点。断点编号从1开始递增。 (gdb)d 1</span></span><br><span class="line">s                           <span class="comment">#s: step执行一行源程序代码，如果此行代码中有函数调用，则进入该函数；(gdb) s</span></span><br><span class="line">n                           <span class="comment">#n: next执行一行源程序代码，此行代码中的函数调用也一并执行。(gdb) n</span></span><br><span class="line">r                           <span class="comment">#Run的简写，运行被调试的程序。如果此前没有下过断点，则执行完整个程序；如果有断点，则程序暂停在第一个可用断点处。(gdb) r</span></span><br><span class="line">c                           <span class="comment">#Continue的简写，继续执行被调试程序，直至下一个断点或程序结束。(gdb) c</span></span><br><span class="line">finish                      <span class="comment">#函数结束</span></span><br><span class="line">p [var]                     <span class="comment">#Print的简写，显示指定变量（临时变量或全局变量 例如 int a）的值。(gdb) p a</span></span><br><span class="line">display [var]               <span class="comment">#display，设置想要跟踪的变量(例如 int a)。(gdb) display a</span></span><br><span class="line">undisplay [varnum]          <span class="comment">#undisplay取消对变量的跟踪，被跟踪变量用整型数标识。(gdb) undisplay 1</span></span><br><span class="line"><span class="built_in">set</span> args                    <span class="comment">#可指定运行时参数。(gdb)set args 10 20  args可以是内存中某个地址</span></span><br><span class="line">show args                   <span class="comment">#查看运行时参数。</span></span><br><span class="line">x/&lt;n/f/u&gt; addr              <span class="comment">#查看内存中的值，n为数量，f为输出格式，u为值类型</span></span><br><span class="line">q                           <span class="comment">#Quit的简写，退出GDB调试环境。(gdb) q</span></span><br><span class="line"><span class="built_in">help</span> [cmd]                  <span class="comment">#GDB帮助命令，提供对GDB名种命令的解释说明。如果指定了“命令名称”参数，则显示该命令的详细说明；如果没有指定参数，则分类显示所有GDB命令，供用户进一步浏览和查询。(gdb)help</span></span><br><span class="line">回车                        <span class="comment">#重复前面的命令，(gdb)回车</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="程序的保护机制"><a href="#程序的保护机制" class="headerlink" title="程序的保护机制"></a>程序的保护机制</h2>]]></content>
+<h2 id="程序的保护机制"><a href="#程序的保护机制" class="headerlink" title="程序的保护机制"></a>程序的保护机制</h2><h3 id="Canary"><a href="#Canary" class="headerlink" title="Canary"></a>Canary</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>该保护开启的程序运行时会在开辟的栈帧上设置一个可当作<code>令牌</code>一样的随机值，程序在运行过程中会对该值进行校验，一旦校验时发现该值被改变则立即停止程序运行。</p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>开启Canary保护的程序在开辟栈帧时的结构如下：</p>
+<blockquote>
+<pre><code>  High
+  Address |                 |
+          +-----------------+
+          | args            |
+          +-----------------+
+          | return address  |
+          +-----------------+
+  rbp =&gt;  | old ebp         |
+          +-----------------+
+rbp-8 =&gt;  | canary value    |
+          +-----------------+
+          | 局部变量        |
+  Low     |                 |
+  Address</code></pre></blockquote>
+<p>当程序启用 Canary 编译后，在函数序言部分会取 fs 寄存器 0x28 处的值，存放在栈中 %ebp-0x8 的位置。 这个操作即为向栈中插入 Canary 值，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mov    rax, qword ptr fs:[0x28]</span><br><span class="line">mov    qword ptr [rbp - 8], rax</span><br></pre></td></tr></table></figure>
+
+<p>在函数返回之前，会将该值取出，并与 fs:0x28 的值进行异或。如果异或的结果为 0，说明 Canary 未被修改，函数会正常返回，这个操作即为检测是否发生栈溢出。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mov    rdx,QWORD PTR [rbp-0x8]</span><br><span class="line">xor    rdx,QWORD PTR fs:0x28</span><br><span class="line">je     0x4005d7 &lt;main+65&gt;</span><br><span class="line">call   0x400460 &lt;__stack_chk_fail@plt&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果 Canary 已经被非法修改，此时程序流程会走到 <strong>stack_chk_fail。</strong>stack_chk_fail 也是位于 glibc 中的函数，默认情况下经过 ELF 的延迟绑定，定义如下。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">eglibc-2.19&#x2F;debug&#x2F;stack_chk_fail.c</span><br><span class="line"></span><br><span class="line">void __attribute__ ((noreturn)) __stack_chk_fail (void)</span><br><span class="line">&#123;</span><br><span class="line">  __fortify_fail (&quot;stack smashing detected&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void __attribute__ ((noreturn)) internal_function __fortify_fail (const char *msg)</span><br><span class="line">&#123;</span><br><span class="line">  &#x2F;* The loop is added only to keep gcc happy.  *&#x2F;</span><br><span class="line">  while (1)</span><br><span class="line">    __libc_message (2, &quot;*** %s ***: %s terminated\n&quot;,</span><br><span class="line">                    msg, __libc_argv[0] ?: &quot;&lt;unknown&gt;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这意味可以通过劫持 __stack_chk_fail 的 got 值劫持流程或者利用 __stack_chk_fail 泄漏内容 (参见 stack smash)。</p>
+<p>进一步，对于 Linux 来说，fs 寄存器实际指向的是当前栈的 TLS 结构，fs:0x28 指向的正是 stack_guard。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">void</span> *tcb;        <span class="comment">/* Pointer to the TCB.  Not necessarily the</span></span><br><span class="line"><span class="comment">                       thread descriptor used by libpthread.  */</span></span><br><span class="line">  <span class="keyword">dtv_t</span> *dtv;</span><br><span class="line">  <span class="keyword">void</span> *self;       <span class="comment">/* Pointer to the thread descriptor.  */</span></span><br><span class="line">  <span class="keyword">int</span> multiple_threads;</span><br><span class="line">  <span class="keyword">uintptr_t</span> sysinfo;</span><br><span class="line">  <span class="keyword">uintptr_t</span> stack_guard;</span><br><span class="line">  ...</span><br><span class="line">&#125; <span class="keyword">tcbhead_t</span>;</span><br></pre></td></tr></table></figure>
+
+<p>如果存在溢出可以覆盖位于 TLS 中保存的 Canary 值那么就可以实现绕过保护机制。<br>事实上，TLS 中的值由函数 security_init 进行初始化。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span></span><br><span class="line">security_init (<span class="keyword">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// _dl_random的值在进入这个函数的时候就已经由kernel写入.</span></span><br><span class="line">  <span class="comment">// glibc直接使用了_dl_random的值并没有给赋值</span></span><br><span class="line">  <span class="comment">// 如果不采用这种模式, glibc也可以自己产生随机数</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">//将_dl_random的最后一个字节设置为0x0</span></span><br><span class="line">  <span class="keyword">uintptr_t</span> stack_chk_guard = _dl_setup_stack_chk_guard (_dl_random);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 设置Canary的值到TLS中</span></span><br><span class="line">  THREAD_SET_STACK_GUARD (stack_chk_guard);</span><br><span class="line"></span><br><span class="line">  _dl_random = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//THREAD_SET_STACK_GUARD宏用于设置TLS</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> THREAD_SET_STACK_GUARD(value) \</span></span><br><span class="line">  THREAD_SETMEM (THREAD_SELF, header.stack_guard, value)</span><br></pre></td></tr></table></figure>
+
+<h3 id="NX"><a href="#NX" class="headerlink" title="NX"></a>NX</h3><p>NX即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面上执行指令，此时CPU就会抛出异常，而不是去执行恶意指令。</p>
+<h3 id="PIE-ASLR"><a href="#PIE-ASLR" class="headerlink" title="PIE(ASLR)"></a>PIE(ASLR)</h3><p>PIE机制，在windows中被称作ASLR，即地址随机化。PIE在linux中作为内核参数存在，可在/proc/sys/kernel/randomize_va_space中找到其具体的值，0、1、2三个值代表不同的工作强度，具体如下：</p>
+<ul>
+<li>0 - 表示关闭进程地址空间随机化。</li>
+<li>1 - 表示将mmap的基址，stack和vdso页面随机化。</li>
+<li>2 - 表示在1的基础上增加栈（heap）的随机化。</li>
+</ul>
+<p>另外，<strong>地址随机化保护</strong>有“两个开关”，一个是系统环境下的地址随机化设置，一个是gcc编译时的地址随机化设置。</p>
+<p>只有当系统环境下的随机化保护开启时，程序的随机化保护才会生效。</p>
+<blockquote>
+<p>注：gcc的随机化设置不影响程序运行时的堆栈段地址，仅影响程序本身的bss、data、text静态段地址</p>
+</blockquote>
+<h3 id="RELRO"><a href="#RELRO" class="headerlink" title="RELRO"></a>RELRO</h3><p>在Linux系统安全领域数据可以写的存储区就会是攻击的目标，尤其是存储函数指针的区域。 所以在安全防护的角度来说尽量减少可写的存储区域对安全会有极大的好处.</p>
+<p>GCC, GNU linker以及Glibc-dynamic linker一起配合实现了一种叫做relro的技术: read only relocation。大概实现就是由linker指定binary的一块经过dynamic linker处理过 relocation之后的区域为只读.</p>
+<p>设置符号重定向表格为只读或在程序启动时就解析并绑定所有动态符号，从而减少对GOT（Global Offset Table）攻击。RELRO为” Partial RELRO”，说明我们对GOT表具有写权限。</p>
+]]></content>
       <categories>
         <category>Pwn</category>
       </categories>
