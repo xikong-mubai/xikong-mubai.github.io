@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>汐白学Pwn-3(ROP)</title>
+    <url>/2020/04/07/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-3(ROP)/</url>
+    <content><![CDATA[<h2 id="ROP介绍"><a href="#ROP介绍" class="headerlink" title="ROP介绍"></a>ROP介绍</h2><p>因为各种保护的出现，直接向栈或者堆上直接注入代码的方式难以发挥效果。所以需要相应的方法来绕过保护，而目前主要的是<code>ROP(Return Oriented Programming)</code>，其主要思想是在栈缓冲区溢出的基础上，利用程序中已有的小片段<code>(gadgets)</code>来改变某些寄存器或者变量的值，从而控制程序的执行流程。所谓<code>gadgets</code>就是以<code>ret</code>结尾的指令序列，通过这些指令序列，可以修改某些地址的内容，方便控制程序的执行流程。</p>
+<p>之所以称之为<code>ROP</code>，是因为核心在于利用了指令集中的<code>ret</code>指令，改变了指令流的执行顺序。<code>ROP</code>攻击一般得满足如下条件:</p>
+<ul>
+<li><p>程序存在溢出，并且可以控制返回地址。</p>
+</li>
+<li><p>可以找到满足条件的<code>gadgets</code>以及相应<code>gadgets</code>的地址。</p>
+</li>
+</ul>
+<p>如果 gadgets 每次的地址是不固定的，那我们就需要想办法动态获取对应的地址了。</p>
+]]></content>
+      <categories>
+        <category>Pwn</category>
+      </categories>
+      <tags>
+        <tag>Pwn</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>汐白学Pwn-2(SomeBasic)</title>
     <url>/2020/03/24/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-2(SomeBasic)/</url>
     <content><![CDATA[<h2 id="部分理论基础-Linux"><a href="#部分理论基础-Linux" class="headerlink" title="部分理论基础(Linux)"></a>部分理论基础(Linux)</h2><h3 id="栈的机制"><a href="#栈的机制" class="headerlink" title="栈的机制"></a>栈的机制</h3><p>栈是程序运行所使用的一种先进后出后进先出的线性表。大概是这样：<br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20200330165641.png" alt="20200330165641"><br>可以看到，就好比向一个单开口的箱子中压书一样（注意：就只是平着压入！！！<del>别在那想为啥不竖着放，这样就可以想拿那个出去就拿那个出去</del>）最先压入的A如果想要拿出来必须从最上面一个个拿出来，最后才能拿出来A，即：先进后出，后进先出。<br>栈通常用来为程序运行时所调用的各种函数存放其所使用的<code>参数/变量</code>。使用时一般是这样的（每使用一个函数，在调用这个函数时就会用这个模板为函数开辟一块栈帧）：</p>

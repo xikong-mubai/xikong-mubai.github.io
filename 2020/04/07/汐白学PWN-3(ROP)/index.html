@@ -5,12 +5,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>汐白的学习档案 - 小萌新一枚QAQ</title>
+    <title>汐白学Pwn-3(ROP) - 汐白的学习档案</title>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate" />
     <meta name="keywords" content="Xibai,"> 
-    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,"> 
+    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,ROP介绍因为各种保护的出现，直接向栈或者堆上直接注入代码的方式难以发挥效果。所以需要相应的方法来绕过保护，而目前主要的是ROP(Return Oriented Programming)，其主要思想,"> 
     <meta name="author" content="Ximu"> 
     <link rel="alternative" href="http://xibai.xyz/atom.xml" title="汐白的学习档案" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -35,27 +35,83 @@
 <body class="loading">
     <span id="config-title" style="display:none">汐白的学习档案</span>
     <div id="loader"></div>
-    <div id="single" class="page">
-    <div id="top">
-        <a class="iconfont icon-left image-icon" href="javascript:history.back()"></a>
-    </div>
-    <div class="section">
-        <div class="article">
-            <div class="main">
-                <div class="content">
-                
-                    <div class="set">		
-  <h2>标签</h2>
-  <a href="/tags/Android/" style="font-size: 14px; color: #9e9e9e">Android</a> <a href="/tags/Blog/" style="font-size: 14px; color: #9e9e9e">Blog</a> <a href="/tags/CTF/" style="font-size: 36px; color: #808080">CTF</a> <a href="/tags/Crypto/" style="font-size: 17.67px; color: #999">Crypto</a> <a href="/tags/Git/" style="font-size: 14px; color: #9e9e9e">Git</a> <a href="/tags/Misc/" style="font-size: 28.67px; color: #8a8a8a">Misc</a> <a href="/tags/Pwn/" style="font-size: 21.33px; color: #949494">Pwn</a> <a href="/tags/Re/" style="font-size: 25px; color: #8f8f8f">Re</a> <a href="/tags/SQL/" style="font-size: 14px; color: #9e9e9e">SQL</a> <a href="/tags/Web/" style="font-size: 21.33px; color: #949494">Web</a> <a href="/tags/Writeup/" style="font-size: 32.33px; color: #858585">Writeup</a> <a href="/tags/kali/" style="font-size: 14px; color: #9e9e9e">kali</a> <a href="/tags/npm/" style="font-size: 14px; color: #9e9e9e">npm</a> <a href="/tags/php/" style="font-size: 14px; color: #9e9e9e">php</a> <a href="/tags/pip/" style="font-size: 14px; color: #9e9e9e">pip</a> <a href="/tags/python/" style="font-size: 28.67px; color: #8a8a8a">python</a> <a href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/" style="font-size: 14px; color: #9e9e9e">二进制</a>
-</div>
-
-                
-                </div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">汐白学Pwn-3(ROP)</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
             </div>
+            <div id="qr"></div>
         </div>
     </div>
+    <div class="scrollbar"></div>
 </div>
 
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">汐白学Pwn-3(ROP)</h1>
+        <div class="stuff">
+            <span>四月 07, 2020</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Pwn/" rel="tag">Pwn</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="ROP介绍"><a href="#ROP介绍" class="headerlink" title="ROP介绍"></a>ROP介绍</h2><p>因为各种保护的出现，直接向栈或者堆上直接注入代码的方式难以发挥效果。所以需要相应的方法来绕过保护，而目前主要的是<code>ROP(Return Oriented Programming)</code>，其主要思想是在栈缓冲区溢出的基础上，利用程序中已有的小片段<code>(gadgets)</code>来改变某些寄存器或者变量的值，从而控制程序的执行流程。所谓<code>gadgets</code>就是以<code>ret</code>结尾的指令序列，通过这些指令序列，可以修改某些地址的内容，方便控制程序的执行流程。</p>
+<p>之所以称之为<code>ROP</code>，是因为核心在于利用了指令集中的<code>ret</code>指令，改变了指令流的执行顺序。<code>ROP</code>攻击一般得满足如下条件:</p>
+<ul>
+<li><p>程序存在溢出，并且可以控制返回地址。</p>
+</li>
+<li><p>可以找到满足条件的<code>gadgets</code>以及相应<code>gadgets</code>的地址。</p>
+</li>
+</ul>
+<p>如果 gadgets 每次的地址是不固定的，那我们就需要想办法动态获取对应的地址了。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://music.163.com/song/media/outer/url?id=490182455.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='true'
+        data-ci='5cd24ed310c0cbc2a2ed'
+        data-cs='51aa998e509794b7b061784f1f3d41018af118f6'
+        data-r='xikong-mubai.github.io'
+        data-o='xikong-mubai'
+        data-a='xikong-mubai'
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ROP介绍"><span class="toc-number">1.</span> <span class="toc-text">ROP介绍</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
 </body>
     <!--血小板代码-->
     <link rel="stylesheet" href="/live2d/css/live2d.css" />
