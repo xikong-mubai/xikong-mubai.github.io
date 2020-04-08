@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xibai.xyz/"/>
-  <updated>2020-04-07T13:38:28.424Z</updated>
+  <updated>2020-04-07T13:39:25.482Z</updated>
   <id>http://xibai.xyz/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://xibai.xyz/2020/04/07/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-3(ROP)/"/>
     <id>http://xibai.xyz/2020/04/07/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-3(ROP)/</id>
     <published>2020-04-07T13:30:21.609Z</published>
-    <updated>2020-04-07T13:38:28.424Z</updated>
+    <updated>2020-04-07T13:39:25.482Z</updated>
     
     <content type="html"><![CDATA[<h2 id="ROP介绍"><a href="#ROP介绍" class="headerlink" title="ROP介绍"></a>ROP介绍</h2><p>因为各种保护的出现，直接向栈或者堆上直接注入代码的方式难以发挥效果。所以需要相应的方法来绕过保护，而目前主要的是<code>ROP(Return Oriented Programming)</code>，其主要思想是在栈缓冲区溢出的基础上，利用程序中已有的小片段<code>(gadgets)</code>来改变某些寄存器或者变量的值，从而控制程序的执行流程。所谓<code>gadgets</code>就是以<code>ret</code>结尾的指令序列，通过这些指令序列，可以修改某些地址的内容，方便控制程序的执行流程。</p><p>之所以称之为<code>ROP</code>，是因为核心在于利用了指令集中的<code>ret</code>指令，改变了指令流的执行顺序。<code>ROP</code>攻击一般得满足如下条件:</p><ul><li><p>程序存在溢出，并且可以控制返回地址。</p></li><li><p>可以找到满足条件的<code>gadgets</code>以及相应<code>gadgets</code>的地址。</p></li></ul><p>如果 gadgets 每次的地址是不固定的，那我们就需要想办法动态获取对应的地址了。</p>]]></content>
     
