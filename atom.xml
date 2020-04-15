@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xibai.xyz/"/>
-  <updated>2020-04-07T13:39:25.482Z</updated>
+  <updated>2020-04-09T10:30:15.512Z</updated>
   <id>http://xibai.xyz/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://xibai.xyz/2020/04/07/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-3(ROP)/"/>
     <id>http://xibai.xyz/2020/04/07/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-3(ROP)/</id>
     <published>2020-04-07T13:30:21.609Z</published>
-    <updated>2020-04-07T13:39:25.482Z</updated>
+    <updated>2020-04-09T10:30:15.512Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="ROP介绍"><a href="#ROP介绍" class="headerlink" title="ROP介绍"></a>ROP介绍</h2><p>因为各种保护的出现，直接向栈或者堆上直接注入代码的方式难以发挥效果。所以需要相应的方法来绕过保护，而目前主要的是<code>ROP(Return Oriented Programming)</code>，其主要思想是在栈缓冲区溢出的基础上，利用程序中已有的小片段<code>(gadgets)</code>来改变某些寄存器或者变量的值，从而控制程序的执行流程。所谓<code>gadgets</code>就是以<code>ret</code>结尾的指令序列，通过这些指令序列，可以修改某些地址的内容，方便控制程序的执行流程。</p><p>之所以称之为<code>ROP</code>，是因为核心在于利用了指令集中的<code>ret</code>指令，改变了指令流的执行顺序。<code>ROP</code>攻击一般得满足如下条件:</p><ul><li><p>程序存在溢出，并且可以控制返回地址。</p></li><li><p>可以找到满足条件的<code>gadgets</code>以及相应<code>gadgets</code>的地址。</p></li></ul><p>如果 gadgets 每次的地址是不固定的，那我们就需要想办法动态获取对应的地址了。</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="ROP介绍"><a href="#ROP介绍" class="headerlink" title="ROP介绍"></a>ROP介绍</h2><p>因为各种保护的出现，直接向栈或者堆上直接注入代码的方式难以发挥效果。所以需要相应的方法来绕过保护，而目前主要的是<code>ROP(Return Oriented Programming)</code>，其主要思想是在栈缓冲区溢出的基础上，利用程序中已有的小片段<code>(gadgets)</code>来改变某些寄存器或者变量的值，从而控制程序的执行流程。所谓<code>gadgets</code>就是以<code>ret</code>结尾的指令序列，通过这些指令序列，可以修改某些地址的内容，方便控制程序的执行流程。</p><p>之所以称之为<code>ROP</code>，是因为核心在于利用了指令集中的<code>ret</code>指令，改变了指令流的执行顺序。<code>ROP</code>攻击一般得满足如下条件:</p><ul><li><p>程序存在溢出，并且可以控制返回地址。</p></li><li><p>可以找到满足条件的<code>gadgets</code>以及相应<code>gadgets</code>的地址。</p></li></ul><p>如果<code>gadgets</code>每次的地址是不固定的，就需要想办法动态获取对应的地址。</p><p>这里我是看 <strong>ctf-wiki</strong> 进行入门学习的，所以写的内容大部分都是对 <strong>ctf-wiki</strong> 上面教程的记录。<br>推荐直接去：<a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/stackoverflow/stack-intro-zh/" target="_blank" rel="noopener">ctf-wiki</a></p><h2 id="basic-ROP"><a href="#basic-ROP" class="headerlink" title="basic ROP"></a>basic ROP</h2><h3 id="ret2text"><a href="#ret2text" class="headerlink" title="ret2text"></a>ret2text</h3>]]></content>
     
     <summary type="html">
     
@@ -107,10 +107,10 @@
   
   <entry>
     <title>流量分析（萌新开坑Ing-慢慢填）</title>
-    <link href="http://xibai.xyz/2020/03/05/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90-%E5%85%88%E5%BC%80%E5%9D%91%E6%85%A2%E6%85%A2%E5%A1%AB/"/>
-    <id>http://xibai.xyz/2020/03/05/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90-%E5%85%88%E5%BC%80%E5%9D%91%E6%85%A2%E6%85%A2%E5%A1%AB/</id>
+    <link href="http://xibai.xyz/2020/03/05/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"/>
+    <id>http://xibai.xyz/2020/03/05/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/</id>
     <published>2020-03-05T13:42:07.000Z</published>
-    <updated>2020-04-07T13:38:28.428Z</updated>
+    <updated>2020-04-09T10:31:35.225Z</updated>
     
     <content type="html"><![CDATA[<p><strong><em>最后更新于：2020-03-05 21：44</em></strong></p><h2 id="萌新已知的工具"><a href="#萌新已知的工具" class="headerlink" title="萌新已知的工具"></a>萌新已知的工具</h2><h3 id="wireshark"><a href="#wireshark" class="headerlink" title="wireshark"></a>wireshark</h3><h3 id="usbpacp"><a href="#usbpacp" class="headerlink" title="usbpacp"></a>usbpacp</h3><h3 id="npcap"><a href="#npcap" class="headerlink" title="npcap"></a>npcap</h3><h3 id="RouterPassView-能查看宽带数据"><a href="#RouterPassView-能查看宽带数据" class="headerlink" title="RouterPassView(能查看宽带数据)"></a>RouterPassView(能查看宽带数据)</h3><h2 id="目前见过的类型"><a href="#目前见过的类型" class="headerlink" title="目前见过的类型"></a>目前见过的类型</h2><h3 id="常规网络流量包分析"><a href="#常规网络流量包分析" class="headerlink" title="常规网络流量包分析"></a>常规网络流量包分析</h3><h3 id="USB流量包分析"><a href="#USB流量包分析" class="headerlink" title="USB流量包分析"></a>USB流量包分析</h3><p>这个文件里面第53页有usb键盘流量中和键盘按键对应的十六进制数据表：<a href="https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf" target="_blank" rel="noopener">https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf</a></p><h3 id="网络通信流量包（voip-rtp）"><a href="#网络通信流量包（voip-rtp）" class="headerlink" title="网络通信流量包（voip rtp）"></a>网络通信流量包（voip rtp）</h3>]]></content>
     

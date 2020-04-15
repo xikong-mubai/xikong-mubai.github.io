@@ -11,8 +11,9 @@
 <li><p>可以找到满足条件的<code>gadgets</code>以及相应<code>gadgets</code>的地址。</p>
 </li>
 </ul>
-<p>如果 gadgets 每次的地址是不固定的，那我们就需要想办法动态获取对应的地址了。</p>
-]]></content>
+<p>如果<code>gadgets</code>每次的地址是不固定的，就需要想办法动态获取对应的地址。</p>
+<p>这里我是看 <strong>ctf-wiki</strong> 进行入门学习的，所以写的内容大部分都是对 <strong>ctf-wiki</strong> 上面教程的记录。<br>推荐直接去：<a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/stackoverflow/stack-intro-zh/" target="_blank" rel="noopener">ctf-wiki</a></p>
+<h2 id="basic-ROP"><a href="#basic-ROP" class="headerlink" title="basic ROP"></a>basic ROP</h2><h3 id="ret2text"><a href="#ret2text" class="headerlink" title="ret2text"></a>ret2text</h3>]]></content>
       <categories>
         <category>Pwn</category>
       </categories>
@@ -309,7 +310,7 @@ rbp-8 =&gt;  | canary value    |
   </entry>
   <entry>
     <title>流量分析（萌新开坑Ing-慢慢填）</title>
-    <url>/2020/03/05/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90-%E5%85%88%E5%BC%80%E5%9D%91%E6%85%A2%E6%85%A2%E5%A1%AB/</url>
+    <url>/2020/03/05/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<p><strong><em>最后更新于：2020-03-05 21：44</em></strong></p>
 <h2 id="萌新已知的工具"><a href="#萌新已知的工具" class="headerlink" title="萌新已知的工具"></a>萌新已知的工具</h2><h3 id="wireshark"><a href="#wireshark" class="headerlink" title="wireshark"></a>wireshark</h3><h3 id="usbpacp"><a href="#usbpacp" class="headerlink" title="usbpacp"></a>usbpacp</h3><h3 id="npcap"><a href="#npcap" class="headerlink" title="npcap"></a>npcap</h3><h3 id="RouterPassView-能查看宽带数据"><a href="#RouterPassView-能查看宽带数据" class="headerlink" title="RouterPassView(能查看宽带数据)"></a>RouterPassView(能查看宽带数据)</h3><h2 id="目前见过的类型"><a href="#目前见过的类型" class="headerlink" title="目前见过的类型"></a>目前见过的类型</h2><h3 id="常规网络流量包分析"><a href="#常规网络流量包分析" class="headerlink" title="常规网络流量包分析"></a>常规网络流量包分析</h3><h3 id="USB流量包分析"><a href="#USB流量包分析" class="headerlink" title="USB流量包分析"></a>USB流量包分析</h3><p>这个文件里面第53页有usb键盘流量中和键盘按键对应的十六进制数据表：<a href="https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf" target="_blank" rel="noopener">https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf</a></p>
 <h3 id="网络通信流量包（voip-rtp）"><a href="#网络通信流量包（voip-rtp）" class="headerlink" title="网络通信流量包（voip rtp）"></a>网络通信流量包（voip rtp）</h3>]]></content>
