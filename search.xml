@@ -17,6 +17,7 @@
     <title>(密码学)(crypto)IDEA_Crypto(ECB模式)——python实现</title>
     <url>/2020/04/30/(crypto)IDEA_Crypto(ECB)/</url>
     <content><![CDATA[<pre><code class="python"><span class="comment"># -*- coding:utf-8 -*-</span>
+
 <span class="function"><span class="keyword">def</span> <span class="title">FindMODreverse</span><span class="params">(a,m)</span>:</span>                        <span class="comment"># 欧几里得除法求模逆元</span>
     m_tmp = m
     x_1,x_2 = <span class="number">1</span>,<span class="number">0</span>
