@@ -103,7 +103,7 @@
 
 <h1 id="预防Hash扩展攻击"><a href="#预防Hash扩展攻击" class="headerlink" title="预防Hash扩展攻击"></a>预防Hash扩展攻击</h1><p>解决这个漏洞的办法是使用<a href="https://en.wikipedia.org/wiki/HMAC" target="_blank" rel="noopener">HMAC</a>算法。该算法大概来说是这样 ：<strong>Hash值 =<br>hash(salt + hash(salt + 输入))</strong>，而不是简单的直接对输入进行一次这种加盐hash运算。</p>
 <p>具体HMAC的工作原理有些复杂，但你可以有个大概的了解。重点是，由于这种算法进行了双重摘要，密钥不再受本文中的长度扩展攻击影响。HMAC最先是在1996年被发表，之后几乎被添加到每一种编程语言的标准函数库中。</p>
-<p>或者也可以使用 <strong>hash值=hash（输入+slat）</strong> 也可以起到预防的效果，因为这样一来，salt的位置不再固定，就无法进行hash值的准确预测。</p>
+<p>或者也可以使用 <strong>hash值=hash（输入+slat）</strong> 也可以起到预防的效果，因为这样一来，salt的位置不再固定，就无法进行hash值的准确预测。�</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
