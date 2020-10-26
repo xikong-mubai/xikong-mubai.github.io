@@ -300,7 +300,6 @@
 <li>测试栈溢出长度，以及是否存在格式化字符串漏洞</li>
 <li>枚举一个可用的返回地址，该地址可用的判断条件是只要程序运行到这个地址，一定会出现什么特征，并能让攻击者知晓</li>
 <li>枚举一个<code>gadget</code>，一般是<code>libc_csu_init</code>的结尾那个<code>gadget</code></li>
-<li></li>
 </ul>
 <h2 id="上篇-汐白学Pwn-3-1-ROP-Basic"><a href="#上篇-汐白学Pwn-3-1-ROP-Basic" class="headerlink" title="上篇-汐白学Pwn-3.1(ROP-Basic)"></a><a href="http://xibai.xyz/2020/04/07/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-3.1(ROP)/">上篇-汐白学Pwn-3.1(ROP-Basic)</a></h2><h2 id="下篇-未完待续"><a href="#下篇-未完待续" class="headerlink" title="下篇-未完待续"></a>下篇-未完待续</h2>]]></content>
       <categories>
@@ -725,8 +724,8 @@ rbp-8 =&gt;  | canary value    |
       </categories>
       <tags>
         <tag>CTF</tag>
-        <tag>Misc</tag>
         <tag>Writeup</tag>
+        <tag>Misc</tag>
       </tags>
   </entry>
   <entry>
@@ -765,8 +764,8 @@ rbp-8 =&gt;  | canary value    |
       </categories>
       <tags>
         <tag>CTF</tag>
-        <tag>Misc</tag>
         <tag>Writeup</tag>
+        <tag>Misc</tag>
       </tags>
   </entry>
   <entry>
@@ -854,8 +853,8 @@ rbp-8 =&gt;  | canary value    |
       </categories>
       <tags>
         <tag>CTF</tag>
-        <tag>Misc</tag>
         <tag>Writeup</tag>
+        <tag>Misc</tag>
       </tags>
   </entry>
   <entry>
@@ -913,8 +912,8 @@ rbp-8 =&gt;  | canary value    |
       </categories>
       <tags>
         <tag>CTF</tag>
-        <tag>Misc</tag>
         <tag>Writeup</tag>
+        <tag>Misc</tag>
       </tags>
   </entry>
   <entry>
@@ -1038,8 +1037,8 @@ rbp-8 =&gt;  | canary value    |
         <category>Web</category>
       </categories>
       <tags>
-        <tag>Web</tag>
         <tag>Crypto</tag>
+        <tag>Web</tag>
       </tags>
   </entry>
   <entry>
@@ -1242,8 +1241,8 @@ rbp-8 =&gt;  | canary value    |
         <category>Re</category>
       </categories>
       <tags>
-        <tag>Re</tag>
         <tag>python</tag>
+        <tag>Re</tag>
       </tags>
   </entry>
   <entry>
