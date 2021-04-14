@@ -994,7 +994,7 @@ rbp-8 =&gt;  | canary value    |
 <h2 id="静静听这么好听的歌"><a href="#静静听这么好听的歌" class="headerlink" title="静静听这么好听的歌"></a>静静听这么好听的歌</h2><p>电脑最近重置了，matlab装着太麻烦，直接附上<a href="https://blog.csdn.net/zrools/article/details/50630780?utm_source=blogxgwz2" target="_blank" rel="noopener">表哥的wp</a></p>
 <h2 id="Business-Planning-Group"><a href="#Business-Planning-Group" class="headerlink" title="Business Planning Group"></a>Business Planning Group</h2><p>winhex打开发现结尾跟了一大段未知数据，数据开头是连续三个大写字母 <code>BPG</code> (这里再次吐槽谷歌还是你谷歌，<del>一开始我用百度搜关键词没搜出来，可能是我的关键词没加图像相关关键词的缘故</del>。嗯，就在我打出这句话的时候我又去试了下，百度搜出来了，有百科，而且第一条结果就是emmmm)这是一种新的图像文件格式，大概意思是既像png一样保证质量又像jpg一样保证空间。进入其官网，有在线查看器，直接查看图片内容<br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimagesBPG.png" alt="BPG.png"><br>明显是一串base64，解base64得flag</p>
 <h2 id="安洵杯-2019-easy-misc"><a href="#安洵杯-2019-easy-misc" class="headerlink" title="[安洵杯 2019]easy misc"></a>[安洵杯 2019]easy misc</h2><p>套娃，丢，<a href="https://xz.aliyun.com/t/6911#toc-30" target="_blank" rel="noopener">官方wp</a></p>
-<h2 id="请移步篇章三"><a href="#请移步篇章三" class="headerlink" title="请移步篇章三"></a><a href="http://xibai.xyz/2020/02/24/BUU-Misc-three/">请移步篇章三</a></h2><h2 id="也可移步篇章一"><a href="#也可移步篇章一" class="headerlink" title="也可移步篇章一"></a><a href="http://xibai.xyz/2020/02/24/BUU-Misc-three/">也可移步篇章一</a></h2>]]></content>
+<h2 id="请移步篇章三"><a href="#请移步篇章三" class="headerlink" title="请移步篇章三"></a><a href="http://xibai.xyz/2020/02/24/BUU-Misc-three/">请移步篇章三</a></h2><h2 id="也可移步篇章一"><a href="#也可移步篇章一" class="headerlink" title="也可移步篇章一"></a><a href="http://xibai.xyz/2020/01/11/BUU-Misc-one/">也可移步篇章一</a></h2>]]></content>
       <categories>
         <category>Misc</category>
       </categories>
