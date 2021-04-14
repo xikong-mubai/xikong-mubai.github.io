@@ -93,8 +93,8 @@
       </categories>
       <tags>
         <tag>CTF</tag>
-        <tag>Misc</tag>
         <tag>Writeup</tag>
+        <tag>Misc</tag>
       </tags>
   </entry>
   <entry>
@@ -401,6 +401,11 @@
       </tags>
   </entry>
   <entry>
+    <title>最近更新</title>
+    <url>/2020/04/14/recently/</url>
+    <content><![CDATA[<h2 id="这里列出最近有更新过的内容"><a href="#这里列出最近有更新过的内容" class="headerlink" title="这里列出最近有更新过的内容"></a>这里列出最近有更新过的内容</h2><h3 id="04-14"><a href="#04-14" class="headerlink" title="04.14"></a>04.14</h3><h4 id="BUUCTF-MISC-三"><a href="#BUUCTF-MISC-三" class="headerlink" title="BUUCTF-MISC(三)"></a><a href="http://xibai.xyz/2020/02/24/BUU-Misc-three/">BUUCTF-MISC(三)</a></h4><h3 id="12-27"><a href="#12-27" class="headerlink" title="12.27"></a>12.27</h3><h4 id="iOS-记事本开发"><a href="#iOS-记事本开发" class="headerlink" title="iOS_记事本开发"></a><a href="http://xibai.xyz/2020/12/27/iOS_notepad/">iOS_记事本开发</a></h4>]]></content>
+  </entry>
+  <entry>
     <title>汐白学Pwn-3.1(ROP-Basic)</title>
     <url>/2020/04/07/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-3.1(ROP)/</url>
     <content><![CDATA[<h2 id="ROP介绍"><a href="#ROP介绍" class="headerlink" title="ROP介绍"></a>ROP介绍</h2><p>因为各种保护的出现，直接向栈或者堆上直接注入代码的方式难以发挥效果。所以需要相应的方法来绕过保护，而目前主要的是<code>ROP(Return Oriented Programming)</code>，其主要方法是在栈缓冲区溢出的基础上，利用程序中已有的小片段<code>(gadgets)</code>来改变某些寄存器或者变量的值，从而控制程序的执行流程。所谓<code>gadgets</code>就是以<code>ret</code>结尾的指令序列，通过这些指令序列，可以修改某些地址的内容，方便控制程序的执行流程。</p>
@@ -469,11 +474,6 @@
       <tags>
         <tag>Pwn</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>最近更新</title>
-    <url>/2020/03/25/recently/</url>
-    <content><![CDATA[<h2 id="这里列出最近有更新过的内容"><a href="#这里列出最近有更新过的内容" class="headerlink" title="这里列出最近有更新过的内容"></a>这里列出最近有更新过的内容</h2><h3 id="03-25"><a href="#03-25" class="headerlink" title="03.25"></a>03.25</h3><h4 id="BUUCTF-MISC-三"><a href="#BUUCTF-MISC-三" class="headerlink" title="BUUCTF-MISC(三)"></a><a href="http://xibai.xyz/2020/02/24/BUU-Misc-three/">BUUCTF-MISC(三)</a></h4><h3 id="12-27"><a href="#12-27" class="headerlink" title="12.27"></a>12.27</h3><h4 id="iOS-记事本开发"><a href="#iOS-记事本开发" class="headerlink" title="iOS_记事本开发"></a><a href="http://xibai.xyz/2020/12/27/iOS_notepad/">iOS_记事本开发</a></h4>]]></content>
   </entry>
   <entry>
     <title>汐白学Pwn-2(SomeBasic)</title>
@@ -820,14 +820,14 @@ rbp-8 =&gt;  | canary value    |
       </categories>
       <tags>
         <tag>CTF</tag>
-        <tag>Misc</tag>
         <tag>Writeup</tag>
+        <tag>Misc</tag>
       </tags>
   </entry>
   <entry>
     <title>BUUCTF-MISC(三)</title>
     <url>/2020/02/24/BUU-Misc-three/</url>
-    <content><![CDATA[<p><strong>最近更新：</strong> <em>2020-03-11 21:45</em></p>
+    <content><![CDATA[<p><strong>最近更新：</strong> <em>2021-04-14 23:45</em></p>
 <h2 id="GUET-CTF2019-zips"><a href="#GUET-CTF2019-zips" class="headerlink" title="[GUET-CTF2019]zips"></a>[GUET-CTF2019]zips</h2><p>第一层压缩包密码直接爆破，第二次是伪加密，第三层根据 <code>sh</code> 的命令可知密钥是压缩包创建时的时间戳，查看压缩包修改日期，在线工具看一下那一天的时间戳，时间戳其实就是一个距离那个一九几几年几月几日零时零分零秒的秒数，同一天的时间戳前几位肯定一样，又因为其所使用python的相关时间戳函数范围的值精确到了小数点后两位，所以这里使用掩码攻击爆破密钥<br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages%E6%97%B6%E9%97%B4%E6%88%B31.png" alt="时间戳1.png"><br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages%E6%97%B6%E9%97%B4%E6%88%B32.png" alt="时间戳2.png"></p>
 <h2 id="GUET-CTF2019-KO"><a href="#GUET-CTF2019-KO" class="headerlink" title="[GUET-CTF2019]KO"></a>[GUET-CTF2019]KO</h2><p>就是<code>ook</code>编码的签到，找个在线解码网站解一下码就行了</p>
 <h2 id="从娃娃抓起"><a href="#从娃娃抓起" class="headerlink" title="从娃娃抓起"></a>从娃娃抓起</h2><p>题目说是和汉字里程碑的两种编码方式。首先就想到了可能和汉字输入法有关，肯定不是拼音输入，于是想到五笔输入，很明显纯四位数字和五笔没有关系，试试下面的字母，果然拿到了半句连贯的话。上面的四位数字找了好久才找到是上世纪的电报码，我天，太狗了。电报码翻译过来是人工智能。连起来求md5即为flag</p>
@@ -864,15 +864,55 @@ rbp-8 =&gt;  | canary value    |
 <h2 id="WUSTCTF2020-爬"><a href="#WUSTCTF2020-爬" class="headerlink" title="[WUSTCTF2020]爬"></a>[WUSTCTF2020]爬</h2><p>查看文件十六进制，发现是pdf文件，改后缀打开，提示flag被文件压在下面了，用word打开，将<code>爬</code>图像图层移至最底层，看到flag图像，文字识别然后十六进制转ascii码</p>
 <h2 id="WUSTCTF2020-girlfriend"><a href="#WUSTCTF2020-girlfriend" class="headerlink" title="[WUSTCTF2020]girlfriend"></a>[WUSTCTF2020]girlfriend</h2><p>是一段手机拨号音，直接<code>dtmf2num</code>工具提取对应按键：999<em>666</em>88<em>2</em>777<em>33</em>6<em>999</em>4<em>444</em>777<em>555</em>333<em>777</em>444<em>33</em>66<em>3</em>7777<br>很明显，手机九建密码，十年前那种拨号键输入的手机也就是现在的老年机的打字方式。按一遍得到flag</p>
 <h2 id="MRCTF2020-CyberPunk"><a href="#MRCTF2020-CyberPunk" class="headerlink" title="[MRCTF2020]CyberPunk"></a>[MRCTF2020]CyberPunk</h2><p>根据程序提示，修改系统时间到赛博朋克2077发售日即可</p>
-<h2 id="日常未完待续嘤嘤嘤QAQ"><a href="#日常未完待续嘤嘤嘤QAQ" class="headerlink" title="日常未完待续嘤嘤嘤QAQ"></a>日常未完待续嘤嘤嘤QAQ</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">突然惊醒我早先是学bin的emmm，等我把三写完就去爆肝bin，丢</span><br></pre></td></tr></table></figure>
-]]></content>
+<h2 id="XMAN2018排位赛-通行证"><a href="#XMAN2018排位赛-通行证" class="headerlink" title="[XMAN2018排位赛]通行证"></a>[XMAN2018排位赛]通行证</h2><p>base64,栅栏，凯撒。<br>栅栏密码为7，用加密<br>最后flag开头为’xman’</p>
+<h2 id="SUCTF2018-followme"><a href="#SUCTF2018-followme" class="headerlink" title="[SUCTF2018]followme"></a>[SUCTF2018]followme</h2><p>winhex搜索CTF得到flag</p>
+<h2 id="MRCTF2020-不眠之夜"><a href="#MRCTF2020-不眠之夜" class="headerlink" title="[MRCTF2020]不眠之夜"></a>[MRCTF2020]不眠之夜</h2><h3 id="熟练的赛棍"><a href="#熟练的赛棍" class="headerlink" title="熟练的赛棍"></a>熟练的赛棍</h3><p>上自动化工具！<br>使用<code>montage</code>和<code>gaps</code></p>
+<blockquote>
+<p>montage *jpg -tile 10x12 -geometry 200x100+0+0 flag.jpg<br>gaps –image=flag.jpg –generations=40 –population=120 –size=100</p>
+</blockquote>
+<h3 id="笨鸟先飞"><a href="#笨鸟先飞" class="headerlink" title="笨鸟先飞"></a>笨鸟先飞</h3><p>120张图，12*10或者8*15，就硬拼，估计也要不了太长时间</p>
+<h2 id="UTCTF2020-docx"><a href="#UTCTF2020-docx" class="headerlink" title="[UTCTF2020]docx"></a>[UTCTF2020]docx</h2><p>解压docx文档，在图片资源文件夹看见flag图片</p>
+<h2 id="MRCTF2020-Hello-misc"><a href="#MRCTF2020-Hello-misc" class="headerlink" title="[MRCTF2020]Hello_ misc"></a>[MRCTF2020]Hello_ misc</h2><p><code>Stegsolve</code>进行<code>lsb隐写</code>分析得到<code>hint.png</code>，红色图片末尾有加密压缩包，解压得到一个txt,里面全是<code>127</code>,<code>255</code>,<code>63</code>,<code>191</code><br>写个脚本解码:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">'out.txt'</span>,<span class="string">'r'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'in.txt'</span>,<span class="string">'w'</span>) <span class="keyword">as</span> o:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> f.readlines():</span><br><span class="line">            o.write(bin(eval(i))[<span class="number">2</span>:].zfill(<span class="number">8</span>)[:<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'in.txt'</span>,<span class="string">'r'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    flag = f.read()</span><br><span class="line">    print(<span class="string">''</span>.join([chr(int(flag[<span class="number">8</span>*i:<span class="number">8</span>*i+<span class="number">8</span>],<span class="number">2</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">27</span>)]))</span><br></pre></td></tr></table></figure>
+
+<p>得到<code>flag.rar</code>的密码，解压后发现里面的压缩包是<code>doc文档</code>，word打开，全选设置黑色，文档下面有几行base64编码<br>解码后会发现是一堆01，隐约能看出明文，脚本处理一下</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = <span class="string">'''MTEwMTEwMTExMTExMTEwMDExMTEwMTExMTExMTExMTExMTExMTExMTExMTExMTExMTAxMTEwMDAwMDAxMTExMTExMTExMDAxMTAx</span></span><br><span class="line"><span class="string">MTEwMTEwMTEwMDAxMTAxMDExMTEwMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTAxMTExMTExMTExMTExMTEwMTEwMDEx</span></span><br><span class="line"><span class="string">MTEwMDAwMTAxMTEwMTExMDExMTEwMTExMTExMTAwMDExMTExMTExMTExMDAxMDAxMTAxMTEwMDAwMDExMTExMDAwMDExMTExMTEx</span></span><br><span class="line"><span class="string">MTEwMTEwMTAwMDAxMTExMDExMTEwMTExMTExMDExMTAxMTExMTExMTEwMTEwMTEwMTAxMTExMTExMTAwMTEwMTExMTExMTExMTEx</span></span><br><span class="line"><span class="string">MTEwMTEwMTAxMTExMTExMDExMTEwMTExMTAxMDExMTAxMTExMTExMTEwMTEwMTEwMTAxMTAxMTExMTAwMTEwMTExMTExMTExMTEx</span></span><br><span class="line"><span class="string">MTEwMTEwMTAwMDAxMTAwMDAwMTEwMDAwMDAxMTAwMDExMTAwMDAwMTEwMTEwMTEwMTAxMTEwMDAwMDAxMTExMDAwMDExMTExMTEx</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line">a = a.split(<span class="string">'\n'</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> a:</span><br><span class="line">    print(base64.b64decode(i).replace(<span class="string">b'1'</span>,<span class="string">b' '</span>))</span><br></pre></td></tr></table></figure>
+
+<h2 id="MRCTF2020-Unravel"><a href="#MRCTF2020-Unravel" class="headerlink" title="[MRCTF2020]Unravel!!"></a>[MRCTF2020]Unravel!!</h2><p>wav文件末尾是一个openssl加密的密文，png文件末尾有压缩包，解压得到密钥，在线网站aes解密拿到明文key，然后silenteye提取wav里的flag</p>
+<h2 id="BSidesSF2019-zippy"><a href="#BSidesSF2019-zippy" class="headerlink" title="[BSidesSF2019]zippy"></a>[BSidesSF2019]zippy</h2><p>流量包，两条流量，第一条是终端的输入输出<br>第二条是压缩包。提取压缩包用第一条中的密码解压即可</p>
+<h2 id="ACTF新生赛2020-明文攻击"><a href="#ACTF新生赛2020-明文攻击" class="headerlink" title="[ACTF新生赛2020]明文攻击"></a>[ACTF新生赛2020]明文攻击</h2><p>图片末尾一个破坏了文件头的zip，修复一下，可以发现该zip中的flag.txt内容与加密压缩包中的一致，明文攻击解密即可</p>
+<h2 id="UTCTF2020-file-header"><a href="#UTCTF2020-file-header" class="headerlink" title="[UTCTF2020]file header"></a>[UTCTF2020]file header</h2><p>png文件头修复即可</p>
+<h2 id="WUSTCTF2020-spaceclub"><a href="#WUSTCTF2020-spaceclub" class="headerlink" title="[WUSTCTF2020]spaceclub"></a>[WUSTCTF2020]spaceclub</h2><p>三个空格代表0，六个代表1，替换一下转ASCII</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">'1.txt'</span>,<span class="string">'r'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    a = <span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> f.readlines():</span><br><span class="line">        i = i.strip()</span><br><span class="line">        a += i</span><br><span class="line">    print(<span class="string">''</span>.join([chr(int(a[<span class="number">8</span>*i:<span class="number">8</span>*i+<span class="number">8</span>],<span class="number">2</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">39</span>)]))</span><br></pre></td></tr></table></figure>
+
+<h2 id="ACTF新生赛2020-music"><a href="#ACTF新生赛2020-music" class="headerlink" title="[ACTF新生赛2020]music"></a>[ACTF新生赛2020]music</h2><p>文件错误，winhex查看，在末尾发现大量的<code>A1</code>，猜测文件和<code>A1</code>进行了异或，解一下异或，然后就能听到flag了</p>
+<h2 id="UTCTF2020-basic-forensics"><a href="#UTCTF2020-basic-forensics" class="headerlink" title="[UTCTF2020]basic-forensics"></a>[UTCTF2020]basic-forensics</h2><p>后缀名改txt，搜索flag</p>
+<h2 id="SCTF2019-电单车"><a href="#SCTF2019-电单车" class="headerlink" title="[SCTF2019]电单车"></a>[SCTF2019]电单车</h2><p>本题需要查看原题描述。搜索网络记录得知，原题描述为：</p>
+<blockquote>
+<p>截获了一台电动车的钥匙发射出的锁车信号，3分钟之内，我要获得它地址位的全部信息。flag内容二进制表示即可</p>
+</blockquote>
+<p>可知本题考察无线电知识，一番搜索之后找到一篇遥控器无线电信号的分析文章用来参考，地址如下：<br><a href="https://www.freebuf.com/articles/wireless/191534.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/wireless/191534.html</a></p>
+<p>结合文章中的信号分析图，对本题无线电信号做一个二进制转换即可</p>
+<h2 id="UTCTF2020-zero"><a href="#UTCTF2020-zero" class="headerlink" title="[UTCTF2020]zero"></a>[UTCTF2020]zero</h2><p>零宽字符隐写，上工具:<br><a href="http://330k.github.io/misc_tools/unicode_steganography.html" target="_blank" rel="noopener">http://330k.github.io/misc_tools/unicode_steganography.html</a></p>
+<h2 id="湖南省赛2019-Findme"><a href="#湖南省赛2019-Findme" class="headerlink" title="[湖南省赛2019]Findme"></a>[湖南省赛2019]Findme</h2><p>五个png，第一张，利用crc爆破原图像宽高：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> zlib</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> w <span class="keyword">in</span> range(<span class="number">1000</span>):</span><br><span class="line">    <span class="keyword">for</span> h <span class="keyword">in</span> range(<span class="number">1000</span>):</span><br><span class="line">        a = <span class="string">b'\x49\x48\x44\x52'</span> + bytes.fromhex(hex(w)[<span class="number">2</span>:].zfill(<span class="number">8</span>)) + bytes.fromhex(hex(h)[<span class="number">2</span>:].zfill(<span class="number">8</span>)) + <span class="string">b'\x08\x02\x00\x00\x00'</span></span><br><span class="line">        <span class="keyword">if</span> zlib.crc32(a) == <span class="number">0x00000033</span>:</span><br><span class="line">            print(a)</span><br></pre></td></tr></table></figure>
+
+<p>然后利用<code>pngcheck</code>修复另外两处<code>IDAT</code>块的格式错误，修复后。在<code>1.png</code>的<code>blue 2</code>色道下看到二维码，扫码得part1</p>
+<p><code>2.png</code>末尾有一个<code>7z</code>标识得压缩包，提取出来观察发现其实是<code>zip</code>压缩包，将<code>7z</code>全部替换为<code>PK</code>即可解压缩，然后按大小排序拿到part2</p>
+<p><code>3.png</code>在修复<code>IDAT</code>块末尾得<code>crc32</code>校验码时可以发现所有错误的校验码都刚好是一个可见ASCII码字符，提取出来得到part3</p>
+<p><code>4.png</code>末尾有part4</p>
+<p><code>5.png</code>末尾有part5，将五部分字符串拼接解base64即可。拼接顺序尝试一下就知道了，反正开头结尾都知道，中间三个也就六种可能</p>
+<h2 id="QCTF2018-X-man-A-face"><a href="#QCTF2018-X-man-A-face" class="headerlink" title="[QCTF2018]X-man-A face"></a>[QCTF2018]X-man-A face</h2><p>二维码标识符修复，然后解base32</p>
+<h2 id="ACTF新生赛2020-剑龙"><a href="#ACTF新生赛2020-剑龙" class="headerlink" title="[ACTF新生赛2020]剑龙"></a>[ACTF新生赛2020]剑龙</h2><h3 id="不正经解"><a href="#不正经解" class="headerlink" title="不正经解"></a>不正经解</h3><p>O_O用winhex查看发现是pyc，结合题目名字盲猜Stegosaurus隐写<br>注：如果该工具运行报错，恭喜你，可以重新配一遍python环境了（不是强迫症就算了，笔者有点强迫症，无法忍受自己的环境有小毛病）<br>注二：报错但也不想配环境，下载一个大蟒蛇吧</p>
+<h3 id="正经解aa"><a href="#正经解aa" class="headerlink" title="正经解aa"></a>正经解aa</h3><p>题目给了一个hint压缩包，里面有一个<code>hh.jpg</code>和<code>pwd.txt</code>，pwd是aaencode，找个在线网站解密一下是<code>welcom3!;</code>，明显是jpg要用到的，jpg的隐写方式无非就那几种，猜不出来是什么就全试一遍，试到<code>steghide</code>拿到隐藏txt，后面一个<code>openssl</code>加密过的密文，找一下发现<code>hh.jpg</code>的文件信息给了密钥，解密一下得到提示<code>Stegosaurus</code>，然后就是不正经解的内容了。</p>
+<h2 id="请移步篇章四"><a href="#请移步篇章四" class="headerlink" title="请移步篇章四"></a>请移步篇章四</h2><h2 id="也可移步篇章二"><a href="#也可移步篇章二" class="headerlink" title="也可移步篇章二"></a><a href="http://xibai.xyz/2020/02/02/BUU-Misc-two/">也可移步篇章二</a></h2>]]></content>
       <categories>
         <category>Misc</category>
       </categories>
       <tags>
         <tag>CTF</tag>
-        <tag>Misc</tag>
         <tag>Writeup</tag>
+        <tag>Misc</tag>
       </tags>
   </entry>
   <entry>
@@ -954,14 +994,14 @@ rbp-8 =&gt;  | canary value    |
 <h2 id="静静听这么好听的歌"><a href="#静静听这么好听的歌" class="headerlink" title="静静听这么好听的歌"></a>静静听这么好听的歌</h2><p>电脑最近重置了，matlab装着太麻烦，直接附上<a href="https://blog.csdn.net/zrools/article/details/50630780?utm_source=blogxgwz2" target="_blank" rel="noopener">表哥的wp</a></p>
 <h2 id="Business-Planning-Group"><a href="#Business-Planning-Group" class="headerlink" title="Business Planning Group"></a>Business Planning Group</h2><p>winhex打开发现结尾跟了一大段未知数据，数据开头是连续三个大写字母 <code>BPG</code> (这里再次吐槽谷歌还是你谷歌，<del>一开始我用百度搜关键词没搜出来，可能是我的关键词没加图像相关关键词的缘故</del>。嗯，就在我打出这句话的时候我又去试了下，百度搜出来了，有百科，而且第一条结果就是emmmm)这是一种新的图像文件格式，大概意思是既像png一样保证质量又像jpg一样保证空间。进入其官网，有在线查看器，直接查看图片内容<br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimagesBPG.png" alt="BPG.png"><br>明显是一串base64，解base64得flag</p>
 <h2 id="安洵杯-2019-easy-misc"><a href="#安洵杯-2019-easy-misc" class="headerlink" title="[安洵杯 2019]easy misc"></a>[安洵杯 2019]easy misc</h2><p>套娃，丢，<a href="https://xz.aliyun.com/t/6911#toc-30" target="_blank" rel="noopener">官方wp</a></p>
-<h2 id="请移步篇章三"><a href="#请移步篇章三" class="headerlink" title="请移步篇章三"></a><a href="http://xibai.xyz/2020/02/24/BUU-Misc-three/">请移步篇章三</a></h2>]]></content>
+<h2 id="请移步篇章三"><a href="#请移步篇章三" class="headerlink" title="请移步篇章三"></a><a href="http://xibai.xyz/2020/02/24/BUU-Misc-three/">请移步篇章三</a></h2><h2 id="也可移步篇章一"><a href="#也可移步篇章一" class="headerlink" title="也可移步篇章一"></a><a href="http://xibai.xyz/2020/02/24/BUU-Misc-three/">也可移步篇章一</a></h2>]]></content>
       <categories>
         <category>Misc</category>
       </categories>
       <tags>
         <tag>CTF</tag>
-        <tag>Misc</tag>
         <tag>Writeup</tag>
+        <tag>Misc</tag>
       </tags>
   </entry>
   <entry>
@@ -1019,8 +1059,8 @@ rbp-8 =&gt;  | canary value    |
       </categories>
       <tags>
         <tag>CTF</tag>
-        <tag>Misc</tag>
         <tag>Writeup</tag>
+        <tag>Misc</tag>
       </tags>
   </entry>
   <entry>
@@ -1378,7 +1418,8 @@ rbp-8 =&gt;  | canary value    |
     <title>隐写术</title>
     <url>/2019/06/12/%E9%9A%90%E5%86%99%E6%9C%AF-%E6%9C%89%E7%94%A8%E5%B7%A5%E5%85%B7%E5%92%8C%E8%B5%84%E6%BA%90%E7%9A%84%E5%88%97%E8%A1%A8/</url>
     <content><![CDATA[<p>隐写术将文件或消息隐藏在另一个文件中，有许多有趣的隐写CTF挑战，其中标志隐藏在图像，音频文件甚至其他类型的文件中。这是我使用的大多数工具和一些其他有用资源的列表<br>最后更新：29.1.2020</p>
-<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><h3 id="Steghide"><a href="#Steghide" class="headerlink" title="Steghide"></a>Steghide</h3><p>Steghide是一个隐藏数据的程序，可以隐藏各种图像和音频文件中的数据，只支持这些文件格式：JPEG, BMP, WAV and AU。但它对从其他文件中提取嵌入和加密数据也很有用。它可以安装<code>apt</code>并且<a href="https://github.com/StefanoDeVuono/steghide" target="_blank" rel="noopener">源</a>可以在github上找到。</p>
+<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><h3 id="Stegosaurus-剑龙"><a href="#Stegosaurus-剑龙" class="headerlink" title="Stegosaurus/剑龙"></a>Stegosaurus/剑龙</h3><p>Stegosaurus可以利用py、pyc文件进行隐写</p>
+<h3 id="Steghide"><a href="#Steghide" class="headerlink" title="Steghide"></a>Steghide</h3><p>Steghide是一个隐藏数据的程序，可以隐藏各种图像和音频文件中的数据，只支持这些文件格式：JPEG, BMP, WAV and AU。但它对从其他文件中提取嵌入和加密数据也很有用。它可以安装<code>apt</code>并且<a href="https://github.com/StefanoDeVuono/steghide" target="_blank" rel="noopener">源</a>可以在github上找到。</p>
 <p>有用的命令：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">steghide info file :显示有关文件是否包含嵌入数据的信息。</span><br><span class="line">steghide extract -sf file :从文件中提取嵌入数据</span><br></pre></td></tr></table></figure>
 
@@ -5161,8 +5202,8 @@ RBYUXAghsqDgQgiRBQUXQogsKLgQQmRBwYUQIgsKLoQQWfx/zPu3ZNMw2ZMAAAAASUVORK5CYII='/><
         <category>Re</category>
       </categories>
       <tags>
-        <tag>CTF</tag>
         <tag>Re</tag>
+        <tag>CTF</tag>
       </tags>
   </entry>
   <entry>
@@ -13183,8 +13224,8 @@ int main()
         <category>Re</category>
       </categories>
       <tags>
-        <tag>CTF</tag>
         <tag>Re</tag>
+        <tag>CTF</tag>
       </tags>
   </entry>
   <entry>
