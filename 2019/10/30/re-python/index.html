@@ -70,7 +70,7 @@ exewindows编程最终结果一般都是要生成exe可执行文件，通过pyth
 <h3 id="pyinstaller"><a href="#pyinstaller" class="headerlink" title="pyinstaller"></a>pyinstaller</h3><p>第一种库是<code>pyinstaller</code>这是一个可以将python脚本打包成exe的库，能打包自然也能解包</p>
 <p>它包含了一个<code>archive_viewer.py</code>的文件可以对打包为exe文件的python程序解包。</p>
 <h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><p>写一个脚本<code>hello.py</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> <span class="string">'hello,world'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> <span class="string">&#x27;hello,world&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <p>通过<code>pyinstaller</code>将其打包为<code>exe</code>，下面的命令会在hello.py的目录下生成一个dist文件夹</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python pyinstaller --onefile --nowindowed hello.py</span><br></pre></td></tr></table></figure>

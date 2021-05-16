@@ -66,7 +66,7 @@
         </div>
         <div class="content markdown">
             <p>DDCTF2019届最简单的逆向题</p>
-<p>直接拉进od，发现进去之后不像是在正常的程序领空，PEiD查一下，发现是一个UPX类型的壳。<br>百度下载脱壳机，脱壳。<br>然后拉入od分析，发现我们输入的字符串被程序加密后与“<code>DDCTF{reverseME}</code>”作比较；<br>也就是flag输入进去之后会被程序加密为“<code>DDCTF{reverseME}</code>”；<br>将其拉入ida分析<br><img src='data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAccAAAE5CAIAAABqBnyMAAAAA3NCSVQICAjb4U/gAAAACXBIWXMA
+<p>直接拉进od，发现进去之后不像是在正常的程序领空，PEiD查一下，发现是一个UPX类型的壳。<br>百度下载脱壳机，脱壳。<br>然后拉入od分析，发现我们输入的字符串被程序加密后与“<code>DDCTF&#123;reverseME&#125;</code>”作比较；<br>也就是flag输入进去之后会被程序加密为“<code>DDCTF&#123;reverseME&#125;</code>”；<br>将其拉入ida分析<br><img src='data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAccAAAE5CAIAAABqBnyMAAAAA3NCSVQICAjb4U/gAAAACXBIWXMA
 AA7EAAAOxAGVKw4bAAAgAElEQVR4nO3df1xU150//td1zAyrYVAXiEZA4qCWH2kjusqQuAayQjDF
 ZpOYxJQmfRSZbNDvAiX7/dj9ZoskptKtZiCPxK1Am1hNm4d+Pm3CNMBAAw8TFclG7aeRmVX5IT8a
 m0DVmXGzzkQ83z/OcL3ML+YXMIPv54PHI3A4595z78Q39557zvsKb7/9NshtQ61WL1++fLp7QWa+
@@ -3131,30 +3131,32 @@ QHb2Qj9B5XFxkQkJM0JDC/FXEoR+5syPV616TyQqABqZDhAXF7lnz2LczwMH1Neu9fgSChIimVaa
 uY+bPYG+6HcfgYEyQ8bc2O1QWAgAIJNBfj5MnQpNTf0HeYhMJmzreDyBagJAWRn09MDGjQAACxeC
 yQSnTsGGDYMKKMQAauCETI1VogQA4a1QqUCvh9rawdDyrCzQ6+8K2PrqK3j/fcjKgmnTID0d9HoA
 6J8nvzkfiQQyM+9KVYDLERQG2BwD5DHxBHqzNBpISBAQJibC4sUwcPcFjaZ/kgGOHhkJa9f2N/ez
-RgrFP/8/4YPI89haZCEAAAAASUVORK5CYII='/><br>发现该地址下面是程序内容，没有单一字符，但是在该地址不远处有一串可以输入的字符集，发现字符集的地址与<code>0x402FF8</code>做差为32，刚好是最小的字符所对应的ascii码数值。<br>接下来便是找到每一个输入的字符的ascii码减去31后对应的字符，然后将其按“<code>DDCTF{reverseME}</code>”的形式连起来便拿到flag。<br>写一个小脚本，如下：</p>
+RgrFP/8/4YPI89haZCEAAAAASUVORK5CYII='/><br>发现该地址下面是程序内容，没有单一字符，但是在该地址不远处有一串可以输入的字符集，发现字符集的地址与<code>0x402FF8</code>做差为32，刚好是最小的字符所对应的ascii码数值。<br>接下来便是找到每一个输入的字符的ascii码减去31后对应的字符，然后将其按“<code>DDCTF&#123;reverseME&#125;</code>”的形式连起来便拿到flag。<br>写一个小脚本，如下：</p>
 <pre><code>#include&lt;iostream&gt;
 using namespace std;
 int main()
-{
-    char a[]=&quot;1~}|{zyxwvutsrqponmlkjihgfedcba`_^]1[ZYXWVUTSRQPONMLKJIHGFEDCBA@?&gt;=&lt;;:9876543210/.-,+*)(&quot;;
+&#123;
+    char a[]=&quot;1~&#125;|&#123;zyxwvutsrqponmlkjihgfedcba`_^]1[ZYXWVUTSRQPONMLKJIHGFEDCBA@?&gt;=&lt;;:9876543210/.-,+*)(&quot;;
     char b[16];
     int i;
-    char c[]=&quot;DDCTF{reverseME}&quot;;
+    char c[]=&quot;DDCTF&#123;reverseME&#125;&quot;;
     for(i=0;i&lt;16;i++)
-    {
-        for(char n=&apos;!&apos;;n&lt;126;n++)
-        {
+    &#123;
+        for(char n=&#39;!&#39;;n&lt;126;n++)
+        &#123;
             b[i]=a[(int)n-31];
             if(b[i]==c[i])
-             {
+             &#123;
                  cout&lt;&lt;n;
                  break;
-             }
-        }
-    }
+             &#125;
+        &#125;
+    &#125;
     cout&lt;&lt;endl;
     return 0;
-}</code></pre>
+&#125;
+</code></pre>
+
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
                 <source type="audio/mpeg" src="">

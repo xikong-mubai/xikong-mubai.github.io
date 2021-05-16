@@ -67,15 +67,25 @@
         <div class="content markdown">
             <p><strong>window10中符号执行（angr）的安装——小白篇</strong></p>
 <p>最近做题的时候遇到了一些需要使用angr来完成的题目，之后在网上搜了好久发现大多是Linux以及其它系统的angr安装教程。windows系统的安装方法几乎没有。身为一个萌新，猜测同类们应该也会有需要的时候，虽然Linux和centos系统的教程都很完备随便就能找到，但是应该有不少小萌新和我一样不想讨厌一用工具就要去打开虚拟机。于是就来分享一下我在windows10上装angr的小小经验：<br>一、py问题<br>先检查一下自己的<strong>python2.x</strong>有没有问题（一般都没问题）。关键在于很多萌新同时在电脑里安装<strong>python2</strong>和<strong>python3</strong>时都只顾着看自己的俩个版本的<code>python</code>是不是都装上去了、都设置了环境变量，然后，没有注意自己的<code>python</code>以及<code>pip</code>的使用问题：<br>打开命令提示符，输入：</p>
-<pre><code>python</code></pre><p>或</p>
-<pre><code>python2</code></pre><p>查看此时调用的<strong>py环境是2还是3</strong>，如果是<strong>python3.x</strong>，请检查自己的环境变量是否设置好了（<strong>注意：python2和python3同时安装时在设置好环境变量后需要重启系统才能调用python2，原谅我只是个萌新不能解释原因</strong>）。<code>python</code>的调用没有问题的话再去看<code>pip</code>；方法一致，命令提示符中输入：</p>
-<pre><code>pip -V</code></pre><p>可查看pip所调用的版本信息，倘若是<strong>python3.x</strong>所带的<code>pip</code>请再输入</p>
-<pre><code>pip2 -V</code></pre><p>倘若<code>pip2 -V</code>不能使用则需要手动去安装设置python2的pip<br><em><a href="https://www.cnblogs.com/zhengyihan1216/p/6011640.html" target="_blank" rel="noopener">点此通往大佬教程</a></em></p>
+<pre><code>python
+</code></pre>
+<p>或</p>
+<pre><code>python2
+</code></pre>
+<p>查看此时调用的<strong>py环境是2还是3</strong>，如果是<strong>python3.x</strong>，请检查自己的环境变量是否设置好了（<strong>注意：python2和python3同时安装时在设置好环境变量后需要重启系统才能调用python2，原谅我只是个萌新不能解释原因</strong>）。<code>python</code>的调用没有问题的话再去看<code>pip</code>；方法一致，命令提示符中输入：</p>
+<pre><code>pip -V
+</code></pre>
+<p>可查看pip所调用的版本信息，倘若是<strong>python3.x</strong>所带的<code>pip</code>请再输入</p>
+<pre><code>pip2 -V
+</code></pre>
+<p>倘若<code>pip2 -V</code>不能使用则需要手动去安装设置python2的pip<br><em><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhengyihan1216/p/6011640.html">点此通往大佬教程</a></em></p>
 <p>二、<strong>安装angr</strong><br>确保可以直接使用python2的pip后打开命令提示符，用以下代码进行安装：<br>(用python2的pip，这里我的pip是直接调用python2的pip，一些人可能要用’pip2’，下面几行代码不再解释)</p>
 <pre><code>pip install pyvex
 pip install unicorn
 pip install simuvex
-pip install angr </code></pre><p> 之后进入<strong>python2</strong>环境尝试，像下面这样就是成功了</p>
+pip install angr 
+</code></pre>
+<p> 之后进入<strong>python2</strong>环境尝试，像下面这样就是成功了</p>
 <p><img src='data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAtUAAACSCAYAAACKcTaWAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
 jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAP+lSURBVHhe7F0FoBZF1z730t2NhF2IIoIIKqJi
 i4F0iooBKgYodmMhNiYlKSYhjWAg3d3d3Xn/85yZMzu7971wUb7vV7997p3dec6cmN19752z8867
@@ -4973,7 +4983,7 @@ wWAwGAwGw5Xkw2AwGAwGg8FgMBgMV5IPg8FgMBgMBoPBYDBcST4MBoPBYDAYDAaDwXAl+TAYDAaD
 wWAwGAwGw5X0PxvETqXGPA30AAAAAElFTkSuQmCC'/></p>
 <p>之后还未成功可再次尝试步骤二的代码。<br>更多的错误我应该暂时也没办法帮你解决了</p>
 <hr>
-<p>作者：浅汐丶沐雪<br>来源：CSDN<br>原文：<a href="https://blog.csdn.net/qq_43500877/article/details/89035959" target="_blank" rel="noopener">https://blog.csdn.net/qq_43500877/article/details/89035959</a><br>版权声明：本文为博主原创文章，转载请附上博文链接！</p>
+<p>作者：浅汐丶沐雪<br>来源：CSDN<br>原文：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43500877/article/details/89035959">https://blog.csdn.net/qq_43500877/article/details/89035959</a><br>版权声明：本文为博主原创文章，转载请附上博文链接！</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
