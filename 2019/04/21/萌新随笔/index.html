@@ -62,7 +62,7 @@
 
         </div>
         <div class="content markdown">
-            <p>目前对个别涉及堆栈的函数的认识：<br>  创建一个辅助堆栈让程序可以使用：<code>HeapCreate（地址，不清楚意思，不清楚意思）</code><br>  设置堆栈（不可改）：<code>HeapAlloc（堆栈名，不清楚意思，堆栈内字节数）</code><br>   返回值<br>   如果成功分配内存，返回值为一个指向所分配内存块的首地址的（void*）指针。<br>   如果分配内存失败，并且没有指定HEAP_GENERATE_EXCEPTIONS，则返回NULL。<br>   如果指定了HEAP_GENERATE_EXCEPTIONS，则抛出异常，而不返回NULL<br>  做题时遇见的在堆栈里放东西用的<code>memcpy_s（目标地址，字节数，源地址，复制的字节数）</code><br>Example：<br>       hHeap = HeapCreate(0x40000u, 0,0);   // 创建堆栈<br>       lpMem = (CHAR *)HeapAlloc(hHeap, 8u, MaxCount + 1);// 为堆栈赋予空间大小<br>       memcpy_s(lpMem, MaxCount, &amp;unk_409B10, MaxCount);// 在堆栈里放入数据<br>IsDebuggerPresent()<br>  该函数可以检查程序是否正在被调试，返回值为程序内BeingDebugged的值<br>MessageBox 函数用于创建、显示并操作一个消息对话框.<br>  <code>MessageBox（窗口所有者，显示内容，标题字符串，按钮的相关设置）</code></p>
+            <p>目前对个别涉及堆栈的函数的认识：<br>  创建一个辅助堆栈让程序可以使用：<code>HeapCreate（地址，不清楚意思，不清楚意思）</code><br>  设置堆栈（不可改）：<code>HeapAlloc（堆栈名，不清楚意思，堆栈内字节数）</code><br>   返回值<br>   如果成功分配内存，返回值为一个指向所分配内存块的首地址的（void<em>）指针。<br>   如果分配内存失败，并且没有指定HEAP_GENERATE_EXCEPTIONS，则返回NULL。<br>   如果指定了HEAP_GENERATE_EXCEPTIONS，则抛出异常，而不返回NULL<br>  做题时遇见的在堆栈里放东西用的<code>memcpy_s（目标地址，字节数，源地址，复制的字节数）</code><br>Example：<br>       hHeap = HeapCreate(0x40000u, 0,0);   // 创建堆栈<br>       lpMem = (CHAR </em>)HeapAlloc(hHeap, 8u, MaxCount + 1);// 为堆栈赋予空间大小<br>       memcpy_s(lpMem, MaxCount, &amp;unk_409B10, MaxCount);// 在堆栈里放入数据<br>IsDebuggerPresent()<br>  该函数可以检查程序是否正在被调试，返回值为程序内BeingDebugged的值<br>MessageBox 函数用于创建、显示并操作一个消息对话框.<br>  <code>MessageBox（窗口所有者，显示内容，标题字符串，按钮的相关设置）</code></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">

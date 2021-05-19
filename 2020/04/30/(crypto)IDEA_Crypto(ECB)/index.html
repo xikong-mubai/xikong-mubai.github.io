@@ -10,11 +10,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate" />
     <meta name="keywords" content="Xibai,"> 
-    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,# -*- coding:utf-8 -*-
-
-def FindMODreverse(a,m):                        # 欧几里得除法求模逆元
-    m_tmp = m
-,"> 
+    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,```python
+-- coding:utf-8 --def FindMODreverse(a,m):                        # 欧几里得除法求模逆元    m_tmp =,"> 
     <meta name="author" content="Xibai"> 
     <link rel="alternative" href="http://xibai.xyz/atom.xml" title="汐白的学习档案" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -68,196 +65,130 @@ def FindMODreverse(a,m):                        # 欧几里得除法求模逆元
 
         </div>
         <div class="content markdown">
-            <pre><code class="python"># -*- coding:utf-8 -*-
+            <p>```python</p>
+<h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="-- coding:utf-8 --"></a>-<em>- coding:utf-8 -</em>-</h1><p>def FindMODreverse(a,m):                        # 欧几里得除法求模逆元<br>    m_tmp = m<br>    x_1,x_2 = 1,0<br>    y_1,y_2 = 0,1<br>    while m != 0:<br>        q = a//m<br>        x_2,y_2,m,x_1,y_1,a = (x_1 - q <em> x_2),(y_1 - q </em> y_2),a % m,x_2,y_2,m<br>    while x_1 &lt; 0:<br>        x_1 += m_tmp<br>    while x_1 &gt;= m_tmp:<br>        x_1 -= m_tmp<br>    return x_1</p>
+<p>def ROL(lit,num):                               # 循环左移 num 位<br>    return lit[num:] + lit[:num]</p>
+<p>def idea_xor(x,y):                              # 逐位异或<br>    tmp = ‘’ ; i = 0<br>    while True:<br>        try:<br>            tmp += str(int(x[i],2)^int(y[i],2))<br>            i += 1<br>        except:<br>            return tmp</p>
+<p>def idea_add(x,y):                              # 模65536相加<br>    x = int(x,2) ; y = int(y,2)<br>    z = ( x + y ) % 65536<br>    z = bin(z)[2:]<br>    tmp = ‘0’*(16 - len(z)) + z<br>    return tmp</p>
+<p>def idea_mul(x,y):                              # 模65537相乘<br>    x = int(x,2) ; y = int(y,2)<br>    if x == 0:<br>        x = 2^16<br>    if y == 0:<br>        y = 2^16<br>    z = ( ( x <em> y ) % 65537 ) % 65536<br>    z = bin(z)[2:]<br>    tmp = ‘0’</em>(16 - len(z)) + z<br>    return tmp</p>
+<p>def idea_encode(m,num,key):                     # 加密过程<br>    x_array = [m[i<em>16:i</em>16+16] for i in range(4)]<br>    z_array = key[num<em>6:num</em>6+6]</p>
+<pre><code>if num &lt; 8:
+    out_1 = idea_mul(x_array[0],z_array[0])
+    out_2 = idea_add(x_array[1],z_array[1])
+    out_3 = idea_add(x_array[2],z_array[2])
+    out_4 = idea_mul(x_array[3],z_array[3])
+    out_5 = idea_mul(z_array[4],idea_xor(out_1,out_3))
+    out_6 = idea_mul(z_array[5],idea_add(idea_xor(out_2,out_4),out_5))
+    out_7 = idea_add(out_5,out_6)
 
-def FindMODreverse(a,m):                        # 欧几里得除法求模逆元
-    m_tmp = m
-    x_1,x_2 = 1,0
-    y_1,y_2 = 0,1
-    while m != 0:
-        q = a//m
-        x_2,y_2,m,x_1,y_1,a = (x_1 - q * x_2),(y_1 - q * y_2),a % m,x_2,y_2,m
-    while x_1 &lt; 0:
-        x_1 += m_tmp
-    while x_1 &gt;= m_tmp:
-        x_1 -= m_tmp
-    return x_1
+    w_1 = idea_xor(out_1,out_6)
+    w_2 = idea_xor(out_3,out_6)
+    w_3 = idea_xor(out_2,out_7)
+    w_4 = idea_xor(out_4,out_7)
 
+    c = w_1 + w_2 + w_3 + w_4
 
+    num += 1
+    c = idea_encode(c,num,key)
+else:
+    y_1 = idea_mul(x_array[0],z_array[0])
+    y_2 = idea_add(x_array[2],z_array[1])
+    y_3 = idea_add(x_array[1],z_array[2])
+    y_4 = idea_mul(x_array[3],z_array[3])
+    c = y_1 + y_2 + y_3 + y_4
 
-def ROL(lit,num):                               # 循环左移 num 位
-    return lit[num:] + lit[:num]
-
-
-
-def idea_xor(x,y):                              # 逐位异或
-    tmp = &#39;&#39; ; i = 0
-    while True:
-        try:
-            tmp += str(int(x[i],2)^int(y[i],2))
-            i += 1
-        except:
-            return tmp
-
-
-
-def idea_add(x,y):                              # 模65536相加
-    x = int(x,2) ; y = int(y,2)
-    z = ( x + y ) % 65536
-    z = bin(z)[2:]
-    tmp = &#39;0&#39;*(16 - len(z)) + z
-    return tmp
-
-
-
-def idea_mul(x,y):                              # 模65537相乘
-    x = int(x,2) ; y = int(y,2)
-    if x == 0:
-        x = 2^16
-    if y == 0:
-        y = 2^16
-    z = ( ( x * y ) % 65537 ) % 65536
-    z = bin(z)[2:]
-    tmp = &#39;0&#39;*(16 - len(z)) + z
-    return tmp
-
-
-
-def idea_encode(m,num,key):                     # 加密过程
-    x_array = [m[i*16:i*16+16] for i in range(4)]
-    z_array = key[num*6:num*6+6]
-
-    if num &lt; 8:
-        out_1 = idea_mul(x_array[0],z_array[0])
-        out_2 = idea_add(x_array[1],z_array[1])
-        out_3 = idea_add(x_array[2],z_array[2])
-        out_4 = idea_mul(x_array[3],z_array[3])
-        out_5 = idea_mul(z_array[4],idea_xor(out_1,out_3))
-        out_6 = idea_mul(z_array[5],idea_add(idea_xor(out_2,out_4),out_5))
-        out_7 = idea_add(out_5,out_6)
-
-        w_1 = idea_xor(out_1,out_6)
-        w_2 = idea_xor(out_3,out_6)
-        w_3 = idea_xor(out_2,out_7)
-        w_4 = idea_xor(out_4,out_7)
-
-        c = w_1 + w_2 + w_3 + w_4
-
-        num += 1
-        c = idea_encode(c,num,key)
-    else:
-        y_1 = idea_mul(x_array[0],z_array[0])
-        y_2 = idea_add(x_array[2],z_array[1])
-        y_3 = idea_add(x_array[1],z_array[2])
-        y_4 = idea_mul(x_array[3],z_array[3])
-        c = y_1 + y_2 + y_3 + y_4
-
-    return c
-
-
-
-def IDEA_Crypto(cm_str,key,mode):
-    if mode == 0:
-        if len(cm_str) % 8 != 0:                         # 对明文进行填充
-            cm_str += &#39;\x00&#39; * ( 8 - len(cm_str) % 8 )
-
-        m_bin = &#39;&#39;                                       # 将明文转化为二元序列
-        for i in cm_str.encode(&#39;utf-8&#39;):
-            i = bin(i)[2:]
-            m_bin += &#39;0&#39;*(8 - len(i)) + i
-    else:                                                # 将密文转化为二元序列
-        c_bin = bin(int(cm_str,16))[2:]
-        if len(c_bin) % 8 != 0:
-            c_bin = &#39;0&#39;*(8 - (len(c_bin) % 8)) + c_bin
-
-    key_bin = &#39;&#39;                                         # 将密钥转化为二元序列
-    for i in key.encode(&#39;utf-8&#39;):
+return c
+</code></pre><p>def IDEA_Crypto(cm_str,key,mode):<br>    if mode == 0:<br>        if len(cm_str) % 8 != 0:                         # 对明文进行填充<br>            cm_str += ‘\x00’ * ( 8 - len(cm_str) % 8 )</p>
+<pre><code>    m_bin = &#39;&#39;                                       # 将明文转化为二元序列
+    for i in cm_str.encode(&#39;utf-8&#39;):
         i = bin(i)[2:]
-        key_bin += &#39;0&#39;*(8 - len(i)) + i
+        m_bin += &#39;0&#39;*(8 - len(i)) + i
+else:                                                # 将密文转化为二元序列
+    c_bin = bin(int(cm_str,16))[2:]
+    if len(c_bin) % 8 != 0:
+        c_bin = &#39;0&#39;*(8 - (len(c_bin) % 8)) + c_bin
 
-    key_encrypt_array = []                                       # 生成加密子密钥
-    for i in range(6):
-        for j in [key_bin[k*16:k*16+16] for k in range(8)]:
-            key_encrypt_array.append(j)
-        key_bin = ROL(key_bin,25)
-    else:
-        key_encrypt_array.extend([key_bin[k*16:k*16+16] for k in range(8)][:4])
+key_bin = &#39;&#39;                                         # 将密钥转化为二元序列
+for i in key.encode(&#39;utf-8&#39;):
+    i = bin(i)[2:]
+    key_bin += &#39;0&#39;*(8 - len(i)) + i
 
-    key_decrypt_array = [] ; flag = 0                            # 生成解密子密钥
-    key_tmp_array = key_encrypt_array[::-1]
-    for i in [key_tmp_array[i*6:i*6+6] for i in range(8)]:
-        i[:4] = i[3::-1] ; i[-2:] = i[:-3:-1]
+key_encrypt_array = []                                       # 生成加密子密钥
+for i in range(6):
+    for j in [key_bin[k*16:k*16+16] for k in range(8)]:
+        key_encrypt_array.append(j)
+    key_bin = ROL(key_bin,25)
+else:
+    key_encrypt_array.extend([key_bin[k*16:k*16+16] for k in range(8)][:4])
 
-        if flag == 0:                                            # 第一轮和最后一轮的第二三子密钥特殊取值
-            Addrev = bin((65536 - int(i[1],2)) % 65536)[2:]
-            i[1] = &#39;0&#39;*(16-len(Addrev)) + Addrev
-            Addrev = bin((65536 - int(i[2],2)) % 65536)[2:]
-            i[2] = &#39;0&#39;*(16-len(Addrev)) + Addrev
-            flag += 1
-        else:
-            Addrev = bin((65536 - int(i[1],2)) % 65536)[2:]
-            tmp_1 = &#39;0&#39;*(16-len(Addrev)) + Addrev
-            Addrev = bin((65536 - int(i[2],2)) % 65536)[2:]
-            tmp_2 = &#39;0&#39;*(16-len(Addrev)) + Addrev
-            i[1] = tmp_2
-            i[2] = tmp_1
+key_decrypt_array = [] ; flag = 0                            # 生成解密子密钥
+key_tmp_array = key_encrypt_array[::-1]
+for i in [key_tmp_array[i*6:i*6+6] for i in range(8)]:
+    i[:4] = i[3::-1] ; i[-2:] = i[:-3:-1]
 
-        Modrev = bin(FindMODreverse(int(i[0],2),65537))[2:]
-        i[0] = &#39;0&#39;*(16-len(Modrev)) + Modrev
-        Modrev = bin(FindMODreverse(int(i[3],2),65537))[2:]
-        i[3] = &#39;0&#39;*(16-len(Modrev)) + Modrev
-
-        key_decrypt_array.extend(i)
-    else:                                                       # 最后一轮第九轮的解密密钥
-        i = key_tmp_array[-4:][::-1]
-
+    if flag == 0:                                            # 第一轮和最后一轮的第二三子密钥特殊取值
         Addrev = bin((65536 - int(i[1],2)) % 65536)[2:]
         i[1] = &#39;0&#39;*(16-len(Addrev)) + Addrev
         Addrev = bin((65536 - int(i[2],2)) % 65536)[2:]
         i[2] = &#39;0&#39;*(16-len(Addrev)) + Addrev
-        Modrev = bin(FindMODreverse(int(i[0],2),65537))[2:]
-        i[0] = &#39;0&#39;*(16-len(Modrev)) + Modrev
-        Modrev = bin(FindMODreverse(int(i[3],2),65537))[2:]
-        i[3] = &#39;0&#39;*(16-len(Modrev)) + Modrev
-
-        key_decrypt_array.extend(i)
-
-    if mode == 0:                                   # 文本二元序列的分组
-        mc_array = [ m_bin[i*64:i*64+64] \
-            for i in range(int(len(m_bin) / 64)) ]  
+        flag += 1
     else:
-        mc_array = [ c_bin[i*64:i*64+64] \
-            for i in range(int(len(c_bin) / 64)) ]
+        Addrev = bin((65536 - int(i[1],2)) % 65536)[2:]
+        tmp_1 = &#39;0&#39;*(16-len(Addrev)) + Addrev
+        Addrev = bin((65536 - int(i[2],2)) % 65536)[2:]
+        tmp_2 = &#39;0&#39;*(16-len(Addrev)) + Addrev
+        i[1] = tmp_2
+        i[2] = tmp_1
 
-    cm_array = []                                   # 求结果分组
-    if mode == 0:
-        for i in mc_array:
-            cm_array.append(idea_encode(i,0,key_encrypt_array))
-    else:
-        for i in mc_array:
-            cm_array.append(idea_encode(i,0,key_decrypt_array))
+    Modrev = bin(FindMODreverse(int(i[0],2),65537))[2:]
+    i[0] = &#39;0&#39;*(16-len(Modrev)) + Modrev
+    Modrev = bin(FindMODreverse(int(i[3],2),65537))[2:]
+    i[3] = &#39;0&#39;*(16-len(Modrev)) + Modrev
 
-    cm = &#39;&#39;                                      # 将结果分组转换为对应的十六进制内容
-    for i in cm_array:
-        tmp = hex(int(i,2))[2:]
-        if len(tmp) * 4 != len(i):
-            tmp = &#39;0&#39;*int(len(i) / 4 - len(tmp)) + tmp
-        cm += tmp
+    key_decrypt_array.extend(i)
+else:                                                       # 最后一轮第九轮的解密密钥
+    i = key_tmp_array[-4:][::-1]
 
-    if mode == 0:
-        print(&#39;密文：&#39; + cm)
-    else:
-        print(&#39;明文(hex):&#39; + cm)
+    Addrev = bin((65536 - int(i[1],2)) % 65536)[2:]
+    i[1] = &#39;0&#39;*(16-len(Addrev)) + Addrev
+    Addrev = bin((65536 - int(i[2],2)) % 65536)[2:]
+    i[2] = &#39;0&#39;*(16-len(Addrev)) + Addrev
+    Modrev = bin(FindMODreverse(int(i[0],2),65537))[2:]
+    i[0] = &#39;0&#39;*(16-len(Modrev)) + Modrev
+    Modrev = bin(FindMODreverse(int(i[3],2),65537))[2:]
+    i[3] = &#39;0&#39;*(16-len(Modrev)) + Modrev
 
-    return cm
+    key_decrypt_array.extend(i)
 
-if __name__ == &quot;__main__&quot;:
-    m = &#39;1234567812345678&#39;
-    key = &#39;1234567812345678&#39;
-    c = IDEA_Crypto(m,key,0)
-    m_tmp = IDEA_Crypto(c,key,1)
-&#39;&#39;&#39;
-</code></pre>
+if mode == 0:                                   # 文本二元序列的分组
+    mc_array = [ m_bin[i*64:i*64+64] \
+        for i in range(int(len(m_bin) / 64)) ]  
+else:
+    mc_array = [ c_bin[i*64:i*64+64] \
+        for i in range(int(len(c_bin) / 64)) ]
+
+cm_array = []                                   # 求结果分组
+if mode == 0:
+    for i in mc_array:
+        cm_array.append(idea_encode(i,0,key_encrypt_array))
+else:
+    for i in mc_array:
+        cm_array.append(idea_encode(i,0,key_decrypt_array))
+
+cm = &#39;&#39;                                      # 将结果分组转换为对应的十六进制内容
+for i in cm_array:
+    tmp = hex(int(i,2))[2:]
+    if len(tmp) * 4 != len(i):
+        tmp = &#39;0&#39;*int(len(i) / 4 - len(tmp)) + tmp
+    cm += tmp
+
+if mode == 0:
+    print(&#39;密文：&#39; + cm)
+else:
+    print(&#39;明文(hex):&#39; + cm)
+
+return cm
+</code></pre><p>if <strong>name</strong> == “<strong>main</strong>“:<br>    m = ‘1234567812345678’<br>    key = ‘1234567812345678’<br>    c = IDEA_Crypto(m,key,0)<br>    m_tmp = IDEA_Crypto(c,key,1)<br>‘’’</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
@@ -285,7 +216,7 @@ if __name__ == &quot;__main__&quot;:
     </div>
     
         <div class='side'>
-				
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#coding-utf-8"><span class="toc-number">1.</span> <span class="toc-text">-- coding:utf-8 --</span></a></li></ol>	
         </div>
     
 </div>

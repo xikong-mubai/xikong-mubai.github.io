@@ -68,26 +68,22 @@
 <p><code>Python 2.7.15\Lib\site-packages</code>目录下面新建一个文件名为<code>sitecustomize.py</code>在里面写上</p>
 <pre><code> import sys
  sys.setdefaultencoding(&#39;gbk&#39;)
-</code></pre>
-<hr>
+</code></pre><hr>
 <p><strong>7号错误：</strong> <code>UnicodeDecodeError: &#39;ascii&#39; codec can&#39;t decode byte 0xcf in position 7: ordinal not in range(128)：</code></p>
 <p>解决办法：修改<code>mimetypes.py</code>文件，路径位于python的安装路径下的<code>Lib\mimetypes.py</code>文件。在<code>import</code>下添加如下几行，将编码设置为‘gbk’：</p>
 <pre><code> if sys.getdefaultencoding() != &#39;gbk&#39;: 
   reload(sys) 
   sys.setdefaultencoding(&#39;gbk&#39;)
-</code></pre>
-<p>方法2：打开<code>python27/Lib</code>文件夹下的<code>mimetypes.py</code>文件，在253行左右，在<code>default_encoding=sys.getdefaultencoding()</code>前加三行：</p>
+</code></pre><p>方法2：打开<code>python27/Lib</code>文件夹下的<code>mimetypes.py</code>文件，在253行左右，在<code>default_encoding=sys.getdefaultencoding()</code>前加三行：</p>
 <pre><code>If sys.setdefaultencoding()!=&#39;gbk&#39;:
  reload(sys)
  sys.setdefaultencoding(&#39;gbk&#39;)
  default_encoding=sys.getdefaultencoding()
-</code></pre>
-<p>在<code>manage.py</code>文件上，加上以下代码：</p>
+</code></pre><p>在<code>manage.py</code>文件上，加上以下代码：</p>
 <pre><code>import sys
 reload(sys)
 sys.setdefaultencoding(&quot;utf-8&quot;)
 </code></pre>
-
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
                 <source type="audio/mpeg" src="">

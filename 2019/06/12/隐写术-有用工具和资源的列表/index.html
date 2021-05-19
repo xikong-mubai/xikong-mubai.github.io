@@ -70,45 +70,36 @@
 <h3 id="Steghide"><a href="#Steghide" class="headerlink" title="Steghide"></a>Steghide</h3><p>Steghide是一个隐藏数据的程序，可以隐藏各种图像和音频文件中的数据，只支持这些文件格式：JPEG, BMP, WAV and AU。但它对从其他文件中提取嵌入和加密数据也很有用。它可以安装<code>apt</code>并且<a target="_blank" rel="noopener" href="https://github.com/StefanoDeVuono/steghide">源</a>可以在github上找到。</p>
 <p>有用的命令：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">steghide info file :显示有关文件是否包含嵌入数据的信息。</span><br><span class="line">steghide extract -sf file :从文件中提取嵌入数据</span><br></pre></td></tr></table></figure>
-
 <h3 id="MP3stego"><a href="#MP3stego" class="headerlink" title="MP3stego"></a>MP3stego</h3><p>mp3音频隐写工具。</p>
 <h3 id="SilentEye"><a href="#SilentEye" class="headerlink" title="SilentEye"></a>SilentEye</h3><p>类似于图片隐写中的 LSB 隐写，音频中也有对应的 LSB 隐写。</p>
 <h3 id="Foremost"><a href="#Foremost" class="headerlink" title="Foremost"></a>Foremost</h3><p>Foremost是一个程序，它根据页眉，页脚和内部数据结构恢复文件，我发现它在处理png图像时很有用。<br>它可以安装<code>apt</code>并且<a target="_blank" rel="noopener" href="https://github.com/korczis/foremost">源</a>可以在github上找到。</p>
 <p>有用的命令：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foremost -i file ：从给定文件中提取数据。</span><br></pre></td></tr></table></figure>
-
 <h3 id="Stegsolve"><a href="#Stegsolve" class="headerlink" title="Stegsolve"></a>Stegsolve</h3><p>有时在图像本身中隐藏着一条消息或文本，为了查看它，您需要应用一些颜色过滤器或使用颜色级别。您可以使用GIMP或Photoshop或任何其他图像编辑软件，但stegsolve使它更容易。它是一个小型的java工具，可以在图像上应用许多颜色过滤器。我个人认为它非常有用。你可以从<a target="_blank" rel="noopener" href="https://github.com/eugenekolo/sec-tools/tree/master/stego/stegsolve/stegsolve">github</a>得到它</p>
 <h3 id="strings"><a href="#strings" class="headerlink" title="strings"></a>strings</h3><p>Strings是一个linux工具，可以在文件中显示可打印的字符串。在解决隐秘挑战时，这个简单的工具非常有用。通常，嵌入数据受密码保护或加密，有时密码是文件本身的密码，可以通过使用字符串轻松查看<br>这是一个默认的linux工具，所以你不需要安装任何东西。</p>
 <p>有用的命令：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strings file ：在给定文件中显示可打印的字符串。</span><br></pre></td></tr></table></figure>
-
 <h3 id="Exiftool"><a href="#Exiftool" class="headerlink" title="Exiftool"></a>Exiftool</h3><p>有时重要的东西隐藏在图像或文件的元数据中，exiftool可以非常有助于查看文件的元数据。<br>你可以从<a target="_blank" rel="noopener" href="https://www.sno.phy.queensu.ca/~phil/exiftool/">这里</a>得到它</p>
 <p>有用的命令：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exiftool file ：显示给定文件的元数据</span><br></pre></td></tr></table></figure>
-
 <h3 id="Exiv2"><a href="#Exiv2" class="headerlink" title="Exiv2"></a>Exiv2</h3><p>一种类似于exiftool的工具。<br>它可以安装，<code>apt</code>并且<a target="_blank" rel="noopener" href="https://github.com/Exiv2/exiv2">exiv2</a>可以在github上找到。<br><a target="_blank" rel="noopener" href="http://www.exiv2.org/">官方网站</a></p>
 <p>有用的命令：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exiv2 file ：显示给定文件的元数据</span><br></pre></td></tr></table></figure>
-
 <h3 id="Binwalk"><a href="#Binwalk" class="headerlink" title="Binwalk"></a>Binwalk</h3><p>Binwalk是一种用于搜索嵌入式文件和数据的图像和音频文件等二进制文件的工具。<br>它可以安装，<code>apt</code>并且<a target="_blank" rel="noopener" href="https://github.com/ReFirmLabs/binwalk">源</a>可以在github上找到。</p>
 <p>有用的命令：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">binwalk file ：显示给定文件中的嵌入数据</span><br><span class="line">binwalk -e file ：显示和提取给定文件中的数据</span><br></pre></td></tr></table></figure>
-
 <h3 id="Zsteg"><a href="#Zsteg" class="headerlink" title="Zsteg"></a>Zsteg</h3><p>zsteg是一个可以检测png和bmp文件中隐藏数据的工具。<br>安装它：gem install zsteg，源可以在<a target="_blank" rel="noopener" href="https://github.com/zed-0xff/zsteg">github</a>上找到</p>
 <p>有用的命令：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zsteg -a file ：运行给定文件上的所有方法</span><br><span class="line">zsteg -E file ：从给定的有效负载中提取数据（例如：zsteg -E b4，bgr，msb，xy name.png）</span><br></pre></td></tr></table></figure>
-
 <h3 id="Wavsteg"><a href="#Wavsteg" class="headerlink" title="Wavsteg"></a>Wavsteg</h3><p>WavSteg是一个python3工具，可以隐藏wav文件中的数据和文件，也可以从wav文件中提取数据。<br>你可以从<a target="_blank" rel="noopener" href="https://github.com/ragibson/Steganography#WavSteg">github</a>得到它</p>
 <p>有用的命令：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 WavSteg.py -r -s soundfile -o outputfile ：从wav声音文件中提取数据并将数据输出到新文件中</span><br></pre></td></tr></table></figure>
-
 <h3 id="Sonic-visualizer"><a href="#Sonic-visualizer" class="headerlink" title="Sonic visualizer"></a>Sonic visualizer</h3><p>Sonic visualizer声波可视化工具是一种用于查看和分析音频文件内容的工具，但在处理音频隐写时它会很有用。您可以在音频文件中显示隐藏的形状。<br><a target="_blank" rel="noopener" href="https://www.sonicvisualiser.org/">官方网站</a></p>
 <h3 id="Bruteforcers"><a href="#Bruteforcers" class="headerlink" title="Bruteforcers"></a>Bruteforcers</h3><p>BruteForcer是一款暴力破解RAR文件密码的服务器端和客户端多线程工具，用户可以通过多个客户端连接到服务器并行加速<br>详情：<a target="_blank" rel="noopener" href="https://www.freebuf.com/sectool/122481.html">https://www.freebuf.com/sectool/122481.html</a></p>
 <h3 id="StegCracker"><a href="#StegCracker" class="headerlink" title="StegCracker"></a><a target="_blank" rel="noopener" href="https://github.com/Paradoxis/StegCracker">StegCracker</a></h3><p>使用steghide强制密码的工具</p>
 <h3 id="Fcrackzip"><a href="#Fcrackzip" class="headerlink" title="Fcrackzip"></a>Fcrackzip</h3><p>有时提取的数据是受密码保护的zip，此工具强制执行zip存档。<br>它可以安装，<code>apt</code>并且<a target="_blank" rel="noopener" href="https://github.com/hyc/fcrackzip">源</a>可以在github上找到。</p>
 <p>有用的命令：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fcrackzip -u -D -p wordlist.txt file.zip ：使用给定wordlist中的密码强制给定zip文件</span><br></pre></td></tr></table></figure>
-
 <h2 id="网络工具"><a href="#网络工具" class="headerlink" title="网络工具"></a>网络工具</h2><h3 id="quipqiup"><a href="#quipqiup" class="headerlink" title="quipqiup"></a><a target="_blank" rel="noopener" href="https://www.quipqiup.com/">quipqiup</a></h3><p>自动解密大部分古典密码，不过根据密码强度可能会出现错误</p>
 <h3 id="各种版本条码-二维码解码"><a href="#各种版本条码-二维码解码" class="headerlink" title="各种版本条码/二维码解码"></a><a target="_blank" rel="noopener" href="https://www.sojson.com/qr/zxing.html">各种版本条码/二维码解码</a></h3><h3 id="snow隐写"><a href="#snow隐写" class="headerlink" title="snow隐写"></a><a target="_blank" rel="noopener" href="http://fog.misty.com/perry/ccs/snow/snow/snow.html">snow隐写</a></h3><h3 id="零宽字符隐写"><a href="#零宽字符隐写" class="headerlink" title="零宽字符隐写"></a>零宽字符隐写</h3><h4 id="zero-width-lib"><a href="#zero-width-lib" class="headerlink" title="zero-width-lib"></a><a target="_blank" rel="noopener" href="https://yuanfux.github.io/zero-width-web/">zero-width-lib</a></h4><h4 id="一种零宽字符隐写"><a href="#一种零宽字符隐写" class="headerlink" title="一种零宽字符隐写"></a><a target="_blank" rel="noopener" href="http://330k.github.io/misc_tools/unicode_steganography.html">一种零宽字符隐写</a></h4><h3 id="Unicode文本隐写术"><a href="#Unicode文本隐写术" class="headerlink" title="Unicode文本隐写术"></a><a target="_blank" rel="noopener" href="https://www.irongeek.com/i.php?page=security/unicode-steganography-homoglyph-encoder">Unicode文本隐写术</a></h3><p>一个用于unicode隐写术的网络工具，它可以编码和解码文本</p>
 <h3 id="npiet在线"><a href="#npiet在线" class="headerlink" title="npiet在线"></a><a target="_blank" rel="noopener" href="https://www.bertnase.de/npiet/npiet-execute.php">npiet在线</a></h3><p>piet的在线翻译。piet是一种深奥的语言，piet中的程序是图像。阅读更多关于piet的<a target="_blank" rel="noopener" href="http://www.dangermouse.net/esoteric/piet.html">信息</a></p>

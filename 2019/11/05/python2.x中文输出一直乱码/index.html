@@ -12,9 +12,8 @@
     <meta name="keywords" content="Xibai,"> 
     <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,首先确认自己有没有添加用中文时的必备开头
 1# -*- encoding: utf-8 -*-
-
 若无开头一般是python2.x默认使用ASCII码导致的问题
-如果文件开头已经添加过了该注释，中文,"> 
+如果文件开头已经添加过了该注释，中文输,"> 
     <meta name="author" content="Xibai"> 
     <link rel="alternative" href="http://xibai.xyz/atom.xml" title="汐白的学习档案" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -70,7 +69,6 @@
         <div class="content markdown">
             <p>首先确认自己<strong>有没有添加用中文时的必备开头</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- encoding: utf-8 -*-</span></span><br></pre></td></tr></table></figure>
-
 <p>若无开头一般是python2.x默认使用ASCII码导致的问题</p>
 <p>如果文件开头<strong>已经添加过了该注释</strong>，<strong>中文</strong>输出<strong>依旧乱码</strong>，<em>大概率是文件编码格式与python的设置冲突导致</em></p>
 <p>python2.x默认使用ASCII码，所以添加该注释头让其识别unicode码，但是有时所创建的<strong>文件其默认编码</strong>就是<code>Unicode</code>或者<code>utf-8</code>编码，<strong>此时其就会与python2.x产生冲突，致使python2.x在执行脚本时始终无法正确输出中文</strong></p>

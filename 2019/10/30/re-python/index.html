@@ -71,19 +71,15 @@ exewindows编程最终结果一般都是要生成exe可执行文件，通过pyth
 <p>它包含了一个<code>archive_viewer.py</code>的文件可以对打包为exe文件的python程序解包。</p>
 <h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><p>写一个脚本<code>hello.py</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> <span class="string">&#x27;hello,world&#x27;</span></span><br></pre></td></tr></table></figure>
-
 <p>通过<code>pyinstaller</code>将其打包为<code>exe</code>，下面的命令会在hello.py的目录下生成一个dist文件夹</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python pyinstaller --onefile --nowindowed hello.py</span><br></pre></td></tr></table></figure>
-
 <p>然后对其进行解包操作</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python path/archive_viewer.py path/dist/hello.exe</span><br></pre></td></tr></table></figure>
-
 <p>path分别为各个文件自己的路径</p>
 <p>一般会反编译出很多模块，根据各个模块的名字来找目标模块，用<code>x name</code>提取</p>
 <h3 id="pyinstxtractor"><a href="#pyinstxtractor" class="headerlink" title="pyinstxtractor"></a>pyinstxtractor</h3><p>第二种并非库，而是大佬写的一个反编译脚本，直接将脚本下载至所要反编译的exe文件目录下。</p>
 <p>cmd运行</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python pyinstxtractor.py xxx.exe</span><br></pre></td></tr></table></figure>
-
 <p>即可生成拆解目录<code>xxx.exe_extracted</code>,在其中寻找目标文件<code>xxx</code></p>
 <h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p>该反编译仅将exe反编译为pyc文件，且pyc文件的前8个字节是被删除的，需要用如winhex这样的文件手动添加文件头。这8个字节前四个是python编译时的版本，python2.7为<code>03 f3 0d 0a</code>，python3.4为<code>ee 0c 0d 0a</code>，其余版本的python对应的文件头自行查询；后四个字节是编译时的时间戳，随便写。</p>
 <h2 id="pyc"><a href="#pyc" class="headerlink" title="pyc"></a>pyc</h2><p>拥有pyc文件后，有三种方式反编译py文件：在线工具、python库、easy python decompiler</p>
@@ -91,7 +87,6 @@ exewindows编程最终结果一般都是要生成exe可执行文件，通过pyth
 <h3 id="uncompyle"><a href="#uncompyle" class="headerlink" title="uncompyle"></a>uncompyle</h3><p>可以直接用pip安装</p>
 <p>使用：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uncompyle6.exe xxx.pyc &gt; xxx.py</span><br></pre></td></tr></table></figure>
-
 <p>用以上命令即可拿到最终的py脚本</p>
 <h2 id="py"><a href="#py" class="headerlink" title="py"></a>py</h2><p>py脚本都拿到了，还要我说啥，代码审计去吧</p>
 

@@ -66,72 +66,72 @@
         <div class="content markdown">
             <h2 id="serialize-void-string"><a href="#serialize-void-string" class="headerlink" title="serialize( void ) : string"></a>serialize( void ) : string</h2><p>serialize函数会把一个已有的数据转化成一串字符串，该字符串从前到后依次记录该数据的类型、长度(涉及到类似数组字符串这种拥有元素个数属性的数据序列化后会返回该值)、内容，同一数据的不同内容用 “ : ” 进行分割，例如</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$a</span>=<span class="string">&quot;asd&quot;</span>  <span class="comment">//a被定义为一个字符串，类型是string，长度为3，内容“asd”</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$b</span>=serialize(<span class="variable">$a</span>) <span class="comment">//b会成为一个字符串，其内容为“ s:3:&quot;asd&quot; ”  s为 a 的数据类型 string 的首字母，3 为 a 的长度或者说 a 中包含的元素（字符）个数，&quot;asd&quot; 为a的内容</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>各种类型序列化的例子：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">变量类型</th>
+<th style="text-align:left">变量类型</th>
 <th>进行序列化后</th>
 <th>标志</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">int</td>
+<tbody>
+<tr>
+<td style="text-align:left">int</td>
 <td>i:9;</td>
 <td>i</td>
 </tr>
 <tr>
-<td align="left">string</td>
+<td style="text-align:left">string</td>
 <td>s:3:”asd”;</td>
 <td>s</td>
 </tr>
 <tr>
-<td align="left">double</td>
+<td style="text-align:left">double</td>
 <td>d:9.90001;</td>
 <td>d</td>
 </tr>
 <tr>
-<td align="left">bool</td>
+<td style="text-align:left">bool</td>
 <td>b:1;</td>
 <td>b</td>
 </tr>
 <tr>
-<td align="left">array</td>
+<td style="text-align:left">array</td>
 <td>a:3:{i:0;s:3:”asd”;i:1;i:111;i:2;d:12.10001;}</td>
 <td>a</td>
 </tr>
 <tr>
-<td align="left">null</td>
+<td style="text-align:left">null</td>
 <td>N;</td>
 <td>N</td>
 </tr>
 <tr>
-<td align="left">object</td>
+<td style="text-align:left">object</td>
 <td>O:9:”classname”:0:{}</td>
 <td>O</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>这里要说明一些特殊个例：<code>array</code>和<code>object</code></p>
-<h3 id="特例"><a href="#特例" class="headerlink" title="特例"></a>特例</h3><h4 id="array"><a href="#array" class="headerlink" title="array"></a>array</h4><p><code>array</code>这种组合型数据，长度为元素个数，其内容用花括号 **{ }**括起来</p>
+<h3 id="特例"><a href="#特例" class="headerlink" title="特例"></a>特例</h3><h4 id="array"><a href="#array" class="headerlink" title="array"></a>array</h4><p><code>array</code>这种组合型数据，长度为元素个数，其内容用花括号 <strong>{ }</strong>括起来</p>
 <p>花括号内的数据不仅用每个数据相应的序列化方式进行序列化，且在该数据前面要有一个<code>i:x</code></p>
 <p>这个<code>i:x</code>代表的是其在数组中的下标，且下标和数据之间也要用<code>；</code>间隔。</p>
 <h4 id="object"><a href="#object" class="headerlink" title="object"></a>object</h4><p><code>object</code>因为是使用者自定义的，所以系统在判断的时候想要知道你这个被序列化过的数据如果是<code>object</code>该是什么<code>object</code>就必须给它加上相应<code>object</code>的名字，所以<code>object</code>类型的数据序列化之后标志后要比 <code>array</code>要再多一点东西，就是名字和名字的长度，不过这里不需要再用别的什么方式来表示，就只是简单的在标志 <strong>O</strong> 后面加上名字的长度和内容，中间全部都是<strong>：</strong>，不需要<strong>；</strong>分割。</p>
 <p>花括号内部的数据内容不像<code>array</code>那样需要标注下标，但是<code>object</code>内部属性有自己的数据类型和名字，所以属性的名字起到了下标的作用，下标是整形数字，所以用<code>i:x;</code>表示，而属性名是字符串，故用<code>s:x:&quot;xxx&quot;;</code>表示。</p>
 <p>同时在object中因为存在公共属性、私有属性、保护属性，其中公共属性没有特殊点。另外两种在序列化时会有一点不一样</p>
-<h5 id="protected"><a href="#protected" class="headerlink" title="protected"></a>protected</h5><p>受保护的属性其序列化后，属性名前会有一个 ***** ，如：</p>
+<h5 id="protected"><a href="#protected" class="headerlink" title="protected"></a>protected</h5><p>受保护的属性其序列化后，属性名前会有一个 <strong>*</strong> ，如：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$asd</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$a</span> = <span class="keyword">new</span> Test(<span class="string">&#x27;sadasd&#x27;</span>);</span><br><span class="line"><span class="keyword">echo</span> serialize(<span class="variable">$a</span>);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">输出结果整理成清楚的格式</span></span><br><span class="line"><span class="comment">O:4:&quot;Test&quot;:1:&#123;</span></span><br><span class="line"><span class="comment">  s:6:&quot;%00*%00asd&quot;;</span></span><br><span class="line"><span class="comment">  s:6:&quot;sadasd&quot;;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>这里需要注意，受保护的属性名字序列化后虽然是显示为形如<code>*name</code>这样的形式，但其实 ***** 前后各有一个<code>%00</code>填充</p>
+<p>这里需要注意，受保护的属性名字序列化后虽然是显示为形如<code>*name</code>这样的形式，但其实 <strong>*</strong> 前后各有一个<code>%00</code>填充</p>
 <h5 id="private"><a href="#private" class="headerlink" title="private"></a>private</h5><p>私有化的属性其序列化后，属性名前会加上object的名字 ，如：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$asd</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$a</span> = <span class="keyword">new</span> Test(<span class="string">&#x27;sadasd&#x27;</span>);</span><br><span class="line"><span class="keyword">echo</span> serialize(<span class="variable">$a</span>);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">输出结果整理成清楚的格式</span></span><br><span class="line"><span class="comment">O:4:&quot;Test&quot;:1:&#123;</span></span><br><span class="line"><span class="comment">  s:6:&quot;%00*%00asd&quot;;</span></span><br><span class="line"><span class="comment">  s:6:&quot;sadasd&quot;;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>这里需要注意，私有化的属性名字序列化后虽然是显示为形如<code>object_name+name</code>这样的形式，但其实 类似<code>array</code> 里面的***** 一样<code>object_name</code>前后各有一个<code>%00</code>填充</p>
+<p>这里需要注意，私有化的属性名字序列化后虽然是显示为形如<code>object_name+name</code>这样的形式，但其实 类似<code>array</code> 里面的<strong>*</strong> 一样<code>object_name</code>前后各有一个<code>%00</code>填充</p>
 <h2 id="unserialize-string-serialized"><a href="#unserialize-string-serialized" class="headerlink" title="unserialize( string $serialized )"></a>unserialize( string <code>$serialized</code> )</h2><p>通过序列化可以将一个数据转化成纯字符串的形式从而极大地方便了其储存和传输，既然可以将数据序列化为纯字符串，自然也需要在使用时进行反序列化将其解析为原本的数据。</p>
 <p>反序列化暂时不了解什么特殊，只知道在web反序列化时，若其内部有魔术方法<code>_wakeup()</code>时，我们构造的payload对象属性个数大于实际属性个数时，<code>_warmup()</code>魔术方法会被绕过</p>
 <p>例如：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SoFun</span></span>&#123;</span><br><span class="line">  <span class="keyword">protected</span> <span class="variable">$file</span>=<span class="string">&#x27;index.php&#x27;</span>;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="keyword">empty</span>(<span class="keyword">$this</span>-&gt;file)) &#123;</span><br><span class="line">     <span class="keyword">if</span>(strchr(<span class="keyword">$this</span>-&gt; file,<span class="string">&quot;\\&quot;</span>)===<span class="literal">false</span> &amp;&amp; strchr(<span class="keyword">$this</span>-&gt;file,<span class="string">&#x27;/&#x27;</span>)===<span class="literal">false</span>)</span><br><span class="line">        show_source(dirname (<span class="keyword">__FILE__</span>).<span class="string">&#x27;/&#x27;</span>.<span class="keyword">$this</span> -&gt;file);</span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">         <span class="keyword">die</span>(<span class="string">&#x27;Wrong filename.&#x27;</span>);</span><br><span class="line">    &#125;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>)</span>&#123; <span class="keyword">$this</span>-&gt; file=<span class="string">&#x27;index.php&#x27;</span>; &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="string">&#x27;&#x27;</span> ;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>在该例中，假如我们构造一个<strong>payload</strong>为<code>O:5:&quot;SoFun&quot;:2:&#123;s:7:&quot;%00*%00file&quot;;s:5:&quot;1.php&quot;;&#125;</code></p>
 <p>可以看到，<code>class SoFun</code>中只有一个属性，而我们构造的paylaod中的属性个数故意多写了一个，此时该payload在反序列化时就会跳过<code>_warmup()</code>，从而泄露我们想要看到的文件的源码</p>
 
