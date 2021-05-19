@@ -104,7 +104,7 @@
 <p>官网下载<code>IDA7.6-free</code>版,然后直接分析程序。</p>
 <p>在主函数<code>main_main</code>里看到输出flag的代码逻辑，逐字节输出，预设了一个密文表，属于查表计算，主要在于计算每一字节对应的<code>index</code></p>
 <p><code>main_wtf</code>是一个递归函数，index的关键计算公式经优化结果为：<code>x=x-17*(x&gt;&gt;4)+1</code>,其递归次数的规律符合如下函数：</p>
-<p>$$f(n) = \begin{cases}<br>2, n = 1\<br>2^{2<em>n-3}+2</em>f(n-1), n &gt; 1\<br>\end{cases}<br>$$</p>
+<p>$$<br>f(n) = \begin{cases}<br>2, n = 1\<br>2^{2<em>n-3}+2</em>f(n-1), n &gt; 1\<br>\end{cases}<br>$$</p>
 <p><code>f(n)</code>的输出是有循环规律的，这里直接给出：</p>
 <p>$$<br>[2, 6, 3, 4, 0, 2, 12, 5]<br>$$</p>
 <p>将出题人给出的递归深度数据直接模八取余对应查表即可得到flag，脚本如下：</p>
