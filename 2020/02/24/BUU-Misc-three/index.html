@@ -135,7 +135,7 @@
 <h2 id="QCTF2018-X-man-A-face"><a href="#QCTF2018-X-man-A-face" class="headerlink" title="[QCTF2018]X-man-A face"></a>[QCTF2018]X-man-A face</h2><p>二维码标识符修复，然后解base32</p>
 <h2 id="ACTF新生赛2020-剑龙"><a href="#ACTF新生赛2020-剑龙" class="headerlink" title="[ACTF新生赛2020]剑龙"></a>[ACTF新生赛2020]剑龙</h2><h3 id="不正经解"><a href="#不正经解" class="headerlink" title="不正经解"></a>不正经解</h3><p>O_O用winhex查看发现是pyc，结合题目名字盲猜Stegosaurus隐写<br>注：如果该工具运行报错，恭喜你，可以重新配一遍python环境了（不是强迫症就算了，笔者有点强迫症，无法忍受自己的环境有小毛病）<br>注二：报错但也不想配环境，下载一个大蟒蛇吧</p>
 <h3 id="正经解aa"><a href="#正经解aa" class="headerlink" title="正经解aa"></a>正经解aa</h3><p>题目给了一个hint压缩包，里面有一个<code>hh.jpg</code>和<code>pwd.txt</code>，pwd是aaencode，找个在线网站解密一下是<code>welcom3!;</code>，明显是jpg要用到的，jpg的隐写方式无非就那几种，猜不出来是什么就全试一遍，试到<code>steghide</code>拿到隐藏txt，后面一个<code>openssl</code>加密过的密文，找一下发现<code>hh.jpg</code>的文件信息给了密钥，解密一下得到提示<code>Stegosaurus</code>，然后就是不正经解的内容了。</p>
-<h2 id="请移步篇章四"><a href="#请移步篇章四" class="headerlink" title="请移步篇章四"></a>请移步篇章四</h2><h2 id="也可移步篇章二"><a href="#也可移步篇章二" class="headerlink" title="也可移步篇章二"></a><a href="http://xibai.xyz/2020/02/02/BUU-Misc-two/">也可移步篇章二</a></h2>
+<h2 id="请移步篇章四"><a href="#请移步篇章四" class="headerlink" title="请移步篇章四"></a><a href="http://xibai.xyz/2021/04/19/BUU-Misc-four/">请移步篇章四</a></h2><h2 id="也可移步篇章二"><a href="#也可移步篇章二" class="headerlink" title="也可移步篇章二"></a><a href="http://xibai.xyz/2020/02/02/BUU-Misc-two/">也可移步篇章二</a></h2>
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
                 <source type="audio/mpeg" src="">
