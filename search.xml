@@ -150,24 +150,6 @@ return cm
       </tags>
   </entry>
   <entry>
-    <title>(whaleAndroid)app-Release</title>
-    <url>/2019/04/30/(whale)app-release/</url>
-    <content><![CDATA[<p>这是一个安卓逆向题。用安卓逆向工具进行分析，我在这里用的<code>jeb</code>工具，附上资源和无法正常启动解决方案的链接：<a href="https://www.52pojie.cn/thread-722648-1-1.html运行">https://www.52pojie.cn/thread-722648-1-1.html运行</a><code>jeb</code>，将<strong>app-release. apk</strong>拉入<code>jeb</code>进行分析<br><img src="https://img-blog.csdnimg.cn/20190430120522775.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">展开<strong>Bytecode</strong>查看该应用代码结构<br><img src="https://img-blog.csdnimg.cn/20190430120742883.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>发现有两个java源码文件，分别查看，发现<code>a</code>中使用了<code>MainActivity</code><br><img src="https://img-blog.csdnimg.cn/20190430120840662.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>查看<code>MainActivity</code>的内容，发现一个加密循环，是将一串字符的每一个字符都和18进行异或<br><img src="https://img-blog.csdnimg.cn/2019043012125930.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>结合<code>a</code>的代码确定，将一串字符串通过<code>MainActivity</code>内的加密得到的密文和</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PXEJPMQFTiS|v`\&quot;#vMDw`KMA3_b~w3o</span><br></pre></td></tr></table></figure>
-<p>进行对比，若一样则显示<strong>Contratulations! You Got Correct Flag.</strong><br>那么将</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PXEJPMQFTiS|v`\&quot;#vMDw`KMA3_b~w3o</span><br></pre></td></tr></table></figure>
-<p>与18异或一次即可得到应输入的字符串脚本如下</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> a[]=&#123;<span class="string">&quot;PXEJPMQFTiS|v`\&quot;#vMDw`KMA3_b~w3o&quot;</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> n=<span class="number">0</span>;n&lt;<span class="number">39</span>;n++)</span><br><span class="line">        &#123;</span><br><span class="line">            a[n]^=<span class="number">18</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Re</category>
-      </categories>
-      <tags>
-        <tag>Re</tag>
-        <tag>Android</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>(转)Json_web_token_攻击</title>
     <url>/2019/05/20/(json%20web%20token)JWT%E6%94%BB%E5%87%BB/</url>
     <content><![CDATA[<p>前记<br>最近国赛+校赛遇到两次json web token的题，发现自己做的并不算顺畅，于是有了这篇学习文章。</p>
@@ -322,6 +304,24 @@ return cm
       </categories>
       <tags>
         <tag>Web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>(whaleAndroid)app-Release</title>
+    <url>/2019/04/30/(whale)app-release/</url>
+    <content><![CDATA[<p>这是一个安卓逆向题。用安卓逆向工具进行分析，我在这里用的<code>jeb</code>工具，附上资源和无法正常启动解决方案的链接：<a href="https://www.52pojie.cn/thread-722648-1-1.html运行">https://www.52pojie.cn/thread-722648-1-1.html运行</a><code>jeb</code>，将<strong>app-release. apk</strong>拉入<code>jeb</code>进行分析<br><img src="https://img-blog.csdnimg.cn/20190430120522775.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">展开<strong>Bytecode</strong>查看该应用代码结构<br><img src="https://img-blog.csdnimg.cn/20190430120742883.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>发现有两个java源码文件，分别查看，发现<code>a</code>中使用了<code>MainActivity</code><br><img src="https://img-blog.csdnimg.cn/20190430120840662.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>查看<code>MainActivity</code>的内容，发现一个加密循环，是将一串字符的每一个字符都和18进行异或<br><img src="https://img-blog.csdnimg.cn/2019043012125930.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTAwODc3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>结合<code>a</code>的代码确定，将一串字符串通过<code>MainActivity</code>内的加密得到的密文和</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PXEJPMQFTiS|v`\&quot;#vMDw`KMA3_b~w3o</span><br></pre></td></tr></table></figure>
+<p>进行对比，若一样则显示<strong>Contratulations! You Got Correct Flag.</strong><br>那么将</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PXEJPMQFTiS|v`\&quot;#vMDw`KMA3_b~w3o</span><br></pre></td></tr></table></figure>
+<p>与18异或一次即可得到应输入的字符串脚本如下</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> a[]=&#123;<span class="string">&quot;PXEJPMQFTiS|v`\&quot;#vMDw`KMA3_b~w3o&quot;</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> n=<span class="number">0</span>;n&lt;<span class="number">39</span>;n++)</span><br><span class="line">        &#123;</span><br><span class="line">            a[n]^=<span class="number">18</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Re</category>
+      </categories>
+      <tags>
+        <tag>Re</tag>
+        <tag>Android</tag>
       </tags>
   </entry>
   <entry>
@@ -1000,30 +1000,6 @@ hexo d
       </tags>
   </entry>
   <entry>
-    <title>流量分析（萌新开坑Ing-慢慢填）</title>
-    <url>/2020/03/05/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<p><strong><em>最后更新于：2020-03-05 21：44</em></strong></p>
-<h2 id="萌新已知的工具"><a href="#萌新已知的工具" class="headerlink" title="萌新已知的工具"></a>萌新已知的工具</h2><h3 id="wireshark"><a href="#wireshark" class="headerlink" title="wireshark"></a>wireshark</h3><p>这玩意个人觉得想把它玩好还是直接买本书叭emmm</p>
-<h3 id="usbpacp"><a href="#usbpacp" class="headerlink" title="usbpacp"></a>usbpacp</h3><p>用来抓取usb流量包的工具。一般安装 wireshark 时会一起装，直接用 wireshark 抓取就可以。</p>
-<h3 id="npcap"><a href="#npcap" class="headerlink" title="npcap"></a>npcap</h3><p>Npcap 是 Nmap 项目的网络包抓取库在 Windows 下的版本。</p>
-<h3 id="RouterPassView-能查看宽带数据"><a href="#RouterPassView-能查看宽带数据" class="headerlink" title="RouterPassView(能查看宽带数据)"></a>RouterPassView(能查看宽带数据)</h3><p>能够解析宽带数据包。</p>
-<h2 id="目前见过的类型"><a href="#目前见过的类型" class="headerlink" title="目前见过的类型"></a>目前见过的类型</h2><h3 id="常规网络流量包分析"><a href="#常规网络流量包分析" class="headerlink" title="常规网络流量包分析"></a>常规网络流量包分析</h3><p>常见的常规流量包一般主要是分析一下三种流量。</p>
-<h4 id="ftp流量"><a href="#ftp流量" class="headerlink" title="ftp流量"></a>ftp流量</h4><p>ftp服务的流量分析目前见过的都比较简单。一般都是查看用户名和密码，获取ftp传输的文件。暂时没有发现比较难的ftp流量分析。</p>
-<h4 id="http流量"><a href="#http流量" class="headerlink" title="http流量"></a>http流量</h4><p>这个应该是最常见的流量，通过截取上网时的流量分析目标行为。一般是通过分析相关http流量来找到关键网站、文件、用户登录某网站的账号/密码。目前来说主要难点和ftp一样，当流量数据特别多时会难以找到关键数据。</p>
-<h4 id="https流量"><a href="#https流量" class="headerlink" title="https流量"></a>https流量</h4><p>https主要就是将明文数据加密以防止数据被他人截获。这里所用的加密主要是基于RSA的公钥加密。其加密数据协议在<code>wireshark</code>中是<code>TLS/SSL</code>。对于这种加密数据，只能想办法获取私钥或者公钥来进行解密，然后作为http流量分析。</p>
-<h3 id="USB流量包分析"><a href="#USB流量包分析" class="headerlink" title="USB流量包分析"></a>USB流量包分析</h3><p>对于USB流量，常规的usb流量分析一般就是键盘和鼠标的流量分析。</p>
-<p>这里直接去看大佬写好的文章就好了。</p>
-<p>这个文件里面第53页有usb键盘流量中和键盘按键对应的十六进制数据表：<a href="https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf">https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf</a></p>
-<h3 id="网络通信流量包（voip-rtp）"><a href="#网络通信流量包（voip-rtp）" class="headerlink" title="网络通信流量包（voip rtp）"></a>网络通信流量包（voip rtp）</h3><h3 id="Bluetooth"><a href="#Bluetooth" class="headerlink" title="Bluetooth"></a>Bluetooth</h3>]]></content>
-      <categories>
-        <category>Misc</category>
-      </categories>
-      <tags>
-        <tag>CTF</tag>
-        <tag>Misc</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>萌新随笔</title>
     <url>/2019/04/21/%E8%90%8C%E6%96%B0%E9%9A%8F%E7%AC%94/</url>
     <content><![CDATA[<p>目前对个别涉及堆栈的函数的认识：<br>  创建一个辅助堆栈让程序可以使用：<code>HeapCreate（地址，不清楚意思，不清楚意思）</code><br>  设置堆栈（不可改）：<code>HeapAlloc（堆栈名，不清楚意思，堆栈内字节数）</code><br>   返回值<br>   如果成功分配内存，返回值为一个指向所分配内存块的首地址的（void<em>）指针。<br>   如果分配内存失败，并且没有指定HEAP_GENERATE_EXCEPTIONS，则返回NULL。<br>   如果指定了HEAP_GENERATE_EXCEPTIONS，则抛出异常，而不返回NULL<br>  做题时遇见的在堆栈里放东西用的<code>memcpy_s（目标地址，字节数，源地址，复制的字节数）</code><br>Example：<br>       hHeap = HeapCreate(0x40000u, 0,0);   // 创建堆栈<br>       lpMem = (CHAR </em>)HeapAlloc(hHeap, 8u, MaxCount + 1);// 为堆栈赋予空间大小<br>       memcpy_s(lpMem, MaxCount, &amp;unk_409B10, MaxCount);// 在堆栈里放入数据<br>IsDebuggerPresent()<br>  该函数可以检查程序是否正在被调试，返回值为程序内BeingDebugged的值<br>MessageBox 函数用于创建、显示并操作一个消息对话框.<br>  <code>MessageBox（窗口所有者，显示内容，标题字符串，按钮的相关设置）</code></p>
@@ -1074,6 +1050,30 @@ hexo d
 <h2 id="挑战"><a href="#挑战" class="headerlink" title="挑战"></a>挑战</h2><p>一些隐写挑战平台<br><a href="https://www.hackthebox.eu/">Hack The Box</a><br><a href="https://www.root-me.org/">root me</a><br><a href="https://ringzer0ctf.com/challenges">RingerZeroCTF</a></p>
 <p>转载自：<a href="https://0xrick.github.io/lists/stego/">https://0xrick.github.io/lists/stego/</a></p>
 ]]></content>
+      <categories>
+        <category>Misc</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>Misc</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>流量分析（萌新开坑Ing-慢慢填）</title>
+    <url>/2020/03/05/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<p><strong><em>最后更新于：2020-03-05 21：44</em></strong></p>
+<h2 id="萌新已知的工具"><a href="#萌新已知的工具" class="headerlink" title="萌新已知的工具"></a>萌新已知的工具</h2><h3 id="wireshark"><a href="#wireshark" class="headerlink" title="wireshark"></a>wireshark</h3><p>这玩意个人觉得想把它玩好还是直接买本书叭emmm</p>
+<h3 id="usbpacp"><a href="#usbpacp" class="headerlink" title="usbpacp"></a>usbpacp</h3><p>用来抓取usb流量包的工具。一般安装 wireshark 时会一起装，直接用 wireshark 抓取就可以。</p>
+<h3 id="npcap"><a href="#npcap" class="headerlink" title="npcap"></a>npcap</h3><p>Npcap 是 Nmap 项目的网络包抓取库在 Windows 下的版本。</p>
+<h3 id="RouterPassView-能查看宽带数据"><a href="#RouterPassView-能查看宽带数据" class="headerlink" title="RouterPassView(能查看宽带数据)"></a>RouterPassView(能查看宽带数据)</h3><p>能够解析宽带数据包。</p>
+<h2 id="目前见过的类型"><a href="#目前见过的类型" class="headerlink" title="目前见过的类型"></a>目前见过的类型</h2><h3 id="常规网络流量包分析"><a href="#常规网络流量包分析" class="headerlink" title="常规网络流量包分析"></a>常规网络流量包分析</h3><p>常见的常规流量包一般主要是分析一下三种流量。</p>
+<h4 id="ftp流量"><a href="#ftp流量" class="headerlink" title="ftp流量"></a>ftp流量</h4><p>ftp服务的流量分析目前见过的都比较简单。一般都是查看用户名和密码，获取ftp传输的文件。暂时没有发现比较难的ftp流量分析。</p>
+<h4 id="http流量"><a href="#http流量" class="headerlink" title="http流量"></a>http流量</h4><p>这个应该是最常见的流量，通过截取上网时的流量分析目标行为。一般是通过分析相关http流量来找到关键网站、文件、用户登录某网站的账号/密码。目前来说主要难点和ftp一样，当流量数据特别多时会难以找到关键数据。</p>
+<h4 id="https流量"><a href="#https流量" class="headerlink" title="https流量"></a>https流量</h4><p>https主要就是将明文数据加密以防止数据被他人截获。这里所用的加密主要是基于RSA的公钥加密。其加密数据协议在<code>wireshark</code>中是<code>TLS/SSL</code>。对于这种加密数据，只能想办法获取私钥或者公钥来进行解密，然后作为http流量分析。</p>
+<h3 id="USB流量包分析"><a href="#USB流量包分析" class="headerlink" title="USB流量包分析"></a>USB流量包分析</h3><p>对于USB流量，常规的usb流量分析一般就是键盘和鼠标的流量分析。</p>
+<p>这里直接去看大佬写好的文章就好了。</p>
+<p>这个文件里面第53页有usb键盘流量中和键盘按键对应的十六进制数据表：<a href="https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf">https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf</a></p>
+<h3 id="网络通信流量包（voip-rtp）"><a href="#网络通信流量包（voip-rtp）" class="headerlink" title="网络通信流量包（voip rtp）"></a>网络通信流量包（voip rtp）</h3><h3 id="Bluetooth"><a href="#Bluetooth" class="headerlink" title="Bluetooth"></a>Bluetooth</h3>]]></content>
       <categories>
         <category>Misc</category>
       </categories>
