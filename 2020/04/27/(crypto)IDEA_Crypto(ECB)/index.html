@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+<html lang="Zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>(密码学)(crypto)IDEA_Crypto(ECB模式)——python实现 - 汐白的学习档案</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Xibai,"> 
+    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,```python
+-- coding:utf-8 --def FindMODreverse(a,m):                        # 欧几里得除法求模逆元    m_tmp =,"> 
+    <meta name="author" content="Xibai"> 
+    <link rel="alternative" href="atom.xml" title="汐白的学习档案" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="(密码学)(crypto)IDEA_Crypto(ECB模式)——python实现 - 汐白的学习档案"/>
+    <meta name="twitter:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,```python
+-- coding:utf-8 --def FindMODreverse(a,m):                        # 欧几里得除法求模逆元    m_tmp =,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="汐白的学习档案"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="(密码学)(crypto)IDEA_Crypto(ECB模式)——python实现 - 汐白的学习档案"/>
+    <meta property="og:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,```python
+-- coding:utf-8 --def FindMODreverse(a,m):                        # 欧几里得除法求模逆元    m_tmp =,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+    <script>window.searchDbPath = "/search.xml";</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">汐白的学习档案</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">(密码学)(crypto)IDEA_Crypto(ECB模式)——python实现</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">(密码学)(crypto)IDEA_Crypto(ECB模式)——python实现</h1>
+        <div class="stuff">
+            <span>四月 27, 2020</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Crypto/" rel="tag">Crypto</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>```python</p>
+<h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="-- coding:utf-8 --"></a>-<em>- coding:utf-8 -</em>-</h1><p>def FindMODreverse(a,m):                        # 欧几里得除法求模逆元<br>    m_tmp = m<br>    x_1,x_2 = 1,0<br>    y_1,y_2 = 0,1<br>    while m != 0:<br>        q = a//m<br>        x_2,y_2,m,x_1,y_1,a = (x_1 - q <em> x_2),(y_1 - q </em> y_2),a % m,x_2,y_2,m<br>    while x_1 &lt; 0:<br>        x_1 += m_tmp<br>    while x_1 &gt;= m_tmp:<br>        x_1 -= m_tmp<br>    return x_1</p>
+<p>def ROL(lit,num):                               # 循环左移 num 位<br>    return lit[num:] + lit[:num]</p>
+<p>def idea_xor(x,y):                              # 逐位异或<br>    tmp = ‘’ ; i = 0<br>    while True:<br>        try:<br>            tmp += str(int(x[i],2)^int(y[i],2))<br>            i += 1<br>        except:<br>            return tmp</p>
+<p>def idea_add(x,y):                              # 模65536相加<br>    x = int(x,2) ; y = int(y,2)<br>    z = ( x + y ) % 65536<br>    z = bin(z)[2:]<br>    tmp = ‘0’*(16 - len(z)) + z<br>    return tmp</p>
+<p>def idea_mul(x,y):                              # 模65537相乘<br>    x = int(x,2) ; y = int(y,2)<br>    if x == 0:<br>        x = 2^16<br>    if y == 0:<br>        y = 2^16<br>    z = ( ( x <em> y ) % 65537 ) % 65536<br>    z = bin(z)[2:]<br>    tmp = ‘0’</em>(16 - len(z)) + z<br>    return tmp</p>
+<p>def idea_encode(m,num,key):                     # 加密过程<br>    x_array = [m[i<em>16:i</em>16+16] for i in range(4)]<br>    z_array = key[num<em>6:num</em>6+6]</p>
+<pre><code>if num &lt; 8:
+    out_1 = idea_mul(x_array[0],z_array[0])
+    out_2 = idea_add(x_array[1],z_array[1])
+    out_3 = idea_add(x_array[2],z_array[2])
+    out_4 = idea_mul(x_array[3],z_array[3])
+    out_5 = idea_mul(z_array[4],idea_xor(out_1,out_3))
+    out_6 = idea_mul(z_array[5],idea_add(idea_xor(out_2,out_4),out_5))
+    out_7 = idea_add(out_5,out_6)
+
+    w_1 = idea_xor(out_1,out_6)
+    w_2 = idea_xor(out_3,out_6)
+    w_3 = idea_xor(out_2,out_7)
+    w_4 = idea_xor(out_4,out_7)
+
+    c = w_1 + w_2 + w_3 + w_4
+
+    num += 1
+    c = idea_encode(c,num,key)
+else:
+    y_1 = idea_mul(x_array[0],z_array[0])
+    y_2 = idea_add(x_array[2],z_array[1])
+    y_3 = idea_add(x_array[1],z_array[2])
+    y_4 = idea_mul(x_array[3],z_array[3])
+    c = y_1 + y_2 + y_3 + y_4
+
+return c
+</code></pre><p>def IDEA_Crypto(cm_str,key,mode):<br>    if mode == 0:<br>        if len(cm_str) % 8 != 0:                         # 对明文进行填充<br>            cm_str += ‘\x00’ * ( 8 - len(cm_str) % 8 )</p>
+<pre><code>    m_bin = &#39;&#39;                                       # 将明文转化为二元序列
+    for i in cm_str.encode(&#39;utf-8&#39;):
+        i = bin(i)[2:]
+        m_bin += &#39;0&#39;*(8 - len(i)) + i
+else:                                                # 将密文转化为二元序列
+    c_bin = bin(int(cm_str,16))[2:]
+    if len(c_bin) % 8 != 0:
+        c_bin = &#39;0&#39;*(8 - (len(c_bin) % 8)) + c_bin
+
+key_bin = &#39;&#39;                                         # 将密钥转化为二元序列
+for i in key.encode(&#39;utf-8&#39;):
+    i = bin(i)[2:]
+    key_bin += &#39;0&#39;*(8 - len(i)) + i
+
+key_encrypt_array = []                                       # 生成加密子密钥
+for i in range(6):
+    for j in [key_bin[k*16:k*16+16] for k in range(8)]:
+        key_encrypt_array.append(j)
+    key_bin = ROL(key_bin,25)
+else:
+    key_encrypt_array.extend([key_bin[k*16:k*16+16] for k in range(8)][:4])
+
+key_decrypt_array = [] ; flag = 0                            # 生成解密子密钥
+key_tmp_array = key_encrypt_array[::-1]
+for i in [key_tmp_array[i*6:i*6+6] for i in range(8)]:
+    i[:4] = i[3::-1] ; i[-2:] = i[:-3:-1]
+
+    if flag == 0:                                            # 第一轮和最后一轮的第二三子密钥特殊取值
+        Addrev = bin((65536 - int(i[1],2)) % 65536)[2:]
+        i[1] = &#39;0&#39;*(16-len(Addrev)) + Addrev
+        Addrev = bin((65536 - int(i[2],2)) % 65536)[2:]
+        i[2] = &#39;0&#39;*(16-len(Addrev)) + Addrev
+        flag += 1
+    else:
+        Addrev = bin((65536 - int(i[1],2)) % 65536)[2:]
+        tmp_1 = &#39;0&#39;*(16-len(Addrev)) + Addrev
+        Addrev = bin((65536 - int(i[2],2)) % 65536)[2:]
+        tmp_2 = &#39;0&#39;*(16-len(Addrev)) + Addrev
+        i[1] = tmp_2
+        i[2] = tmp_1
+
+    Modrev = bin(FindMODreverse(int(i[0],2),65537))[2:]
+    i[0] = &#39;0&#39;*(16-len(Modrev)) + Modrev
+    Modrev = bin(FindMODreverse(int(i[3],2),65537))[2:]
+    i[3] = &#39;0&#39;*(16-len(Modrev)) + Modrev
+
+    key_decrypt_array.extend(i)
+else:                                                       # 最后一轮第九轮的解密密钥
+    i = key_tmp_array[-4:][::-1]
+
+    Addrev = bin((65536 - int(i[1],2)) % 65536)[2:]
+    i[1] = &#39;0&#39;*(16-len(Addrev)) + Addrev
+    Addrev = bin((65536 - int(i[2],2)) % 65536)[2:]
+    i[2] = &#39;0&#39;*(16-len(Addrev)) + Addrev
+    Modrev = bin(FindMODreverse(int(i[0],2),65537))[2:]
+    i[0] = &#39;0&#39;*(16-len(Modrev)) + Modrev
+    Modrev = bin(FindMODreverse(int(i[3],2),65537))[2:]
+    i[3] = &#39;0&#39;*(16-len(Modrev)) + Modrev
+
+    key_decrypt_array.extend(i)
+
+if mode == 0:                                   # 文本二元序列的分组
+    mc_array = [ m_bin[i*64:i*64+64] \
+        for i in range(int(len(m_bin) / 64)) ]  
+else:
+    mc_array = [ c_bin[i*64:i*64+64] \
+        for i in range(int(len(c_bin) / 64)) ]
+
+cm_array = []                                   # 求结果分组
+if mode == 0:
+    for i in mc_array:
+        cm_array.append(idea_encode(i,0,key_encrypt_array))
+else:
+    for i in mc_array:
+        cm_array.append(idea_encode(i,0,key_decrypt_array))
+
+cm = &#39;&#39;                                      # 将结果分组转换为对应的十六进制内容
+for i in cm_array:
+    tmp = hex(int(i,2))[2:]
+    if len(tmp) * 4 != len(i):
+        tmp = &#39;0&#39;*int(len(i) / 4 - len(tmp)) + tmp
+    cm += tmp
+
+if mode == 0:
+    print(&#39;密文：&#39; + cm)
+else:
+    print(&#39;明文(hex):&#39; + cm)
+
+return cm
+</code></pre><p>if <strong>name</strong> == “<strong>main</strong>“:<br>    m = ‘1234567812345678’<br>    key = ‘1234567812345678’<br>    c = IDEA_Crypto(m,key,0)<br>    m_tmp = IDEA_Crypto(c,key,1)<br>‘’’</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="true"
+        data-ae="true"
+        data-ci="5cd24ed310c0cbc2a2ed"
+        data-cs="51aa998e509794b7b061784f1f3d41018af118f6"
+        data-r="xikong-mubai.github.io"
+        data-o="xikong-mubai"
+        data-a="xikong-mubai"
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#coding-utf-8"><span class="toc-number">1.</span> <span class="toc-text">-- coding:utf-8 --</span></a></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+<!--血小板代码-->
+<link rel="stylesheet" href="/live2d/css/live2d.css" />
+<div id="landlord">
+    <div class="message" style="opacity:0"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = 'https://calmcenter.club/'
+</script>
+<script type="text/javascript" src="/live2d/js/live2d.js"></script>
+<script type="text/javascript" src="/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
+</script>
+<!--血小板代码-->
+
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+</html>

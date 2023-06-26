@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="Zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>铁威马F2-420_4.1.27固件逆向分析 - 汐白的学习档案</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Xibai,"> 
+    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,准备
+IDA7.x 64位
+铁威马F2-420_4.1.27系统固件
+
+在官网上下载对应的系统固件(TOS_S2.0_Install_X64_4.1.27_2006301044_2006301431,"> 
+    <meta name="author" content="Xibai"> 
+    <link rel="alternative" href="atom.xml" title="汐白的学习档案" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="铁威马F2-420_4.1.27固件逆向分析 - 汐白的学习档案"/>
+    <meta name="twitter:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,准备
+IDA7.x 64位
+铁威马F2-420_4.1.27系统固件
+
+在官网上下载对应的系统固件(TOS_S2.0_Install_X64_4.1.27_2006301044_2006301431,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="汐白的学习档案"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="铁威马F2-420_4.1.27固件逆向分析 - 汐白的学习档案"/>
+    <meta property="og:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,准备
+IDA7.x 64位
+铁威马F2-420_4.1.27系统固件
+
+在官网上下载对应的系统固件(TOS_S2.0_Install_X64_4.1.27_2006301044_2006301431,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+    <script>window.searchDbPath = "/search.xml";</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">汐白的学习档案</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">铁威马F2-420_4.1.27固件逆向分析</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">铁威马F2-420_4.1.27固件逆向分析</h1>
+        <div class="stuff">
+            <span>二月 24, 2022</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Iot/" rel="tag">Iot</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Re/" rel="tag">Re</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><ul>
+<li>IDA7.x 64位</li>
+<li>铁威马F2-420_4.1.27系统固件</li>
+</ul>
+<p>在官网上下载对应的系统固件(TOS_S2.0_Install_X64_4.1.27_2006301044_2006301431.ins)：</p>
+<p><img src="download-1.png" alt="download-1"><br><img src="download-2.png" alt="download-2"></p>
+<h2 id="解包"><a href="#解包" class="headerlink" title="解包"></a>解包</h2><p>这里先看一下 <code>ins</code> 后缀名的固件包的结构，分析如何解包获取源文件。<br><code>winhex</code> 打开发现是个 <code>bz</code> 压缩包。<code>bandzip</code> 可以直接解压缩：</p>
+<p><img src="bz-1.png" alt="bz-1"></p>
+<p>如果用 <code>WinRAR</code> 虽然也能解压缩但是会是这个样子：</p>
+<p><img src="bz-2.png" alt="bz-2"></p>
+<p>这里一开始是用了 <code>WinRAR</code> 解压缩，于是无奈分析了一下解压缩之后的这个文件的格式发现<strong>可以理解为一个简易但不规范的文件系统</strong>。</p>
+<p>上图中最开始的 <code>./</code> 即文件（夹）对应的路径；后面的 <code>0000755</code> 即对应文件（夹）的权限设置，后面的连续数字参数未发现含义，既不是数据偏移也不是时间戳，可以略过；最后一个单个数字参数，即上图中的 <code>5</code> ，指代类型，<code>5</code> 指代文件夹、<code>0</code> 或者 <code>2</code> 都指代文件。<br>其中连续数据区域（单个数据块）大小为 <code>200bytes</code>。并未发现文件大小对应的参数，简单下个脚本手工提取一下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">dir_path = <span class="string">&#x27;./TOS_file&#x27;</span></span><br><span class="line">num = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;TOS_S2.0_Install_X64_4.1.27_2006301044_2006301431&#x27;</span>,<span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    tmp = f.read(<span class="number">0x200</span>) ; num += <span class="number">0x200</span></span><br><span class="line">    tmp = f.read(<span class="number">0x200</span>) ; num += <span class="number">0x200</span></span><br><span class="line">    tmpfile = <span class="built_in">open</span>(<span class="string">&#x27;tmp&#x27;</span>,<span class="string">&#x27;wb&#x27;</span>)</span><br><span class="line">    <span class="keyword">while</span> tmp != <span class="string">b&#x27;&#x27;</span>:</span><br><span class="line">        <span class="keyword">if</span> tmp[<span class="number">0x60</span>:<span class="number">0x68</span>] != <span class="string">b&#x27;\x00\x00\x00\x000000&#x27;</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="string">b&#x27;GH65Hws2jedf3fl3MeK&#x27;</span> <span class="keyword">in</span> tmp:</span><br><span class="line">                <span class="built_in">print</span>(file_path)</span><br><span class="line">            tmpfile.write(tmp)</span><br><span class="line">        <span class="keyword">elif</span> tmp[:<span class="number">2</span>] == <span class="string">b&#x27;./&#x27;</span>:</span><br><span class="line">            index = tmp.index(<span class="string">b&#x27;\x00&#x27;</span>)</span><br><span class="line">            tmp = tmp.replace(<span class="string">b&#x27;:&#x27;</span>,<span class="string">b&#x27;-&#x27;</span>)</span><br><span class="line">            file_path = dir_path+tmp[<span class="number">1</span>:index].decode()</span><br><span class="line">            <span class="keyword">if</span> tmp[<span class="number">0x9c</span>] == <span class="number">0x35</span>:</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> os.path.isdir(file_path):</span><br><span class="line">                    os.makedirs(file_path)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                tmpfile.close()</span><br><span class="line">                tmpfile = <span class="built_in">open</span>(file_path,<span class="string">&#x27;wb&#x27;</span>)</span><br><span class="line">        tmp = f.read(<span class="number">0x200</span>) ; num += <span class="number">0x200</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;\r%f&#x27;</span>%(num/<span class="number">0x1f1ff800</span>),end=<span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>拿到系统固件中的全部源文件之后开始分析。先简单搜索一下关键字定位关键代码文件的位置：<code>/usr/www</code>。</p>
+<p>简单查看几个php文件发现除了极个别不是很重要的文件之外全部加密了。而且具备规律：</p>
+<blockquote>
+<p>加密的php文件前十六进制都一样疑似hash值或某种key，跟着往后十六字节是记录的文件加密前的大小（可以看到该数字与文件剩余数据的大小的差值小于16且文件数据大小一定为16的整数倍，符合aes、des等常用对称密码特征）。</p>
+</blockquote>
+<p><img src="php-1.png" alt="php-1"></p>
+<p>这里猜测应该是魔改了 <code>php</code> 二进制程序，在服务启动时应该会解密这些php文件进行运行。找到php文件进行逆向分析，尝试定位解密代码。php 程序位置：<code>/usr/sbin/php</code>。</p>
+<p>在ida中跟进代码逻辑未能发现可疑函数与可疑字符串，但在对特征值的搜索中，检索到一片文章：<a target="_blank" rel="noopener" href="https://blog.securityevaluators.com/terramaster-nas-vulnerabilities-discovered-and-exploited-b8e5243e7a63">TerraMaster NAS Vulnerabilities Discovered and Exploited</a></p>
+<p>该文章对同型号的历史版本固件进行了分析并发现了可利用漏洞。其中就有涉及 php加密文件 解密的内容。在该文章中得知开发者在历史版本中曾写死了 <code>aes</code> 的加密密钥，其中直接将对应的明文字符串 <code>GH65Hws2jedf3fl3MeK</code> 写进了程序，这里可以直接在 <code>winRAR</code> 解压出来的简易文件系统中暴力匹配该字符串，定位到该字符串位于php的依赖文件：<code>/usr/lib/php/modules/php_terra_master.so</code> 中。这里<strong>其实在一开始对</strong> <code>php</code> <strong>二进制程序本身逆向无果时可以尝试寻找其对应的依赖文件进行搜索找到，文件名字特征过于明显</strong>。</p>
+<p>ida分析该文件定位到相关的解密函数：</p>
+<p><img src="php-2.png" alt="php-2"></p>
+<p>这里起初以为 <code>screw_aes</code> 是魔改的 <code>aes</code> 算法，后跟进分析发现开发者并未对其进行本质改动。主要是在原 <code>screw_aes</code> 的基础上在aes加密出口和解密入口添加了一个异或。异或值与上图中函数 <code>teg_yek</code> 的返回值有关。我们跟进分析：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> __fastcall <span class="title function_">teg_yek</span><span class="params">(FILE *a1)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">ssize_t</span> v1; <span class="comment">// rax</span></span><br><span class="line">  <span class="type">char</span> v2; <span class="comment">// dl</span></span><br><span class="line">  <span class="type">char</span> v4[<span class="number">256</span>]; <span class="comment">// [rsp+0h] [rbp-208h] BYREF</span></span><br><span class="line">  <span class="type">char</span> buf[<span class="number">264</span>]; <span class="comment">// [rsp+100h] [rbp-108h] BYREF</span></span><br><span class="line"></span><br><span class="line">  fileno(a1);</span><br><span class="line">  php_sprintf((__int64)v4, <span class="string">&quot;/proc/self/fd/%d&quot;</span>);</span><br><span class="line">  v1 = readlink(v4, buf, <span class="number">0x100</span>uLL);</span><br><span class="line">  v2 = <span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">if</span> ( v1 &gt;= <span class="number">0</span> )</span><br><span class="line">    <span class="keyword">return</span> v4[v1 + <span class="number">251</span>];</span><br><span class="line">  <span class="keyword">return</span> v2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里通过 <code>php_sprintf</code> 将目标php文件的文件链接路径写入<code>v4</code>，然后通过该链接直接读取文件内容放入到 <code>buf</code>中，如果函数执行成功，返回 <code>v4[v1+251]</code>，即 <code>v5[v1-5]</code>。即：取读取到的倒数第五个字节的数据去和加密数据进行异或，然后进行 <code>screw_aes</code> 的解密操作。</p>
+<p>这里在直接写 <code>aes</code> 解密时未能成功。前文提到第一遍分析的时候以为是开发者魔改了aes算法也是因为这里未能解密，后续查阅资料找到一个开源工具：</p>
+<p><img src="php-3.png" alt="php-3"></p>
+<p>翻阅该开源工具确认开发者是基于该工具做的二次开发。我们下载源码编译一个未做改动的可执行程序用ida加载，与该固件的 <code>php_terra_master.so</code> 中的代码进行对比。可以确认开发者确实只添加了一个异或处理。这里猜测此处应该是历史版本遗留，因为在最初的 <code>php</code> 二进制文件逆向中并未找到其调用 <code>screw</code> 相关的函数，其中也没有写入明文字符串 <code>GH65Hws2jedf3fl3MeK</code>，所以猜测开发者应该修改了这里的异或逻辑。但考虑到我们拿到的加密php文件规律与历史版本吻合，所以猜测开发者只是增加了 <code>php</code> 二进制文件中解密代码的逆向难度与异或字节的取值方式，尝试遍历单字节异或的所有可能逐一进行解密操作，得到源代码。</p>
+<p>爆破脚本，<code>twmnas.exe</code> 使用开源工具中的解密部分代码编译：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;Enter.php&#x27;</span>,<span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    debug_cipher = f.read()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;debug/enter&#x27;</span>+<span class="built_in">str</span>(i).zfill(<span class="number">3</span>)+<span class="string">&#x27;.php&#x27;</span>,<span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> o:</span><br><span class="line">            o.write(debug_cipher[:<span class="number">32</span>])</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> debug_cipher[<span class="number">32</span>:]:</span><br><span class="line">                o.write((i^j).to_bytes(<span class="number">1</span>,<span class="string">&#x27;big&#x27;</span>))</span><br><span class="line"></span><br><span class="line">        os.system(<span class="string">&#x27;twmnas.exe ./debug/enter&#x27;</span>+<span class="built_in">str</span>(i).zfill(<span class="number">3</span>)+<span class="string">&#x27;.php&#x27;</span>+<span class="string">&#x27; -d&#x27;</span>)</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;debug/enter&#x27;</span>+<span class="built_in">str</span>(i).zfill(<span class="number">3</span>)+<span class="string">&#x27;.php&#x27;</span>,<span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> o:</span><br><span class="line">            <span class="keyword">if</span> o.read(<span class="number">1</span>) == <span class="string">b&#x27;&lt;&#x27;</span>:</span><br><span class="line">                <span class="built_in">print</span>(i)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="php-4.png" alt="php-4"><br><img src="php-5.png" alt="php-5"></p>
+<p>在另外的php文件上尝试也解密成功。至此，解密完成。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="true"
+        data-ae="true"
+        data-ci="5cd24ed310c0cbc2a2ed"
+        data-cs="51aa998e509794b7b061784f1f3d41018af118f6"
+        data-r="xikong-mubai.github.io"
+        data-o="xikong-mubai"
+        data-a="xikong-mubai"
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87"><span class="toc-number">1.</span> <span class="toc-text">准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%8C%85"><span class="toc-number">2.</span> <span class="toc-text">解包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">3.</span> <span class="toc-text">分析</span></a></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+<!--血小板代码-->
+<link rel="stylesheet" href="/live2d/css/live2d.css" />
+<div id="landlord">
+    <div class="message" style="opacity:0"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = 'https://calmcenter.club/'
+</script>
+<script type="text/javascript" src="/live2d/js/live2d.js"></script>
+<script type="text/javascript" src="/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
+</script>
+<!--血小板代码-->
+
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+</html>

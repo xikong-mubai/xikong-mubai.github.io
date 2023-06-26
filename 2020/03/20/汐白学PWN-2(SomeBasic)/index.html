@@ -1,0 +1,482 @@
+
+<!DOCTYPE html>
+<html lang="Zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>汐白学Pwn-2(SomeBasic) - 汐白的学习档案</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Xibai,"> 
+    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,部分理论基础(Linux)栈的机制栈是程序运行所使用的一种先进后出后进先出的线性表。大概是这样：可以看到，就好比向一个单开口的箱子中压书一样（注意：就只是平着压入！！！别在那想为啥不竖着放，这样就可,"> 
+    <meta name="author" content="Xibai"> 
+    <link rel="alternative" href="atom.xml" title="汐白的学习档案" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="汐白学Pwn-2(SomeBasic) - 汐白的学习档案"/>
+    <meta name="twitter:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,部分理论基础(Linux)栈的机制栈是程序运行所使用的一种先进后出后进先出的线性表。大概是这样：可以看到，就好比向一个单开口的箱子中压书一样（注意：就只是平着压入！！！别在那想为啥不竖着放，这样就可,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="汐白的学习档案"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="汐白学Pwn-2(SomeBasic) - 汐白的学习档案"/>
+    <meta property="og:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,部分理论基础(Linux)栈的机制栈是程序运行所使用的一种先进后出后进先出的线性表。大概是这样：可以看到，就好比向一个单开口的箱子中压书一样（注意：就只是平着压入！！！别在那想为啥不竖着放，这样就可,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+    <script>window.searchDbPath = "/search.xml";</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">汐白的学习档案</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">汐白学Pwn-2(SomeBasic)</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">汐白学Pwn-2(SomeBasic)</h1>
+        <div class="stuff">
+            <span>三月 20, 2020</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Pwn/" rel="tag">Pwn</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="部分理论基础-Linux"><a href="#部分理论基础-Linux" class="headerlink" title="部分理论基础(Linux)"></a>部分理论基础(Linux)</h2><h3 id="栈的机制"><a href="#栈的机制" class="headerlink" title="栈的机制"></a>栈的机制</h3><p>栈是程序运行所使用的一种先进后出后进先出的线性表。大概是这样：<br><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20200330165641.png" alt="20200330165641"><br>可以看到，就好比向一个单开口的箱子中压书一样（注意：就只是平着压入！！！<del>别在那想为啥不竖着放，这样就可以想拿那个出去就拿那个出去</del>）最先压入的A如果想要拿出来必须从最上面一个个拿出来，最后才能拿出来A，即：先进后出，后进先出。<br>栈通常用来为程序运行时所调用的各种函数存放其所使用的<code>参数/变量</code>。使用时一般是这样的（每使用一个函数，在调用这个函数时就会用这个模板为函数开辟一块栈帧）：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:left"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">···</td>
+<td style="text-align:left">···</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">ESP</td>
+<td style="text-align:left">栈顶</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">Local variable</td>
+<td style="text-align:left">局部变量</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">EBP</td>
+<td style="text-align:left">栈底</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">retaddr</td>
+<td style="text-align:left">返回地址</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">Incoming parameters</td>
+<td style="text-align:left">传入参数</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>···</strong></td>
+<td style="text-align:left">···</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>当一个程序运行时需要获取输入时，这个存放输入的变量对于程序而言一般都放在局部变量中（一般是局部变量，不排除别的情况）。这时候看上面的栈帧模板就会发现，如果没有严格控制输入，那么就有可能会产生因为输入过长而导致输入的数据覆盖栈底、返回地址、传入参数······这是输入数据直接存放在栈内局部变量的情况；同理，即使输入数据没有存放在栈帧中，同样也会出现其它的数据覆盖现象，无论是什么数据被覆盖，都有可能会影响到程序的正常执行，从而导致各种可能产生的后果，也正是这样才导致了pwn的出现。<br>如最简单的栈溢出就是通过覆盖函数返回地址来达成目的。</p>
+<p>详细的栈的介绍可以参考<a target="_blank" rel="noopener" href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/stackoverflow/stack-intro-zh/">ctf-wiki中的栈介绍</a></p>
+<p>这里记录一些常见的可导致溢出的危险函数：</p>
+<ul>
+<li>输入<ul>
+<li>gets，直接读取一行，忽略’\x00’</li>
+<li>scanf</li>
+<li>vscanf</li>
+</ul>
+</li>
+<li>输出<ul>
+<li>sprintf</li>
+</ul>
+</li>
+<li>字符串<ul>
+<li>strcpy，字符串复制，遇到’\x00’停止</li>
+<li>strcat，字符串拼接，遇到’\x00’停止</li>
+<li>bcopy</li>
+</ul>
+</li>
+</ul>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>还未学习，暂空</p>
+<h2 id="工具的一些使用记录"><a href="#工具的一些使用记录" class="headerlink" title="工具的一些使用记录"></a>工具的一些使用记录</h2><h3 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a>pwntools</h3><h4 id="模块列表"><a href="#模块列表" class="headerlink" title="模块列表"></a>模块列表</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">adb：安卓调试桥</span><br><span class="line">args：命令行魔法参数</span><br><span class="line">asm：汇编和反汇编，支持 i386<span class="operator">/</span>i686<span class="operator">/</span>amd64<span class="operator">/</span>thumb 等</span><br><span class="line">constants：对不同架构和操作系统的常量的快速访问</span><br><span class="line">config：配置文件</span><br><span class="line">context：设置运行时变量</span><br><span class="line">dynelf：用于远程函数泄露</span><br><span class="line">encoders：对 shellcode 进行编码</span><br><span class="line">elf：用于操作 ELF 可执行文件和库</span><br><span class="line">flag：提交 flag 到服务器</span><br><span class="line">fmtstr：格式化字符串利用工具</span><br><span class="line">gdb：与 gdb 配合使用</span><br><span class="line">libcdb：libc 数据库</span><br><span class="line"><span class="built_in">log</span>：日志记录</span><br><span class="line">memleak：用于内存泄露</span><br><span class="line">rop：ROP 利用模块，包括 rop 和 srop</span><br><span class="line">runner：运行 shellcode</span><br><span class="line">shellcraft：shellcode 生成器</span><br><span class="line">term：终端处理</span><br><span class="line">timeout：超时处理</span><br><span class="line">tubes：能与 sockets<span class="punctuation">,</span> processes<span class="punctuation">,</span> ssh 等进行连接</span><br><span class="line">useragents：useragent 字符串数据库</span><br><span class="line">util：一些实用小工具</span><br><span class="line">pwnlib.atexception — Callbacks on unhandled exception</span><br><span class="line">pwnlib.atexit — Replacement <span class="keyword">for</span> atexit</span><br><span class="line">pwnlib.exception — Pwnlib exceptions</span><br><span class="line">pwnlib.replacements — Replacements <span class="keyword">for</span> various functions</span><br><span class="line">pwnlib.util.crc — Calculating CRC<span class="operator">-</span>sums</span><br><span class="line">pwnlib.util.cyclic — Generation of unique sequences</span><br><span class="line">pwnlib.util.fiddling — Utilities bit fiddling</span><br><span class="line">pwnlib.util.hashes — Hashing functions</span><br><span class="line">pwnlib.util.iters — Extension of standard module itertools</span><br><span class="line">pwnlib.util.lists — Operations on lists</span><br><span class="line">pwnlib.util.misc — We could not fit it <span class="built_in">any</span> other place</span><br><span class="line">pwnlib.util.net — Networking interfaces</span><br><span class="line">pwnlib.util.packing — Packing and unpacking of strings</span><br><span class="line">pwnlib.util.proc — Working with <span class="operator">/</span>proc<span class="operator">/</span></span><br><span class="line">pwnlib.util.safeeval — Safe evaluation of python code</span><br><span class="line">pwnlib.util.web — Utilities <span class="keyword">for</span> working with the WWW</span><br></pre></td></tr></table></figure>
+<h4 id="常用模块和功能"><a href="#常用模块和功能" class="headerlink" title="常用模块和功能"></a>常用模块和功能</h4><h5 id="context"><a href="#context" class="headerlink" title="context"></a>context</h5><p>设置程序运行时的参数，如程序运行在什么系统什么处理器下。一般只设置三个参数：</p>
+<blockquote>
+<p>context(os = ‘linux’ , arch = ‘i386’ , log_level = ‘debug’)<br>或<br>context(os = ‘linux’ , arch = ‘amd64’ , log_level = ‘debug’)</p>
+</blockquote>
+<h5 id="asm"><a href="#asm" class="headerlink" title="asm"></a>asm</h5><p>用于生成汇编指令对应的机器码</p>
+<blockquote>
+<p>asm(‘mov eax,0’)<br>‘\xb8\x00\x00\x00\x00’</p>
+</blockquote>
+<p>也可以查看机器码对应的汇编指令</p>
+<blockquote>
+<p>disasm(“\xb8\x00\x00\x00\x00”)<br>‘mov eax,0’</p>
+</blockquote>
+<p>不过之前好像看到有人说这东东有缺陷，推荐最好还是用<code>keystone-engine</code></p>
+<h5 id="gdb"><a href="#gdb" class="headerlink" title="gdb"></a>gdb</h5><p>一般就用个附加调试</p>
+<blockquote>
+<p>s = process(‘./pwnme’)<br>context.terminal = [‘gnome-terminal’, ‘-x’, ‘sh’, ‘-c’]<br>gdb.attach( proc.pidof(s) [0])</p>
+</blockquote>
+<p>可以在attch的时候指定要gdb运行的指令：</p>
+<blockquote>
+<p>gdb.attach(proc.pidof(s) [0], gdbscript=’b *0x400620\nc\n’)</p>
+</blockquote>
+<p>个人喜欢直接终端：gdb -P pid（process之后返回的pid）</p>
+<h5 id="shellcraft"><a href="#shellcraft" class="headerlink" title="shellcraft"></a>shellcraft</h5><p>生成一些简单的shellcode，推荐先设置好context再用，一般直接输出shellcode内容</p>
+<blockquote>
+<p>print(shellcraft.sh())<br>不过这里是直接提供的汇编指令，需要将其转为机器码<br>print(asm(shellcraft.sh()))</p>
+</blockquote>
+<h5 id="packing"><a href="#packing" class="headerlink" title="packing"></a>packing</h5><p>用来打包数据或者解包数据</p>
+<ul>
+<li>打包——p32/p64(打包为32位或64位的数据)</li>
+</ul>
+<blockquote>
+<p>p32(0x400010,endian = ‘big’) #设置数据为大端存储，默认为小端</p>
+</blockquote>
+<ul>
+<li>解包——u32/u64</li>
+</ul>
+<h5 id="tubes"><a href="#tubes" class="headerlink" title="tubes"></a>tubes</h5><p>对于一次攻击而言前提就是与目标服务器或者程序进行交互，这里就可以使用remote(address, port)产生一个远程的socket然后就可以读写了</p>
+<blockquote>
+<p>sh = remote(‘ftp.debian.org’,21)<br>sh.recvline()<br>‘220 …’<br>sh.send(‘USER anonymous\r\n’)<br>sh.recvuntil(‘ ‘, drop=True)<br>‘331’<br>sh.recvline()<br>‘Please specify the password.\r\n’<br>sh.close()</p>
+</blockquote>
+<p>使用process可以打开一个本地程序并进行交互</p>
+<blockquote>
+<p>sh = process(‘/bin/sh’)<br>sh.sendline(‘sleep 3; echo hello world;’)<br>sh.recvline(timeout=1)<br>‘’<br>sh.recvline(timeout=5)<br>‘hello world\n’<br>sh.close()</p>
+</blockquote>
+<p>使用listen来开启一个本地的监听端口</p>
+<blockquote>
+<p>l = listen()<br>r = remote(‘localhost’, l.lport)<br>c = l.wait_for_connection()<br>r.send(‘hello’)<br>c.recv()<br>‘hello’</p>
+</blockquote>
+<p>用于交互时读写的函数</p>
+<blockquote>
+<p>interactive() : 直接进行交互，相当于回到shell的模式，在取得shell之后使用<br>recv(numb=4096, timeout=default) : 接收指定字节<br>recvall() : 一直接收直到EOF<br>recvline(keepends=True) : 接收一行，keepends为是否保留行尾的\n<br>recvuntil(delims, drop=False) : 一直读到delims的pattern出现为止<br>recvrepeat(timeout=default) : 持续接受直到EOF或timeout<br>send(data) : 发送数据<br>sendline(data) : 发送一行数据，相当于在数据末尾加\n</p>
+</blockquote>
+<h5 id="ELF"><a href="#ELF" class="headerlink" title="ELF"></a>ELF</h5><p>elf模块提供了一种便捷的方法能够迅速的得到文件内函数的地址，plt位置以及got表的位置。</p>
+<blockquote>
+<p>e = ELF(‘./libc.so’)<br>print hex(e.address)  # 文件装载的基地址<br>0x400000<br>print hex(e.symbols[‘write’]) # 函数地址<br>0x401680<br>print hex(e.got[‘write’]) # GOT表的地址<br>0x60b070<br>print hex(e.plt[‘write’]) # PLT的地址<br>0x401680<br>print hex(e.search(‘/bin/sh’).next())# 字符串/bin/sh的地址</p>
+</blockquote>
+<p>ELF模块下的一些功能</p>
+<ul>
+<li>asm(address, assembly) : 在指定地址进行汇编</li>
+<li>bss(offset) : 返回bss段的位置，offset是偏移值</li>
+<li>checksec() : 对elf进行一些安全保护检查，例如NX, PIE等。</li>
+<li>disasm(address, n_bytes) : 在指定位置进行n_bytes个字节的反汇编</li>
+<li>offset_to_vaddr(offset) : 将文件中的偏移offset转换成虚拟地址VMA</li>
+<li>vaddr_to_offset(address) : 与上面的函数作用相反</li>
+<li>read(address, count) : 在address(VMA)位置读取count个字节</li>
+<li>write(address, data) : 在address(VMA)位置写入data</li>
+<li>section(name) : dump出指定section的数据</li>
+</ul>
+<h5 id="ROP"><a href="#ROP" class="headerlink" title="ROP"></a>ROP</h5><p>pwntools中的ROP模块可以实现简单的ROP链的操作，就是自动地寻找程序里的gadget，自动在栈上部署对应的参数。</p>
+<blockquote>
+<p>elf = ELF(‘ropasaurusrex’)<br>rop = ROP(elf)<br>rop.read(0, elf.bss(0x80))<br>rop.dump()<br># [‘0x0000:        0x80482fc (read)’,<br>#  ‘0x0004:       0xdeadbeef’,<br>#  ‘0x0008:              0x0’,<br>#  ‘0x000c:        0x80496a8’]<br>str(rop)<br># &gt; ‘\xfc\x82\x04\x08\xef\xbe\xad\xde\x00\x00\x00\x00\xa8\x96\x04\x08’</p>
+</blockquote>
+<p>使用ROP(elf)来产生一个rop的对象，这时的ROP链还是空的，需要在其中添加函数。</p>
+<p>因为ROP对象实现了<code>__getattr__</code>的功能，可以直接通过<code>func call</code>的形式来添加函数，<code>rop.read(0, elf.bss(0x80))</code>实际相当于<code>rop.call(&#39;read&#39;, (0, elf.bss(0x80)))</code>。 通过多次添加函数调用，最后使用<code>str</code>将整个<code>rop chain dump</code>出来就可以了。</p>
+<ul>
+<li>call(resolvable, arguments=()) : 添加一个调用，resolvable可以是一个符号，也可以是一个int型地址，注意后面的参数必须是元组否则会报错，即使只有一个参数也要写成元组的形式(在后面加上一个逗号)</li>
+<li>chain() : 返回当前的字节序列，即payload</li>
+<li>dump() : 直观地展示出当前的rop chain</li>
+<li>raw() : 在rop chain中加上一个整数或字符串</li>
+<li>search(move=0, regs=None, order=’size’) : 按特定条件搜索gadget，没仔细研究过</li>
+<li>unresolve(value) : 给出一个地址，反解析出符号</li>
+</ul>
+<p>ROP的工作还是推荐通过<code>ROPgadget</code>来进行，pwntools的<code>ROP</code>功能之前貌似看到说是不完善，只能进行相对简单的<code>ROP</code>构造</p>
+<h5 id="DynELF-符号泄露"><a href="#DynELF-符号泄露" class="headerlink" title="DynELF 符号泄露"></a>DynELF 符号泄露</h5><p>给出一个函数句柄，可以解析任意符号的位置。这个函数的功能是：输入任意一个address，输出这个address中的data(至少1byte)。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">p = process(<span class="string">&#x27;./pwnme&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">leak</span>(<span class="params">address</span>):</span><br><span class="line">    payload = <span class="string">&#x27;a&#x27;</span> * OverLength + write_addr + p64(<span class="number">0xdeadbeaf</span>) + p64(<span class="number">1</span>) + p64(address) + p64(<span class="number">4</span>)</span><br><span class="line">    p.sendline(payload)</span><br><span class="line">    data = p.recv(<span class="number">4</span>)</span><br><span class="line">    log.debug(<span class="string">&quot;%#x =&gt;  %s&quot;</span> % (address, (data <span class="keyword">or</span> <span class="string">&#x27;&#x27;</span>).encode(<span class="string">&#x27;hex&#x27;</span>)))</span><br><span class="line">    <span class="keyword">return</span> data</span><br><span class="line"></span><br><span class="line">d = DynELF(leak, main)</span><br><span class="line">d.lookup(<span class="literal">None</span>, <span class="string">&#x27;libc&#x27;</span>)      <span class="comment"># libc基址</span></span><br><span class="line">d.lookup(<span class="string">&#x27;system&#x27;</span>, <span class="string">&#x27;libc&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定一份elf的副本可以加速查找过程</span></span><br><span class="line">d = DynELF(leak, main, elf=ELF(<span class="string">&#x27;./pwnme&#x27;</span>))</span><br><span class="line">d.lookup(<span class="literal">None</span>, <span class="string">&#x27;libc&#x27;</span>)</span><br><span class="line">d.lookup(<span class="string">&#x27;system&#x27;</span>, <span class="string">&#x27;libc&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>在应用中我们可以在<code>leak</code>函数中布置<code>rop</code>链，使用<code>write</code>函数<code>leak</code>出一个<code>address</code>的地址和数据，然后返回。接着就可以使用<code>d.lookup</code>函数查找符号了，通常我们都是需要找<code>system</code>的符号。</p>
+<h3 id="gdb-some"><a href="#gdb-some" class="headerlink" title="gdb(some)"></a>gdb(some)</h3><h4 id="list-l-命令"><a href="#list-l-命令" class="headerlink" title="list/l 命令"></a>list/l 命令</h4><p>可以使用list/l命令查看程序，方便我们添加断点时查看信息。</p>
+<blockquote>
+<p>list+lineNumber(中间有空格)<br>list 打印函数名称为Function的函数上下文的源程序<br>list 输出当前行后面的代码<br>list -显示当前行前面的代码</p>
+</blockquote>
+<h4 id="run-r命令"><a href="#run-r命令" class="headerlink" title="run/r命令"></a>run/r命令</h4><p>  在gdb中运行程序使用run命令.也可以设置程序运行参数。pwd命令用于显示当前所在目录。</p>
+<h4 id="break-b命令"><a href="#break-b命令" class="headerlink" title="break/b命令"></a>break/b命令</h4><blockquote>
+<p>break &lt; function &gt;           在进入指定的函数function时既停止运行，C++中可以使用class::function或function(type, type)格式来指定函数名称<br>break &lt; lineNumber&gt;          在指定的代码行打断点<br>break +offset/break -offset   在当前行的前面或后面的offset行打断点，offset为自然数<br>break filename:lineNumber     在名称为filename的文件中的第lineNumber行打断点<br>break filename:function       在名称为filename的文件中的function函数入口处打断点<br>break *address                在程序运行的内存地址处打断点<br>break                         在下一条命令处停止运行<br>break … if &lt; condition&gt;        在处理某些循环体中可使用此方法进行调试，其中…可以是上述的break lineNumber、break +offset/break -offset中的参数，其中condition表示条件，在条件成立时程序即停止运行，如设置break if i=100表示当i为100时程序停止运行。查看断点时，也可以使用info命令如info breakpoints [n]、info break [n]其中n 表示断点号来查看断点信息。</p>
+</blockquote>
+<h4 id="逐步调试命令"><a href="#逐步调试命令" class="headerlink" title="逐步调试命令"></a>逐步调试命令</h4><blockquote>
+<p>next &lt; count&gt;。单步跟踪，如果有函数调用不会进入函数，如果后面不加count表示一条一条的执行，加count表示执行后面的count条指令，<br>s/step &lt; count&gt;。单步跟踪，如果有函数调用则进入该函数（进入该函数前提是此函数编译有Debug信息）,与next类似，其不加count表示一条一条执行，加上count表示自当前行开始执行count条代码指令<br>set step-mode.set step-mode on用于打开step-mode模式，这样在进行单步跟踪时，程序不会因为没有debug信息而不停止运行，这很有利于查看机器码，可以通过set step-mode off关闭step-mode模式<br>finish。运行程序直到当前函数完成并打印函数返回时的堆栈地址和返回值及参数值等信息。<br>until。运行程序直到退出循环体<br>stepi(缩写si)和nexti(缩写ni)。stepi和nexti用于单步跟踪一条及其指令，一条程序代码有可能由数条机器指令完成，stepi和nexi可以单步执行机器指令。</p>
+</blockquote>
+<h4 id="continue-c命令"><a href="#continue-c命令" class="headerlink" title="continue/c命令"></a>continue/c命令</h4><p>当程序遇到断点停止运行后可以使用continue命令恢复程序的运行到下一个断点或直到程序结束。</p>
+<h4 id="print命令"><a href="#print命令" class="headerlink" title="print命令"></a>print命令</h4><p>请查看：<a target="_blank" rel="noopener" href="https://blog.csdn.net/linuxheik/article/details/17380767">https://blog.csdn.net/linuxheik/article/details/17380767</a></p>
+<h4 id="watch命令"><a href="#watch命令" class="headerlink" title="watch命令"></a>watch命令</h4><p>watch命令一般来观察某个表达式(变量也可视为一种表达式)的值是否发生了变化，如果由变化则程序立即停止运行，其具体用法如下：</p>
+<blockquote>
+<p>watch &lt; expr&gt;      为表达式(变量)expr设置一个观察点一旦其数值由变化，程序立即停止运行<br>rwatch &lt; expr&gt;      当表达式expr被读时，程序立即停止运行<br>awatch &lt; expr&gt;      当表达式expr的值被读或被写时程序立即停止运行<br>info watchpoints     列出当前所设置的所有观察点</p>
+</blockquote>
+<h4 id="return命令"><a href="#return命令" class="headerlink" title="return命令"></a>return命令</h4><p>如果在函数中设置了调试断点，在断点后还有语句没有执行完，这个时候我们可以使用return命令强制函数忽略还没有执行的语句并返回。可以直接使用return命令用于取消当前函数的执行并立即返回函数值，也可以指定表达式如 return &lt; expression&gt;那么该表达式的值会被作为函数的返回值。</p>
+<h4 id="info命令"><a href="#info命令" class="headerlink" title="info命令"></a>info命令</h4><p>info命令可以用来在调试时查看寄存器、断点、观察点和信号等信息。其用法如下：</p>
+<blockquote>
+<p>info registers:查看除了浮点寄存器以外的寄存器<br>info all-registers: 查看所有的寄存器包括浮点寄存器<br>info registers &lt; registersName&gt;:查看指定寄存器<br>info break: 查看所有断点信息<br>info watchpoints: 查看当前设置的所有观察点<br>info signals info handle: 查看有哪些信号正在被gdb检测<br>info line: 查看源代码在内存中的地址<br>info threads: 可以查看多线程</p>
+</blockquote>
+<h4 id="finish命令"><a href="#finish命令" class="headerlink" title="finish命令"></a>finish命令</h4><p>执行完当前的函数。</p>
+<p>run(缩写r)和quit(缩写q)分别可以开始运行程序和退出gdb调试</p>
+<p>whatis或ptype显示变量的类型</p>
+<p>bt显示函数调用路径</p>
+<h4 id="x命令"><a href="#x命令" class="headerlink" title="x命令"></a>x命令</h4><p>x/&lt; n/f/u &gt; &lt; addr &gt;</p>
+<p>n、f、u是可选的参数。</p>
+<p>n是一个正整数，表示显示内存的长度，也就是说从当前地址向后显示几个地址的内容。<br>f 表示显示的格式。如果地址所指的是字符串，那么格式可以是s，如果 地址是指令地址，那么格式可以是i。<br>u 表示从当前地址往后请求的字节数，如果不指定的话，GDB默认是4个bytes。u参数可以用下面的字符来代替，b表示单字节，h表示双字节，w表示四字 节，g表示八字节。当我们指定了字节长度后，GDB会从指内存定的内存地址开始，读写指定字节，并把其当作一个值取出来。</p>
+<p>&lt; addr &gt; 表示一个内存地址。<br>n/f/u三个参数可以一起使用。例如：</p>
+<blockquote>
+<p>x/3uh 0x54320 表示，从内存地址0x54320读取内容，h表示以双字节为一个单位，3表示三个单位，u表示按十六进制显示。</p>
+</blockquote>
+<p>输出格式:<br>一般来说，GDB会根据变量的类型输出变量的值。但你也可以自定义GDB的输出的格式。例如，你想输出一个整数的十六进制，或是二进制来查看这个整型变量的中的位的情况。要做到这样，你可以使用GDB的数据显示格式：</p>
+<blockquote>
+<p>x 按十六进制格式显示变量。<br>d 按十进制格式显示变量。<br>u 按十六进制格式显示无符号整型。<br>o 按八进制格式显示变量。<br>t 按二进制格式显示变量。<br>a 按十六进制格式显示变量。<br>c 按字符格式显示变量。<br>f 按浮点数格式显示变量。</p>
+</blockquote>
+<h4 id="简单的汇总"><a href="#简单的汇总" class="headerlink" title="简单的汇总"></a>简单的汇总</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">start                       <span class="comment">#开始调试,停在第一行代码处,(gdb)start</span></span><br><span class="line">l                           <span class="comment">#list的缩写查看源代码,(gdb) l [number/function]</span></span><br><span class="line">b &lt;lines&gt;                   <span class="comment">#b: Breakpoint的简写，设置断点。(gdb) b 10</span></span><br><span class="line">b &lt;func&gt;                    <span class="comment">#b: Breakpoint的简写，设置断点。(gdb) b main</span></span><br><span class="line">b filename:[line/function]  <span class="comment">#b:在文件filename的某行或某个函数处设置断点</span></span><br><span class="line">i breakpoints               <span class="comment">#i:info 的简写。(gdb)i breakpoints</span></span><br><span class="line">d [bpNO]                    <span class="comment">#d: Delete breakpoint的简写，删除指定编号的某个断点，或删除所有断点。断点编号从1开始递增。 (gdb)d 1</span></span><br><span class="line">s                           <span class="comment">#s: step执行一行源程序代码，如果此行代码中有函数调用，则进入该函数；(gdb) s</span></span><br><span class="line">n                           <span class="comment">#n: next执行一行源程序代码，此行代码中的函数调用也一并执行。(gdb) n</span></span><br><span class="line">r                           <span class="comment">#Run的简写，运行被调试的程序。如果此前没有下过断点，则执行完整个程序；如果有断点，则程序暂停在第一个可用断点处。(gdb) r</span></span><br><span class="line">c                           <span class="comment">#Continue的简写，继续执行被调试程序，直至下一个断点或程序结束。(gdb) c</span></span><br><span class="line">finish                      <span class="comment">#函数结束</span></span><br><span class="line">p [var]                     <span class="comment">#Print的简写，显示指定变量（临时变量或全局变量 例如 int a）的值。(gdb) p a</span></span><br><span class="line">display [var]               <span class="comment">#display，设置想要跟踪的变量(例如 int a)。(gdb) display a</span></span><br><span class="line">undisplay [varnum]          <span class="comment">#undisplay取消对变量的跟踪，被跟踪变量用整型数标识。(gdb) undisplay 1</span></span><br><span class="line"><span class="built_in">set</span> args                    <span class="comment">#可指定运行时参数。(gdb)set args 10 20  args可以是内存中某个地址</span></span><br><span class="line">show args                   <span class="comment">#查看运行时参数。</span></span><br><span class="line">x/&lt;n/f/u&gt; addr              <span class="comment">#查看内存中的值，n为数量，f为输出格式，u为值类型</span></span><br><span class="line">q                           <span class="comment">#Quit的简写，退出GDB调试环境。(gdb) q</span></span><br><span class="line"><span class="built_in">help</span> [cmd]                  <span class="comment">#GDB帮助命令，提供对GDB名种命令的解释说明。如果指定了“命令名称”参数，则显示该命令的详细说明；如果没有指定参数，则分类显示所有GDB命令，供用户进一步浏览和查询。(gdb)help</span></span><br><span class="line">回车                        <span class="comment">#重复前面的命令，(gdb)回车</span></span><br></pre></td></tr></table></figure>
+<h2 id="程序的保护机制"><a href="#程序的保护机制" class="headerlink" title="程序的保护机制"></a>程序的保护机制</h2><h3 id="Canary"><a href="#Canary" class="headerlink" title="Canary"></a>Canary</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>该保护开启的程序运行时会在开辟的栈帧上设置一个可当作<code>令牌</code>一样的随机值，程序在运行过程中会对该值进行校验，一旦校验时发现该值被改变则立即停止程序运行。</p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>开启Canary保护的程序在开辟栈帧时的结构如下：</p>
+<blockquote>
+<pre><code>   High
+   Address |                 |
+           +-----------------+
+           | args            |
+           +-----------------+
+           | return address  |
+           +-----------------+
+   rbp =&gt;  | old ebp         |
+           +-----------------+
+ rbp-8 =&gt;  | canary value    |
+           +-----------------+
+           | 局部变量        |
+   Low     |                 |
+   Address
+</code></pre></blockquote>
+<p>当程序启用 Canary 编译后，在函数序言部分会取 fs 寄存器 0x28 处的值，存放在栈中 %ebp-0x8 的位置。 这个操作即为向栈中插入 Canary 值，代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov    rax, qword ptr fs:[0x28]</span><br><span class="line">mov    qword ptr [rbp - 8], rax</span><br></pre></td></tr></table></figure>
+<p>在函数返回之前，会将该值取出，并与 fs:0x28 的值进行异或。如果异或的结果为 0，说明 Canary 未被修改，函数会正常返回，这个操作即为检测是否发生栈溢出。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov    rdx,QWORD PTR [rbp-0x8]</span><br><span class="line">xor    rdx,QWORD PTR fs:0x28</span><br><span class="line">je     0x4005d7 &lt;main+65&gt;</span><br><span class="line">call   0x400460 &lt;__stack_chk_fail@plt&gt;</span><br></pre></td></tr></table></figure>
+<p>如果 Canary 已经被非法修改，此时程序流程会走到 <strong>stack_chk_fail。</strong>stack_chk_fail 也是位于 glibc 中的函数，默认情况下经过 ELF 的延迟绑定，定义如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">eglibc-2.19/debug/stack_chk_fail.c</span><br><span class="line"></span><br><span class="line">void __attribute__ ((noreturn)) __stack_chk_fail (void)</span><br><span class="line">&#123;</span><br><span class="line">  __fortify_fail (&quot;stack smashing detected&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void __attribute__ ((noreturn)) internal_function __fortify_fail (const char *msg)</span><br><span class="line">&#123;</span><br><span class="line">  /* The loop is added only to keep gcc happy.  */</span><br><span class="line">  while (1)</span><br><span class="line">    __libc_message (2, &quot;*** %s ***: %s terminated\n&quot;,</span><br><span class="line">                    msg, __libc_argv[0] ?: &quot;&lt;unknown&gt;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这意味可以通过劫持 <strong>__stack_chk_fail</strong> 的 <strong>got</strong> 值劫持流程或者利用 <strong>__stack_chk_fail</strong> 泄漏内容 (参见 stack smash)。</p>
+<p>进一步，对于 Linux 来说，fs 寄存器实际指向的是当前栈的 TLS 结构，fs:0x28 指向的正是 stack_guard。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">void</span> *tcb;        <span class="comment">/* Pointer to the TCB.  Not necessarily the</span></span><br><span class="line"><span class="comment">                       thread descriptor used by libpthread.  */</span></span><br><span class="line">  <span class="type">dtv_t</span> *dtv;</span><br><span class="line">  <span class="type">void</span> *self;       <span class="comment">/* Pointer to the thread descriptor.  */</span></span><br><span class="line">  <span class="type">int</span> multiple_threads;</span><br><span class="line">  <span class="type">uintptr_t</span> sysinfo;</span><br><span class="line">  <span class="type">uintptr_t</span> stack_guard;</span><br><span class="line">  ...</span><br><span class="line">&#125; <span class="type">tcbhead_t</span>;</span><br></pre></td></tr></table></figure>
+<p>如果存在溢出可以覆盖位于 TLS 中保存的 Canary 值那么就可以实现绕过保护机制。<br>事实上，TLS 中的值由函数 security_init 进行初始化。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span></span></span><br><span class="line"><span class="function"><span class="title">security_init</span> <span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// _dl_random的值在进入这个函数的时候就已经由kernel写入.</span></span><br><span class="line">  <span class="comment">// glibc直接使用了_dl_random的值并没有给赋值</span></span><br><span class="line">  <span class="comment">// 如果不采用这种模式, glibc也可以自己产生随机数</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">//将_dl_random的最后一个字节设置为0x0</span></span><br><span class="line">  <span class="type">uintptr_t</span> stack_chk_guard = _dl_setup_stack_chk_guard (_dl_random);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 设置Canary的值到TLS中</span></span><br><span class="line">  <span class="built_in">THREAD_SET_STACK_GUARD</span> (stack_chk_guard);</span><br><span class="line"></span><br><span class="line">  _dl_random = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//THREAD_SET_STACK_GUARD宏用于设置TLS</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> THREAD_SET_STACK_GUARD(value) \</span></span><br><span class="line"><span class="meta">  THREAD_SETMEM (THREAD_SELF, header.stack_guard, value)</span></span><br></pre></td></tr></table></figure>
+<h3 id="NX"><a href="#NX" class="headerlink" title="NX"></a>NX</h3><p>NX即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面上执行指令，此时CPU就会抛出异常，而不是去执行恶意指令。</p>
+<h3 id="PIE-ASLR"><a href="#PIE-ASLR" class="headerlink" title="PIE(ASLR)"></a>PIE(ASLR)</h3><p>PIE机制，在windows中被称作ASLR，即地址随机化。PIE在linux中作为内核参数存在，可在/proc/sys/kernel/randomize_va_space中找到其具体的值，0、1、2三个值代表不同的工作强度，具体如下：</p>
+<ul>
+<li>0 - 表示关闭进程地址空间随机化。</li>
+<li>1 - 表示将mmap的基址，stack和vdso页面随机化。</li>
+<li>2 - 表示在1的基础上增加栈（heap）的随机化。</li>
+</ul>
+<p>另外，<strong>地址随机化保护</strong>有“两个开关”，一个是系统环境下的地址随机化设置，一个是gcc编译时的地址随机化设置。</p>
+<p>只有当系统环境下的随机化保护开启时，程序的随机化保护才会生效。</p>
+<blockquote>
+<p>注：gcc的随机化设置不影响程序运行时的堆栈段地址，仅影响程序本身的bss、data、text静态段地址</p>
+</blockquote>
+<h3 id="RELRO"><a href="#RELRO" class="headerlink" title="RELRO"></a>RELRO</h3><p>在Linux系统安全领域数据可以写的存储区就会是攻击的目标，尤其是存储函数指针的区域。 所以在安全防护的角度来说尽量减少可写的存储区域对安全会有极大的好处.</p>
+<p>GCC, GNU linker以及Glibc-dynamic linker一起配合实现了一种叫做relro的技术: read only relocation。大概实现就是由linker指定binary的一块经过dynamic linker处理过 relocation之后的区域为只读.</p>
+<p>设置符号重定向表格为只读或在程序启动时就解析并绑定所有动态符号，从而减少对GOT（Global Offset Table）攻击。RELRO为” Partial RELRO”，说明我们对GOT表具有写权限。</p>
+<h3 id="设置命令"><a href="#设置命令" class="headerlink" title="设置命令"></a>设置命令</h3><ul>
+<li>NX：-z execstack / -z noexecstack (关闭 / 开启) 不让执行栈上的数据，于是JMP ESP就不能用了</li>
+<li>Canary：-fno-stack-protector /-fstack-protector / -fstack-protector-all (关闭 / 开启 / 全开启) 栈里插入cookie信息</li>
+<li>PIE：-no-pie / -pie (关闭 / 开启) 地址随机化，另外打开后会有get_pc_thunk</li>
+<li>RELRO：-z norelro / -z lazy / -z now (关闭 / 部分开启 / 完全开启) 对GOT表具有写权限</li>
+</ul>
+<h2 id="上篇-汐白学Pwn-1-准备"><a href="#上篇-汐白学Pwn-1-准备" class="headerlink" title="上篇-汐白学Pwn-1(准备)/)"></a><a href="http://xibai.xyz/2019/10/30/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-1(Ready">上篇-汐白学Pwn-1(准备)</a>/)</h2><h2 id="下篇-汐白学pwn-3-1-ROP-Basic"><a href="#下篇-汐白学pwn-3-1-ROP-Basic" class="headerlink" title="下篇-汐白学pwn-3.1(ROP-Basic)/)"></a><a href="http://xibai.xyz/2020/04/07/%E6%B1%90%E7%99%BD%E5%AD%A6PWN-3.1(ROP">下篇-汐白学pwn-3.1(ROP-Basic)</a>/)</h2>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="true"
+        data-ae="true"
+        data-ci="5cd24ed310c0cbc2a2ed"
+        data-cs="51aa998e509794b7b061784f1f3d41018af118f6"
+        data-r="xikong-mubai.github.io"
+        data-o="xikong-mubai"
+        data-a="xikong-mubai"
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E5%88%86%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80-Linux"><span class="toc-number">1.</span> <span class="toc-text">部分理论基础(Linux)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88%E7%9A%84%E6%9C%BA%E5%88%B6"><span class="toc-number">1.1.</span> <span class="toc-text">栈的机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A0%86"><span class="toc-number">1.2.</span> <span class="toc-text">堆</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95"><span class="toc-number">2.</span> <span class="toc-text">工具的一些使用记录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pwntools"><span class="toc-number">2.1.</span> <span class="toc-text">pwntools</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%88%97%E8%A1%A8"><span class="toc-number">2.1.1.</span> <span class="toc-text">模块列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97%E5%92%8C%E5%8A%9F%E8%83%BD"><span class="toc-number">2.1.2.</span> <span class="toc-text">常用模块和功能</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#context"><span class="toc-number">2.1.2.1.</span> <span class="toc-text">context</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#asm"><span class="toc-number">2.1.2.2.</span> <span class="toc-text">asm</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#gdb"><span class="toc-number">2.1.2.3.</span> <span class="toc-text">gdb</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#shellcraft"><span class="toc-number">2.1.2.4.</span> <span class="toc-text">shellcraft</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#packing"><span class="toc-number">2.1.2.5.</span> <span class="toc-text">packing</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#tubes"><span class="toc-number">2.1.2.6.</span> <span class="toc-text">tubes</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ELF"><span class="toc-number">2.1.2.7.</span> <span class="toc-text">ELF</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ROP"><span class="toc-number">2.1.2.8.</span> <span class="toc-text">ROP</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#DynELF-%E7%AC%A6%E5%8F%B7%E6%B3%84%E9%9C%B2"><span class="toc-number">2.1.2.9.</span> <span class="toc-text">DynELF 符号泄露</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gdb-some"><span class="toc-number">2.2.</span> <span class="toc-text">gdb(some)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#list-l-%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.1.</span> <span class="toc-text">list&#x2F;l 命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#run-r%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.2.</span> <span class="toc-text">run&#x2F;r命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#break-b%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.3.</span> <span class="toc-text">break&#x2F;b命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%90%E6%AD%A5%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.4.</span> <span class="toc-text">逐步调试命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#continue-c%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.5.</span> <span class="toc-text">continue&#x2F;c命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#print%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.6.</span> <span class="toc-text">print命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#watch%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.7.</span> <span class="toc-text">watch命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#return%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.8.</span> <span class="toc-text">return命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#info%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.9.</span> <span class="toc-text">info命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#finish%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.10.</span> <span class="toc-text">finish命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#x%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.11.</span> <span class="toc-text">x命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E6%B1%87%E6%80%BB"><span class="toc-number">2.2.12.</span> <span class="toc-text">简单的汇总</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E7%9A%84%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6"><span class="toc-number">3.</span> <span class="toc-text">程序的保护机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Canary"><span class="toc-number">3.1.</span> <span class="toc-text">Canary</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">3.1.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.1.2.</span> <span class="toc-text">实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NX"><span class="toc-number">3.2.</span> <span class="toc-text">NX</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PIE-ASLR"><span class="toc-number">3.3.</span> <span class="toc-text">PIE(ASLR)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RELRO"><span class="toc-number">3.4.</span> <span class="toc-text">RELRO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%91%BD%E4%BB%A4"><span class="toc-number">3.5.</span> <span class="toc-text">设置命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E7%AF%87-%E6%B1%90%E7%99%BD%E5%AD%A6Pwn-1-%E5%87%86%E5%A4%87"><span class="toc-number">4.</span> <span class="toc-text">上篇-汐白学Pwn-1(准备)&#x2F;)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E7%AF%87-%E6%B1%90%E7%99%BD%E5%AD%A6pwn-3-1-ROP-Basic"><span class="toc-number">5.</span> <span class="toc-text">下篇-汐白学pwn-3.1(ROP-Basic)&#x2F;)</span></a></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+<!--血小板代码-->
+<link rel="stylesheet" href="/live2d/css/live2d.css" />
+<div id="landlord">
+    <div class="message" style="opacity:0"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = 'https://calmcenter.club/'
+</script>
+<script type="text/javascript" src="/live2d/js/live2d.js"></script>
+<script type="text/javascript" src="/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
+</script>
+<!--血小板代码-->
+
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+</html>

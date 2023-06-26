@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+<html lang="Zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>汐白のHEVD学习——环境调试 - 汐白的学习档案</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Xibai,"> 
+    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,环境准备
+win10 x64 VM 虚拟机一台这里是用的微软官方纯净镜像
+VS 2019
+本地：Windows调试环境，内核驱动编译环境（WDK、ADK、SDK、Windbg）此处参考：https:,"> 
+    <meta name="author" content="Xibai"> 
+    <link rel="alternative" href="atom.xml" title="汐白的学习档案" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="汐白のHEVD学习——环境调试 - 汐白的学习档案"/>
+    <meta name="twitter:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,环境准备
+win10 x64 VM 虚拟机一台这里是用的微软官方纯净镜像
+VS 2019
+本地：Windows调试环境，内核驱动编译环境（WDK、ADK、SDK、Windbg）此处参考：https:,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="汐白的学习档案"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="汐白のHEVD学习——环境调试 - 汐白的学习档案"/>
+    <meta property="og:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,环境准备
+win10 x64 VM 虚拟机一台这里是用的微软官方纯净镜像
+VS 2019
+本地：Windows调试环境，内核驱动编译环境（WDK、ADK、SDK、Windbg）此处参考：https:,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+    <script>window.searchDbPath = "/search.xml";</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">汐白的学习档案</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">汐白のHEVD学习——环境调试</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">汐白のHEVD学习——环境调试</h1>
+        <div class="stuff">
+            <span>二月 17, 2022</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Pwn/" rel="tag">Pwn</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Windows/" rel="tag">Windows</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><ul>
+<li><code>win10 x64 VM</code> 虚拟机一台<br>这里是用的微软官方纯净镜像</li>
+<li><code>VS 2019</code></li>
+<li>本地：Windows调试环境，内核驱动编译环境（<code>WDK</code>、<code>ADK</code>、<code>SDK</code>、<code>Windbg</code>）<br>此处参考：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk">https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk</a></li>
+</ul>
+<h3 id="win10虚拟机环境配置"><a href="#win10虚拟机环境配置" class="headerlink" title="win10虚拟机环境配置"></a>win10虚拟机环境配置</h3><p><del>~本来不想记录这个像是计算机初学者的记录过程的，但是配置环境又遇见bug了，去网上找了好多文章没找到原因。这里猜测应该是<code>bcdedit</code>的某个设置不必要并且设置完之后有问题，所以一直翻车，最后一次配置记得参考的文章少用了一两个设置然后就能用了emm</del>~</p>
+<ol>
+<li>串口设置</li>
+</ol>
+<p>设置vm虚拟机硬件如下图所示：(如果存在打印机或其他类似硬件设置请务必移除)</p>
+<p><img src="env-2.png" alt="env-2"></p>
+<p>vm虚拟机添加<code>串行接口</code>。（对于接口概念的学习理解：同频率下，串行接口，数据流单线性传输，相交并行接口传输速率慢但稳定可靠；并行接口，二进制数据流可以一次多线并行同时传输多位，虽然传输速率倍数级别提升，但相应的会降低可靠性。）</p>
+<p>串行端口设置：</p>
+<ul>
+<li>使用命名管道</li>
+<li>命名管道内容：<code>\\.\pipe\com1</code></li>
+<li>该端是服务器</li>
+<li>另一端是应用程序</li>
+</ul>
+<p>这里解释一下为什么移除打印机等设备确保虚拟机硬件设置和上图一样：本文章记录的双机调试是通过串口通道进行的，而串口在这里可以先简单的理解为类似网络端口的存在且可以被打印机这种设备占用；而网络端口大家应该都了解，每个端口号只能被一个服务占用，这里就是一样的道理，把其他会占用到 <code>串行端口</code> 的设备都移除，那我们双机调试用到的 <code>串口号</code> 就是默认的 <code>1</code> 了。</p>
+<p>另外，管道内容的格式其实是：<code>\\.\pipe\自定义名字</code>，一般图方便都会用 <code>com1</code> or <code>com_1</code>。</p>
+<ol>
+<li>为虚拟机设置调试环境</li>
+</ol>
+<p>管理员权限打开命令提示符，执行：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bcdedit /dbgsettings serial baudrate:<span class="number">115200</span> debugport:<span class="number">1</span> </span><br><span class="line">bcdedit /<span class="built_in">copy</span> &#123;current&#125; /d 自定义的名字</span><br><span class="line">bcdedit /displayorder &#123;current&#125; &#123;第二个命令的返回值&#125;  </span><br><span class="line">bcdedit /debug &#123;第二个命令的返回值&#125; ON</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>debugport</code> 就是前面说到的串行端口号。如果打印机或类似设备不移除的话，<code>1</code> 可能就是对应的它们了。<br>重启计算机，可以在系统选择界面看到我们刚刚新设置的系统模式，选择它启动。<br>进入系统后再次管理员权限打开命令提示符，执行：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bcdedit /<span class="built_in">set</span> testsigning on</span><br></pre></td></tr></table></figure>
+<p>此时系统开启测试模式，可以看到虚拟机屏幕右下角多出来如下小字：(红圈圈住的要留意，下面会用到)</p>
+<p><img src="env-3.png" alt="env-3"></p>
+<ol>
+<li>本地<code>windbg preview</code>调试虚拟机测试</li>
+</ol>
+<p><code>windbg preview</code> 可在 <code>win10应用商店</code> 下载.<br>打开后，左上角 <code>文件</code> -&gt; <code>attach to kernel</code> ：</p>
+<ul>
+<li>勾选<code>pipe</code></li>
+<li><code>resets</code> 填 <code>0</code></li>
+<li><code>baud rate</code> 填 <code>115200</code></li>
+<li><code>port</code> 填前面给虚拟机设置的管道名 <code>\\.\pipe\com1</code></li>
+</ul>
+<p>然后 <code>OK</code> 即可。此时调试器会自动向设置的串口发起连接，只需要虚拟机正在运行或者启动虚拟机即可连接成功。</p>
+<p><img src="env-1.png" alt="env-1"></p>
+<ol>
+<li><code>windbg</code> 的一些基操</li>
+</ol>
+<ul>
+<li><code>dt</code>：显示有关局部变量、全局变量或数据类型的信息。这可以显示有关简单数据类型以及结构和联合的信息。<br><img src="windbg-1.png" alt="windbg-1"><ul>
+<li><code>dt -r</code>：单纯的 <code>dt</code> 命令不会输出子结构的内容，加上 <code>-r</code> 参数可以递归输出子结构内容。同时，在 <code>-r</code> 参数后还能在添加一个数字 <code>n</code> 用来控制递归深度<br><img src="windbg-2.png" alt="windbg-2"></li>
+</ul>
+</li>
+<li><code>ba</code>：设置内存（硬件）断点。内存（硬件）断点和普通断点的区别在于，普通断点针对被执行的指令，当cpu执行到我们所下断点位置的指令时，停止在这里等待用户操作；而内存（硬件）断点针对的是数据，当我们所指定的数据被访问时即可触发中断，这里的访问方式包括执行、写、读三种操作，我们可以自行指定具体是对什么数据进行了什么操作才会触发中断。<ul>
+<li><code>ba e 1 nt!ZwCreateFile</code>：<code>e</code> 表示断点指定的数据被执行时触发，<code>1</code> 表示断点的数据大小为一字节，<code>nt!ZwCreateFile</code> 是<code>ZwCreateFile</code>的地址。</li>
+<li>只想让程序断在某个线程上。比如说：有多个线程都会访问该数据，但我们只想让id为1的线程访问时被中断，就可以在断点命令前加上参数 <code>~1</code>，即：<code>~1 ba e 1 nt!ZwCreateFile</code></li>
+</ul>
+</li>
+<li><code>bl</code>：列出当前的断点<br><img src="windbg-3.png" alt="windbg-3"></li>
+<li><code>be</code>：开启指定的断点</li>
+<li><code>bd</code>：关闭指定的断点</li>
+<li><code>r</code> ：查看寄存器状态</li>
+<li><code>u</code> ：反编译指定地址处的汇编代码</li>
+<li><code>uf</code>：反编译整个函数的汇编代码</li>
+<li><code>ub</code>：反编译指定地址之前的汇编代码</li>
+<li><code>g</code> ：运行</li>
+</ul>
+<h3 id="本地windows内核编译环境配置"><a href="#本地windows内核编译环境配置" class="headerlink" title="本地windows内核编译环境配置"></a>本地windows内核编译环境配置</h3><p>跟着微软官方文档配置即可：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk">https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk</a></p>
+<p>wdk的版本一定要和虚拟机的系统版本一致！<br>具体版本号见虚拟机右下角（此时虚拟机应已经）<br><img src="env-3.png" alt="enc-3"></p>
+<p>安装完wdk再去给 <code>vs2019</code> 安装对应版本的 <code>sdk</code> 。<br><img src="env-4.png" alt="env-4"></p>
+<p>至此，需要安装的环境都已就绪，我们尝试一下是否能正常工作。</p>
+<p>首先确保虚拟机开启；<br>然后到本地C盘找到该文件：<code>C:\Program Files (x86)\Windows Kits\10\Remote\x64\WDK Test Target Setup x64-x64_en-us.msi</code>。<strong>注意</strong>：我这里是64位win10 intel的cpu，所以选的 10 和 x64，请务必根据自己的虚拟机系统版本前往对应路径。<br>将该文件传入虚拟机，运行安装。</p>
+<p>之后回到本地打开vs2019，调试-&gt;附加到进程：<br><img src="env-5.png" alt="env-5"><br>选择内核模式调试器：<br><img src="env-6.png" alt="env-6"><br>连接目标点查找添加对应配置：<br><img src="env-7.png" alt="env-7"></p>
+<ul>
+<li>1：虚拟机的ip，这里我用的是桥接网络，如果是nat网络应该可以用虚拟机的主机名代替</li>
+<li>2：和前文虚拟机的设置对应即可，如果完全按照本文操作那此处应一模一样</li>
+<li>3：如图所示是正常情况，如果显示和图中不一样，请自行查阅资料</li>
+</ul>
+<p>然后点击附加即可，如果一切正常，你应该会看到一个和 <code>windbg</code> 一样的输出。<br><img src="env-8.png" alt="env-8"></p>
+<h4 id="温馨小提示"><a href="#温馨小提示" class="headerlink" title="温馨小提示"></a>温馨小提示</h4><p>如果vs2019在附加到虚拟机内核进程时一直报错，请直接无视它，不要为他浪费时间。<br>然后关闭你的代理，打开本地win10的应用商店，搜索 <code>WinDbg Preview</code> ，然后获取安装。</p>
+<p>安装完毕后打开,点击左上角文件，选择 <code>attach to kernel</code>：</p>
+<p><img src="env-9.png" alt="env-9"></p>
+<p>输入相关配置之后，点击 OK ，此时如果能得到上述输出，那么也是一切正常的，之后完全可以仅通过 <code>windbg preview</code> 调试，vs2019 只用来进行代码的编写、程序的编译。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="true"
+        data-ae="true"
+        data-ci="5cd24ed310c0cbc2a2ed"
+        data-cs="51aa998e509794b7b061784f1f3d41018af118f6"
+        data-r="xikong-mubai.github.io"
+        data-o="xikong-mubai"
+        data-a="xikong-mubai"
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-number">1.</span> <span class="toc-text">环境准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#win10%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">1.1.</span> <span class="toc-text">win10虚拟机环境配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0windows%E5%86%85%E6%A0%B8%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">1.2.</span> <span class="toc-text">本地windows内核编译环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B8%A9%E9%A6%A8%E5%B0%8F%E6%8F%90%E7%A4%BA"><span class="toc-number">1.2.1.</span> <span class="toc-text">温馨小提示</span></a></li></ol></li></ol></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+<!--血小板代码-->
+<link rel="stylesheet" href="/live2d/css/live2d.css" />
+<div id="landlord">
+    <div class="message" style="opacity:0"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = 'https://calmcenter.club/'
+</script>
+<script type="text/javascript" src="/live2d/js/live2d.js"></script>
+<script type="text/javascript" src="/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
+</script>
+<!--血小板代码-->
+
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+</html>

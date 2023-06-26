@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+<html lang="Zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BUUCTF-MISC(一) - 汐白的学习档案</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Xibai,"> 
+    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,最近更新： 2020-01-31 22:43
+金三胖打开题目是一个动态图，分解动态图即得flag
+二维码扫描得到提示秘密在这里，winhex查看发现末尾有压缩包，提取出来被加密，直接爆破密码可得fl,"> 
+    <meta name="author" content="Xibai"> 
+    <link rel="alternative" href="atom.xml" title="汐白的学习档案" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="BUUCTF-MISC(一) - 汐白的学习档案"/>
+    <meta name="twitter:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,最近更新： 2020-01-31 22:43
+金三胖打开题目是一个动态图，分解动态图即得flag
+二维码扫描得到提示秘密在这里，winhex查看发现末尾有压缩包，提取出来被加密，直接爆破密码可得fl,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="汐白的学习档案"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="BUUCTF-MISC(一) - 汐白的学习档案"/>
+    <meta property="og:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,最近更新： 2020-01-31 22:43
+金三胖打开题目是一个动态图，分解动态图即得flag
+二维码扫描得到提示秘密在这里，winhex查看发现末尾有压缩包，提取出来被加密，直接爆破密码可得fl,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+    <script>window.searchDbPath = "/search.xml";</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">汐白的学习档案</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">BUUCTF-MISC(一)</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">BUUCTF-MISC(一)</h1>
+        <div class="stuff">
+            <span>一月 11, 2020</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/CTF/" rel="tag">CTF</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Misc/" rel="tag">Misc</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Writeup/" rel="tag">Writeup</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p><strong>最近更新：</strong> <em>2020-01-31 22:43</em></p>
+<h2 id="金三胖"><a href="#金三胖" class="headerlink" title="金三胖"></a>金三胖</h2><p>打开题目是一个动态图，分解动态图即得flag</p>
+<h2 id="二维码"><a href="#二维码" class="headerlink" title="二维码"></a>二维码</h2><p>扫描得到提示秘密在这里，winhex查看发现末尾有压缩包，提取出来被加密，直接爆破密码可得flag</p>
+<h2 id="N种方法解决"><a href="#N种方法解决" class="headerlink" title="N种方法解决"></a>N种方法解决</h2><p>winhex查看发现是base64编码的图片，在线工具转一下拿到一个二维码，扫一下即可</p>
+<h2 id="大白"><a href="#大白" class="headerlink" title="大白"></a>大白</h2><p>根据提示打开发现图片疑似少了一截，winhex修改长宽，拿到flag</p>
+<h2 id="基础破解"><a href="#基础破解" class="headerlink" title="基础破解"></a>基础破解</h2><p>提示四位数字，直接爆破得到密码，解压得到一串base64字符串，解base64即可</p>
+<h2 id="你竟然赶我走"><a href="#你竟然赶我走" class="headerlink" title="你竟然赶我走"></a>你竟然赶我走</h2><p>winhex查看十六进制发现末尾有flag</p>
+<h2 id="LSB"><a href="#LSB" class="headerlink" title="LSB"></a>LSB</h2><p>StegSolve查看发现最低位隐藏了信息，是一个png文件的十六进制数据，保存出来，是个二维码，扫码得flag</p>
+<h2 id="乌镇峰会种图"><a href="#乌镇峰会种图" class="headerlink" title="乌镇峰会种图"></a>乌镇峰会种图</h2><p>文件末尾是flag</p>
+<h2 id="rar"><a href="#rar" class="headerlink" title="rar"></a>rar</h2><p>爆破密码</p>
+<h2 id="qr"><a href="#qr" class="headerlink" title="qr"></a>qr</h2><p>扫码签到</p>
+<h2 id="ningen"><a href="#ningen" class="headerlink" title="ningen"></a>ningen</h2><p>winhex发现压缩包，提取爆破密码</p>
+<h2 id="文件中的秘密"><a href="#文件中的秘密" class="headerlink" title="文件中的秘密"></a>文件中的秘密</h2><p>查看文件属性发现flag</p>
+<h2 id="wireshark"><a href="#wireshark" class="headerlink" title="wireshark"></a>wireshark</h2><p>打开流量包查看http流量，发现有一条流量的传参有flag字样，flag后的password内容即<br>为flag</p>
+<h2 id="镜子里面的世界"><a href="#镜子里面的世界" class="headerlink" title="镜子里面的世界"></a>镜子里面的世界</h2><p>StegSolve看lsb最低位隐写</p>
+<h2 id="小明的保险箱"><a href="#小明的保险箱" class="headerlink" title="小明的保险箱"></a>小明的保险箱</h2><p>图片末尾有一个rar加密包，爆破即可</p>
+<h2 id="爱因斯坦"><a href="#爱因斯坦" class="headerlink" title="爱因斯坦"></a>爱因斯坦</h2><p>这个题 脑洞了 一下，把图片备注里的this_is_not_password作为压缩包密码了，输入this_is_not_password解压即可</p>
+<h2 id="被嗅探的流量"><a href="#被嗅探的流量" class="headerlink" title="被嗅探的流量"></a>被嗅探的流量</h2><p>查看流量包发现有一个post表单，跟进去搜索flag即可</p>
+<h2 id="假如给我三天光明"><a href="#假如给我三天光明" class="headerlink" title="假如给我三天光明"></a>假如给我三天光明</h2><p>一个加密压缩包，一个图片，图片上是海伦凯勒，下面有一行盲文，盲文的明文即为压缩包密码，解压缩得到一个音频，是莫斯电码，用音频分析软件查看摩斯电码，转为明文为flag内容，另外，莫斯电码都是小写！</p>
+<h2 id="easycap"><a href="#easycap" class="headerlink" title="easycap"></a>easycap</h2><p>入门的wireshark流量分析，wireshark打开后直接右键追踪TCP流即可看到flag</p>
+<h2 id="FLAG"><a href="#FLAG" class="headerlink" title="FLAG"></a>FLAG</h2><p>在用stegsolve查看lsb的时候发现其用lsb写入了一个zip文件，save bin出来解压缩，用winhex查看发现是elf文件，ida打开搜索字符串发现flag</p>
+<h2 id="另外一个世界"><a href="#另外一个世界" class="headerlink" title="另外一个世界"></a>另外一个世界</h2><p>题目是一个jpg文件，winhex发现尾部有一串ASCII码，写个脚本转码就是flag</p>
+<h2 id="荷兰宽带数据泄露"><a href="#荷兰宽带数据泄露" class="headerlink" title="荷兰宽带数据泄露"></a>荷兰宽带数据泄露</h2><p>下载下来一个bin文件，实在不知道这个文件的正确打开方式，百度了下大佬的思路，大佬直接就说这是路由器数据，用 <strong>RouterPassView</strong> 可以查看该文件内容emmm，又get一个新工具，username的值即为flag</p>
+<h2 id="隐藏的钥匙"><a href="#隐藏的钥匙" class="headerlink" title="隐藏的钥匙"></a>隐藏的钥匙</h2><p><del>下载下来一个路飞的图片，winhex查看发现有两张jpg，把第二张jpg拿出来</del><br>一开始一直以为flag会放在藏起来的大图片里，结果发现这里被惯性思维坑了，flag就在原图里，winhex搜素flag或者kali里用strings输出可见字符查看flag都能看到flag，flag后面跟了一串base64字符，解码即可</p>
+<h2 id="来首歌吧"><a href="#来首歌吧" class="headerlink" title="来首歌吧"></a>来首歌吧</h2><p>音频分析软件拉进去，发现双声道，一个是莫斯码，一个是音频，直接解码莫斯码</p>
+<h2 id="后门查杀"><a href="#后门查杀" class="headerlink" title="后门查杀"></a>后门查杀</h2><p>解压网站文件后，360自动扫描提示后门文件emmm，被360秀了2333，include.php就是后门脚本，打开即可看到 密码（md5）</p>
+<h2 id="神秘龙卷风"><a href="#神秘龙卷风" class="headerlink" title="神秘龙卷风"></a>神秘龙卷风</h2><p>爆破工具破解压缩包，拿到文本，是brain fuck代码，用工具执行，输出flag</p>
+<h2 id="梅花香自苦寒来"><a href="#梅花香自苦寒来" class="headerlink" title="梅花香自苦寒来"></a>梅花香自苦寒来</h2><p>解包是一个jpg，老规矩winhex看结尾，发现一大串十六进制数据，猜测是把文件的十六进制作为文本的形式写在后面了，提取出来写个脚本将其作为文件十六进制解码，拿到二维码，扫码出flag</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line">outfile_hex = <span class="built_in">open</span>(<span class="string">&#x27;outfile_hex.txt&#x27;</span>,<span class="string">&#x27;r&#x27;</span>).read()</span><br><span class="line">file_out = <span class="built_in">open</span>(<span class="string">&#x27;output&#x27;</span>,<span class="string">&#x27;w&#x27;</span>).write(outfile_hex.decode(<span class="string">&#x27;hex&#x27;</span>))</span><br><span class="line"></span><br><span class="line">pic = Image.new(<span class="string">&#x27;RGB&#x27;</span>,(<span class="number">271</span>,<span class="number">271</span>),<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;output&#x27;</span>,<span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> fi:</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> fi.readlines():</span><br><span class="line">        flag = line.split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">        x = <span class="built_in">eval</span>(flag[<span class="number">0</span>][<span class="number">1</span>:])</span><br><span class="line">        y = <span class="built_in">eval</span>(flag[<span class="number">1</span>][<span class="number">0</span>:-<span class="number">2</span>])</span><br><span class="line">        <span class="comment">##print(x,y)</span></span><br><span class="line">        pic.putpixel([x-<span class="number">1</span>,y-<span class="number">1</span>],(<span class="number">255</span>,<span class="number">255</span>,<span class="number">255</span>))</span><br><span class="line"></span><br><span class="line">pic.show()</span><br><span class="line">pic.save(<span class="string">&#x27;flag.png&#x27;</span>)</span><br><span class="line"><span class="comment">##file_out.close()</span></span><br></pre></td></tr></table></figure>
+<h2 id="snake"><a href="#snake" class="headerlink" title="snake"></a>snake</h2><p>jpg文件结尾有压缩包，解包拿到两个文件，key中是base64编码，解码拿到提示<code>What is Nicki Minaj&#39;s favorite song that refers to snakes?</code>，百度歌手<code>Nicki Minaj</code>,从她的歌中找和蛇相关的，发现<code>anaconda</code>；之后再去找加密算法，因为除了密钥的提示之外没有其他提示，所以推测加密算法的名字有可能也和蛇相关，查找蛇的单词发现 <code>serpent</code>作为蛇的翻译刚好是一个加密算法的名字，找了一个在线解密网站，解出flag</p>
+<h2 id="九连环"><a href="#九连环" class="headerlink" title="九连环"></a>九连环</h2><p>下载下来一个加密压缩包，没有别的提示，猜测是伪加密，试了一下，解压成功，第二个加密压缩包是真加密，觉得密码应该在解压拿到的图片里，jpg图片加密，把手里能使的全整了一遍，最后用<code>steghide</code>拿到隐藏的txt文件，<code>steghide</code>加密密钥为空。txt里即是flag的加密密码，解压得flag</p>
+<h2 id="面具下的flag"><a href="#面具下的flag" class="headerlink" title="面具下的flag"></a>面具下的flag</h2><p>下载下来一个jpg,winhex查看发现一个压缩包，提取出来有加密，猜测是伪加密，尝试之后解压出来一个<strong>vmdk</strong>。这里查了好久的资料，没查到为什么 <code>vmdk</code> 可以用 <code>7z</code> 解压缩从而获取硬盘内的数据，暂放。<strong>7z</strong>解压出来两个文件夹，第一个里面是<code>brain fuck</code>代码，用<strong>brainfucktool</strong>运行拿到一半flag，第二个文件夹里面只有一句话：这里没有flag，用<code>7z</code>打开vmdk，发现第二个文件夹有交替数据流， 用<strong>ntfs文件系统</strong> 隐写工具 <code>ntfsstreamseditor</code> 查看发现隐藏的<code>Ook!</code>代码，用在线工具解出第二段flag</p>
+<h2 id="webshell后门"><a href="#webshell后门" class="headerlink" title="webshell后门"></a>webshell后门</h2><p>杀毒软件先扫一遍，发现风险项，ok，进去找<strong>密码（md5）</strong></p>
+<h2 id="数据包中的线索"><a href="#数据包中的线索" class="headerlink" title="数据包中的线索"></a>数据包中的线索</h2><p>wireshark打开，分析http流量，找到一个图片的base64码，复制出来，写个脚本解base64保存为文件,用图片查看器看图，看到flag</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;1.txt&#x27;</span>,<span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> fi:</span><br><span class="line">    lines = fi.readlines()</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;output&#x27;</span>,<span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> io:</span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">            decode_str = base64.b64decode(line)</span><br><span class="line">            io.write(decode_str)</span><br></pre></td></tr></table></figure>
+<h2 id="被劫持的神秘礼物"><a href="#被劫持的神秘礼物" class="headerlink" title="被劫持的神秘礼物"></a>被劫持的神秘礼物</h2><p>wireshark分析http流量，发现有一个login的http，追踪看到 <strong>name</strong> 和 <strong>word</strong> ，用在线网站转一下32位小写md5即可</p>
+<h2 id="刷新过的图片"><a href="#刷新过的图片" class="headerlink" title="刷新过的图片"></a>刷新过的图片</h2><p>题目提示刷新键，刷新键是 <strong>f5</strong> ，由此知道是<code>f5</code>隐写，尝试后知道没有密码，输出的文本打开后发现是压缩包，修改文件后缀发现被加密了，猜测是伪加密，得到flag.txt</p>
+<h2 id="菜刀666"><a href="#菜刀666" class="headerlink" title="菜刀666"></a>菜刀666</h2><p>wireshark分析，因为考虑和菜刀有关，所以只看http数据中传有base64字符串的数据流，发现用户用十六进制裸传了一张jpg图片，并下载了一个zip包。<br>将图片十六进制复制出来重新转为图片（这里我转的图片内容是色块没有任何其他信息，百度wp大佬们转出来的是一个带密码的屏幕截图）；<br>zip提取出来后发现有密码，<del>考虑到前面的图片没有有用信息怀疑又是伪加密</del>，发现不是，无奈去百度了wp发现前面的图片转出来应该是正常的图片，晕，这个没办法了，然后解包拿到flag</p>
+<h2 id="Mysterious"><a href="#Mysterious" class="headerlink" title="Mysterious"></a>Mysterious</h2><p>是我的打开方式不对嘛，这题我当简单逆向做的。<br>ida打开搜索字符串看到 <code>well done</code> ，跟进找到main函数，反汇编查看伪C源码，flag几乎给全了，就是要自己手动补一截。盲猜补个123。百度一下函数<code>atoi</code>，发现这是c语言里用来把字符串转为对应整数的函数，if判断要求转化之后的十六进制为<code>0x7A</code>，后门跟三个字符分别为xyz，0x7a转为十进制是122，即输入应为<code>122xyz</code>，运行程序输入122xyz，发现flag和盲猜的一样emmm</p>
+<h2 id="sqltest"><a href="#sqltest" class="headerlink" title="sqltest"></a>sqltest</h2><p>wireshark查看流量包发现是一个<code>bool盲注</code>的全过程，那就好办了，直接导出 <strong>http对象</strong> ，接下来可以人眼扫描注入过程分析flag，也可以写脚本判断诸如过程分析flag，身为 <strong>头铁萌新</strong> 代表，我果断选择人眼扫诸如过程，手工提取flag的ASCII码然后转换字符串嘿嘿嘿<br><del>好吧其实我就是懒得去写python脚本了</del> 2333</p>
+<h2 id="喵喵喵"><a href="#喵喵喵" class="headerlink" title="喵喵喵"></a>喵喵喵</h2><p>解压拿到一个png图片，心累，终于让我遇到一个 <strong>lsb隐写</strong> 了嘛！！！果断 <code>zsteg -a</code> 我今天就把你lsb得骨灰给你扬了嘿嘿嘿。发现<code>BGR</code>模式下lsb藏了一张png，提取出来发现只有半张二维码，试试修改图片高度，获取完整二维码，是一个百度网盘链接。拿到一个flag压缩包，用WinRAR解压发现提示无法设置安全数据，猜测有可能是ntfs隐写，WinRAR可以对隐藏有ntfs数据流的文件进行压缩与解压缩并且不影响其所隐藏的数据，之前查ntfs隐写相关资料的时候记得是这么说的。用 <code>ntfsstreamseditor</code> 就可以拿到隐藏文件。然后拿到flag.pyc，用工具反编译成 <strong>py脚本</strong> 即可。附带<a target="_blank" rel="noopener" href="https://www.ximu.xyz/2019/10/30/re-python/">简单python逆向基础</a>。读加密脚本由结果反向推导flag。解密函数如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">decode</span>(<span class="params">ciphertext</span>):</span><br><span class="line">    flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(ciphertext)):</span><br><span class="line">        <span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">            s = <span class="built_in">int</span>(ciphertext[-i-<span class="number">1</span>]) - <span class="number">10</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            s = <span class="built_in">int</span>(ciphertext[-i-<span class="number">1</span>]) + <span class="number">10</span></span><br><span class="line">        s = i ^ s</span><br><span class="line">        flag+=<span class="built_in">chr</span>(s)</span><br><span class="line">    <span class="keyword">return</span> flag</span><br></pre></td></tr></table></figure>
+<h2 id="穿越时空的思念"><a href="#穿越时空的思念" class="headerlink" title="穿越时空的思念"></a>穿越时空的思念</h2><p>音频分析，莫斯码，淦，想要个莫斯码提取工具QAQ，我只会手工，丢</p>
+<h2 id="请看篇章二"><a href="#请看篇章二" class="headerlink" title="请看篇章二"></a><a href="http://xibai.xyz/2020/02/02/BUU-Misc-two/">请看篇章二</a></h2>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="true"
+        data-ae="true"
+        data-ci="5cd24ed310c0cbc2a2ed"
+        data-cs="51aa998e509794b7b061784f1f3d41018af118f6"
+        data-r="xikong-mubai.github.io"
+        data-o="xikong-mubai"
+        data-a="xikong-mubai"
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%91%E4%B8%89%E8%83%96"><span class="toc-number">1.</span> <span class="toc-text">金三胖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E7%BB%B4%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">二维码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#N%E7%A7%8D%E6%96%B9%E6%B3%95%E8%A7%A3%E5%86%B3"><span class="toc-number">3.</span> <span class="toc-text">N种方法解决</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E7%99%BD"><span class="toc-number">4.</span> <span class="toc-text">大白</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%A0%B4%E8%A7%A3"><span class="toc-number">5.</span> <span class="toc-text">基础破解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%A0%E7%AB%9F%E7%84%B6%E8%B5%B6%E6%88%91%E8%B5%B0"><span class="toc-number">6.</span> <span class="toc-text">你竟然赶我走</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LSB"><span class="toc-number">7.</span> <span class="toc-text">LSB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%8C%E9%95%87%E5%B3%B0%E4%BC%9A%E7%A7%8D%E5%9B%BE"><span class="toc-number">8.</span> <span class="toc-text">乌镇峰会种图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rar"><span class="toc-number">9.</span> <span class="toc-text">rar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#qr"><span class="toc-number">10.</span> <span class="toc-text">qr</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ningen"><span class="toc-number">11.</span> <span class="toc-text">ningen</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E7%A7%98%E5%AF%86"><span class="toc-number">12.</span> <span class="toc-text">文件中的秘密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wireshark"><span class="toc-number">13.</span> <span class="toc-text">wireshark</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%95%9C%E5%AD%90%E9%87%8C%E9%9D%A2%E7%9A%84%E4%B8%96%E7%95%8C"><span class="toc-number">14.</span> <span class="toc-text">镜子里面的世界</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E6%98%8E%E7%9A%84%E4%BF%9D%E9%99%A9%E7%AE%B1"><span class="toc-number">15.</span> <span class="toc-text">小明的保险箱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%B1%E5%9B%A0%E6%96%AF%E5%9D%A6"><span class="toc-number">16.</span> <span class="toc-text">爱因斯坦</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A2%AB%E5%97%85%E6%8E%A2%E7%9A%84%E6%B5%81%E9%87%8F"><span class="toc-number">17.</span> <span class="toc-text">被嗅探的流量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%81%87%E5%A6%82%E7%BB%99%E6%88%91%E4%B8%89%E5%A4%A9%E5%85%89%E6%98%8E"><span class="toc-number">18.</span> <span class="toc-text">假如给我三天光明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#easycap"><span class="toc-number">19.</span> <span class="toc-text">easycap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FLAG"><span class="toc-number">20.</span> <span class="toc-text">FLAG</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%A6%E5%A4%96%E4%B8%80%E4%B8%AA%E4%B8%96%E7%95%8C"><span class="toc-number">21.</span> <span class="toc-text">另外一个世界</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8D%B7%E5%85%B0%E5%AE%BD%E5%B8%A6%E6%95%B0%E6%8D%AE%E6%B3%84%E9%9C%B2"><span class="toc-number">22.</span> <span class="toc-text">荷兰宽带数据泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%90%E8%97%8F%E7%9A%84%E9%92%A5%E5%8C%99"><span class="toc-number">23.</span> <span class="toc-text">隐藏的钥匙</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%A5%E9%A6%96%E6%AD%8C%E5%90%A7"><span class="toc-number">24.</span> <span class="toc-text">来首歌吧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E9%97%A8%E6%9F%A5%E6%9D%80"><span class="toc-number">25.</span> <span class="toc-text">后门查杀</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A5%9E%E7%A7%98%E9%BE%99%E5%8D%B7%E9%A3%8E"><span class="toc-number">26.</span> <span class="toc-text">神秘龙卷风</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A2%85%E8%8A%B1%E9%A6%99%E8%87%AA%E8%8B%A6%E5%AF%92%E6%9D%A5"><span class="toc-number">27.</span> <span class="toc-text">梅花香自苦寒来</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#snake"><span class="toc-number">28.</span> <span class="toc-text">snake</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E8%BF%9E%E7%8E%AF"><span class="toc-number">29.</span> <span class="toc-text">九连环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E5%85%B7%E4%B8%8B%E7%9A%84flag"><span class="toc-number">30.</span> <span class="toc-text">面具下的flag</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#webshell%E5%90%8E%E9%97%A8"><span class="toc-number">31.</span> <span class="toc-text">webshell后门</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8C%85%E4%B8%AD%E7%9A%84%E7%BA%BF%E7%B4%A2"><span class="toc-number">32.</span> <span class="toc-text">数据包中的线索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A2%AB%E5%8A%AB%E6%8C%81%E7%9A%84%E7%A5%9E%E7%A7%98%E7%A4%BC%E7%89%A9"><span class="toc-number">33.</span> <span class="toc-text">被劫持的神秘礼物</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%B7%E6%96%B0%E8%BF%87%E7%9A%84%E5%9B%BE%E7%89%87"><span class="toc-number">34.</span> <span class="toc-text">刷新过的图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8F%9C%E5%88%80666"><span class="toc-number">35.</span> <span class="toc-text">菜刀666</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mysterious"><span class="toc-number">36.</span> <span class="toc-text">Mysterious</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sqltest"><span class="toc-number">37.</span> <span class="toc-text">sqltest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%96%B5%E5%96%B5%E5%96%B5"><span class="toc-number">38.</span> <span class="toc-text">喵喵喵</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A9%BF%E8%B6%8A%E6%97%B6%E7%A9%BA%E7%9A%84%E6%80%9D%E5%BF%B5"><span class="toc-number">39.</span> <span class="toc-text">穿越时空的思念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B7%E7%9C%8B%E7%AF%87%E7%AB%A0%E4%BA%8C"><span class="toc-number">40.</span> <span class="toc-text">请看篇章二</span></a></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+<!--血小板代码-->
+<link rel="stylesheet" href="/live2d/css/live2d.css" />
+<div id="landlord">
+    <div class="message" style="opacity:0"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = 'https://calmcenter.club/'
+</script>
+<script type="text/javascript" src="/live2d/js/live2d.js"></script>
+<script type="text/javascript" src="/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
+</script>
+<!--血小板代码-->
+
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+</html>

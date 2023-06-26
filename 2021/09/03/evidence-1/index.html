@@ -1,0 +1,392 @@
+
+<!DOCTYPE html>
+<html lang="Zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>常见取证总结——1 - 汐白的学习档案</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Xibai,"> 
+    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,介绍何为取证？
+电子取证是指利用计算机软硬件技术，以符合法律规范的方式对计算机入侵、破坏、欺诈、攻击等犯罪行为进行证据获取、保存、分析和出示的过程。从技术方面看，计算机犯罪取证是一个对受侵计算机系统,"> 
+    <meta name="author" content="Xibai"> 
+    <link rel="alternative" href="atom.xml" title="汐白的学习档案" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="常见取证总结——1 - 汐白的学习档案"/>
+    <meta name="twitter:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,介绍何为取证？
+电子取证是指利用计算机软硬件技术，以符合法律规范的方式对计算机入侵、破坏、欺诈、攻击等犯罪行为进行证据获取、保存、分析和出示的过程。从技术方面看，计算机犯罪取证是一个对受侵计算机系统,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="汐白的学习档案"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="常见取证总结——1 - 汐白的学习档案"/>
+    <meta property="og:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,介绍何为取证？
+电子取证是指利用计算机软硬件技术，以符合法律规范的方式对计算机入侵、破坏、欺诈、攻击等犯罪行为进行证据获取、保存、分析和出示的过程。从技术方面看，计算机犯罪取证是一个对受侵计算机系统,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+    <script>window.searchDbPath = "/search.xml";</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">汐白的学习档案</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">常见取证总结——1</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">常见取证总结——1</h1>
+        <div class="stuff">
+            <span>九月 03, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Misc/" rel="tag">Misc</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>何为取证？</p>
+<p>电子取证是指利用计算机软硬件技术，以符合法律规范的方式对计算机入侵、破坏、欺诈、攻击等犯罪行为进行证据获取、保存、分析和出示的过程。从技术方面看，计算机犯罪取证是一个对受侵计算机系统进行扫描和破解，对入侵事件进行重建的过程。具体而言，是指把计算机看作犯罪现场，运用先进的辨析技术，对计算机犯罪行为进行解剖，搜寻罪犯及其犯罪证据。</p>
+<p>接下来我们从常用的取证工具入手，来讲解取证的常见内容。</p>
+<p>之所以从工具入手，是因为取证过程中如果不依靠现有的强大工具，就需要取证的人自己对相关数据文件的数据存储格式有详细的了解乃至是掌握。<br>取证工具的本质其实就是对已知存储格式的数据从格式上进行自动化地解析使得使用者可以轻松提取相应的数据资料。如果以手工的方式的话则需要大篇幅的内容来讲解各种诸如硬盘系统数据文件、内存镜像数据文件一类的相关数据存储的格式。</p>
+<h2 id="内存取证——Volatility"><a href="#内存取证——Volatility" class="headerlink" title="内存取证——Volatility"></a>内存取证——Volatility</h2><p>Volatility是开源的Windows，Linux，MaC，Android的内存取证分析工具，由python编写成，命令行操作，支持各种操作系统。</p>
+<p>并且该工具属于框架类工具。即其本身除却官方自己实现的功能插件外，用户可以根据自己需要来制作自定义插件。</p>
+<p>通过-h参数可以列举出本地工具已经集成了的功能插件以及相关描述。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831144144.png" alt="20210831144144"></p>
+<p>这里介绍一个叫<code>dumpIt</code>的工具，它可以把当前运行的系统的内存数据导出为静态镜像文件。</p>
+<h3 id="imageinfo"><a href="#imageinfo" class="headerlink" title="imageinfo"></a>imageinfo</h3><p>对于内存取证，不同版本的系统运行时的内存数据格式是不一样的，利用这一点，可以先行分析出目标内存镜像对应的系统版本。然后再根据系统版本进行下一步的分析。</p>
+<p>功能插件为<code>imageinfo</code>，</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831143335.png" alt="20210831143335"></p>
+<h3 id="pstree-pslist-psscan-psxview"><a href="#pstree-pslist-psscan-psxview" class="headerlink" title="pstree|pslist|psscan|psxview"></a>pstree|pslist|psscan|psxview</h3><p>ps插件全家桶。它们的功能如图：   对内存数据进行分析显然不能错过系统运行时的进程信息分析。而这四个命令则类似<code>Linux</code>系统中的<code>ps</code>命令，可以列举系统运行中的进程。<br>根据列举出的进程可以初步猜测是否受到了进程注入类的攻击。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831145117.png" alt="20210831145117"></p>
+<p>三者的详细区别：</p>
+<ul>
+<li>pslist。不仅显示了所有正在运行的进程，而且给出了有价值的信息，比如PID、PPID、启动的时间。</li>
+<li>pstree。pslist的改进版，可以识别子进程以及父进程</li>
+<li>psscan。可以显示出被恶意软件比如rootkit为了躲避用户或杀毒软件而隐藏的进程</li>
+<li>psxview。psscan的改进版。</li>
+</ul>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831151115.png" alt="20210831151115"></p>
+<h3 id="memdump"><a href="#memdump" class="headerlink" title="memdump"></a>memdump</h3><p><code>memdump</code>可以提取出内存中的进程数据。许多进程在运行时，原始数据都是在进程中存储的，比较经典的例子就是 提取<code>lsass</code>进程的数据，然后利用<code>mimikalz</code>工具抓取用户的明文密码或者说还原用户认证信息。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831154927.png" alt="20210831154927"></p>
+<h3 id="procdump"><a href="#procdump" class="headerlink" title="procdump"></a>procdump</h3><p>提取进程的可执行文件。通过导出可疑进程的可执行文件来对其进行逆向分析，挖掘可能存在的后门病毒木马等。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831172515.png" alt="20210831172515"></p>
+<h3 id="timeliner"><a href="#timeliner" class="headerlink" title="timeliner"></a>timeliner</h3><p>根据时间线列举系统行为。通过时间线的排布来对可疑程序的可疑行为进行顺藤摸瓜式的排查。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831162505.png" alt="20210831162505"></p>
+<h3 id="cmdline-cmdscan-consoles"><a href="#cmdline-cmdscan-consoles" class="headerlink" title="cmdline|cmdscan|consoles"></a>cmdline|cmdscan|consoles</h3><p>这三个功能插件可以列举系统运行时由<code>cmd</code>执行过的命令。对于一些后台调用了<code>cmd</code>的程序可以看到它们的调用历史以及传入参数，遇见不常见的后台调用或者说可疑传参的时候可以结合其它功能对其进行深入分析。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831145659.png" alt="20210831145659"></p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831151149.png" alt="20210831151149"></p>
+<h3 id="iehistory"><a href="#iehistory" class="headerlink" title="iehistory"></a>iehistory</h3><p>此插件可以查看系统运行时的浏览记录。这个浏览记录包括本地文件记录和浏览器网络链接记录，借此可以分析攻击者进入系统后的行为。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831152331.png" alt="20210831152331"></p>
+<h3 id="connections-connscan"><a href="#connections-connscan" class="headerlink" title="connections|connscan"></a>connections|connscan</h3><p>这两个插件则可以列举系统当时的网络连接情况。根据网络连接的IP和端口可以初步分析是否收到了常见的漏洞攻击。同时也可以在掌握了攻击者的攻击痕迹之后模拟现场。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831152751.png" alt="20210831152751"></p>
+<h3 id="notepad-editbox"><a href="#notepad-editbox" class="headerlink" title="notepad|editbox"></a>notepad|editbox</h3><p>这两个插件可以找出正在编辑中的文本数据。<code>editbox</code>比<code>notepad</code>适用性广一点。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831153450.png" alt="20210831153450"></p>
+<h3 id="filescan-dumpfiles"><a href="#filescan-dumpfiles" class="headerlink" title="filescan|dumpfiles"></a>filescan|dumpfiles</h3><p><code>filescan</code>可以输出系统文件列表。<code>dumpfiles</code>可以提取被加载进内存的文件数据。<br>比如在查看cmd命令时发现执行了可疑的可执行程序或者说脚本文件时可以直接提取出来分析其内容。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831153815.png" alt="20210831153815"></p>
+<h3 id="hashdump"><a href="#hashdump" class="headerlink" title="hashdump"></a>hashdump</h3><p>该工具可以抓取当前系统中的用户名及其密码对应的<code>NTML</code>哈希值。如果攻击者创建了影子账户，利用该命令可直接发现。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831161550.png" alt="20210831161550"></p>
+<h3 id="hivelist-hivescan-hivedump"><a href="#hivelist-hivescan-hivedump" class="headerlink" title="hivelist|hivescan|hivedump"></a>hivelist|hivescan|hivedump</h3><p>hivescan插件显示了可用的注册表配置单元的物理地址</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831162126.png" alt="20210831162126"></p>
+<p>更加详细的信息可以通过hivelist命令查看，这条命令会显示虚拟地址、物理地址的细节以及更容易识别的路径等</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831162202.png" alt="20210831162202"></p>
+<p>hivedump则可以导出注册表信息</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831172108.png" alt="20210831172108"></p>
+<h3 id="printkey"><a href="#printkey" class="headerlink" title="printkey"></a>printkey</h3><p>查看内存加载的注册表中的键值。比如在进程分析时发现了对注册表的修改痕迹，可以直接查询对应注册表的键值判断是否是攻击行为的修改。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831172139.png" alt="20210831172139"></p>
+<h3 id="dlllist-dlldump"><a href="#dlllist-dlldump" class="headerlink" title="dlllist|dlldump"></a>dlllist|dlldump</h3><p>dlllist可以看到每个进程运行需要的dll，dlldump可以导出进程运行中加载的dll。<br>这一条针对windows系统中的dll注入。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831172819.png" alt="20210831172819"></p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831172840.png" alt="20210831172840"></p>
+<h3 id="svcscan（限windows）"><a href="#svcscan（限windows）" class="headerlink" title="svcscan（限windows）"></a>svcscan（限windows）</h3><p>查看开启的windows服务。通过开启的服务可以对常见的出名的漏洞攻击做一个快速过滤。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831173413.png" alt="20210831173413"></p>
+<h3 id="modules-modscan-driverscan"><a href="#modules-modscan-driverscan" class="headerlink" title="modules|modscan|driverscan"></a>modules|modscan|driverscan</h3><p>查看系统内核驱动。隐藏的用modscan或者driverscan</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831173551.png" alt="20210831173551"></p>
+<h3 id="screenshot"><a href="#screenshot" class="headerlink" title="screenshot"></a>screenshot</h3><p>查看当前屏幕每个窗口中内容的轮廓线。属于侧信道信息分析范畴，一般用不到。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831173724.png" alt="20210831173724"></p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210831173817.png" alt="20210831173817"></p>
+<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><p>还有很多社区中的大佬写的针对某些功能的开源插件功能都十分强大，这里受限篇幅不再过多列举，去社区自行查看就行。</p>
+<h2 id="硬盘取证"><a href="#硬盘取证" class="headerlink" title="硬盘取证"></a>硬盘取证</h2><p>硬盘取证的常见场景一般多为可疑文件数据恢复与查找</p>
+<p>一般来说，恢复被恶意删除的文件会遇到如下四种情况。</p>
+<ol>
+<li><strong>目录项未覆盖，文件数据未覆盖</strong></li>
+<li><strong>目录项已覆盖，文件数据未覆盖</strong></li>
+<li><strong>目录项未覆盖，文件数据已覆盖</strong></li>
+<li><strong>目录项已覆盖，文件数据已覆盖</strong></li>
+</ol>
+<p>什么是目录项呢？</p>
+<pre><code>关于目录项，它是文件系统在存储数据时规定的一个固定数据格式的数据，不同的文件系统会有不同的规定内容，但必然会存在这个结构，不然文件系统自己也无法判断在一个地方放的是什么东西有多长叫什么名字。每个目录下的所有文件和文件夹的目录项都会按顺序放在同一个数据区存储。
+
+这个数据区中的每一条数据便对应了硬盘中存储的一个文件或者说一个文件夹，其中有着这个文件的名字大小类型位置等基础信息。
+</code></pre><p>也就是说，<strong>文件系统在寻找存储在硬盘中的文件时，是先去目录区查找对应文件的目录项，从中得知目标文件的各种信息，然后直接定位文件</strong>。而<strong>文件系统删除文件时之所以如此之快也正是因为它并非真正意义上的删除了文件，而是修改了文件目录项的状态值</strong>。</p>
+<p>现在也就可以知道以上四种情况意味着什么了。</p>
+<p>前两种意味着文件可以被恢复，但是第一种可以简单的恢复，即利用<code>DiskGenius</code>这种工具直接提取恢复：</p>
+<h3 id="文件的数据恢复与查询——DiskGenius"><a href="#文件的数据恢复与查询——DiskGenius" class="headerlink" title="文件的数据恢复与查询——DiskGenius"></a>文件的数据恢复与查询——DiskGenius</h3><p><code>DiskGenius</code>这个工具其实正常多用在重装系统或者说修电脑的辅助工具。但是因为功能强大，于是在进行硬盘取证的时候也常常可以用到。</p>
+<p>最为常见的场景便是<strong>对于删除文件的恢复</strong>。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210901115958.png" alt="20210901115958"></p>
+<p>第二种情况只是<strong>理论上可被恢复，实际情况根据文件本身的大小以及文件类型格式，恢复难度也不一样。因为目录项已被覆盖，以及无法简单的通过工具的方式提取。而文件系统在存储大文件时，往往会将其分块存储，所以对于被分块的大文件已经可以说是不能被恢复了。至于体积较小未能分块存储的文件则可以通过文件特征值扫描的方式尝试提取恢复</strong>。 这里可以考虑使用<code>binwalk</code>工具自动扫描。</p>
+<p>第三种则是可以<strong>根据工具快速查看到删除文件“生前”的基础信息，如名字大小格式等，但已无法直接恢复</strong>。（如上图）如果<strong>文件数据仅仅是某些固定的格式信息区被覆盖尚有恢复可能，但如若记载的数据都已经覆盖，则可以当作无法恢复处理</strong>。</p>
+<p><strong>最后一种则意味着彻底移除，已不存在恢复可能</strong>。<strong>低级格式化之所以安全就是因为达到了这种效果，相反，高级格式化之所以仍有数据泄露的可能，正是因为高级格式化主要是清空了文件目录项，但对于硬盘本身存储的数据区内容为了效率原因并未做过多处理</strong>。</p>
+<h3 id="文件系统格式损坏"><a href="#文件系统格式损坏" class="headerlink" title="文件系统格式损坏"></a>文件系统格式损坏</h3><p>除了恢复被删文件，还有另外一些常见场景，那便是文件系统格式损坏，正在运行的机械硬盘摔一下就坏了主要就是这种原因。除了目录项以外，文件系统还有其它关键性的自身基础信息，当它们被破坏后，便无法被正常识别是何系统，有哪些基础设置，从而导致操作系统无法解析该硬盘。</p>
+<p>但是根据前文我们可以知道，文件系统的其他信息损坏并没有从根本上损坏存储介质中的数据。这个时候只要能知道原存储介质中使用的是哪种文件系统，即可采取手工恢复的方式抢救重要数据或者说取证。</p>
+<p>这里我们用一道CTF中的例题来讲解一下硬盘取证的姿势。</p>
+<h4 id="判断文件系统信息"><a href="#判断文件系统信息" class="headerlink" title="判断文件系统信息"></a>判断文件系统信息</h4><p>这里题目文件故意抹去了文件开头0x200字节的代表着文件系统信息的数据。并在文件末尾丢了一个烟雾弹出来。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210902143338.png" alt="20210902143338"></p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210902143426.png" alt="20210902143426"></p>
+<p>抹去了原本的信息，在结尾放上了一个<code>NTFS</code>文件系统的格式数据。</p>
+<p>这里我们先不去在意这个烟雾弹，去看看其他数据有无类似特征值一般的存在。比如说第一张图中那看起来容易引人在意的<code>RRaA</code>，有经验的人就知道，这四个字节代表着原文件系统很可能是<code>FAT</code>系列的文件系统，这里我们往下看一下，发现距离<code>RRaA</code>不到<code>0x200</code>字节就有另外一个大小写相反的<code>rrAa</code>字符。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210902143637.png" alt="20210902143637"></p>
+<p>简单用搜索引擎查找一下资料就可以知道，这确实就是<code>FAT</code>系列文件系统的特征值之一。<br>通过查询<code>FAT</code>相关的文件系统的资料。我们可以得知，FAT后跟的数字其实是类似<code>数据总线</code>宽度的存在。这也是为什么<code>FAT32</code>文件系统最大仅支持<code>4GB</code>大小的文件存储的原因，32bit的数据宽度，意味着在描述文件大小时，最大值即为<code>0xffffffff</code>byte，也即是<code>4GB</code>。</p>
+<p>对于FAT文件系统，它一般有四个组成部分。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>DBR及其保留扇区</th>
+<th>FAT1</th>
+<th>FAT2</th>
+<th>DATA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>DBR及其保留扇区：DBR的含义是DOS引导记录，也称为操作系统引导记录，在DBR之后往往会有一些保留扇区。这一块即为文件系统的基础信息数据。</p>
+<p>FAT1：FAT的含义是文件分配表，FAT32一般有两份FAT，FAT1是第一份，也是主FAT。文件分配表，和前文提到的文件目录项存在对应关系。文件分配表的开头一般固定为<code>F8FFFF0FFFFFFF</code>.</p>
+<p>FAT2：FAT2是FAT32的第二份文件分配表，也是FAT1的备份。既然是备份，自然与FAT1大小相同。</p>
+<p>DATA：DATA也就是数据区，是FAT32文件系统的主要区域，其中包含存储目录项的区域。</p>
+<p>另外这里简单说一下，磁盘的存储空间为方便定位，都有扇区的概念。即把<strong>磁盘总空间平均分成固定份，一份就是一个扇区。常用的扇区大小<em>一般默认</em>使用一扇区200bytes</strong>。然后因为现在的存储空间相对与200bytes来说太大了，所以<strong>文件系统在扇区的基础上又引入了一个单位叫做簇，<em>一般默认</em>使用一簇对应八个扇区</strong>。一扇区实际对应多少字节，一簇实际对应多少扇区，都直接记录在开头那被抹掉的200字节基础信息中。</p>
+<p><strong>对于FAT系统而言有两个特殊簇，<code>data</code>区域前面的三个区域固定占据两个簇，无论实际规定的一簇为多大</strong>。簇号从0开始，也就是<code>data</code>区从第 <code>2</code> 簇开始。而第 <code>2</code> 簇在<code>FAT</code>文件系统中默认分配给根目录的目录项表使用。</p>
+<p>这里我们并不确定该硬盘镜像原本的数据分配，但我们可以先通过搜索特征值的方式找到<code>FAT1</code>和<code>FAT2</code>，如此便可以直接确认<code>DATA</code>区的起始位置，也即根目录目录项的所在。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210902151926.png" alt="20210902151926"></p>
+<p>这里我们定位到了FAT1和2的位置，直接二者起始地址相减得到FAT1和2的大小，然后即可找到<code>DATA</code>的起始地址为<code>FE000</code>。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210902152115.png" alt="20210902152115"></p>
+<h4 id="目录项结构"><a href="#目录项结构" class="headerlink" title="目录项结构"></a>目录项结构</h4><p>这里我们先简单介绍一下<code>FAT32</code>目录项的数据结构。<br>一个目录项固定为32字节。其中分为长目录项和短目录项。区分长短的原因就是因为，文件名是人为自定义的，不可能用短长度定死，所以对于名字较长的文件或者文件夹就用长目录项描述。</p>
+<h5 id="短目录项"><a href="#短目录项" class="headerlink" title="短目录项"></a>短目录项</h5><p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210902153407.png" alt="20210902153407"></p>
+<p>时间的解析规则：</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210902161537.png" alt="20210902161537"></p>
+<p>日期的解析规则：</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210902161600.png" alt="20210902161600"></p>
+<h5 id="长目录项"><a href="#长目录项" class="headerlink" title="长目录项"></a>长目录项</h5><p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210902153600.png" alt="20210902153600"></p>
+<p>这里需要注意一点。对于FAT32中的长目录项而言，因为主要内容都用来存放文件名了，所以本身并不能存储文件或者说文件夹的其他信息，仅有名字显然不能用了当作合格的格式规定。</p>
+<p><strong>另外凡是涉及整形数据存储皆为小端序</strong>。</p>
+<p>所以fat中的长目录项结束后必然跟着一个短目录项，长目录项主要用来存放文件名，短目录项用来存放文件的各种基础信息，这里举例说明：</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210902153926.png" alt="20210902153926"></p>
+<p>我们用图中第一个长目录项来解释。</p>
+<p>0x00     ：<code>42</code>代表这是长目录项的结尾，且他是长目录项组合中的第二个。<br>0x01-0x0a: 用<code>utf-16</code>格式存储的部分文件名。这里为<code>（空格）Info</code>。<br>0x0b     : <code>0x0f</code> 代表这是长目录项。<br>0x0c     : 系统保留，默认为0。（扩展，可以利用系统保留位实现简单的消息隐藏，是为基于结构的隐写）<br>0x0d     : 通过文件名计算出来的校验值<br>0x0e-0x19: 用<code>utf-16</code>格式存储的部分文件名。这里为<code>rmatio</code><br>0x1a-0x1b: 说是存放文件起始地址的簇号，其实完全没有用到，固定置0。这里可以结合上面那个系统保留位扩大隐写数据的大小。<br>0x1c-0x1f: 用<code>utf-16</code>格式存储的部分文件名。这里为<code>n</code>.(另外，若长目录项的文件名没有使用到的数据区默认用0xff填充。这里最后两字节为<code>0000</code>的原因是文件名作为字符串，需要用<code>00</code>截断，所以最后的<code>0000</code>其实是文件名的一部分，这里刚好用完，所以没有用到<code>0xff</code>填充多余空间)</p>
+<p>往下看，第二条长目录项：</p>
+<p>0x00     ：<code>01</code>代表这是长目录项的起始也即文件名开头。<br>0x01-0x0a: 用<code>utf-16</code>格式存储的部分文件名。这里为<code>Syste</code><br>0x0b     : <code>0x0f</code> 代表这是长目录项。<br>0x0c     : 系统保留，默认为0。（扩展，可以利用系统保留位实现简单的消息隐藏，是为基于结构的隐写）<br>0x0d     : 通过文件名计算出来的校验值<br>0x0e-0x19: 用<code>utf-16</code>格式存储的部分文件名。这里为<code>m Volu</code><br>0x1a-0x1b: 说是存放文件起始地址的簇号，其实完全没有用到，固定置0。这里可以结合上面那个系统保留位扩大隐写数据的大小。<br>0x1c-0x1f: 用<code>utf-16</code>格式存储的部分文件名。这里为<code>me</code>.(另外，若长目录项的文件名没有使用到的数据区默认用0xff填充。这里最后两字节为<code>0000</code>的原因是文件名作为字符串，需要用<code>00</code>截断，所以最后的<code>0000</code>其实是文件名的一部分，这里刚好用完，所以没有用到<code>0xff</code>填充多余空间)</p>
+<p>再往下看，长目录项已经结束，这里是一个短目录项，用来记录上面那组长目录项记录的名字所对应的文件（夹）的基础信息。</p>
+<p>0x00-0x07: 长文件名对应的短名。这里为<code>SYSTEM~1</code>.<br>0x08-0x0a: 文件扩展名，文件夹没有扩展名，故为三个空格.<br>0x0b     : <code>0x16</code>，代表是隐藏的系统级目录<br>0x0c     : 保留位。<br>0x0d     : 创建时间的10毫秒位<br>0x0e-0x0f: 文件创建时间 <code>68b5</code>，考虑小端序，实际为：<code>b568</code>，可解析出时间为：<code>22:43:16</code><br>0x10-0x11: 文件创建日期 <code>aa52</code>，考虑小端序，实际为：<code>52aa</code>，可解析出日期为：<code>2021-05-10</code><br>0x12-0x13: 文件最后访问日期。<br>0x14-0x15: 起始簇号高16位，依旧小端序。<br>0x16-0x17: 文件最近修改时间。<br>0x18-0x19: 文件最近修改日期。<br>0x1a-0x1b: 起始簇号高16位，依旧小端序。这里相当于 3<br>0x1c-0x1f: 文件长度，小端序。目录没有长度属性，故置零。</p>
+<p>关于文件簇号和存储地址的转换，满足如下关系：</p>
+<script type="math/tex; mode=display">address_{file} = (cluster_{num} - 2) * size_{cluster} + address_{DATA}</script><p>$address_{file}$ 代表 文件的实际存储地址区。</p>
+<p>$cluster_{num}$ 代表 文件目录项中的起始簇号。</p>
+<p>$size_{cluster}$ 代表 该文件系统中，一簇占用的空间大小</p>
+<p>$address_{DATA}$ 代表数据的起始地址</p>
+<p>这里可以以用类对象的方式实现自动解析目录项数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Directory_entry</span>():</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,data</span>):</span><br><span class="line">        self.data = data</span><br><span class="line">        <span class="keyword">if</span> data[<span class="number">0xb</span>] == <span class="number">0xf</span>:</span><br><span class="line">            self.long_filename()</span><br><span class="line">            self.<span class="built_in">type</span> = <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.short_filename()</span><br><span class="line">            self.<span class="built_in">type</span> = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">long_filename</span>(<span class="params">self</span>):</span><br><span class="line">        self.final = (self.data[<span class="number">0</span>] &gt;&gt; <span class="number">6</span>) &amp; <span class="number">1</span></span><br><span class="line">        self.num = self.data[<span class="number">0</span>] &amp; <span class="number">0x1f</span></span><br><span class="line">        self.name = self.data[<span class="number">1</span>:<span class="number">0xb</span>].decode(<span class="string">&quot;utf-16&quot;</span>)+self.data[<span class="number">0xe</span>:<span class="number">0x1a</span>].decode(<span class="string">&quot;utf-16&quot;</span>)+self.data[-<span class="number">4</span>:].decode(<span class="string">&quot;utf-16&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">short_filename</span>(<span class="params">self</span>):</span><br><span class="line">        self.name = self.data[:<span class="number">8</span>].decode()</span><br><span class="line">        self.typename = self.data[<span class="number">8</span>:<span class="number">11</span>].decode()</span><br><span class="line">        self.cluster_num = struct.unpack(<span class="string">&#x27;&lt;I&#x27;</span>,self.data[<span class="number">0x1a</span>:<span class="number">0x1c</span>]+self.data[<span class="number">0x14</span>:<span class="number">0x16</span>])[<span class="number">0</span>]</span><br><span class="line">        self.length = struct.unpack(<span class="string">&#x27;&lt;I&#x27;</span>,self.data[-<span class="number">4</span>:])[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+<p>然后便要想办法确认两个关键点，扇区大小，簇大小。</p>
+<p>扇区大小的通过被抹去的DBR扇区数据大小以及<code>RRaA</code>对应的一个信息扇区可以确定就是200字节。<br>（FAT32文件系统在DBR的保留扇区中安排了一个文件系统信息扇区，用以记录数据区中空闲簇的数量及下一个空闲簇的簇号，该扇区一般在分区的1号扇区，也就是紧跟着DBR后的一个扇区，其内容如下：）</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages572188-20200528151329123-2039003550.png" alt="572188-20200528151329123-2039003550"></p>
+<p>现在只需要知道一个簇有几个扇区，重要信息就全部掌握了。<br>一般通过逆推的方式求簇中有几个扇区。</p>
+<p>这里因为根目录有<code>flag.zip</code>，所以我们通过特征值搜索的方式找到它的地址。</p>
+<p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimages20210902165914.png" alt="20210902165914"></p>
+<p>根据上述关系式代入计算。可得：</p>
+<p>(0x1a216000-0xfe000)/（0x1a11a-2）= 4096 = 0x1000</p>
+<p>可知，一簇为八个扇区，刚好是默认值。至此，即可通过脚本自动提取文件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">FAT1_addr = <span class="number">0x4400</span> <span class="comment"># FAT1 起始地址</span></span><br><span class="line">FAT1_size = <span class="number">999</span>    <span class="comment"># FAT1 占用的扇区数量</span></span><br><span class="line">cluster = <span class="number">8</span>        <span class="comment"># 一簇为8扇区</span></span><br><span class="line">chunk_size = <span class="number">0x200</span> <span class="comment"># 一扇区为 200 bytes</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Directory_entry</span>():</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,data</span>):</span><br><span class="line">        self.data = data</span><br><span class="line">        <span class="keyword">if</span> data[<span class="number">0xb</span>] == <span class="number">0xf</span>:</span><br><span class="line">            self.long_filename()</span><br><span class="line">            self.<span class="built_in">type</span> = <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.short_filename()</span><br><span class="line">            self.<span class="built_in">type</span> = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">long_filename</span>(<span class="params">self</span>):</span><br><span class="line">        self.final = (self.data[<span class="number">0</span>] &gt;&gt; <span class="number">6</span>) &amp; <span class="number">1</span></span><br><span class="line">        self.num = self.data[<span class="number">0</span>] &amp; <span class="number">0x1f</span></span><br><span class="line">        self.name = self.data[<span class="number">1</span>:<span class="number">0xb</span>].decode(<span class="string">&quot;utf-16&quot;</span>)+self.data[<span class="number">0xe</span>:<span class="number">0x1a</span>].decode(<span class="string">&quot;utf-16&quot;</span>)+self.data[-<span class="number">4</span>:].decode(<span class="string">&quot;utf-16&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">short_filename</span>(<span class="params">self</span>):</span><br><span class="line">        self.name = self.data[:<span class="number">8</span>].decode()</span><br><span class="line">        self.typename = self.data[<span class="number">8</span>:<span class="number">11</span>].decode()</span><br><span class="line">        self.cluster_num = struct.unpack(<span class="string">&#x27;&lt;I&#x27;</span>,self.data[<span class="number">0x1a</span>:<span class="number">0x1c</span>]+self.data[<span class="number">0x14</span>:<span class="number">0x16</span>])[<span class="number">0</span>]</span><br><span class="line">        self.length = struct.unpack(<span class="string">&#x27;&lt;I&#x27;</span>,self.data[-<span class="number">4</span>:])[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据簇号计算地址</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_cluster_addr</span>(<span class="params">cluster_num</span>):</span><br><span class="line">    <span class="keyword">return</span> (cluster_num - <span class="number">2</span>) * <span class="number">0x1000</span> + <span class="number">0xfe000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 采用递归方式实现自动遍历目录提取文件</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">files_entry</span>(<span class="params">f,files_path,cluster_num</span>):</span><br><span class="line">    f.seek(get_cluster_addr(cluster_num),<span class="number">0</span>)</span><br><span class="line">    addr = <span class="number">0</span></span><br><span class="line">    tmp = f.read(<span class="number">0x20</span>) ; addr += <span class="number">0x20</span></span><br><span class="line">    <span class="keyword">while</span> tmp != <span class="string">b&#x27;\x00&#x27;</span>*<span class="number">0x20</span> <span class="keyword">and</span> tmp != <span class="string">b&#x27;\x00&#x27;</span>:</span><br><span class="line">        directory_entry = Directory_entry(tmp)</span><br><span class="line">        <span class="keyword">if</span> directory_entry.<span class="built_in">type</span> == <span class="number">1</span>:</span><br><span class="line">            tmp_num = directory_entry.num</span><br><span class="line">            filename = directory_entry.name</span><br><span class="line">            <span class="keyword">while</span> tmp_num != <span class="number">1</span>:</span><br><span class="line">                tmp_directory_entry = Directory_entry(f.read(<span class="number">0x20</span>))</span><br><span class="line">                addr += <span class="number">0x20</span></span><br><span class="line">                tmp_num = tmp_directory_entry.num</span><br><span class="line">                filename = tmp_directory_entry.name + filename</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                directory_entry = Directory_entry(f.read(<span class="number">0x20</span>))</span><br><span class="line">                addr += <span class="number">0x20</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            filename = directory_entry.name</span><br><span class="line"></span><br><span class="line">        file_type = directory_entry.typename</span><br><span class="line">        <span class="comment"># 移除文件名中无效部分</span></span><br><span class="line">        filename = filename.strip(<span class="string">&#x27;\x20&#x27;</span>)</span><br><span class="line">        filename = filename.strip(<span class="string">&#x27;\x00&#x27;</span>)</span><br><span class="line">        filename = filename.strip(<span class="string">&#x27;\uffff&#x27;</span>)</span><br><span class="line">        filename = filename.strip(<span class="string">&#x27;\x20&#x27;</span>)</span><br><span class="line">        filename = filename.strip(<span class="string">&#x27;\x00&#x27;</span>)</span><br><span class="line">        filename = filename.strip(<span class="string">&#x27;\uffff&#x27;</span>)</span><br><span class="line">        filename = filename.strip(<span class="string">&#x27;\x20&#x27;</span>)</span><br><span class="line">        filename = filename.strip(<span class="string">&#x27;\x00&#x27;</span>)</span><br><span class="line">        filename = filename.strip(<span class="string">&#x27;\uffff&#x27;</span>)</span><br><span class="line">        <span class="keyword">if</span> file_type != <span class="string">&#x27;\x20\x20\x20&#x27;</span> <span class="keyword">and</span> file_type != <span class="literal">None</span>:</span><br><span class="line">            filename += <span class="string">&#x27;.&#x27;</span> + file_type</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> filename[<span class="number">0</span>] == <span class="string">&#x27;\x2e&#x27;</span>:</span><br><span class="line">            tmp = f.read(<span class="number">0x20</span>) ; addr += <span class="number">0x20</span></span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">elif</span> filename[<span class="number">0</span>] == <span class="string">&#x27;\xe5&#x27;</span>:</span><br><span class="line">            filename = filename[<span class="number">1</span>:] + <span class="string">&#x27;___deleted&#x27;</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (directory_entry.data[<span class="number">11</span>] &gt;&gt; <span class="number">4</span>) &amp; <span class="number">1</span> == <span class="number">1</span>:</span><br><span class="line">            os.mkdir(files_path+<span class="string">&#x27;\\&#x27;</span>+filename)</span><br><span class="line">            files_entry(f,files_path+<span class="string">&#x27;\\&#x27;</span>+filename,directory_entry.cluster_num)</span><br><span class="line">            f.seek(get_cluster_addr(cluster_num)+addr,<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            f.seek(get_cluster_addr(directory_entry.cluster_num),<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">with</span> <span class="built_in">open</span>(files_path+<span class="string">&#x27;\\&#x27;</span>+filename,<span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> o:</span><br><span class="line">                o.write(f.read(directory_entry.length))</span><br><span class="line">            f.seek(get_cluster_addr(cluster_num)+addr,<span class="number">0</span>)</span><br><span class="line">        tmp = f.read(<span class="number">0x20</span>) ; addr += <span class="number">0x20</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 提取到 extra 目录下</span></span><br><span class="line">files_path = <span class="string">&#x27;extra&#x27;</span></span><br><span class="line">os.mkdir(files_path)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./raw.img&#x27;</span>,<span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    addr = <span class="number">0</span></span><br><span class="line">    tmp = f.read(<span class="number">0x4400</span>) ; addr += <span class="number">0x4400</span></span><br><span class="line">    FAT1 = f.read(FAT1_size*chunk_size) ; addr += FAT1_size*chunk_size</span><br><span class="line">    f.read(FAT1_size*chunk_size) ; addr += FAT1_size*chunk_size</span><br><span class="line">    </span><br><span class="line">    files_entry(f,files_path,<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="后接-常见取证总结——2"><a href="#后接-常见取证总结——2" class="headerlink" title="后接  常见取证总结——2"></a>后接  <a href="http://xibai.xyz/2021/09/03/evidence-2/">常见取证总结——2</a></h2>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="true"
+        data-ae="true"
+        data-ci="5cd24ed310c0cbc2a2ed"
+        data-cs="51aa998e509794b7b061784f1f3d41018af118f6"
+        data-r="xikong-mubai.github.io"
+        data-o="xikong-mubai"
+        data-a="xikong-mubai"
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E2%80%94%E2%80%94Volatility"><span class="toc-number">2.</span> <span class="toc-text">内存取证——Volatility</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#imageinfo"><span class="toc-number">2.1.</span> <span class="toc-text">imageinfo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pstree-pslist-psscan-psxview"><span class="toc-number">2.2.</span> <span class="toc-text">pstree|pslist|psscan|psxview</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#memdump"><span class="toc-number">2.3.</span> <span class="toc-text">memdump</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#procdump"><span class="toc-number">2.4.</span> <span class="toc-text">procdump</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#timeliner"><span class="toc-number">2.5.</span> <span class="toc-text">timeliner</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cmdline-cmdscan-consoles"><span class="toc-number">2.6.</span> <span class="toc-text">cmdline|cmdscan|consoles</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iehistory"><span class="toc-number">2.7.</span> <span class="toc-text">iehistory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#connections-connscan"><span class="toc-number">2.8.</span> <span class="toc-text">connections|connscan</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#notepad-editbox"><span class="toc-number">2.9.</span> <span class="toc-text">notepad|editbox</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filescan-dumpfiles"><span class="toc-number">2.10.</span> <span class="toc-text">filescan|dumpfiles</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hashdump"><span class="toc-number">2.11.</span> <span class="toc-text">hashdump</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hivelist-hivescan-hivedump"><span class="toc-number">2.12.</span> <span class="toc-text">hivelist|hivescan|hivedump</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#printkey"><span class="toc-number">2.13.</span> <span class="toc-text">printkey</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dlllist-dlldump"><span class="toc-number">2.14.</span> <span class="toc-text">dlllist|dlldump</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#svcscan%EF%BC%88%E9%99%90windows%EF%BC%89"><span class="toc-number">2.15.</span> <span class="toc-text">svcscan（限windows）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#modules-modscan-driverscan"><span class="toc-number">2.16.</span> <span class="toc-text">modules|modscan|driverscan</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#screenshot"><span class="toc-number">2.17.</span> <span class="toc-text">screenshot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E5%AE%83"><span class="toc-number">2.18.</span> <span class="toc-text">其它</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E7%9B%98%E5%8F%96%E8%AF%81"><span class="toc-number">3.</span> <span class="toc-text">硬盘取证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%9A%84%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D%E4%B8%8E%E6%9F%A5%E8%AF%A2%E2%80%94%E2%80%94DiskGenius"><span class="toc-number">3.1.</span> <span class="toc-text">文件的数据恢复与查询——DiskGenius</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%A0%BC%E5%BC%8F%E6%8D%9F%E5%9D%8F"><span class="toc-number">3.2.</span> <span class="toc-text">文件系统格式损坏</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF"><span class="toc-number">3.2.1.</span> <span class="toc-text">判断文件系统信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E9%A1%B9%E7%BB%93%E6%9E%84"><span class="toc-number">3.2.2.</span> <span class="toc-text">目录项结构</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9F%AD%E7%9B%AE%E5%BD%95%E9%A1%B9"><span class="toc-number">3.2.2.1.</span> <span class="toc-text">短目录项</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%95%BF%E7%9B%AE%E5%BD%95%E9%A1%B9"><span class="toc-number">3.2.2.2.</span> <span class="toc-text">长目录项</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E6%8E%A5-%E5%B8%B8%E8%A7%81%E5%8F%96%E8%AF%81%E6%80%BB%E7%BB%93%E2%80%94%E2%80%942"><span class="toc-number">4.</span> <span class="toc-text">后接  常见取证总结——2</span></a></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+<!--血小板代码-->
+<link rel="stylesheet" href="/live2d/css/live2d.css" />
+<div id="landlord">
+    <div class="message" style="opacity:0"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = 'https://calmcenter.club/'
+</script>
+<script type="text/javascript" src="/live2d/js/live2d.js"></script>
+<script type="text/javascript" src="/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
+</script>
+<!--血小板代码-->
+
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+</html>

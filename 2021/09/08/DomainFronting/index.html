@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<html lang="Zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>域前置 - 汐白的学习档案</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Xibai,"> 
+    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,原理介绍域前置，又译为域名幌子，是一种隐藏连接真实端点来规避互联网审查的技术。在应用层上运作时，域前置使用户能通过HTTPS连接到被屏蔽的服务，而表面上像在与另一个完全不同的站点通信。
+此技术的原理,"> 
+    <meta name="author" content="Xibai"> 
+    <link rel="alternative" href="atom.xml" title="汐白的学习档案" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="域前置 - 汐白的学习档案"/>
+    <meta name="twitter:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,原理介绍域前置，又译为域名幌子，是一种隐藏连接真实端点来规避互联网审查的技术。在应用层上运作时，域前置使用户能通过HTTPS连接到被屏蔽的服务，而表面上像在与另一个完全不同的站点通信。
+此技术的原理,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="汐白的学习档案"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="域前置 - 汐白的学习档案"/>
+    <meta property="og:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,原理介绍域前置，又译为域名幌子，是一种隐藏连接真实端点来规避互联网审查的技术。在应用层上运作时，域前置使用户能通过HTTPS连接到被屏蔽的服务，而表面上像在与另一个完全不同的站点通信。
+此技术的原理,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+    <script>window.searchDbPath = "/search.xml";</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">汐白的学习档案</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">域前置</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">域前置</h1>
+        <div class="stuff">
+            <span>九月 08, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Web/" rel="tag">Web</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E6%B8%97%E9%80%8F/" rel="tag">渗透</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="原理介绍"><a href="#原理介绍" class="headerlink" title="原理介绍"></a>原理介绍</h2><p>域前置，又译为域名幌子，是一种隐藏连接真实端点来规避互联网审查的技术。在应用层上运作时，域前置使用户能通过HTTPS连接到被屏蔽的服务，而表面上像在与另一个完全不同的站点通信。</p>
+<p><strong>此技术的原理为在不同通信层使用不同的域名</strong>。在明文的DNS请求和TLS服务器名称指示（SNI）中使用无害的域名来初始化连接、公布给审查者，而实际要连接的被封锁域名仅在创建加密的HTTPS连接后发出，使其不以明文暴露给网络审查者。</p>
+<p><strong>该技术利用审查者通常很难区分被伪装流量与合法流量的特点，迫使审查者选择放行所有看似无害的流量，或者选择彻底封锁此域的流量。而彻底封锁可能带来显著的附加损害</strong>。<br>这种举动在被封锁的站点与无害站点为同一个大型服务提供商时较为可行，例如由Google应用服务引擎（GAE）等提供的服务。<br>Google后于2018年4月禁用域前置，称这从未是Google有意支持的一项功能。亚马逊公司也在不久后决定停用CloudFront上的域前置支持，表示这已被视为违反AWS服务条款。有报道认为，Google和亚马逊做此决定的部分原因是来自俄罗斯政府的压力，因Telegram在当地使用这两家云服务提供商进行域前置活动。</p>
+<h2 id="原理解释"><a href="#原理解释" class="headerlink" title="原理解释"></a>原理解释</h2><p><img src="https://gitee.com/ye_xi_bai/blogimage/raw/master/blogimagesintro.png" alt="intro"></p>
+<p>由图中可以看出该技术实现时被攻击主机和服务器的关系。</p>
+<p>被攻击主机和一个前置服务器进行通信，然后前置服务器和C2服务器通信。<strong>很像你在中间设置了一个代理服务器。不过此代理非彼代理</strong>。<strong>代理服务器的流量转发的目标是所有人都知道的，有没有这个代理，大家都知道这个流量最终是发给谁的</strong>。</p>
+<p><strong>而我们不希望除了我们以及目标前置服务器之外有第三者知道流量最终究竟发送给了谁</strong>。这也是域前置技术的核心。</p>
+<p>所以域前置技术一定需要用到<code>https</code>协议，因为它是安全的加密协议，除了最终与我们建立通信连接的目标前置服务器会解析出加密流量的明文内容，其他人都无法知道我们到底发送了什么。</p>
+<h3 id="为什么必须使用https协议"><a href="#为什么必须使用https协议" class="headerlink" title="为什么必须使用https协议"></a>为什么必须使用https协议</h3><p>这里涉及到https和http的区别。我们简单做一个解释。</p>
+<p>http协议是基于明文传输的一种通信协议。所以它途径的任何设备都知道他传输了什么信息，基于此，<strong>它的流量包中涉及目标主机的内容只用被解析一次</strong>。因为是明文，所以一次解析就把流量包的底摸清了，不一定知道你从哪来，但一定知道你最终到哪去，而且知道你干了什么。</p>
+<p>https协议在http的基础上使用TLS/SSl协议进行数据加密。除了建立起连接后的目标机器，没有人能知道我们的通信内容。<strong>于是关于通信目标的信息则相当于需要解析两</strong>次。第一次是建立连接时，TLS协议需要先通过三次握手建立连接，然后才会发送真正要发送的数据包，这时路上途径的机器只能解析出来我们想要建立连接的前置服务器的信息；连接建立之后，会发送加密过的http数据，此时沿途的机器仍然只能知道这个数据包是发送给前置服务器的，而不知道这个数据包的实际内容，第二次解析则为目标前置服务器对加密数据解密之后解析明文数据，此时我们的目标前置服务器发现它解析出来的明文显示这个数据包其实最终是想发给我们真正的C2服务器的，于是它就把数据转发给了C2服务器。</p>
+<p>综上，我们只能通过<code>https</code>协议来显示域前置，因为<strong>域前置的根本目的就是在不让别人知道我们在干什么的基础上让别人不去怀疑我们隐藏自身</strong>。而通过<code>https</code>协议去和常见的知名服务器建立连接，就可以轻易达到迷惑他人，混淆自身的目的。如果擅自采用其他的加密方式来实现域前置，虽然是让别人无法知道我们要干什么，但同样也让别人一眼就看出来我们与众不同，比如DNS加密隧道，虽然我不能解密你的数据，但我知道你有问题。</p>
+<h2 id="其他隐藏自身的技术"><a href="#其他隐藏自身的技术" class="headerlink" title="其他隐藏自身的技术"></a>其他隐藏自身的技术</h2><h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><p>其实域前置技术与cdn非常相像。</p>
+<p>被攻击主机上只会有跟cdn的ip通信的流量，不会有跟真实C2服务器通信的流量，可以保护C2服务器的ip，但是域名还是会暴露。</p>
+<p>技术实现重点：</p>
+<ul>
+<li>一个不备案的域名，否则这个方式毫无用处</li>
+<li>这种技术对http与https没有强制要求，都可以使用，而域前置技术要求是https</li>
+</ul>
+<h3 id="重定向技术"><a href="#重定向技术" class="headerlink" title="重定向技术"></a>重定向技术</h3><p>这种技术比较像穷人版本的CDN或者域前置技术。需要有两台vps，一台做重定向，一台是真正的C2服务器，而被攻击主机只与那台做重定向的机器通信，重定向机器只会转发来自beacon的特定流量到C2服务器，对于其他流量可以自定义设置处理方法，一般是采用重定向到一些高信誉域名上例如百度等。</p>
+<p>可达到的效果：被攻击主机上只会有与重定向机器之间的流量，不会有与真实c2服务器的流量，重定向服务器会将非beacon的请求重定向到一些高信誉域名上，达到迷惑的目的，不过如果受害者ban掉了重定向机器的ip，对攻击者的损失也是很大的。</p>
+<p>技术实现重点：</p>
+<ul>
+<li>两台服务器</li>
+<li>配置apache_rewrite</li>
+<li>配置malleable profile文件</li>
+</ul>
+<h3 id="与域前置技术的区别总结"><a href="#与域前置技术的区别总结" class="headerlink" title="与域前置技术的区别总结"></a>与域前置技术的区别总结</h3><ul>
+<li>cdn技术仅仅利用了cdn对http与https流量进行转发来达到的隐匿效果，可以隐藏ip不能隐藏域名。</li>
+<li>域前置技术高级一些，但是却基于https的，可以隐藏ip与域名，效果应该是最好的，只是因为现在不少的厂商已经禁止了域前置技术的存在，想用的话得自己去找还依旧允许域前置技术的厂商。</li>
+<li>重定向技术对运维人员迷惑效果还是不错的，但对于很专业的运维人员可能效果就没有那么好，而且配置也是最复杂的，如果被发现ban了自己的重定向机器，对于攻击队来说损失也不小，总的来说还是没有cdn的方法好用。</li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="true"
+        data-ae="true"
+        data-ci="5cd24ed310c0cbc2a2ed"
+        data-cs="51aa998e509794b7b061784f1f3d41018af118f6"
+        data-r="xikong-mubai.github.io"
+        data-o="xikong-mubai"
+        data-a="xikong-mubai"
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">原理介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86%E8%A7%A3%E9%87%8A"><span class="toc-number">2.</span> <span class="toc-text">原理解释</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%85%E9%A1%BB%E4%BD%BF%E7%94%A8https%E5%8D%8F%E8%AE%AE"><span class="toc-number">2.1.</span> <span class="toc-text">为什么必须使用https协议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E9%9A%90%E8%97%8F%E8%87%AA%E8%BA%AB%E7%9A%84%E6%8A%80%E6%9C%AF"><span class="toc-number">3.</span> <span class="toc-text">其他隐藏自身的技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CDN"><span class="toc-number">3.1.</span> <span class="toc-text">CDN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91%E6%8A%80%E6%9C%AF"><span class="toc-number">3.2.</span> <span class="toc-text">重定向技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8E%E5%9F%9F%E5%89%8D%E7%BD%AE%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8C%BA%E5%88%AB%E6%80%BB%E7%BB%93"><span class="toc-number">3.3.</span> <span class="toc-text">与域前置技术的区别总结</span></a></li></ol></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+<!--血小板代码-->
+<link rel="stylesheet" href="/live2d/css/live2d.css" />
+<div id="landlord">
+    <div class="message" style="opacity:0"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = 'https://calmcenter.club/'
+</script>
+<script type="text/javascript" src="/live2d/js/live2d.js"></script>
+<script type="text/javascript" src="/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
+</script>
+<!--血小板代码-->
+
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+</html>

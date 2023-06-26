@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+<html lang="Zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>为新生小白准备的从零开始Blog搭建 - 汐白的学习档案</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Xibai,"> 
+    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,环境需要域名!!! hostname 阿里云腾讯云都可以，注册个号买个喜欢的域名，比如我的：xibai.xyz
+本地本机环境
+Git
+nodejs
+
+!!! local_env 以上两者在前文 环境,"> 
+    <meta name="author" content="Xibai"> 
+    <link rel="alternative" href="atom.xml" title="汐白的学习档案" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="为新生小白准备的从零开始Blog搭建 - 汐白的学习档案"/>
+    <meta name="twitter:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,环境需要域名!!! hostname 阿里云腾讯云都可以，注册个号买个喜欢的域名，比如我的：xibai.xyz
+本地本机环境
+Git
+nodejs
+
+!!! local_env 以上两者在前文 环境,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="汐白的学习档案"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="为新生小白准备的从零开始Blog搭建 - 汐白的学习档案"/>
+    <meta property="og:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,环境需要域名!!! hostname 阿里云腾讯云都可以，注册个号买个喜欢的域名，比如我的：xibai.xyz
+本地本机环境
+Git
+nodejs
+
+!!! local_env 以上两者在前文 环境,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+    <script>window.searchDbPath = "/search.xml";</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">汐白的学习档案</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">为新生小白准备的从零开始Blog搭建</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">为新生小白准备的从零开始Blog搭建</h1>
+        <div class="stuff">
+            <span>十二月 22, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Blog/" rel="tag">Blog</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Env/" rel="tag">Env</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="环境需要"><a href="#环境需要" class="headerlink" title="环境需要"></a>环境需要</h2><h3 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h3><p>!!! hostname 阿里云腾讯云都可以，注册个号买个喜欢的域名，比如我的：<code>xibai.xyz</code></p>
+<h3 id="本地本机环境"><a href="#本地本机环境" class="headerlink" title="本地本机环境"></a>本地本机环境</h3><ul>
+<li><strong>Git</strong></li>
+<li><strong>nodejs</strong></li>
+</ul>
+<p>!!! local_env 以上两者在前文 环境配置 中有写。</p>
+<h3 id="云端博客环境"><a href="#云端博客环境" class="headerlink" title="云端博客环境"></a>云端博客环境</h3><p>!!! blog_server 以下两者二选一或全选</p>
+<h4 id="可选：GitHub"><a href="#可选：GitHub" class="headerlink" title="可选：GitHub"></a>可选：GitHub</h4><p>注册账号，邮箱用自己的大号邮箱，权当大号用就行。因为未来你很可能也是GitHub重度用户之一</p>
+<p>注册完毕之后，为博客新建一个仓库。</p>
+<p><img src="github-1.png" alt="github-1"></p>
+<p>仓库命名：<code>个人GitHub用户名.github.io.git</code></p>
+<p><img src="github-2.png" alt="github-2"></p>
+<p>接下来打开终端，执行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -c <span class="string">&#x27;你的 GitHub 邮箱地址&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>后面一路全按回车。执行完毕之后进入 <code>C:\\Users\\你的电脑本地用户名\\.ssh</code> 。</p>
+<p><img src="github-3.png" alt="github-3"></p>
+<p>将pub文件中的内容复制粘贴，然后去GitHub的个人设置中，添加 <code>SSH公钥</code> :</p>
+<p><img src="gitHub-4.png" alt="github-4"><br><img src="github-5.png" alt="github-5"></p>
+<p>下图中 <code>1</code> <strong>的位置是让你以后管理公钥的时候知道这个公钥是干啥的</strong>，就好比<strong>文件名or标签名，随便起，你能记住作用就行</strong>； <code>2</code> <strong>的位置粘贴刚刚复制的公钥内容</strong>，这里注意一下：<strong>如果邮箱末尾存在回车，就把这个末尾的回车删掉</strong></p>
+<p><img src="github-6.png" alt="github-6"></p>
+<p>添加完公钥之后测试功能是否正常，打开终端，执行命令：<code>ssh git@github.com</code> 。如果是以下回显则说明功能正常：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Hi 你的GitHub用户名! You<span class="string">&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span></span><br><span class="line"><span class="string">Connection to github.com closed.</span></span><br></pre></td></tr></table></figure>
+<p>为blog仓库配置自己购买的域名：</p>
+<p><img src="github-7.png" alt="github-7"><br><img src="github-8.png" alt="github-8"></p>
+<p>下图123的解析：</p>
+<ul>
+<li>记录类型：选 <code>CNAME</code></li>
+<li>主机记录：可以在你买的域名的基础上设置二级域名</li>
+<li>记录值：你设置的域名所要解析到的目标主机（这里就是你的github的blog仓库：<code>你的github用户名.github.io</code>）<br><img src="github-9.png" alt="github-9"></li>
+</ul>
+<h4 id="可选：云服务器"><a href="#可选：云服务器" class="headerlink" title="可选：云服务器"></a>可选：云服务器</h4><p>首先需要先去买一台云服务器。此时此刻，我写下这句话时，腾讯云为抢占客户实施大促销，<code>2核4G；80G云盘；10M带宽</code>的云服务器<code>222软妹币/3年</code>。没有遇到促销的可以选择腾讯云or阿里云的学生优惠。</p>
+<p>修改超级管理员账户 <code>root</code> 的密码为自己记得住的密码，初始密码为随机密码。</p>
+<p><img src="aliyun-blog-server-1.png" alt="aliyun-blog-server-1"></p>
+<p>记得设置服务器的安全组规则or防火墙规则，开放基础端口，比如 <code>80</code> ，<code>443</code> 。</p>
+<p><img src="aliyun-blog-server-2.png" alt="aliyun-blog-server-2"></p>
+<p>将自己的域名解析到刚买的云服务器：</p>
+<p><img src="aliyun-blog-server-11.png" alt="aliyun-blog-server-11"></p>
+<h5 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h5><p>通过 <code>SSH</code> 连接上去，开始按以下顺序执行命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt update &amp;&amp; apt upgrade -y</span><br></pre></td></tr></table></figure>
+<p><img src="aliyun-blog-server-3.png" alt="aliyun-blog-server-3"></p>
+<ol>
+<li>nginx，git 安装</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install git nginx -y</span><br></pre></td></tr></table></figure>
+<ol>
+<li>nodejs 安装</li>
+</ol>
+<p>注意这里执行的命令中，<code>https://deb.nodesource.com/setup_??.x</code> 有两个问号，这里问号代表版本，写到这里时，官网已经出到了第17版</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://deb.nodesource.com/setup_??.x | sudo -E bash -</span><br></pre></td></tr></table></figure>
+<p><img src="aliyun-blog-server-4.png" alt="aliyun-blog-server"></p>
+<p>接下来执行红线画住的命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">apt-get install gcc g++ make</span><br><span class="line">curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo <span class="built_in">tee</span> /usr/share/keyrings/yarnkey.gpg &gt;/dev/null</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main&quot;</span> | sudo <span class="built_in">tee</span> /etc/apt/sources.list.d/yarn.list</span><br><span class="line">apt-get update &amp;&amp; sudo apt-get install yarn</span><br><span class="line">apt-get install -y nodejs</span><br></pre></td></tr></table></figure>
+<p><img src="aliyun-blog-server-5.png" alt="aliyun-blog-server"></p>
+<ol>
+<li>配置 <code>git</code> 用户</li>
+</ol>
+<ul>
+<li>添加 <code>git</code> 用户</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adduser git</span><br></pre></td></tr></table></figure>
+<p><img src="aliyun-blog-server-6.png" alt="aliyun-blog-server-6"></p>
+<ul>
+<li>设置 <code>git</code> 用户权限</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sudoers</span><br></pre></td></tr></table></figure>
+<p><img src="aliyun-blog-server-7.png" alt="aliyun-blog-server-7"></p>
+<p>在上图位置添加 <code>git     ALL=(ALL:ALL) ALL</code>：（vim下，先按一下 <code>i</code> 才能编辑，编辑完毕后按 <code>Esc</code>，退出编辑模式）</p>
+<p>然后通过以下组合键保存退出：<br>先按 <kbd>shift</kbd>+<kbd>；</kbd><br>此时左下角会出现如图所示的小冒号：</p>
+<p><img src="aliyun-blog-server-8.png" alt="aliyun-blog-server-8"></p>
+<p>然后依次键入：<code>wq!</code>，回车保存退出</p>
+<ul>
+<li>配置 <code>SSH</code> 免密登录<br>切换到 <code>git</code> 用户: <code>su git</code><br>创建 <code>.ssh</code> 文件夹：<code>mkdir /home/git/.ssh</code><br>然后将本机的 <code>SSH公钥</code> 写入到该目录中：<code>scp C:\\Users\\你的本地电脑用户名\\.ssh\\id_rsa.pub git@你的服务器ip或者绑定的域名:~/.ssh/authorized_keys</code></li>
+</ul>
+<p><img src="aliyun-blog-server-9.png" alt="aliyun-blog-server-9"></p>
+<ol>
+<li>配置 nginx</li>
+</ol>
+<p>新疆博客网站对应的配置文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/nginx/conf.d/blog.conf</span><br></pre></td></tr></table></figure>
+<p>输入以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">    listen    80;</span><br><span class="line">    root 这里填博客目录存放的地址（如：/var/www/blog）;</span><br><span class="line">    server_name 这里填你的博客域名;</span><br><span class="line">    location /&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后删除nginx的默认页面创建上面配置文件中写的博客目录文件夹执行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf /var/www/html &amp;&amp; <span class="built_in">mkdir</span> /var/www/blog</span><br></pre></td></tr></table></figure>
+<ol>
+<li>创建git仓库并建立一个git仓库的钩子（hook）</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git init --bare blog.git</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;git --work-tree=配置nginx时设置的文件夹目录路径 --git-dir=/home/git/blog.git checkout -f&#x27;</span> &gt; ~/blog.git/hooks/post-receive</span><br><span class="line"><span class="built_in">chmod</span> +x ./blog.git/hooks/post-receive</span><br></pre></td></tr></table></figure>
+<p><img src="aliyun-blog-server-10.png" alt="aliyun-blog-server-10"></p>
+<h2 id="Hexo-——-本地Blog框架"><a href="#Hexo-——-本地Blog框架" class="headerlink" title="Hexo —— 本地Blog框架"></a>Hexo —— 本地Blog框架</h2><ul>
+<li><strong>官网：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/index.html">https://hexo.io/zh-cn/index.html</a></strong></li>
+</ul>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>配置好 <code>nodejs</code> 环境和 <code>npm</code> 代理之后，一键安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<p>安装 <code>Hexo</code> 完成后，请到想要存放博客文件目录的地方打开终端执行下列命令，<code>Hexo</code> 将会在指定文件夹中新建所需要的文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init &lt;folder&gt;</span><br><span class="line"><span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p>新建完成后，指定文件夹的目录如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── <span class="built_in">source</span></span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">文件名</th>
+<th style="text-align:left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">_config.yml</td>
+<td style="text-align:left">网站的 <strong>配置</strong> 信息，您可以在此配置大部分的参数。</td>
+</tr>
+<tr>
+<td style="text-align:left">package.json</td>
+<td style="text-align:left">应用程序的信息。<code>EJS</code>, <code>Stylus</code> 和 <code>Markdown renderer</code> 插件已默认安装，您可以自由移除。</td>
+</tr>
+<tr>
+<td style="text-align:left">scaffolds</td>
+<td style="text-align:left"><strong>模版</strong> 文件夹。当您新建文章时，<code>Hexo</code> 会根据 <code>scaffold</code> 来建立文件。Hexo的模板是指在新建的文章文件中默认填充的内容。例如，如果您修改<code>scaffold/post.md</code>中的<code>Front-matter</code>内容，那么每次新建一篇文章时都会包含这个修改。</td>
+</tr>
+<tr>
+<td style="text-align:left">source</td>
+<td style="text-align:left">资源文件夹是存放用户资源的地方。除 <code>_posts</code> 文件夹之外，开头命名为 _ (下划线)的文件(夹)和隐藏的文件将会被忽略。<code>Markdown</code> 和 <code>HTML</code> 文件会被解析并放到 <code>public</code> 文件夹，而其他文件会被拷贝过去。</td>
+</tr>
+<tr>
+<td style="text-align:left">themes</td>
+<td style="text-align:left"><strong>主题</strong> 文件夹。<code>Hexo</code> 会根据主题来生成静态页面。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>先在blog目录下安装两个插件，在这里打开终端执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">npm install hexo-server</span><br></pre></td></tr></table></figure>
+<p>可以在 <code>_config.yml</code> 中修改大部分的配置。</p>
+<p>具体的详细信息参考官网文档：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration">https://hexo.io/zh-cn/docs/configuration</a></p>
+<p>这里给出我用的默认配置，记得修改关键信息为自己：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Hexo Configuration</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/configuration.html</span></span><br><span class="line"><span class="comment">## Source: https://github.com/hexojs/hexo/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">汐白的学习档案</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;小萌新一枚QAQ&#x27;</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤&#x27;</span></span><br><span class="line"><span class="attr">keywords:</span> <span class="string">萌萌哒の汐小白</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Xibai</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">Zh-CN</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">&#x27;Asia/Shanghai&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## Set your site url here. For example, if you use GitHub Page, set url as &#x27;https://username.github.io/project&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">http://自己的博客域名</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:title/</span></span><br><span class="line"><span class="attr">permalink_defaults:</span></span><br><span class="line"><span class="attr">pretty_urls:</span></span><br><span class="line">  <span class="attr">trailing_index:</span> <span class="literal">true</span> <span class="comment"># Set to false to remove trailing &#x27;index.html&#x27; from permalinks</span></span><br><span class="line">  <span class="attr">trailing_html:</span> <span class="literal">true</span> <span class="comment"># Set to false to remove trailing &#x27;.html&#x27; from permalinks</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Directory</span></span><br><span class="line"><span class="attr">source_dir:</span> <span class="string">source</span></span><br><span class="line"><span class="attr">public_dir:</span> <span class="string">public</span></span><br><span class="line"><span class="attr">tag_dir:</span> <span class="string">tags</span></span><br><span class="line"><span class="attr">archive_dir:</span> <span class="string">archives</span></span><br><span class="line"><span class="attr">category_dir:</span> <span class="string">categories</span></span><br><span class="line"><span class="attr">code_dir:</span> <span class="string">downloads/code</span></span><br><span class="line"><span class="attr">i18n_dir:</span> <span class="string">:lang</span></span><br><span class="line"><span class="attr">skip_render:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Writing</span></span><br><span class="line"><span class="attr">new_post_name:</span> <span class="string">:title.md</span> <span class="comment"># File name of new posts</span></span><br><span class="line"><span class="attr">default_layout:</span> <span class="string">post</span></span><br><span class="line"><span class="attr">titlecase:</span> <span class="literal">true</span> <span class="comment"># Transform title into titlecase</span></span><br><span class="line"><span class="attr">external_link:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment"># Open external links in new tab</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">site</span> <span class="comment"># Apply to the whole site</span></span><br><span class="line">  <span class="attr">exclude:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="attr">filename_case:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">render_drafts:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">relative_link:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">future:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">highlight:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">line_number:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">auto_detect:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">tab_replace:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">wrap:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">hljs:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">prismjs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">preprocess:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">line_number:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">tab_replace:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Home page setting</span></span><br><span class="line"><span class="comment"># path: Root path for your blogs index page. (default = &#x27;&#x27;)</span></span><br><span class="line"><span class="comment"># per_page: Posts displayed per page. (0 = disable pagination)</span></span><br><span class="line"><span class="comment"># order_by: Posts order. (Order by date descending by default)</span></span><br><span class="line"><span class="attr">index_generator:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">per_page:</span> <span class="number">6</span></span><br><span class="line">  <span class="attr">order_by:</span> <span class="string">-date</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Category &amp; Tag</span></span><br><span class="line"><span class="attr">default_category:</span> <span class="string">uncategorized</span></span><br><span class="line"><span class="attr">category_map:</span></span><br><span class="line"><span class="attr">tag_map:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Metadata elements</span></span><br><span class="line"><span class="comment">## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta</span></span><br><span class="line"><span class="attr">meta_generator:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Date / Time format</span></span><br><span class="line"><span class="comment">## Hexo uses Moment.js to parse and display date</span></span><br><span class="line"><span class="comment">## You can customize the date format as defined in</span></span><br><span class="line"><span class="comment">## http://momentjs.com/docs/#/displaying/format/</span></span><br><span class="line"><span class="attr">date_format:</span> <span class="string">YYYY-MM-DD</span></span><br><span class="line"><span class="attr">time_format:</span> <span class="string">HH:mm:ss</span></span><br><span class="line"><span class="comment">## updated_option supports &#x27;mtime&#x27;, &#x27;date&#x27;, &#x27;empty&#x27;</span></span><br><span class="line"><span class="attr">updated_option:</span> <span class="string">&#x27;mtime&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Pagination</span></span><br><span class="line"><span class="comment">## Set per_page to 0 to disable pagination</span></span><br><span class="line"><span class="attr">per_page:</span> <span class="number">10</span></span><br><span class="line"><span class="attr">pagination_dir:</span> <span class="string">page</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Include / Exclude file(s)</span></span><br><span class="line"><span class="comment">## include:/exclude: options only apply to the &#x27;source/&#x27; folder</span></span><br><span class="line"><span class="attr">include:</span></span><br><span class="line"><span class="attr">exclude:</span></span><br><span class="line"><span class="attr">ignore:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">## Themes: https://hexo.io/themes/</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">自己选自己喜欢的主题，要先下载</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> </span><br><span class="line">    <span class="attr">github:</span> <span class="string">git@github.com:自己的github用户名/自己的github用户名.github.io.git</span></span><br><span class="line">    <span class="attr">aliyun:</span> <span class="string">git@自己的博客服务器域名:/home/git/blog.git</span></span><br><span class="line">  <span class="attr">baranch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>在本地blog目录下打开终端：</p>
+<ul>
+<li>hexo clean：清除本地历史生成的网站文件（其实就是清楚本地blog网站缓存）</li>
+<li>hexo g    ：生成blog网站文件</li>
+<li>hexo d    ：将本地的blog网站文件推送至云端</li>
+<li>hexo s    ：在本地启动一个blog云端模拟环境，可以在本地先查看blog生成后的样子</li>
+</ul>
+<p>一般就是运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="true"
+        data-ae="true"
+        data-ci="5cd24ed310c0cbc2a2ed"
+        data-cs="51aa998e509794b7b061784f1f3d41018af118f6"
+        data-r="xikong-mubai.github.io"
+        data-o="xikong-mubai"
+        data-a="xikong-mubai"
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%9C%80%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">环境需要</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D"><span class="toc-number">1.1.</span> <span class="toc-text">域名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E6%9C%AC%E6%9C%BA%E7%8E%AF%E5%A2%83"><span class="toc-number">1.2.</span> <span class="toc-text">本地本机环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%91%E7%AB%AF%E5%8D%9A%E5%AE%A2%E7%8E%AF%E5%A2%83"><span class="toc-number">1.3.</span> <span class="toc-text">云端博客环境</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E9%80%89%EF%BC%9AGitHub"><span class="toc-number">1.3.1.</span> <span class="toc-text">可选：GitHub</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E9%80%89%EF%BC%9A%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">1.3.2.</span> <span class="toc-text">可选：云服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">环境配置</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo-%E2%80%94%E2%80%94-%E6%9C%AC%E5%9C%B0Blog%E6%A1%86%E6%9E%B6"><span class="toc-number">2.</span> <span class="toc-text">Hexo —— 本地Blog框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">2.3.</span> <span class="toc-text">使用</span></a></li></ol></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+<!--血小板代码-->
+<link rel="stylesheet" href="/live2d/css/live2d.css" />
+<div id="landlord">
+    <div class="message" style="opacity:0"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = 'https://calmcenter.club/'
+</script>
+<script type="text/javascript" src="/live2d/js/live2d.js"></script>
+<script type="text/javascript" src="/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
+</script>
+<!--血小板代码-->
+
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+</html>

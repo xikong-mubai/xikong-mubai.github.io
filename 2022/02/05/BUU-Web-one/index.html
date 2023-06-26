@@ -1,0 +1,289 @@
+
+<!DOCTYPE html>
+<html lang="Zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BUUCTF-Web(一) - 汐白的学习档案</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Xibai,"> 
+    <meta name="description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,从CTF题目开始练习，初始平台：BUUCTF
+[极客大挑战 2019]EasySQL入门SQL注入，万能密码登录admin账户
+[HCTF 2018]WarmUp入门代码审计f12 看到 hint，,"> 
+    <meta name="author" content="Xibai"> 
+    <link rel="alternative" href="atom.xml" title="汐白的学习档案" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="BUUCTF-Web(一) - 汐白的学习档案"/>
+    <meta name="twitter:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,从CTF题目开始练习，初始平台：BUUCTF
+[极客大挑战 2019]EasySQL入门SQL注入，万能密码登录admin账户
+[HCTF 2018]WarmUp入门代码审计f12 看到 hint，,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="汐白的学习档案"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="BUUCTF-Web(一) - 汐白的学习档案"/>
+    <meta property="og:description" content="这里是正在努力追赶大佬的小可爱QAQ嘤嘤嘤,从CTF题目开始练习，初始平台：BUUCTF
+[极客大挑战 2019]EasySQL入门SQL注入，万能密码登录admin账户
+[HCTF 2018]WarmUp入门代码审计f12 看到 hint，,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+    <script>window.searchDbPath = "/search.xml";</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">汐白的学习档案</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://xibai.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">BUUCTF-Web(一)</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">BUUCTF-Web(一)</h1>
+        <div class="stuff">
+            <span>二月 05, 2022</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/CTF/" rel="tag">CTF</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Web/" rel="tag">Web</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Writeup/" rel="tag">Writeup</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>从CTF题目开始练习，初始平台：BUUCTF</p>
+<h2 id="极客大挑战-2019-EasySQL"><a href="#极客大挑战-2019-EasySQL" class="headerlink" title="[极客大挑战 2019]EasySQL"></a>[极客大挑战 2019]EasySQL</h2><p>入门SQL注入，万能密码登录admin账户</p>
+<h2 id="HCTF-2018-WarmUp"><a href="#HCTF-2018-WarmUp" class="headerlink" title="[HCTF 2018]WarmUp"></a>[HCTF 2018]WarmUp</h2><p>入门代码审计<br>f12 看到 hint，查看源码，发现存在 <code>hint.php</code>，得知<code>flag</code>所在文件名。<br>审计source.php的代码，发现获取参数的方法是在参数末尾加<code>?</code>,然后读取<code>?</code>的下标，提取此下标之前的字符串，我们只需要在白名单允许的文件名后手动跟一个问号即可通过白名单，此时可在问号后跟任意字符。<br>php中include在解析字符串时，遇到<code>%00</code>或者<code>?</code>会出现截断效果，即把前后两段字符视作两个独立的字符串变量。根据此特性，<code>?</code>后直接跟flag文件的路径即可把flag包含进来，</p>
+<h2 id="极客大挑战-2019-Havefun"><a href="#极客大挑战-2019-Havefun" class="headerlink" title="[极客大挑战 2019]Havefun"></a>[极客大挑战 2019]Havefun</h2><p>f12看hint，传目标参数即可</p>
+<h2 id="ACTF2020-新生赛-Include"><a href="#ACTF2020-新生赛-Include" class="headerlink" title="[ACTF2020 新生赛]Include"></a>[ACTF2020 新生赛]Include</h2><p>查看响应包，可以得知后端环境是<code>php7.3</code>，利用伪协议读取文件，这里对伪协议做了一定限制，可以用<code>php://filter/read=convert.base64-encode/resource=flag.php</code><br>读取 flag.php 的内容</p>
+<h2 id="强网杯-2019-随便注"><a href="#强网杯-2019-随便注" class="headerlink" title="[强网杯 2019]随便注"></a>[强网杯 2019]随便注</h2><p>堆叠注入。一直不明白起名字的人怎么起的这个名字，不太应景。就是常规的没有过滤<code>&#39;</code>和<code>;</code>的情况，然后以此对sql语句进行恶意截断，后跟攻击者想要执行的sql命令，主要缺点是因为看不到无数据库数据回显的命令的执行情况，所以不知道相关命令是否能够执行，一般必须要结合某些可以拿到关键输出的场景使用，比如本题所举例子。</p>
+<h3 id="payload-1"><a href="#payload-1" class="headerlink" title="payload-1"></a>payload-1</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">-1</span><span class="string">&#x27;;Set @sql = CONCAT(&#x27;</span>se<span class="string">&#x27;,&#x27;</span>lect <span class="operator">*</span> <span class="keyword">from</span> `<span class="number">1919810931114514</span>`;<span class="string">&#x27;);Prepare stmt from @sql;EXECUTE stmt;#</span></span><br></pre></td></tr></table></figure>
+<p>利用MySQL的预编译功能 <code>set</code> <code>prepare</code> <code>execute</code> 绕过select的检测：</p>
+<ul>
+<li>set用于设置变量名和值<ul>
+<li>-1’;</li>
+</ul>
+</li>
+<li>prepare用于预备一个语句，并赋予名称，以后可以引用该语句<ul>
+<li>Set @sql = CONCAT(‘se’,’lect * from <code>1919810931114514</code>;’);</li>
+</ul>
+</li>
+<li>execute执行语句<ul>
+<li>Prepare stmt from @sql;</li>
+</ul>
+</li>
+<li>deallocate prepare用来释放掉预处理的语句<ul>
+<li>EXECUTE stmt;</li>
+</ul>
+</li>
+</ul>
+<h3 id="payload-2"><a href="#payload-2" class="headerlink" title="payload-2"></a>payload-2</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span><span class="string">&#x27;; alter table words rename to words1;alter table `1919810931114514` rename to words;alter table words change flag id varchar(50);#</span></span><br></pre></td></tr></table></figure>
+<p>针对本题可以发现默认使用的数据库中有两个表，flag就在另一个表中，利用<code>alter</code>命令修改表名和列名，使得默认查询的字段为flag对应的字段，再用万能密码<code>1&#39; or 1=1;#</code>查询所有数据即可看到flag</p>
+<ul>
+<li>1’;</li>
+<li>alter table words rename to words1;</li>
+<li>alter table <code>1919810931114514</code> rename to words;</li>
+<li>alter table words change flag id varchar(50);</li>
+</ul>
+<h2 id="SUCTF-2019-EasySQL"><a href="#SUCTF-2019-EasySQL" class="headerlink" title="[SUCTF 2019]EasySQL"></a>[SUCTF 2019]EasySQL</h2><p>存在堆叠注入可以执行部分命令，题目过滤了部分关键字，不能直接查字段。堆叠注入在该题效果有限。多次尝试可以发现，当输入为数字时，会有<code>1</code>的回显，输入为字符的时候没有回显。</p>
+<p>这里推测应该存在类似<code>select 输入参数||xxx from xxx</code>的查询语句。尝试输入 <code>*,1</code> 直接得到flag。搜了大佬的wp，发现还可以构造 <code>1;set sql_mode=pipes_as_concat;select 1</code> ，<code>sql_mode=pipes_as_concat</code> 可以把 <code>||</code> 的作用由 or 变成 拼接字符串，这里的拼接是指将 <code>||</code> 前后的目标查询字段的查询结果拼接。</p>
+<h2 id="ACTF2020-新生赛-Exec"><a href="#ACTF2020-新生赛-Exec" class="headerlink" title="[ACTF2020 新生赛]Exec"></a>[ACTF2020 新生赛]Exec</h2><p>考虑到这里实现的时ping的功能，猜测其实是直接执行的 <code>ping ip</code> 的命令，在各种 <code>shell</code> 中基本都支持使用 <code>&amp;</code> 来连续执行多条命令。我们构造输入为 <code>ip &amp; pwd</code> ，发现输出了当前目录，将 <code>pwd</code> 换为 <code>cat /flag</code> 得到flag</p>
+<h2 id="极客大挑战-2019-Secret-File"><a href="#极客大挑战-2019-Secret-File" class="headerlink" title="[极客大挑战 2019]Secret File"></a>[极客大挑战 2019]Secret File</h2><p>第一层通过字体颜色和背景色做了一个小隐藏，CTRL+A 就能看到，点击可以进入第二层。<br>第二层给了一个点击事件，查看路径发现对应的是 <code>action.php</code>，但最终响应的是 <code>end.php</code>，说明中间有一个快速的跳转，burp抓一下包，得到 <code>action.php</code> 的内容，指向 <code>secr3t.php</code>。<br>访问 <code>secret.php</code>，给出了其对应的源码，提供了一个<code>file</code>传参，可以包含指定的文件，并且给出了flag文件的位置。这里直接指定flag文件会发现看不到flag，很明显flag被以代码的形式写在文件中，这里可以通过伪协议进行文件包含来加载文件中的全部内容。</p>
+<p>具体构造为 <code>secr3t.php?file=php://filter/convert.base64-encode/resource=flag.php</code>。由此可以将flag文件以base64编码的形式被包含进来响应到前端显示。解码即可拿到flag。</p>
+<h2 id="GXYCTF2019-Ping-Ping-Ping"><a href="#GXYCTF2019-Ping-Ping-Ping" class="headerlink" title="[GXYCTF2019]Ping Ping Ping"></a>[GXYCTF2019]Ping Ping Ping</h2><p>进去给了个传参提示，可以传被ping的ip，这里直接猜测后台是直接将传入参数拼接到系统命令中了，构造：<code>127.0.0.1|pwd</code>，得到路径回显，查看目录下文件发现 <code>flag.php</code> ，尝试直接读取，发现过滤了空格在内的多个符号，且对flag进行了贪婪匹配。<br>这里我们利用bash执行命令的特性，构造如下payload：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?ip=127.0.0.1;a=f;b=l;c=g;d=a;<span class="built_in">cat</span>$IFS$9$a$b$d<span class="variable">$c</span>.php</span><br></pre></td></tr></table></figure>
+<p>即可获得flag。贪婪匹配中flag四个字母按顺序进行了匹配，我们乱序将其单独赋值给四个变量，然后对变量值拼接从而<code>cat flag.php</code></p>
+<p>此题也可利用bash的内联执行或者管道符传值求解。</p>
+<p>内联执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?ip=127.0.0.1;<span class="built_in">cat</span>$IFS<span class="variable">$1</span>`<span class="built_in">ls</span>`</span><br></pre></td></tr></table></figure>
+<p>管道符：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?ip=127.0.0.1&amp;<span class="built_in">echo</span>$IFS<span class="variable">$1Y2F0IGZsYWcucGhw</span>|<span class="built_in">base64</span>$IFS<span class="variable">$1</span>-d|sh</span><br></pre></td></tr></table></figure>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="true"
+        data-ae="true"
+        data-ci="5cd24ed310c0cbc2a2ed"
+        data-cs="51aa998e509794b7b061784f1f3d41018af118f6"
+        data-r="xikong-mubai.github.io"
+        data-o="xikong-mubai"
+        data-a="xikong-mubai"
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL"><span class="toc-number">1.</span> <span class="toc-text">[极客大挑战 2019]EasySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HCTF-2018-WarmUp"><span class="toc-number">2.</span> <span class="toc-text">[HCTF 2018]WarmUp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-Havefun"><span class="toc-number">3.</span> <span class="toc-text">[极客大挑战 2019]Havefun</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ACTF2020-%E6%96%B0%E7%94%9F%E8%B5%9B-Include"><span class="toc-number">4.</span> <span class="toc-text">[ACTF2020 新生赛]Include</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8"><span class="toc-number">5.</span> <span class="toc-text">[强网杯 2019]随便注</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#payload-1"><span class="toc-number">5.1.</span> <span class="toc-text">payload-1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#payload-2"><span class="toc-number">5.2.</span> <span class="toc-text">payload-2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SUCTF-2019-EasySQL"><span class="toc-number">6.</span> <span class="toc-text">[SUCTF 2019]EasySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ACTF2020-%E6%96%B0%E7%94%9F%E8%B5%9B-Exec"><span class="toc-number">7.</span> <span class="toc-text">[ACTF2020 新生赛]Exec</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-Secret-File"><span class="toc-number">8.</span> <span class="toc-text">[极客大挑战 2019]Secret File</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GXYCTF2019-Ping-Ping-Ping"><span class="toc-number">9.</span> <span class="toc-text">[GXYCTF2019]Ping Ping Ping</span></a></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+<!--血小板代码-->
+<link rel="stylesheet" href="/live2d/css/live2d.css" />
+<div id="landlord">
+    <div class="message" style="opacity:0"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = 'https://calmcenter.club/'
+</script>
+<script type="text/javascript" src="/live2d/js/live2d.js"></script>
+<script type="text/javascript" src="/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "/live2d/model/kesshouban_v2/model.json");
+</script>
+<!--血小板代码-->
+
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+</html>
