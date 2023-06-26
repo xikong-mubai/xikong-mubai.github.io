@@ -180,9 +180,9 @@
     <category term="Pwn" scheme="http://xibai.xyz/categories/Pwn/"/>
     
     
-    <category term="Windows" scheme="http://xibai.xyz/tags/Windows/"/>
-    
     <category term="Pwn" scheme="http://xibai.xyz/tags/Pwn/"/>
+    
+    <category term="Windows" scheme="http://xibai.xyz/tags/Windows/"/>
     
   </entry>
   
